@@ -1,0 +1,3318 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V24.00 P0 E1 W24.00 T1641810767 M24.00 I0 O0
+#version PP 1.0.0.2
+#[STARTBIN]
+#property of ficam, Eric Dauvilliers, e.dauvilliers@ficam.com, +33 (0)2 37 26 28 10
+#region FS
+fs  1  1.9lt        # Format avec toute la precision pour les variable internes de mp
+fs  2  1.3l        # frormat d'affichage a 3 chifres max pour les variables affichees
+fs  3  1^3ln       # idem mais non modale
+fs  4  1 0      # 1 chiffre mini avant virgule  pas de virgule pas de chiffre apres
+fs  5  1 0n     # idem mais non modale
+fs  6  4 0ln        # 4 chiffres avant pas de virgule pas de chiffre apres non modal force 0 de tete
+fs  7  1 3t     # 1 chiffre mini avant virgule  pas de virgule 3 apres force 0 de queue non modal.
+fs  8  1.3ln        # 1 chiffre avant la vigule met . 3 chiffres apres virgule non modal force 0 de tete
+fs  9  1 0n     # pour liste outil
+fs  10 1.3n     # pour liste outil
+fs  11 +1^3li       # force 1 chiffre avant virgule met . 3 chiffres apres virgule en incremental
+fs  12 +1^3lni
+fs  13 3 0ln
+fs  14 1.4lt
+fs  15 1^3n     # pour liste outil
+fs  16 1^3l
+fs  17 1.5ln
+fs  18 +1^4ln
+fs  19 1^3l
+#endregion
+
+#region AFFECTATION VARIABLES
+fmt "X" 2 dwell$
+fmt "Q"  2 dec_alesage
+fmt 1 old_xcal5x
+fmt 1 old_ycal5x
+fmt 1 old_zcal5x
+fmt "X" 2 inter_X5x3
+fmt "Y" 2 inter_Y5x3
+fmt "Z" 2 inter_Z5x3
+fmt 1 nb_mouv
+fmt "X" 2 inter_X5x
+fmt "Y" 2 inter_Y5x
+fmt "Z" 2 inter_Z5x
+fmt "C" 2 inter_C
+fmt "A" 2 inter_A
+fmt 1 cont_mouv
+fmt 1 add_X
+fmt 1 add_Y
+fmt 1 add_Z
+fmt 1 lgVec_div
+fmt 1 VdelX
+fmt 1 VdelY
+fmt 1 VdelZ
+fmt 1 Lgvec
+fmt 1 deltaX
+fmt 1 deltaY
+fmt 1 deltaZ
+fmt 1 deltaA
+fmt 1 deltaC
+fmt 1 nb_mouvC
+fmt 1 nb_mouvAB
+fmt 1 delta_Cmax
+fmt 1 delta_ABmax
+fmt 1 old_axec_5x
+fmt 1 delta_C
+fmt 1 nb_tour
+fmt "N" 4 num_op_out
+fmt 2 tourne
+fmt 1 xdep
+fmt 1 ydep
+fmt 1 zdep
+fmt "X" 2 X_tourne
+fmt "Y" 2 Y_tourne
+fmt "I" 2 I_tourne
+fmt "J" 2 J_tourne
+fmt  "O" 5 progno$
+fmt 4 speed_tar
+fmt 4 dir_tar
+fmt "D" 5 tloffno$
+fmt "H" 4 tlngno$
+fmt "" 1 return
+fmt  "" 2 sweep$
+fmt "U" 2 tox4$
+fmt "V" 2 toy4$
+fmt "W" 2 toz4$
+fmt "X" 2 old_tox4
+fmt "Y" 2 old_toy4
+fmt "Z" 2 old_toz4
+fmt 1 mode_deg
+fmt 1 debut_5X
+fmt "R" 3 arcrad$
+fmt "X" 2 x$
+fmt "Y" 2 y$
+fmt "Z" 2 z$
+fmt "I" 2 i$
+fmt "J" 2 j$
+fmt "X" 2 xdegage_butee
+fmt "Y" 2 ydegage_butee
+fmt "Z" 2 zdegage_butee
+fmt 2 degagezbutee
+fmt "X" 2 degagex
+fmt "Y" 2 degagey
+fmt "Z" 2 degagez
+fmt "X" 2 degagex_plan
+fmt "Y" 2 degagey_plan
+fmt "Z" 2 degagez_plan
+fmt "Z" 2 refht$
+fmt "Z" 2 initht$
+fmt "VX" 2 vx
+fmt "VY" 2 vy
+fmt "VZ" 2 vz
+fmt 1 old_m7
+fmt 1 old_m8
+fmt 1 old_m9
+fmt "C" 2 axec
+fmt "B" 2 axeab
+fmt "longvec" 2 longvec
+fmt "X" 2 xabs
+fmt "Y" 2 yabs
+fmt "Z" 2 zabs
+fmt "X" 2 xr$
+fmt "Y" 2 yr$
+fmt "Z" 2 zr$
+fmt "N" 4 n$
+fmt "T#"  5 t$
+fmt "T#" 5 next_tool$
+fmt  "F" 4 fr_pos$
+fmt "X" 2 X5x
+fmt "Y" 2 Y5x
+fmt "Z" 2 Z5x
+fmt "C" 2 axec_5x
+fmt "DX" 1 Dx
+fmt "DY" 1 Dy
+fmt "DZ" 1 Dz
+fmt 1 deltaXYZ
+fmt  "F" 4 fr5axe
+fmt  "F" 4 old_fr5axe
+fmt 4 av_travail
+fmt 4 av_plonge
+fmt 4 av_retract
+fmt  "S" 4 ss$
+fmt  "S" 4 old_ss
+fmt "X" 3 xmin
+fmt "Y" 3 ymin
+fmt "Z" 3 zmin
+fmt "X" 3 xmax
+fmt "Y" 3 ymax
+fmt "Z" 3 zmax
+fmt 4 old_op_id
+fmt "OPERATION #" 4 numop
+fmt "SEQ" 4 mi1$
+fmt "SEQ" 4 mi1_2
+fmt "X1=" 1 x1
+fmt "X2=" 1 x2
+fmt "Y1=" 1 y1
+fmt "Y2=" 1 y2
+fmt "Z1=" 1 z1
+fmt "Z2=" 1 z2
+fmt 2 angle_X
+fmt 2 angle_Z0
+fmt 2 angle_Z1
+fmt "I" 2 angle_autour_X
+fmt "J" 2 angle_autour_Y
+fmt "K" 2 angle_autour_Z
+fmt "I" 2 angle_autour_X2
+fmt "J" 2 angle_autour_Y2
+fmt "R" 2 angle_autour_Z2
+fmt "K" 2 angle_autour_Zp
+fmt "I" 2 old_angle_autour_X
+fmt "J" 2 old_angle_autour_Y
+fmt "K" 2 old_angle_autour_Z
+fmt "I" 2 angle_autour_X_2
+fmt "J" 2 angle_autour_Y_2
+fmt "K" 2 angle_autour_Z_2
+fmt "" 2 cos_angleY
+fmt "" 2 tr_x
+fmt "" 2 tr_y
+fmt "X tourne=" 1 New_x_tourne
+fmt "Y tourne=" 1 New_y_tourne
+fmt 2 rtcp
+fmt 2 percage_5x
+fmt 2 usinage_5x
+fmt  "R" 2 bq200
+fmt  "Z" 2 bq201
+fmt  "Q" 2 bq202
+fmt  "" 3 bq203
+fmt  "" 3 bq204
+fmt  "" 3 bq205
+fmt  "F" 4 bq206
+fmt  "" 4 bq208
+fmt  "" 8 bq210
+fmt  "P" 19 bq211
+fmt  "" 3 bq212
+fmt  "" 5 bq213
+fmt  "" 5 bq214
+fmt  "F" 8 bq239
+fmt  "" 3 bq256
+fmt  "" 3 bq257
+fmt  "" 3 bq258
+fmt  "" 3 bq259
+fmt  "" 3 bq336
+fmt 3 old_bq200
+fmt 3 old_bq201
+fmt "long_OA=" 1 long_OA
+fmt "long_OB=" 1 long_OB
+fmt "long_OC=" 1 long_OC
+fmt "long_AB=" 1 long_AB
+fmt "long_AC=" 1 long_AC
+fmt "long_CB=" 1 long_CB
+fmt "Angle A=" 1 angle_a
+fmt "Angle B=" 1 angle_b
+fmt "Angle C=" 1 angle_c
+fmt "Cos Angle A=" 1 cosangle_a
+fmt "Cos Angle B=" 1 cosangle_b
+fmt "Cos Angle C=" 1 cosangle_c
+fmt " produitAA =" 1 produitAA
+fmt " produitBB =" 1 produitBB
+fmt " produitCC =" 1 produitCC
+fmt "P base=" 1 produit_p_base
+fmt "C base=" 1 C_angle_base
+fmt "sin_C_base=" 1 C_angle_base_sin
+fmt "cos_C_base=" 1 C_angle_base_cos
+fmt "P souhaiter=" 1 produit_p_souhaite
+fmt "C souhaiter=" 1 C_angle_souhaite
+fmt "sin_C_souhaiter=" 1 C_angle_souhaiter_sin
+fmt "cos_C_souhaiter=" 1 C_angle_souhaiter_cos
+fmt "C=" 1 C_rotation
+fmt "C reel=" 1 C_angle_reel
+fmt "C reel droit=" 1 C_angle_reel_droite
+fmt "C reel gauche=" 1 C_angle_reel_gauche
+fmt "P pour B=" 1 produit_p_B
+fmt "sin_B_souhaiter=" 1 B_angle_sin
+fmt "cos_B_souhaiter=" 1 B_angle_cos
+fmt "B=" 1 B_rotation
+fmt "Sens de B=" 4 sens_de_B
+fmt "Sens de C=" 4 sens_de_C
+fmt "Polarite=" 4 polarite_axe
+fmt "" 1 changpolar_C
+fmt "" 1 change_polar
+fmt "Vecteur porteur X=" 1 Vect_porteur_x
+fmt "Vecteur porteur Y=" 1 Vect_porteur_y
+fmt "Vecteur porteur Z=" 1 Vect_porteur_z
+fmt "angle entre repere et axe B=" 1 angle_axeB
+fmt "angle entre repere et axe outil=" 1 angle_axe_outil
+fmt "diff angle=" 1 dif_angle_B_outil
+fmt "sens de rotation 1 pour inverser et  0 pour normal  =" 1 sens_axe_outil
+fmt "TX" 1 tx
+fmt "TY" 1 ty
+fmt "TZ" 1 tz
+fmt "TX" 1 old_tx
+fmt "TY" 1 old_ty
+fmt "TZ" 1 old_tz
+fmt "X" 2 old_x
+fmt "Y" 2 old_y
+fmt "Z" 2 old_z
+fmt "C" 2 axec_reel
+fmt "B" 2 axeab_reel
+fmt "C" 2 axec_degage_butee
+fmt "B" 2 axeab_degage_butee
+fmt "C" 2 old_axec_reel
+fmt "B" 2 old_axeab_reel
+fmt 1 xplan_inter
+fmt 1 yplan_inter
+fmt 1 zplan_inter
+fmt "X" 2 xplan
+fmt "Y" 2 yplan
+fmt "Z" 2 zplan
+fmt 1 lub
+fmt 2 coolant$
+fmt 2 spdir$
+fmt 2 delta_axeC
+fmt 3 old_spdir
+fmt "R" 1 result
+fmt 2 maxiab
+fmt 2 miniab
+fmt 2 maxic
+fmt 2 minic
+fmt 2 erreur
+fmt 2 autre_solution
+fmt 2 use_retract_plane
+fmt 2 use_secu_start_end
+fmt 2 use_secu_plane
+fmt 2 feed_plane
+fmt 2 retract_plane
+fmt 2 secu_plane
+fmt 2 garde_plane
+fmt 2 vecteur_degage
+fmt 2 avance_param
+fmt 2 combinaison_axes
+fmt 2 cinematique
+fmt 2 gestion_rotation
+fmt 2 use_plane_spacial
+fmt 2 type_machine
+fmt 2 cycl32
+fmt 1 m1
+fmt 1 m2
+fmt 1 m3
+fmt 1 m4
+fmt 1 m5
+fmt 1 m6
+fmt 1 m7
+fmt 1 m8
+fmt 1 m9
+fmt 2 use_fmax_plane
+fmt 2 degage_butee
+fmt "X=" 2 vec_perc_X
+fmt "Y=" 2 vec_perc_Y
+fmt "Z=" 2 vec_perc_Z
+fmt "" 2 Lg_vec_per
+fmt "X" 2 surf_piece_X
+fmt "Y" 2 surf_piece_Y
+fmt "Z" 2 surf_piece_Z
+fmt "X" 2 plan_secu_X
+fmt "Y" 2 plan_secu_Y
+fmt "Z" 2 plan_secu_Z
+fmt "Z" 2 plan_secu_end_Z
+fmt "X" 2 plan_retract_X
+fmt "Y" 2 plan_retract_Y
+fmt "Z" 2 plan_retract_Z
+fmt "X" 2 plan_garde_X
+fmt "Y" 2 plan_garde_Y
+fmt "Z" 2 plan_garde_Z
+fmt "X" 2 drl_depth_x$
+fmt "Y" 2 drl_depth_y$
+fmt "Z" 2 drl_depth_z$
+fmt "X" 2 drl_depth_xplan
+fmt "Y" 2 drl_depth_yplan
+fmt "Z" 2 drl_depth_zplan
+fmt 2 ecri_cor
+fmt 2 usi_5X
+fmt "G" 4 NumOri
+fmt "M" 4 NumOriPlan
+#endregion
+
+#region VALEURS PAR DEFAUT
+nb_tour :0
+ecri_cor :0
+bug1$     : 0
+conteur_string : 0
+old_op_id : 999
+ss$ = abs(ss$)
+numop : 1
+num_op_out : 10
+percage_5x : 0
+usinage_5x : 0
+Vect_porteur_x :  0
+Vect_porteur_y :  0
+Vect_porteur_z :  1
+changpolar_C : 1
+polarite_axe : 1
+degagex : 0
+degagey : 0
+degagez : 0
+degagex_plan : 0
+degagey_plan : 0
+degagez_plan : 0
+lub : 0
+old_tox4 : 0
+old_toy4 : 0
+old_toz4 : 0
+old_angle_autour_X : 99999.99
+old_angle_autour_Y : 99999.99
+old_angle_autour_Z : 99999.99
+x$ : 99999.99
+y$ : 99999.99
+z$ : 99999.99
+i$ : 99999.99
+j$ : 99999.99
+sweep$ : 99999.99
+tox4$ : 99999.99
+toy4$ : 99999.99
+toz4$ : 99999.99
+arcrad$ : 99999.99
+refht$ : 99999.99
+initht$ : 99999.99
+xr$ : 99999.99
+yr$ : 99999.99
+zr$ : 99999.99
+change_polar : -1
+old_axec_reel : 0
+old_axeab_reel : 0
+delta_axeC : 0
+erreur : 0
+autre_solution : 0
+avance_param : -1
+cycl32 : 0
+use_fmax_plane : 1
+subprg$    : yes$
+mergesub$  : 0
+degagezbutee : 0
+degage_butee : 0
+bldnxtool$ = 1
+#endregion
+
+#region DECLARATION STRING
+sext$ : ".EIA"
+smachine : ""
+slettrea : "A"
+slettreb : "B"
+slettrec : "C"
+srot : "G54"
+sg43 : "G43"
+sluboff: ""
+sarret_optionnel : "M1"
+sannul_plan :"G54"
+sannul_Dec :"G52 X0 Y0 Z0"
+sm99 : ""
+sinc : "G91"
+sabs : "G90"
+smode_deg : "G28"
+smode_deg_plan : "G28 G91"
+sc00 : "G40"
+sc01 : "G41"
+sc02 : "G42"
+splane_spacial : "G65 P9920"
+splane_reset_turn : ""
+splane_reset_stay : ""
+serreur_visu : ""
+serreuraxeab_1 : " -  ATTENTION ARRET POST-PRO : L'axe B sort de ses limites de "
+serreuraxeab_2 : ", aucune solution trouve, veuillez modifier le parcours Operation N°"
+schange_polar : "ATTENTION Changement de polarite axe B "
+sg00 : "G0"
+sg01 : "G1"
+sg02 : "G2"
+sg03 : "G3"
+sq04 : "G4"
+sg05 : "G80"
+sgcode : ""
+fstrsel sg00 gcode$ sgcode 6 -1
+
+sm00 : "M4"
+sm01 : "M5"
+sm02 : "M3"
+spdlon : ""
+spdlsel = fsg3(spdir$)
+fstrsel  sm00 spdlsel spdlon 3 -1
+
+sp00 : ""
+sp01 : ""
+spolar : ""
+fstrsel sp00 mi1_2 spolar 2 -1
+
+sr00 : "G54"
+sr01 : "G43.4"
+srtcp : ""
+fstrsel sr00 rtcp srtcp 2 -1
+#frein axe rotatif
+fmt 1 freinA
+sfA00 : ""
+sfA01 : ""
+sfreinA : ""
+fstrsel sfA00 freinA sfreinA 2 -1
+
+fmt 1 freinB
+sfB00 : ""
+sfB01 : ""
+sfreinB : ""
+fstrsel sfB00 freinB sfreinB 2 -1
+
+sm93 : ""
+sm94 : ""
+sgfr : ""
+gfr : -1
+fstrsel  sm93 gfr sgfr 2 -1
+
+
+pcorrection
+    if cc$ = 41, sc01
+    if cc$ = 42, sc02
+    if cc$ = 140, sc00
+
+#endregion
+
+#region CALCUL
+pcalcul_block_form
+    if stck_crnr$ = 0,  [
+                        xmin = stck_x$ - (stck_ht$ / 2)
+                        ymin = stck_y$ - (stck_wdth$ / 2)
+                        xmax = stck_x$ + (stck_ht$ / 2)
+                        ymax = stck_y$ + (stck_wdth$ / 2)
+                        ]
+    if stck_crnr$ = 1 | stck_crnr$ = 5, [
+                                        xmin = stck_x$
+                                        ymin = stck_y$ - stck_wdth$
+                                        xmax = stck_x$ + stck_ht$
+                                        ymax = stck_y$
+                                        ]
+    if stck_crnr$ = 2 | stck_crnr$ = 6, [
+                                        xmin = stck_x$ - stck_ht$
+                                        ymin = stck_y$ - stck_wdth$
+                                        xmax = stck_x$
+                                        ymax = stck_y$
+                                        ]
+    if stck_crnr$ = 3 | stck_crnr$ = 7, [
+                                        xmin = stck_x$ - stck_ht$
+                                        ymin = stck_y$
+                                        xmax = stck_x$
+                                        ymax = stck_y$ + stck_wdth$
+                                        ]
+    if stck_crnr$ = 4 | stck_crnr$ = 8, [
+                                        xmin = stck_x$
+                                        ymin = stck_y$
+                                        xmax = stck_x$ + stck_ht$
+                                        ymax = stck_y$ + stck_wdth$
+                                        ]
+    if stck_crnr$ < 5,  [
+                        zmin = stck_z$ - stck_thck$
+                        zmax = stck_z$
+                        ]
+    else,   [
+            zmin = stck_z$
+            zmax = stck_z$ + stck_thck$
+            ]
+pnumop      # numerotation des operations post-processees
+    !old_op_id
+    if op_id$ <> old_op_id,
+    [
+        numop = numop + 1
+        num_op_out = numop * 10
+        debut_5X = 0
+    ]
+pcalcul_plan
+    old_angle_autour_X = angle_autour_X
+    old_angle_autour_Y = angle_autour_Y
+    old_angle_autour_Z = angle_autour_Z
+    angle_autour_Y = asin (m3$)
+    cos_angleY = cos (angle_autour_Y)
+    angle_autour_Y = angle_autour_Y *-1
+    if cos_angleY > 0.005 , [
+                            #3 angle autour de X
+                            tr_x = m9$ / cos_angleY
+                            tr_y = -m6$ / cos_angleY
+                            angle_autour_X  = atan2 (tr_y,tr_x)
+                            if angle_autour_X > 180 , angle_autour_X = angle_autour_X - 360
+                            angle_autour_X = angle_autour_X * -1
+                            #4 angle autour de Z
+                            tr_x = m1$ / cos_angleY
+                            tr_y = -m2$ / cos_angleY
+                            angle_autour_Z  = atan2 (tr_y,tr_x)
+                            if angle_autour_Z > 180 , angle_autour_Z = angle_autour_Z - 360
+                            angle_autour_Z = angle_autour_Z * -1
+                            ]
+    else,   [
+            # angle autour de X
+            angle_autour_X  = 0
+            # angle autour de Z
+            angle_autour_Z  = atan2 (m4$,m5$)
+            if angle_autour_Z > 180 , angle_autour_Z = angle_autour_Z - 360
+            angle_autour_Z = angle_autour_Z * -1
+            ]
+    #"coucou", *angle_autour_X, *angle_autour_Y, *angle_autour_Z, e$
+    if gestion_rotation = 2,    [
+                                if combinaison_axes = 1,    [
+                                                            if m9$ < 1,    [
+                                                                        if m9$ > -1,    [
+                                                                                        angle_autour_X2 = acos(m9$)
+                                                                                        angle_autour_Z2 = atan2(m3$,-m6$)
+                                                                                        angle_autour_Zp = atan2(m7$,m8$)
+                                                                                        ]
+                                                                        else,   [
+                                                                                angle_autour_X2 = 180
+                                                                                angle_autour_Z2 = (atan2(-m2$,m1$)) * -1
+                                                                                angle_autour_Zp = 0
+                                                                                ]
+                                                                        ]
+                                                            else,   [
+                                                                    angle_autour_X2 = 0
+                                                                    angle_autour_Z2 = atan2(-m2$,m1$)
+                                                                    angle_autour_Zp = 0
+                                                                    ]
+                                                            ]
+                                if combinaison_axes = 2
+                                | combinaison_axes = 3 ,    [
+                                                            if m9$ < 1, [
+                                                                        if m9$ > -1,    [
+                                                                                        angle_autour_Y2 = acos(m9$)
+                                                                                        angle_autour_Z2 = atan2(m6$,m3$)
+                                                                                        angle_autour_Zp = atan2(m8$,-m7$) #atan2(m8$,m7$)
+                                                                                        ]
+                                                                        else,   [
+                                                                                angle_autour_Y2 = 180
+                                                                                angle_autour_Z2 = (atan2(m4$,m5$)) * -1
+                                                                                angle_autour_Zp = 0
+                                                                                ]
+
+                                                                        ]
+                                                            else,   [
+                                                                    angle_autour_Y2 = 0
+                                                                    angle_autour_Z2 = atan2(m4$,m5$)
+                                                                    angle_autour_Zp = 0
+                                                                    ]
+                                                            ]
+                                angle_autour_X2 = angle_autour_X2
+                                angle_autour_Y2 = angle_autour_Y2
+                                angle_autour_Z2 = (angle_autour_Z2 * -1) + 180
+                                angle_autour_Zp = (angle_autour_Zp * -1) + 180
+                                if mi1$ = 1 | m9$ = 1,  [
+                                                        angle_autour_X2 = angle_autour_X2 * -1
+                                                        angle_autour_Y2 = angle_autour_Y2 * -1
+                                                        angle_autour_Z2 = angle_autour_Z2 + 180
+                                                        angle_autour_Zp = angle_autour_Zp + 180
+                                                        if m9$ = 1, angle_autour_Zp = angle_autour_Z2
+                                                        ]
+                                if angle_autour_X2 > 180 , angle_autour_X2 = angle_autour_X2 - 360
+                                if angle_autour_Y2 > 180 , angle_autour_Y2 = angle_autour_Y2 - 360
+                                if angle_autour_Z2 > 180 , angle_autour_Z2 = angle_autour_Z2 - 360
+                                if angle_autour_Zp > 180 , angle_autour_Zp = angle_autour_Zp - 360
+                                if angle_autour_X2 < -180 , angle_autour_X2 = angle_autour_X2 + 360
+                                if angle_autour_Y2 < -180 , angle_autour_Y2 = angle_autour_Y2 + 360
+                                if angle_autour_Z2 < -180 , angle_autour_Z2 = angle_autour_Z2 + 360
+                                if angle_autour_Zp < -180 , angle_autour_Zp = angle_autour_Zp + 360
+                                ]
+pcalcul_axe_reels
+    if usinage_5x = 0,  [
+                        tx=m7$
+                        ty=m8$
+                        tz=m9$
+                        old_axec_reel = axec_reel
+                        old_axeab_reel = axeab_reel
+                        old_m7 = m7$
+                        old_m8 = m8$
+                        old_m9 = m9$
+                        ]
+    else,   [
+            pcalcul_vecteur_5x
+            tx=vx
+            ty=vy
+            tz=vz
+            ]
+    if Vect_porteur_x <> 0 & Vect_porteur_y <> 0 & Vect_porteur_z <> 1 ,    [
+                                                                            #"voir tx y$ et z$", *tx, *ty, *tz, e$
+                                                                                long_OA = 1
+                                                                            long_OC = 1
+                                                                            long_OB = 1
+                                                                            long_AC = sqrt((0 - tx)^2 + (0 - ty)^2 + (1 - tz)^2)
+                                                                            long_CB = sqrt((0 - Vect_porteur_x)^2 + (0 - Vect_porteur_y)^2 + (1 - Vect_porteur_z)^2)
+                                                                            long_AB = sqrt((tx - Vect_porteur_x)^2 + (ty - Vect_porteur_y)^2 + (tz - Vect_porteur_z)^2)
+                                                                            if abs(tz) <> 1,    [
+                                                                                                angle_axeB = atan2(Vect_porteur_y,Vect_porteur_x)
+                                                                                                angle_axe_outil = atan2(ty,tx)
+                                                                                                dif_angle_B_outil = angle_axe_outil - angle_axeB
+                                                                                                if dif_angle_B_outil < 0,  dif_angle_B_outil = dif_angle_B_outil + 360
+                                                                                                if dif_angle_B_outil < 180, sens_axe_outil = -1
+                                                                                                else, sens_axe_outil = 1
+                                                                                                cosangle_b = (long_OC^2 + long_OA^2 - long_AC^2)/(2*long_OC*long_OA)
+                                                                                                cosangle_c = (long_OB^2 + long_OA^2 - long_AB^2)/(2*long_OB*long_OA)
+                                                                                                cosangle_a = (long_OC^2 + long_OB^2 - long_CB^2)/(2*long_OC*long_OB)
+                                                                                                if cosangle_a <= 1 & cosangle_a >= -1,angle_b = (acos(cosangle_b))
+                                                                                                if cosangle_b <= 1 & cosangle_b >= -1,angle_c = (acos(cosangle_c))
+                                                                                                if cosangle_c <= 1 & cosangle_c >= -1,angle_a = (acos(cosangle_a))
+                                                                                                produit_p_base = (angle_a + angle_b + angle_c)/2
+                                                                                                produitAA = ((sin(produit_p_base - angle_a))*(sin(produit_p_base - angle_b)))
+                                                                                                produitBB = ((sin(angle_a))*(sin(angle_b)))
+                                                                                                produitCC = ((sin(produit_p_base))*(sin(produit_p_base - angle_c)))
+                                                                                                C_angle_base_sin = sqrt(abs(produitAA/produitBB))
+                                                                                                if Vect_porteur_x, C_angle_base_cos = sqrt(abs(produitCC/produitBB)), else,  C_angle_base_cos = 0
+                                                                                                C_angle_base = (atan2(C_angle_base_sin,C_angle_base_cos))*2
+                                                                                                angle_c = angle_a
+                                                                                                produit_p_souhaite = (angle_a + angle_b + angle_c)/2
+                                                                                                C_angle_souhaiter_sin = (  (sqrt (abs(((sin(produit_p_souhaite - angle_a))*(sin(produit_p_souhaite - angle_b)))/(sin(angle_a)*(sin(angle_b)))))))
+                                                                                                C_angle_souhaiter_cos = (  (sqrt (abs(((sin(produit_p_souhaite))*(sin(produit_p_souhaite - angle_c)))/(sin(angle_a)*(sin(angle_b)))))))
+                                                                                                C_angle_souhaite = (atan2(C_angle_souhaiter_sin,C_angle_souhaiter_cos))*2
+                                                                                                C_rotation = C_angle_souhaite - C_angle_base
+                                                                                                C_angle_reel_droite =  ( C_angle_base * 2 ) + C_rotation
+                                                                                                C_angle_reel_gauche = C_rotation
+                                                                                                if C_angle_reel_droite > 180, C_angle_reel_droite = C_angle_reel_droite -360
+                                                                                                if C_angle_reel_gauche > 180, C_angle_reel_gauche = C_angle_reel_gauche -360
+                                                                                                produit_p_B = (angle_a + angle_b + angle_c)/2
+                                                                                                B_angle_sin = (  (sqrt (abs(((sin(produit_p_B - angle_c))*(sin(produit_p_B - angle_a)))/(sin(angle_c)*(sin(angle_a)))))))
+                                                                                                B_angle_cos = (  (sqrt(abs (((sin(produit_p_B))*(sin(produit_p_B - angle_b)))/(sin(angle_c)*(sin(angle_a)))))))
+                                                                                                B_rotation = (atan2(B_angle_sin,B_angle_cos))*2
+                                                                                                if polarite_axe = 1,    [
+                                                                                                                        if sens_axe_outil = -1,    [
+                                                                                                                                                C_angle_reel = C_angle_reel_droite * changpolar_C * -1 * sens_de_C
+                                                                                                                                                B_rotation = B_rotation  * -1 * sens_de_B
+                                                                                                                                                ]
+                                                                                                                        else,   [
+                                                                                                                                C_angle_reel = C_angle_reel_gauche * changpolar_C * -1 * sens_de_C
+                                                                                                                                B_rotation = B_rotation *  -1 * sens_de_B
+                                                                                                                                ]
+                                                                                                                        ]
+                                                                                                else,   [
+                                                                                                        if sens_axe_outil = -1,    [
+                                                                                                                                C_angle_reel = C_angle_reel_gauche * changpolar_C * sens_de_C * -1
+                                                                                                                                B_rotation = B_rotation * sens_de_B
+                                                                                                                                ]
+                                                                                                        else,   [
+                                                                                                                C_angle_reel = C_angle_reel_droite * changpolar_C * sens_de_C * -1
+                                                                                                                B_rotation = B_rotation * sens_de_B
+                                                                                                                ]
+                                                                                                        ]
+                                                                                                axeab_reel = B_rotation
+                                                                                                axec_reel = C_angle_reel
+                                                                                                ]
+                                                                            else,    [
+                                                                                    axec_reel = angle_autour_Z
+                                                                                    axeab_reel = 0
+                                                                                    ]
+                                                                            if type_machine = 3,    [
+                                                                                                    axec_reel = axec_reel + 180
+                                                                                                    axeab_reel = axeab_reel * -1
+                                                                                                    ]
+                                                                            if type_machine = 9,    [
+                                                                                                    axec_reel = axec_reel + 180
+                                                                                                    axeab_reel = axeab_reel * -1
+                                                                                                    ]
+                                                                            ]
+    else,    [
+             if tz <> 1,    [
+                        if combinaison_axes = 1, axec_reel = (atan2(tx,ty) * -1) + 180
+                        if combinaison_axes = 2 | combinaison_axes = 3 , axec_reel = (atan2(ty,-tx) * -1) + 180
+                        axeab_reel = acos(tz)
+                         ]
+             else,    [
+                    axec_reel = angle_autour_Z #+ 180
+                    axeab_reel = 0
+                    ]
+            ]
+    if mi1$ = 1,    [
+                    axec_reel = axec_reel + 180
+                    axeab_reel = axeab_reel * -1
+                    ]
+    if change_polar = 1,    [
+                            axec_reel = axec_reel + 180
+                            axeab_reel = axeab_reel * -1
+                            ]
+    !old_axec_reel
+    delta_axeC = axec_reel - old_axec_reel
+    if abs(delta_axeC) > 180,   [
+                                if delta_axeC > 0, axec_reel = axec_reel - 360
+                                if delta_axeC < 0, axec_reel = axec_reel + 360
+                                ]
+    if axec_reel > 360, axec_reel = axec_reel - 360
+    if axec_reel < -360, axec_reel = axec_reel + 360
+    #"voir axes", *axec_reel, *axeab_reel, e$
+    if angle_autour_X=0 & angle_autour_Y=0 & angle_autour_Z=0 & usinage_5x = 0, [
+                                                                                axec_reel = 0
+                                                                                axeab_reel = 0
+                                                                                  ]
+p_filtre
+    !tx
+    !ty
+    !tz
+    !old_tx
+    !old_ty
+    !old_ty
+    #"voir", *old_tx, *tx, *old_ty, *ty, e$
+    if axeab_reel <> 0,    [
+                        if tx <> 0 | ty <> 0,    [
+                                                if (old_tx <= 0 & tx > 0 & old_ty = 0 & ty = 0)
+                                                | (old_tx >= 0 & tx < 0 & old_ty = 0 & ty = 0)
+                                                | (old_tx = 0 & tx = 0 & old_ty >= 0 & ty < 0)
+                                                | (old_tx = 0 & tx = 0 & old_ty <= 0 & ty > 0)
+                                                | (old_tx < 0 & tx > 0 & old_ty < 0 & ty > 0)
+                                                | (old_tx > 0 & tx < 0 & old_ty > 0 & ty < 0)
+                                                | (old_tx = 0 & tx > 0 & old_ty = 0 & ty < 0)
+                                                | (old_tx = 0 & tx < 0 & old_ty = 0 & ty > 0)
+                                                | autre_solution = 1,    [
+                                                                        if autre_solution = 1, pchange_polar
+                                                                        #else, " ; Changement de polarite", e$
+                                                                        change_polar = change_polar * -1
+                                                                        pcalcul_axe_reels
+                                                                        ]
+                                                ]
+                        ]
+
+pFr5X
+    Dx = x$ - old_x
+    Dy = y$ - old_y
+    Dz = z$ - old_z
+    deltaXYZ = sqrt(Dx * Dx + Dy * Dy + Dz * Dz)
+    if deltaXYZ = 0 | fr_pos$ = 0,
+    [
+        fr5axe = old_fr5axe
+    ]
+    else ,fr5axe = fr_pos$ / deltaXYZ
+    if fr5axe > 99999, fr5axe = 99999
+    if mr2$ = 0, fr5axe = fr_pos$
+    *fr5axe
+pcalcul_degage_vecteur
+    xdegage_butee = old_x + (vecteur_degage * old_tx)
+    ydegage_butee = old_y + (vecteur_degage * old_ty)
+    zdegage_butee = old_z + (vecteur_degage * old_tz)
+pcalcul_degage_axe
+    axec_degage_butee = old_axec_reel + 180
+    axeab_degage_butee = old_axeab_reel * -1
+    if axec_degage_butee > 360, axec_degage_butee = axec_degage_butee - 360
+    if axec_degage_butee < -360, axec_degage_butee = axec_degage_butee + 360
+    old_axec_reel = axec_degage_butee
+    pcalcul_axe_reels
+pcalcul_percage_5X
+    #"voir fond percage abs", *drl_depth_x$ ,*drl_depth_y$ ,*drl_depth_z$,e$
+    vec_perc_X = u$ - drl_depth_x$
+    vec_perc_Y = v$ - drl_depth_y$
+    vec_perc_Z = w$ - drl_depth_z$
+    Lg_vec_per = sqrt(vec_perc_X^2 + vec_perc_Y^2 + vec_perc_Z^2)
+    vec_perc_X = vec_perc_X / Lg_vec_per
+    vec_perc_Y = vec_perc_Y / Lg_vec_per
+    vec_perc_Z = vec_perc_Z / Lg_vec_per
+    surf_piece_X = drl_depth_x$ + (abs(depth$)  * vec_perc_X)
+    surf_piece_Y = drl_depth_y$ + (abs(depth$)  * vec_perc_Y)
+    surf_piece_Z = drl_depth_z$ + (abs(depth$)  * vec_perc_Z)
+    #"voir surf_piece abs" , *surf_piece_X, *surf_piece_Y, *surf_piece_Z ,e$
+    plan_secu_X = surf_piece_X + ((secu_plane + garde_plane) * vec_perc_X)
+    plan_secu_Y = surf_piece_Y + ((secu_plane + garde_plane) * vec_perc_Y)
+    plan_secu_Z = surf_piece_Z + ((secu_plane + garde_plane) * vec_perc_Z)
+    #"voir plan secu abs" , *plan_secu_X, *plan_secu_Y, *plan_secu_Z ,e$
+    plan_retract_X = surf_piece_X + ((retract_plane + garde_plane) * vec_perc_X)
+    plan_retract_Y = surf_piece_Y + ((retract_plane + garde_plane) * vec_perc_Y)
+    plan_retract_Z = surf_piece_Z + ((retract_plane + garde_plane) * vec_perc_Z)
+    #"voir retract abs" , *plan_retract_X, *plan_retract_Y, *plan_retract_Z ,e$
+    plan_garde_X = surf_piece_X + (garde_plane * vec_perc_X)
+    plan_garde_Y = surf_piece_Y + (garde_plane * vec_perc_Y)
+    plan_garde_Z = surf_piece_Z + (garde_plane * vec_perc_Z)
+    #"voir garde abs" , *plan_garde_X, *plan_garde_Y, *plan_garde_Z ,e$
+    # "recalcul dans le plan" ,e$
+    xdep = surf_piece_X
+    ydep = surf_piece_Y
+    zdep = surf_piece_Z
+    pcalcul_xyz_plan
+    surf_piece_X = xplan
+    surf_piece_Y = yplan
+    surf_piece_Z = zplan
+    #"voir surf_piece plan" , *surf_piece_X, *surf_piece_Y, *surf_piece_Z ,e$
+    xdep = plan_secu_X
+    ydep = plan_secu_Y
+    zdep = plan_secu_Z
+    pcalcul_xyz_plan
+    plan_secu_X = xplan
+    plan_secu_Y = yplan
+    plan_secu_Z = zplan
+    #"voir plan secu plan", *plan_secu_X, *plan_secu_Y, *plan_secu_Z ,e$
+    xdep = plan_retract_X
+    ydep = plan_retract_Y
+    zdep = plan_retract_Z
+    pcalcul_xyz_plan
+    plan_retract_X = xplan
+    plan_retract_Y = yplan
+    plan_retract_Z = zplan
+    #"voir retract plan" , *plan_retract_X, *plan_retract_Y, *plan_retract_Z ,e$
+    xdep = plan_garde_X
+    ydep = plan_garde_Y
+    zdep = plan_garde_Z
+    pcalcul_xyz_plan
+    plan_garde_X = xplan
+    plan_garde_Y = yplan
+    plan_garde_Z = zplan
+    #"voir garde abs" , *plan_garde_X, *plan_garde_Y, *plan_garde_Z ,e$
+    xdep = drl_depth_x$
+    ydep = drl_depth_y$
+    zdep = drl_depth_z$
+    pcalcul_xyz_plan
+    drl_depth_xplan = xplan
+    drl_depth_yplan = yplan
+    drl_depth_zplan = zplan
+    #"voir fond percage plan" , *drl_depth_xplan, *drl_depth_yplan, *drl_depth_zplan ,e$
+    plan_secu_end_Z = plan_secu_Z
+    if use_secu_plane = 0 ,
+    [
+        plan_secu_end_Z = plan_retract_Z
+        plan_secu_Z = plan_retract_Z
+    ]
+    if use_secu_start_end = 1,
+    [
+        plan_secu_Z = plan_retract_Z
+    ]
+pcalcul_percage
+    pcalcul_percage_5X
+    bq200 = refht$ #- w$
+    if percage_5x = 1, bq200 = plan_garde_Z - plan_secu_Z
+    bq201 = depth$#(depth$ - tosz$) - abs(refht$ - tosz$)
+    if percage_5x = 1, bq201 = depth$ - drl_sel_tos$
+    if drillcyc$ = 0 | drillcyc$ = 3, bq202 = abs(bq201)
+    else, bq202 = abs(peck1$)
+    bq203 = tosz$
+    if percage_5x = 1, bq203 = surf_piece_Z
+    bq204 = initht$ #- bq203
+    if percage_5x = 1, bq204 = plan_secu_Z
+    if drillcyc$ = 1 , bq205 = abs(shftdrl$)
+    bq206 = frplunge$
+    if drillcyc$ = 4, bq208 = frplunge$
+    else, bq208 = 9999
+    bq210 = 0
+    bq211 = dwell$
+    if drillcyc$ = 1, bq212 = abs(retr$)
+    if drillcyc$ = 2, bq213 = abs(bq201/bq202)
+    else, bq213 = 0
+    bq214 = abs(shftdrl$)
+    if tool_typ$ = 5, bq239 = n_tap_thds$ #* ss$ modif du 4-7-2019 * ss$ etait deverouiller
+    if tool_typ$ = 4, bq239 = n_tap_thds$ #* ss$ modif du 4-7-2019 * ss$ etait deverouiller
+    if drillcyc$ = 6 , bq256 = abs(retr$)
+    else, bq256 = 0.2
+    if drillcyc$ = 6, bq257 = bq202
+    if drillcyc$ = 2, bq257 = abs(peck2$)
+    if drillcyc$ = 2, bq258 = 0.2
+    if drillcyc$ = 2, bq259 = 0.2
+    if drillcyc$ = 5, bq336 = abs(peckclr$)
+    else, bq336 = 0
+    plan_secu_Z = initht$
+pcalcul_op
+    if tool_op$ = 28 | tool_op$ = 29 | tool_op$ = 45 | tool_op$ = 46 | tool_op$ = 48 |
+    tool_op$ = 49 | tool_op$ = 110 | tool_op$ = 111 | tool_op$ = 112 | tool_op$ = 113|
+    tool_op$ = 154 | tool_op$ = 441 | tool_op$ = 442 | tool_op$ = 443 | tool_op$ = 444 |
+    tool_op$ = 445 | tool_op$ = 446 | tool_op$ = 447 | tool_op$ = 448 | tool_op$ = 449 |
+    tool_op$ = 450 | tool_op$ = 451| tool_op$ = 440 | tool_op$ = 459 | nextop$ = 11,
+    [
+        usinage_5x = 1
+        if opcode$ = 16, percage_5x = 1
+        if mr2$ = 1 , gfr = 0
+        else , gfr = 1
+    ]
+    else,
+    [
+        usinage_5x = 0
+        percage_5x = 0
+        gfr = 1
+    ]
+pcalcul_matrice_5x
+    longvec = sqrt(vx*vx+vy*vy+vz*vz)
+    if longvec = 0, longvec = 1
+    vx = vx/longvec
+    vy = vy/longvec
+    vz = vz/longvec
+    angle_X = acos(vz)
+    angle_Z0 = 0
+    angle_Z1 = atan2(vx,vy)
+    if (vx=0 & vy=0) , angle_Z1 = 0
+    m1 = m1$
+    m2 = m2$
+    m3 = m3$
+    m4 = m4$
+    m5 = m5$
+    m6 = m6$
+    m7 = m7$
+    m8 = m8$
+    m9 = m9$
+    m1$ = (cos(angle_Z0) * cos(angle_Z1)) - (cos(angle_X) * sin(angle_Z0) * sin(angle_Z1))
+    m2$ = -(cos(angle_X) * cos(angle_Z1) * sin(angle_Z0)) - (cos(angle_Z0) * sin(angle_Z1))
+    m3$ = (sin(angle_X) * sin(angle_Z0))
+    m4$ = (cos(angle_Z1) * sin(angle_Z0)) + (cos(angle_X) * cos(angle_Z0) * sin(angle_Z1))
+    m5$ = (cos(angle_X) * cos(angle_Z0) * cos(angle_Z1)) - (sin(angle_Z0) * sin(angle_Z1))
+    m6$ = -sin(angle_X) * cos(angle_Z0)
+    m7$ = sin(angle_X) * sin(angle_Z1)
+    m8$ = sin(angle_X) * cos(angle_Z1)
+    m9$ = cos(angle_X)
+pcalcul_vecteur_5x
+    vx = u$ - x$
+    vy = v$ - y$
+    vz = w$ - z$
+    longvec = sqrt(vx*vx+vy*vy+vz*vz)
+    if longvec = 0, longvec = 1
+    vx = vx/longvec
+    vy = vy/longvec
+    vz = vz/longvec
+pcalcul_xyz_plan
+    # tourne le point autour de Z
+    xplan_inter = ydep  * sin(angle_autour_Z) + xdep  * cos(angle_autour_Z)
+    yplan_inter = ydep  * cos(angle_autour_Z) - xdep  * sin(angle_autour_Z)
+    #  tourne le point autour Y
+    zplan_inter = xplan_inter * sin(angle_autour_Y) + zdep * cos(angle_autour_Y)
+    xplan = xplan_inter * cos(angle_autour_Y) - zdep  * sin(angle_autour_Y)
+    # tourne le point autour de X
+    yplan = zplan_inter * sin(angle_autour_X) + yplan_inter * cos(angle_autour_X)
+    zplan = zplan_inter * cos(angle_autour_X) - yplan_inter * sin(angle_autour_X)
+pcalcul_xyz_absolu
+    !angle_autour_X, !angle_autour_Y, !angle_autour_Z
+    angle_autour_X_2 = angle_autour_X * -1
+    angle_autour_Z_2 = angle_autour_Z * -1
+    angle_autour_Y_2 = angle_autour_Y * -1
+    #   tourne le point autour X
+    y1 = zdep * sin(angle_autour_X_2) + ydep * cos(angle_autour_X_2)
+    z1 = zdep * cos(angle_autour_X_2) - ydep * sin(angle_autour_X_2)
+    #   tourne le point autour Y
+    zabs = xdep * sin(angle_autour_Y_2) + z1  * cos(angle_autour_Y_2)
+    x1 = xdep * cos(angle_autour_Y_2) - z1  * sin(angle_autour_Y_2)
+    # tourne le point autour de Z
+    xabs = y1  * sin(angle_autour_Z_2) + x1  * cos(angle_autour_Z_2)
+    yabs = y1  * cos(angle_autour_Z_2) - x1  * sin(angle_autour_Z_2)
+
+pcalcul_tourne
+    #tourne = atan2(m6$,m3$)
+    #"voir 1 : ", *tourne ,e$
+    #tourne = atan2(-m6$,m3$)
+    #"voir 2 : ", *tourne ,e$
+    #tourne = atan2(m6$,-m3$)
+    #"voir 3 : ", *tourne ,e$
+    #tourne = atan2(-m6$,-m3$)
+    #"voir 4 : ", *tourne ,e$
+    #tourne = atan2(m3$,m6$)
+    #"voir 5 : ", *tourne ,e$
+    #"(", *tourne, ")" ,e$
+    #tourne = atan2(-m3$,m6$)
+    #"voir 6 : ", *tourne ,e$
+    #tourne = atan2(m3$,-m6$)
+    #"voir 7 : ", *tourne ,e$
+    #tourne = atan2(-m6$,-m3$)
+    #"voir 8 : ", *tourne ,e$
+    tourne = atan2(m3$,-m6$)
+    #"voir vrais :" , *tourne,e$
+    !tourne
+    !i$ , !j$
+    if m1$ = 1 & m5$ = 1 & m9$ = 1 , tourne = 0
+    if tourne <> 0,
+    [
+        X_tourne = ydep  * sin(tourne) + xdep  * cos(tourne)
+        Y_tourne = ydep  * cos(tourne) - xdep * sin(tourne)
+        I_tourne = j$  * sin(tourne) + i$  * cos(tourne)
+        J_tourne = j$  * cos(tourne) - i$ * sin(tourne)
+    ]
+    else ,
+    [
+        X_tourne = xdep
+        Y_tourne = ydep
+        J_tourne = j$
+        I_tourne = i$
+    ]
+pavance
+    if (fr_pos$ = av_travail | fr_pos$ = av_plonge) & mr7$ = 1,    [
+                                                                if (av_travail = fr_pos$) & (av_plonge = fr_pos$), avance_param = 1, savance
+                                                                else,    [
+                                                                        if av_travail = fr_pos$, avance_param = 1, savance
+                                                                        if av_plonge = fr_pos$, avance_param = 0, savance
+                                                                        ]
+                                                                ]
+    else, fr_pos$
+pavance_force
+    if (fr_pos$ = av_travail | fr_pos$ = av_plonge) & mr7$ = 1,    [
+                                                                if (av_travail = fr_pos$) & (av_plonge = fr_pos$), avance_param = 1, *savance
+                                                                else,    [
+                                                                        if av_travail = fr_pos$, avance_param = 1, *savance
+                                                                        if av_plonge = fr_pos$, avance_param = 0, *savance
+                                                                        ]
+                                                                ]
+    else, *fr_pos$
+#endregion
+
+#region CORPS DU PP
+pcord
+	out_demande = t$
+	plis_tab
+	HAff = varoutLus
+	DAff = varoutLus
+	*sg43 , *HAff, *DAff  
+pdec_ori
+    !tox4$
+    !old_tox4
+    !toy4$
+    !old_toy4
+    !toz4$
+    !old_toz4
+    #if tox4$ <> old_tox4 | toy4$ <> old_toy4 | toz4$ <> old_toz4, n$, "G52", *tox4$, *toy4$, *toz4$, e$
+    old_tox4 = tox4$
+    old_toy4 = toy4$
+    old_toz4 = toz4$
+pdegage
+    if mode_deg > 0,
+    [
+        n$, sg00, smode_deg, sinc, *degagez,e$
+        #n$, sg00, smode_deg, sinc, *degagex,e$
+        n$, sabs ,e$
+    ]
+    if mode_deg = 2, n$, sg00, smode_deg, sinc, *degagey, e$ ,n$, sabs ,e$
+    if mode_deg = 3, n$, sg00, smode_deg, sinc, *degagex, *degagey, e$ ,n$, sabs ,e$
+pdegage_plan
+   # n$, sg00, smode_deg_plan, *degagey_plan, *degagex_plan e$
+pannulplan
+    rtcp = 0
+    n$, srtcp, e$
+    pdegage
+    #n$, sannul_plan, e$
+	n$, *NumOri ,e$
+    n$, sannul_Dec, e$
+    old_tox4 = 0
+    old_toy4 = 0
+    old_toz4 = 0
+pcycle32_on
+    if cycl32 = 0,
+    [
+		n$ ,"G61.1 K50", e$
+        cycl32 = 1
+    ]
+pcycle32_off
+    if cycl32 = 1,
+    [
+        n$ ,"G64", e$
+        cycl32 = 0
+    ]
+pdecfin
+    n$, "G52 X0 Y0 Z0", e$
+pplan
+    mi1_2 = mi1$
+    pcalcul_plan
+    pcalcul_axe_reels
+    pbutee
+    !mi1_2
+    if percage_5x <> 1,
+    [
+        xdep = xr$ + tox$
+        ydep = yr$ + toy$
+        zdep = zr$ + toz$
+        pcalcul_xyz_absolu
+    ]
+    freinB = 1
+    freinA = 1
+    n$ , sfreinB ,e$ ,n$ ,sfreinA,e$
+    sabs #ajout du 5-7-2019
+    if degage_butee = 0, n$, sg00, *axeab_reel, *axec_reel,e$
+    freinB = 0
+    freinA = 0
+    n$ , sfreinB ,e$ ,n$ ,sfreinA,e$
+    if cinematique = 2,
+    [
+        rtcp = 1
+        n$ , srtcp , *tlngno$, e$
+        n$, sg00, *xabs, *yabs, e$
+        n$, sg00, *zabs, e$
+        rtcp = 0
+        n$ , srtcp ,e$
+    ]
+    if mr8$ = 1, pcycle32_on
+    else, pcycle32_off
+    if usinage_5x = 0, pdec_ori
+    pecriture_plan
+    if mr9$ = 1, pdecfin
+pecriture_plan
+	NumOriPlan = NumOri
+	n$, splane_spacial, *tox4$, *toy4$, *toz4$, *NumOriPlan, "Q55" ,*axeab_reel, *axec_reel, e$ #*angle_autour_Y,
+pheader$
+	pcreer_buffer
+    rd_md$
+    psimulation
+    pstart_header
+    pend_header
+psof$
+	return = fclose(ssynced_buffer)
+    !bldnxtool$, e$
+    !next_tool$ , e$
+    pstart_posf
+    old_op_id = op_id$
+    pend_psof
+    ptlchg$
+ptlchg$
+    if simu = 1,precal_new_matrice_RUD
+    i$ = 99999.99
+    j$ = 99999.99
+    nb_tour = 0
+    percage_5x = 0
+    change_polar = -1
+    old_axec_reel = 0
+    old_axeab_reel = 0
+    pstart_ptlchg
+    if usi_5X = 1 ,
+    [
+        n$, "G61 (LISSAGE OFF)", e$
+        #n$, "G05 P0" ,e$
+        n$, "M44" ,e$
+        n$, "M47", e$
+        usi_5X = 0
+    ]
+    plub_off
+    old_spdir = spdir$
+    spdir$ = 0
+    @spdir$
+    n$, *spdlon, e$
+    spdir$ = old_spdir
+    @spdir$
+    pcalcul_op
+    pannulplan
+    n$, "G0 A0 C0",e$
+    pnumop
+    n$, sarret_optionnel, e$
+    pstart_outil_ptlchg
+    n$ , comment$ ,e$
+	out_demande = t$
+	plis_tab
+	ouTilAff = varoutLus
+    n$, *num_op_out, *ouTilAff ,e$
+    n$, "M6", e$
+    n$, "(", *numop, ")", e$ #modif du 1/7/19 pour repetition du nom d'outil
+    pdegage_plan
+	out_demande = next_tool$
+	plis_tab
+	ouTilAff = varoutLus
+    n$, *ouTilAff, e$ 
+    pend_outil_ptlchg
+    n$, *spdlon, *ss$, e$
+    if usinage_5x <> 1,
+    [
+        pplan
+        xdep = xr$
+        ydep = yr$
+        pcalcul_tourne
+        n$, sg00, "G55", *X_tourne, *Y_tourne,  e$
+		n$, sg00, pcord, *zr$ ,e$
+		ecri_cor = 1
+    ]
+    else , pend_ptlchg, ex$
+    old_op_id = op_id$
+    old_ss = ss$
+    ecri_cor = 0
+    pend_ptlchg
+ptlchg0$
+    if simu = 1,precal_new_matrice_RUD
+    pstart_between_path_ptlchg0
+    !old_op_id
+    if op_id$ <> old_op_id,
+    [
+        i$ = 99999.99
+        j$ = 99999.99
+        if usi_5X = 1 ,
+        [
+            n$, "G61 (LISSAGE OFF)", e$
+            #n$, "G05 P0" ,e$
+            n$, "M44" ,e$
+            n$, "M47", e$
+            pannulplan
+            usi_5X = 0
+            nb_tour = 0
+        ]
+        pstart_between_op_ptlchg0
+        percage_5x = 0
+        pcalcul_op
+        if usinage_5x = 1, pannulplan
+        pnumop
+        change_polar = -1
+        pcalcul_plan
+        !old_angle_autour_X
+        !angle_autour_X
+        !old_angle_autour_Y
+        !angle_autour_Y
+        !old_angle_autour_Z
+        !angle_autour_Z
+        #"voir angle autour", *old_angle_autour_X, *angle_autour_X, *old_angle_autour_Y, *angle_autour_Y, *old_angle_autour_Z, *angle_autour_Z, e$
+        if old_angle_autour_X <> angle_autour_X | old_angle_autour_Y <> angle_autour_Y | old_angle_autour_Z <> angle_autour_Z
+        | old_m7 <> m7$ | old_m8 <> m8$ | old_m9 <> m9$,
+        [
+            ecri_cor = 0
+            pannulplan
+            pdegage_plan
+            n$, sarret_optionnel, e$
+            n$, pstart_outil_ptlchg, e$ #modif du 1/7/19 pour repetition nom d'outil
+            n$, comment$ ,e$
+            n$, "(", *numop, ")", e$ #modif du 1/7/19 pour repetition nom d'outil
+            n$, *spdlon, *ss$, e$
+            if usinage_5x <> 1,
+            [
+                pplan
+                xdep = xr$
+                ydep = yr$
+                pcalcul_tourne
+                n$, sg00, "G55", *X_tourne, *Y_tourne,  e$
+				n$, sg00, pcord, *zr$ ,e$
+				ecri_cor = 1
+                lub = 0
+            ]                                                                                                                                             ]
+            else,
+            [
+                n$, pstart_outil_ptlchg, e$ #modif du 1/7/19 pour repetition nom d'outil
+                n$, comment$ ,e$
+                n$, "(", *numop, ")", e$ #modif du 1/7/19 pour repetition nom d'outil
+                lub = 0
+            ]
+    ]
+    old_op_id = op_id$
+    old_ss = ss$
+    pend_ptlchg0
+pdwl_spd$
+	if old_ss <> ss$ , n$, *spdlon, *ss$, e$
+	if dwell$ <> 0, n$, *sgcode, *dwell$ ,e$
+	plub_on
+	old_ss = ss$
+plin$
+    #"voir" , *ss$ ,e$
+    if old_ss <> ss$ , n$, *spdlon, *ss$, e$
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$, sgcode, sgfr, pcorrection, X_tourne, Y_tourne, z$, pavance, plub_on, e$
+    old_ss = ss$
+    old_x = x$
+    old_y = y$
+    old_z = z$
+    old_ss = ss$
+pcir$
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+     n$, sgcode, sgfr, X_tourne, Y_tourne, z$, *I_tourne ,*J_tourne, pavance, e$
+    old_x = x$
+    old_y = y$
+    old_z = z$
+pz$
+    n$, *sgcode, sgfr,  z$, pavance, plub_on, e$
+    old_z = z$
+prapid$
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    if old_ss <> ss$ , n$, *spdlon, *ss$, e$
+    n$, sgcode, X_tourne, Y_tourne, z$, plub_on, e$
+    old_ss = ss$
+    old_x = x$
+    old_y = y$
+    old_z = z$
+pzrapid$
+	n$, *sgcode, z$, plub_on, e$
+    old_z = z$
+    ecri_cor = 1
+pmx0$
+
+pmx$
+    if percage_5x = 0,
+    [
+        pcalcul_axe_reels
+        pcont_tour
+        if debut_5X = 1 & fr$ <> -2, pdelta_max
+        pbutee
+        X5x = y$  * sin(axec_5x) + x$  * cos(axec_5x)
+        Y_tourne = y$  * cos(axec_5x) - x$ * sin(axec_5x)
+
+        Y5x = z$ * sin(axeab_reel) + Y_tourne * cos(axeab_reel)
+        Z5x = z$ * cos(axeab_reel) - Y_tourne * sin(axeab_reel)
+        if simu = 1,
+        [
+            X5x = x$
+            Y5x = y$
+            Z5x = z$
+        ]
+        #if debut_5X = 1, p_filtre
+    ]
+    if debut_5X = 0,
+    [
+        if percage_5x = 1,
+        [
+            vx = u$ - x$
+            vy = v$ - y$
+            vz = w$ - z$
+            pcalcul_matrice_5x
+            xabs = x$
+            yabs = y$
+            zabs = z$
+            pplan
+            xdep = x$
+            ydep = y$
+            zdep = z$
+            pcalcul_xyz_plan
+            n$, sg00, *xplan, *yplan, e$
+            n$, sg00, sg43 , *tlngno$ ,*zplan, plub_on, e$
+        ]
+        else,
+        [
+            if cinematique = 1,
+            [
+                vx = u$ - x$
+                vy = v$ - y$
+                vz = w$ - z$
+                # pcalcul_matrice_
+                n$, sg00, *axeab_reel, *axec_reel, e$
+                n$, splane_spacial, *tox4$, *toy4$, *toz4$, "A0 C0", e$
+                xdep = x$
+                ydep = y$
+                zdep = z$
+                # pcalcul_xyz_plan
+                n$, sg00, *X5x, *Y5x, e$
+                n$, sg00, sg43 , *Z5x, plub_on, e$
+                rtcp = 1
+                n$, "M46" ,e$
+                n$, "M43" ,e$
+                n$, "G64", e$
+                #n$, "M825 (ENTRE M821 et M829 = qualite du lissage)", e$
+                #n$, "G05 P2" ,e$
+                usi_5X = 1
+                #n$, srtcp, *tlngno$, e$
+                m1$=m1
+                m2$=m2
+                m3$=m3
+                m4$=m4
+                m5$=m5
+                m6$=m6
+                m7$=m7
+                m8$=m8
+                m9$=m9
+            ]
+            else,
+            [
+                n$, sg00, *axeab_reel, *axec_reel, e$
+                rtcp = 1
+                n$, srtcp, *tlngno$, e$
+                n$, sg00, *x$, *y$, e$
+                n$, sg00, *z$, e$
+            ]
+        ]
+    ]
+    debut_5X = 1
+    if percage_5x = 1,  ex$
+    rtcp = 1
+    if fr$ = -2, n$, `sg00, *X5x, *Y5x, *Z5x, *axeab_reel, *axec_5x, e$
+    else, n$, sg01,sgfr, *X5x, *Y5x, *Z5x, *axeab_reel, *axec_5x, pcorrection, pFr5X, plub_on,e$,# "(" , *x$, *y$ , *z$, e$
+    @x$ , @y$ , @z$
+    old_fr5axe = fr5axe
+    old_tx = tx
+    old_ty = ty
+    old_tz = tz
+    old_x = x$
+    old_y = y$
+    old_z = z$
+    old_axec_reel = axec_reel
+    old_axeab_reel = axeab_reel
+    old_axec_5x = axec_5x
+    if axeab_reel = 0,
+    [
+        axec_reel = old_axec_reel
+        axec_5x = old_axec_5x
+    ]
+pcont_tour
+    deltaC = old_axec_reel - axec_reel
+    if abs (deltaC) > 180,
+    [
+        if deltaC > 0, nb_tour = nb_tour +1
+        if deltaC < 0, nb_tour = nb_tour -1
+    ]
+    axec_5x = axec_reel + (360*nb_tour)
+pdelta_max
+    #"(voir ancien " , *old_axec_5x , "et new " , *axec_5x, e$
+    delta_Cmax = abs(old_axec_5x - axec_5x)
+    delta_ABmax = abs(old_axeab_reel - axeab_reel)
+    #"voir delta C" , *delta_Cmax, e$
+    #"voir delta A" , *delta_ABmax, e$
+    if mr1$ = 0, mr1$ = 20
+    if delta_ABmax > mr1$ | delta_Cmax > mr1$,
+    [
+        nb_mouvC = delta_Cmax / mr1$
+        nb_mouvC = nb_mouvC - (frac(nb_mouvC))
+        nb_mouvAB = delta_ABmax / mr1$
+        nb_mouvAB = nb_mouvAB - (frac(nb_mouvAB))
+        if nb_mouvC > nb_mouvAB ,nb_mouv = nb_mouvC
+        else , nb_mouv = nb_mouvAB
+        #"voir debut " , *x$ , *y$ , *z$, *axec_5x , *axeab_reel, e$
+        if nb_mouv > 2,
+        [
+            deltaX =  x$ - old_x
+            deltaY =  y$ - old_y
+            deltaZ =  z$ - old_z
+            Lgvec = sqrt(deltaX^2 + deltaY^2 + deltaZ^2)
+            if Lgvec = 0, Lgvec =1
+            VdelX = deltaX / Lgvec
+            VdelY = deltaY / Lgvec
+            VdelZ = deltaZ / Lgvec
+            lgVec_div = Lgvec / (nb_mouv)
+            add_X = VdelX * lgVec_div
+            add_Y = VdelY * lgVec_div
+            add_Z = VdelZ * lgVec_div
+            cont_mouv = 0
+            while cont_mouv < (nb_mouv+1),
+            [
+                inter_X5x3 = old_x + (add_X * (cont_mouv ))
+                inter_Y5x3 = old_y + (add_Y * (cont_mouv))
+                inter_Z5x3 = old_z + (add_Z * (cont_mouv))
+                deltaA = (old_axeab_reel - axeab_reel) / nb_mouv
+                delta_C = (old_axec_5x - axec_5x) / (nb_mouv)
+                inter_C = old_axec_5x - delta_C * cont_mouv
+                inter_A = old_axeab_reel - deltaA * cont_mouv
+                if VdelX = 0 ,inter_X5x3 = x$
+                if VdelY = 0 ,inter_Y5x3 = y$
+                if VdelZ = 0 ,inter_Z5x3 = z$
+
+                inter_X5x = inter_Y5x3  * sin(inter_C) + inter_X5x3  * cos(inter_C)
+                Y_tourne = inter_Y5x3  * cos(inter_C) - inter_X5x3 * sin(inter_C)
+
+                inter_Y5x = inter_Z5x3 * sin(inter_A) + Y_tourne * cos(inter_A)
+                inter_Z5x = inter_Z5x3 * cos(inter_A) - Y_tourne * sin(inter_A)
+                if simu = 1,
+                [
+                    inter_X5x = inter_X5x3
+                    inter_Y5x = inter_Y5x3
+                    inter_Z5x = inter_Z5x3
+                ]
+                if lgVec_div <> 0 ,fr5axe = fr_pos$ / lgVec_div
+                if fr5axe > 99999, fr5axe = 99999
+                if mr2$ = 0, fr5axe = fr_pos$
+                if fr$ = -2, n$, `sg00, *inter_X5x, *inter_Y5x, *inter_Z5x, *inter_A, *inter_C, "(RTCP)",e$
+                else, n$, sg01,sgfr, *inter_X5x, *inter_Y5x, *inter_Z5x, *inter_A, *inter_C, pcorrection, *fr5axe, "(RTCP)",e$
+
+                #"voir apres" , *inter_X5x3 , *inter_Y5x3 , *inter_Z5x3, *inter_A, *inter_C ,e$
+                cont_mouv = cont_mouv + 1
+            ]
+        ]
+    ]
+pbutee
+    if axeab_reel > maxiab | axeab_reel < miniab,
+    [
+        autre_solution = 1
+        p_filtre
+        if mi1$ = 0, mi1_2 = 1
+        else, mi1_2 = 0
+        autre_solution = 0
+        if usinage_5x = 1 & fr$ <> -2, pdegage_butee
+        if axeab_reel > maxiab | axeab_reel < miniab, psortie_axeab
+    ]
+pdegage_butee
+    vecteur_degage = feed_plane
+    pcalcul_degage_vecteur
+    !xdegage_butee
+    !ydegage_butee
+    !zdegage_butee
+    n$, sg01, *xdegage_butee, *ydegage_butee, *zdegage_butee, pcorrection, pavance, plub_on, e$
+    if use_secu_plane = 1, vecteur_degage = secu_plane
+    if use_retract_plane = 1, vecteur_degage = retract_plane
+    if use_retract_plane = 1 & use_secu_start_end = 0, vecteur_degage = secu_plane
+    if use_secu_plane = 0 & use_retract_plane = 0, vecteur_degage = feed_plane
+    if vecteur_degage <> feed_plane,    [
+                                        pcalcul_degage_vecteur
+                                        !xdegage_butee
+                                        !ydegage_butee
+                                        !zdegage_butee
+                                        n$, `sg00, *xdegage_butee, *ydegage_butee, *zdegage_butee, e$
+                                        ]
+    pcalcul_degage_axe
+    !axeab_degage_butee
+    !axec_degage_butee
+    if degagezbutee = 1,    [
+                            rtcp = 0
+                            n$ , srtcp , e$
+                            n$, sg00, smode_deg, sinc, *degagez, e$
+                            n$, sabs ,e$
+                            ]
+    n$, `sg00, *axeab_degage_butee, *axec_degage_butee, e$
+    if vecteur_degage <> feed_plane,    [
+                                        vecteur_degage = feed_plane
+                                        pcalcul_degage_vecteur
+                                        !xdegage_butee
+                                        !ydegage_butee
+                                        !zdegage_butee
+                                        if degagezbutee = 1,    [
+                                                                vx = old_tx
+                                                                vy = old_ty
+                                                                vz = old_tz
+                                                                pcalcul_matrice_5x
+                                                                xabs = xdegage_butee
+                                                                yabs = ydegage_butee
+                                                                zabs = zdegage_butee
+                                                                degage_butee = 1
+                                                                pplan
+                                                                degage_butee = 0
+                                                                xdep = xdegage_butee
+                                                                ydep = ydegage_butee
+                                                                zdep = zdegage_butee
+                                                                pcalcul_xyz_plan
+                                                                n$, sg00, *xplan, *yplan, e$
+                                                                n$, sg00, *zplan, plub_on, e$
+                                                                n$, *NumOri ,e$
+                                                                n$, sannul_Dec, e$
+                                                                rtcp = 1
+                                                                n$ , srtcp , *tlngno$,e$
+                                                                n$, `sg00, *xdegage_butee, *ydegage_butee, *zdegage_butee, e$
+                                                                m1$=m1
+                                                                   m2$=m2
+                                                                   m3$=m3
+                                                                   m4$=m4
+                                                                   m5$=m5
+                                                                   m6$=m6
+                                                                   m7$=m7
+                                                                   m8$=m8
+                                                                   m9$=m9
+                                                                ]
+                                        else, n$, `sg00, *xdegage_butee, *ydegage_butee, *zdegage_butee, e$
+                                        ]
+    n$, sg01, *old_x, *old_y, *old_z, *axeab_degage_butee, *axec_degage_butee, pcorrection, pavance_force, plub_on, e$
+psortie_axeab
+    if erreur = 0,  [
+                    serreur_visu = serreuraxeab_1 + no2str(miniab) + " et " + no2str(maxiab) + serreuraxeab_2 + no2str(numop)
+                    result = mprint(serreur_visu)
+                    *serreur_visu, e$
+                    erreur = 1
+                    exitpost$
+                    ]
+pchange_polar
+    serreur_visu = schange_polar + "Operation nÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°" + no2str(numop)
+    #result = mprint(serreur_visu)
+    n$, "(", schange_polar, ")", e$
+pperc_5X
+    xdep = x$
+    ydep = y$
+    zdep = z$
+    pcalcul_xyz_plan
+    x$ = xplan
+    y$ = yplan
+    z$ = zplan
+pperc_5X_2
+    pcalcul_vecteur_5x
+    pcalcul_axe_reels
+    vx = u$ - x$
+    vy = v$ - y$
+    vz = w$ - z$
+    pcalcul_matrice_5x
+    xabs = drl_init_x$
+    yabs = drl_init_y$
+    zabs = drl_init_z$
+    n$, "G80",e$
+    n$, *NumOri ,e$
+    n$, sannul_Dec, e$
+    old_tox4 = 0
+    old_toy4 = 0
+    old_toz4 = 0
+    ptransi_perc_5X
+    xdep = x$
+    ydep = y$
+    zdep = z$
+    pcalcul_xyz_plan
+    x$ = xplan
+    y$ = yplan
+    z$ = zplan
+ptransi_perc_5X
+    rtcp = 1
+    pcalcul_plan
+    pcalcul_axe_reels
+    n$, srtcp, *tlngno$,e$
+    n$, sg00, *xabs, *yabs, *zabs,*axeab_reel, *axec_reel, e$
+    rtcp = 0
+    n$ , srtcp ,e$
+    pecriture_plan
+pdrill$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    if percage_5x = 1 & use_secu_start_end = 1 , n$ ,sg00, *plan_secu_Z ,e$
+    n$, "G82", sgfr,  *X_tourne, *Y_tourne , *bq201 , *bq200 , *bq211 , *bq206 ,e$
+pdrill_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1,    [
+                        pperc_5X_2
+                        pcalcul_percage
+                        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+                        n$, "G82", x$, *y$ , *bq201 , *bq200 , *bq211 , *bq206 ,e$
+                        ]
+    else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, pdrill$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+ppeck$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    n$, "G83", sgfr, *X_tourne, *Y_tourne , *bq201 , *bq200 , *bq202 , *bq206 ,e$
+ppeck_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1 , [
+                        pperc_5X_2
+                        pcalcul_percage
+                        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+                        n$, "G83", x$, *y$ , *bq201 , *bq200 , *bq202 , *bq206 ,e$
+                        ]
+    else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, ppeck$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+pchpbrk$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    n$, "G73", sgfr, *X_tourne, *Y_tourne , *bq201 , *bq200 , *bq202 , *bq206 ,e$
+pchpbrk_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1 , [
+                        pperc_5X_2
+                        pcalcul_percage
+                        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+                        n$, "G73", x$, *y$ , *bq201 , *bq200 , *bq202 , *bq206 ,e$
+                        ]
+     else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, pchpbrk$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+ptap$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    n$, sm02, e$
+    if spdir$ = -1 , dir_tar = 4
+    if spdir$ = 0 , dir_tar = 5
+    if spdir$ = 1 , dir_tar = 3
+    speed_tar = ss$
+    if spdir$ = -1 ,n$, "G74", *X_tourne, *Y_tourne , *bq201 , *bq200  , *bq239 ,e$#, *bq202
+    else , n$, "G84",sgfr,  *X_tourne, *Y_tourne , *bq201 , *bq200 , *bq239 ,e$ #*bq202 ,
+ptap_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1 ,
+    [
+        pperc_5X_2
+        pcalcul_percage
+        bq239  = n_tap_thds$
+        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+        if spdir$ = -1 ,n$, "G74", *x$, *y$ , *bq201 , *bq200 , *bq202 , *bq239 ,e$
+        else , n$, "G84", x$, *y$ , *bq201 , *bq200 , *bq239 ,e$#*bq202 ,
+    ]
+    else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, ptap$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+pbore1$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    n$, sm02, e$
+    n$, "G85",sgfr,  *X_tourne, *Y_tourne , *bq201 , *bq200 , *bq206 ,e$
+pbore1_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1 , [
+                        pperc_5X_2
+                        pcalcul_percage
+                        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+                        n$, "G85", x$, *y$ , *bq201 , *bq200 , *bq206 ,e$
+                        ]
+    else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, pbore1$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+pbore2$
+    if percage_5x = 1,  pperc_5X
+    pcalcul_percage
+    xdep = x$
+    ydep = y$
+    pcalcul_tourne
+    n$ ,sg00, *plan_secu_Z ,plub_on, e$
+    n$, sm02, e$
+    dec_alesage = shftdrl$
+    n$, "G87",sgfr,  *X_tourne, *Y_tourne , *bq201 , *bq200 , *dec_alesage , *bq211 , *bq206 ,e$
+pbore2_2$
+    old_bq200 = bq200
+    old_bq201 = bq201
+    pcalcul_percage
+    if percage_5x = 1 , [
+                        pperc_5X_2
+                        pcalcul_percage
+                        n$ ,sg00, sg43 , *tlngno$ , *plan_secu_Z ,e$
+                        n$, "G87", x$, *y$ , *bq201 , *bq200 , *dec_alesage , *bq211 , *bq206 ,e$ #ÃƒÂ©tait "G87",sgfr,  x$, *y$ , *bq201 , *bq200 , *bq206 ,e$
+                        ]
+    else,
+    [
+        !old_bq200
+        !old_bq201
+        if bq200 <> old_bq200 | bq201 <> old_bq201, pbore2$
+        else,
+        [
+            xdep = x$
+            ydep = y$
+            pcalcul_tourne
+            n$, *X_tourne, *Y_tourne , *bq200 ,e$
+        ]
+    ]
+pmisc1$
+
+pmisc1_2$
+
+pcanceldc$
+    n$, "G80", e$
+    if percage_5x = 1,  [
+                        n$, sg00, *plan_secu_end_Z, e$
+                        ]
+    else, n$, sg00, *initht$, e$
+pmisc2$
+pmisc2_2$
+pdrlcst$
+pdrlcst_2$
+pdrill0$
+pdrl_end$
+pcancelcc$
+peof$
+    rtcp = 0
+    n$, srtcp, e$
+    pstart_peof
+	mode_deg = 3
+    pdegage
+    comment$
+    pend_peof
+    n$, "M30", e$ #modif du 4-7-2019 etait M30
+    pafter_end_peof
+pmiscint$
+pmiscparam$
+pmiscreal$
+pq$
+ptoolend$
+ptooltable$
+ptransint$
+ptransreal$
+puid_list$
+psof0$
+psof00$
+psof_end$
+ptlchg00$
+ptlchg0_end$
+ptlchg_end$
+peof0$
+peof00$
+plin0$
+plin_end$
+pcir0$
+pcir_end$
+pmachineinfo$
+    if prmcode$ = 17012, snom_ini = sparameter$
+    smachine = ucase (snom_ini)
+psub_call_s$
+psub_st_s$
+psub_end_s$
+psub_call_mm$
+psub_call_m$
+psub_end_m_r$
+psub_st_m$
+psub_end_m$
+pcomment0$
+pcomment_end$
+pmx_end$
+prot0$
+prot$
+
+#endregion
+
+#region simulation
+fmt "la string commence a:" 4 conteur_string
+fmt 1 simu
+simu : 0
+sextsub$ : ".ini"
+snom : ""
+snom_ini : ""
+spathnc_original : ""
+sous_chaine : "appdata\local\temp"
+#sdllMachSim : "E:\projet VS2017\Simulation_FICAM\Simulation_FICAM\x64\Release\Simulation_FICAM.dll" # pour debug cedric
+sdllMachSim : "C:\Program Files\Mastercam 2021\Mastercam\chooks\simulation\Simulation_FICAM.dll"
+#sdll :"MachineSimulation\MachSim\convert_iso.dll"
+psimulation
+    spathnc_original = spathnc$
+    conteur_string = scan(sous_chaine,spathnc_original)
+    if st_str_ix$, simu = 1
+    if simu = 1,
+    [
+        spathsub$ = spathpst$
+        snamesub$ = snom_ini
+        subout$ = 1
+        snom = spathnc$ + snamenc$ + sextnc$
+        "KEY=856848F6216I00C00A0000",e$
+        "REP =", *snom, e$
+        "USE_OTHER_NC_FILE = NO" ,e$
+        "[SHIFT ORIGIN BETWEEN MACHSIM TO REALITY]" ,e$
+        "X = 315" ,e$
+        "Y = 315" ,e$
+        "Z = 740" ,e$
+
+        "[DOT TO DISPLAY MACHSIM]" ,e$
+        "X = -313.9" ,e$
+        "Y = 315" ,e$
+        "Z = 740" ,e$
+
+        "[MACHINE_DEF]" ,e$
+        #;FANUC HEID ect...
+        "CONTROL_TYPE = FANUC" ,e$
+        #;radius ;delta_start_to_center ;delta_center_to_start; signed_radius
+        "ARC_TYPE = delta_start_to_center",e$
+        "COMMENT = ( |" ,e$
+        ";VARIABLE = #" ,e$
+        "FEED_MAX= 50000" ,e$
+        "COORD_MACH = G53|G28" ,e$
+
+        "[PLANE_TYPE]" ,e$
+
+        #;PLANE_ON = (UPR|0|XYZ|0.|0.|ROTZ|SHIFTXabs|SHIFTYabs|SHIFTZabs|)|next_line|(UPR|1|XYZ|ROTX|0.|0.)|
+
+        "PLANE_ON = G65|P8259|SHIFTXabs|SHIFTYabs|SHIFTZabs|ROTX|ROTZ|" ,e$
+        "PLANE_OFF = G54" ,e$
+
+        #";SHIFT_ON = CYCL DEF 7.0| POINT ZERO|next_line|CYCL |DEF |7.1|SHIFTXabs|next_line|CYCL |DEF |7.2| SHIFTYabs |next_line|CYCL |DEF |7.3| SHIFTZabs|" ,e$
+        "SHIFT_ON = G52|SHIFTXabs|SHIFTYabs|SHIFTZabs|" ,e$
+        ";SHIFT_OFF = G69 ",e$
+
+        ";ROT_ON = G68|AXE|ROT|" ,e$
+        ";ROT_OFF = G69" ,e$
+
+        "RTCP_ON = G43.4" ,e$
+        "RTCP_OFF = G49" ,e$
+
+        ";TOOL_ON = G43" ,e$
+        ";TOOL_OFF = G49 ",e$
+
+        "[DRILL_CYCLE]" ,e$
+        #; si on est sur un type CYCLE81 () siemens indiquer la position de la valeur dans le cycle ... pas besoin de definir pour HEID car toujour identique
+        "DRILL_ON_CYCLE = YES" ,e$
+        "CALL_CYCLE = G81|G83|G73|G82|G84" ,e$
+        "SECU_PLANE_ABS = OLD_Z" ,e$
+        ";SECU_PLANE_RELATIV = OLD_Z" ,e$
+        ";PROF_RELATIV = Z" ,e$
+        "PROF_ABS = Z" ,e$
+        ";RETRACT_RELATIV = R" ,e$
+        "RETRACT_ABS = R",e$
+        "AVANCE = F" ,e$
+        "PECK = Q X 1" ,e$
+        "CYCLE_OFF = G80" ,e$
+
+        "[NOT READ]" ,e$
+        "G53.1" ,e$
+        #"G0 G28 G91" ,e$
+
+        "[MACRO] (attention pas MACHMOVE avec axes XYZABC)" ,e$
+
+        "{M6}" ,e$
+        "G0 G28 Z0" ,e$
+        "G0 G28 X-628.9 Y0 Z0" ,e$
+        "G0 G28 X-628.9 Y0 Z-205 ",e$
+        "display_tool" ,e$
+        "G0 G28 X-628.9 Y0 Z-205 ",e$
+        "G0 G28 X-628.9 Y0 Z0" ,e$
+
+        "{FIN}" ,e$
+
+        subout$ = 0
+    ]
+fmt "X" 1 angle_autour_X_RUD
+fmt "Y" 1 angle_autour_Y_RUD
+fmt "Z" 1 angle_autour_Z_RUD
+
+
+fmt 1 m1_RUD
+fmt 1 m2_RUD
+fmt 1 m3_RUD
+fmt 1 m4_RUD
+fmt 1 m5_RUD
+fmt 1 m6_RUD
+fmt 1 m7_RUD
+fmt 1 m8_RUD
+fmt 1 m9_RUD
+
+fmt 1 m1_RUDA
+fmt 1 m2_RUDA
+fmt 1 m3_RUDA
+fmt 1 m4_RUDA
+fmt 1 m5_RUDA
+fmt 1 m6_RUDA
+fmt 1 m7_RUDA
+fmt 1 m8_RUDA
+fmt 1 m9_RUDA
+
+fmt 1 m1_RUDB
+fmt 1 m2_RUDB
+fmt 1 m3_RUDB
+fmt 1 m4_RUDB
+fmt 1 m5_RUDB
+fmt 1 m6_RUDB
+fmt 1 m7_RUDB
+fmt 1 m8_RUDB
+fmt 1 m9_RUDB
+
+fmt 1 Lg_X
+fmt 1 Lg_Y
+fmt 1 Lg_Z
+precal_new_matrice_RUD
+    #vois comment le rud a tourner
+    #"(test)" ,e$
+    if t_wcs_m1$ <> 1 | t_wcs_m5$ <> 1 | t_wcs_m9$ <> 1,
+    [
+        angle_autour_Y_RUD = asin (t_wcs_m3$)
+        cos_angleY = cos (angle_autour_Y_RUD)
+            angle_autour_Y_RUD = angle_autour_Y_RUD *-1
+            if cos_angleY > 0.005 ,
+        [
+            #3 angle autour de X
+            tr_x = t_wcs_m9$ / cos_angleY
+            tr_y = -t_wcs_m6$ / cos_angleY
+            angle_autour_X_RUD = atan2 (tr_y,tr_x)
+
+            angle_autour_X_RUD = angle_autour_X_RUD * -1
+            #4 angle autour de Z
+            tr_x = t_wcs_m1$ / cos_angleY
+            tr_y = -t_wcs_m2$ / cos_angleY
+            angle_autour_Z_RUD  = atan2 (tr_y,tr_x)
+            angle_autour_Z_RUD = angle_autour_Z_RUD * -1
+        ]
+            else,
+        [
+            # angle autour de X
+            angle_autour_X_RUD  = 0
+            # angle autour de Z
+            angle_autour_Z_RUD = atan2 (t_wcs_m4$,t_wcs_m5$)
+            angle_autour_Z_RUD = angle_autour_Z_RUD * -1
+
+        ]
+        #tourne X autour Z :
+        m1_RUDA = m2$  * sin(angle_autour_Z_RUD) + m1$  * cos(angle_autour_Z_RUD)
+        m2_RUDA = m2$  * cos(angle_autour_Z_RUD) - m1$  * sin(angle_autour_Z_RUD)
+
+        #tourne X autour Y :
+        m3_RUDA = m1_RUDA * sin(angle_autour_Y_RUD) + m3$ * cos(angle_autour_Y_RUD)
+        m1_RUDB = m1_RUDA * cos(angle_autour_Y_RUD) - m3$  * sin(angle_autour_Y_RUD)
+
+        #tourne X autour X :
+        m2_RUDB = m3_RUDA * sin(angle_autour_X_RUD) + m2_RUDA  * cos(angle_autour_X_RUD)
+        m3_RUDB = m3_RUDA * cos(angle_autour_X_RUD) - m2_RUDA  * sin(angle_autour_X_RUD)
+
+        #tourne Y autour Z :
+        m4_RUDA = m5$  * sin(angle_autour_Z_RUD) + m4$  * cos(angle_autour_Z_RUD)
+        m5_RUDA = m5$  * cos(angle_autour_Z_RUD) - m4$  * sin(angle_autour_Z_RUD)
+
+        #tourne Y autour Y :
+        m6_RUDA = m4_RUDA * sin(angle_autour_Y_RUD) + m6$ * cos(angle_autour_Y_RUD)
+        m4_RUDB = m4_RUDA * cos(angle_autour_Y_RUD) - m6$  * sin(angle_autour_Y_RUD)
+
+        #tourne Y autour X :
+        m5_RUDB = m6_RUDA * sin(angle_autour_X_RUD) + m5_RUDA  * cos(angle_autour_X_RUD)
+        m6_RUDB = m6_RUDA * cos(angle_autour_X_RUD) - m5_RUDA  * sin(angle_autour_X_RUD)
+
+        #tourne Z autour Z :
+        m7_RUDA = m8$  * sin(angle_autour_Z_RUD) + m7$  * cos(angle_autour_Z_RUD)
+        m8_RUDA = m8$  * cos(angle_autour_Z_RUD) - m7$  * sin(angle_autour_Z_RUD)
+
+        #tourne Z autour Y :
+        m9_RUDA = m7_RUDA * sin(angle_autour_Y_RUD) + m9$ * cos(angle_autour_Y_RUD)
+        m7_RUDB = m7_RUDA * cos(angle_autour_Y_RUD) - m9$  * sin(angle_autour_Y_RUD)
+
+        #tourne Z autour X :
+        m8_RUDB = m9_RUDA * sin(angle_autour_X_RUD) + m8_RUDA  * cos(angle_autour_X_RUD)
+        m9_RUDB = m9_RUDA * cos(angle_autour_X_RUD) - m8_RUDA  * sin(angle_autour_X_RUD)
+
+        Lg_X = sqrt(m1_RUDB^2+m2_RUDB^2+m3_RUDB^2)
+        m1$ = m1_RUDB / Lg_X
+        m2$ = m2_RUDB / Lg_X
+        m3$ = m3_RUDB / Lg_X
+        Lg_Y = sqrt(m4_RUDB^2+m5_RUDB^2+m6_RUDB^2)
+        m4$ = m4_RUDB / Lg_Y
+        m5$ = m5_RUDB / Lg_Y
+        m6$ = m6_RUDB / Lg_Y
+        Lg_Z = sqrt(m7_RUDB^2+m8_RUDB^2+m9_RUDB^2)
+        m7$ = m7_RUDB / Lg_Z
+        m8$ = m8_RUDB / Lg_Z
+        m9$ = m9_RUDB / Lg_Z
+
+        x1 = toy4$  * sin(angle_autour_Z_RUD) + tox4$ * cos(angle_autour_Z_RUD)
+        y1 = toy4$  * cos(angle_autour_Z_RUD) - tox4$ * sin(angle_autour_Z_RUD)
+
+        z1 = x1 * sin(angle_autour_Y_RUD) + toz4$ * cos(angle_autour_Y_RUD)
+        xplan = x1 * cos(angle_autour_Y_RUD) - toz4$  * sin(angle_autour_Y_RUD)
+
+        yplan = z1 * sin(angle_autour_X_RUD) + y1 * cos(angle_autour_X_RUD)
+        zplan = z1 * cos(angle_autour_X_RUD) - y1 * sin(angle_autour_X_RUD)
+
+        tox4$ = (xplan - t_orgin_x$)
+        toy4$ = (yplan - t_orgin_y$)
+        toz4$ = (zplan - t_orgin_z$)
+    ]
+
+ppost$       # traitement apres post pro pour effacer le fichier OPS et renommer le fichier NC
+    if simu = 1,
+    [
+        #sdllMachSim = smc_shared_dir$ + sdll
+        result = dll(sdllMachSim,spathnc$)
+    ]
+#endregion
+
+#[ENDBIN]
+#region parametrage specifique du pp
+pprep$
+    spathnc_original = spathnc$
+    conteur_string = scan(sous_chaine,spathnc_original)
+    if st_str_ix$, simu = 1
+    rotaxtyp$ = 3
+    tooltable$ = 1 #0=non 1=oui liste des outils
+
+sf00 : "FQ1"
+sf01 : "FQ11"
+savance : ""
+fstrsel sf00 avance_param savance 2 -1
+
+fmt 1 type_lub
+fmt 1 old_type_lub
+fmt 1 coolantx
+old_type_lub : 0
+type_lub : 0
+plub_on
+    !coolant$	
+	coolantx = cantext$ - 50
+	if coolant$ = 0 | coolantx < 0 ,type_lub = 0
+	if coolant$ = 1 | (coolantx > 0 & coolantx <=2 ), type_lub = 1
+	if coolant$ = 2 | (coolantx >= 2 & coolantx <=3), type_lub = 2
+	if coolant$ = 3 | coolantx > 3 ,type_lub = 3
+	!old_type_lub
+	if old_type_lub <> type_lub, 
+    [
+		lub = 1
+		plub_off
+	]
+	if lub = 0 | (old_type_lub <> type_lub),
+	[
+		if type_lub = 1, "M8"
+		if type_lub = 2, "M51"
+		if type_lub = 3, "M8 M51"	
+	]
+	old_type_lub = type_lub
+    lub = 1
+plub_off
+    !coolant$
+    if lub = 1 & old_type_lub <> 0, "M9" ,e$
+	old_type_lub = 0
+#endregion
+pstart_header
+    type_machine = 1
+    if type_machine = 1,    [
+                            combinaison_axes = 1 #1=AC 2=BC 3=AB
+                            cinematique = 1 #1=tout porte sur table 2=au moins un axe sur la t
+                            gestion_rotation = 2#2=2 composantes 3=3 composantes
+                            use_plane_spacial = 0 #0=cycle19 1=cycle plane
+                            bldnxtool$ = 1 #0=pas d'outil suivant 1=preparation outil suivant
+                            mode_deg = 1 #1=Z 2=ZetY 3=ZetXY
+                            maxiab = 30.01
+                            miniab = -120.01
+                            maxic = 9999999999
+                            minic =  -9999999999
+                            Vect_porteur_x = 0
+                            Vect_porteur_y = 0
+                            Vect_porteur_z = 1
+                            sens_de_B = 1
+                            sens_de_C = 1
+                            use_fmax_plane = 1
+                            ]
+
+    if combinaison_axes = 1,    [
+                                result = nwadrs(slettrea, axeab_reel)
+                                result = nwadrs(slettrea, axeab_degage_butee)
+                                ]
+    if combinaison_axes = 2,    [
+                                result = nwadrs(slettreb, axeab_reel)
+                                result = nwadrs(slettreb, axeab_degage_butee)
+                                ]
+    if combinaison_axes = 3,    [
+                                result = nwadrs(slettrea, axec_reel)
+                                result = nwadrs(slettrea, axec_degage_butee)
+                                ]
+
+pend_header
+    #"%" ,e$
+    spaces$ = 0
+    n$, "(",sprogname$, ")", e$ 
+    n$, "(",smachine, ")", e$ 
+	" ", e$
+    spaces$ = 1
+    n$, "G0 G90 G80", e$
+    #"coucou fin debut", e$
+pstart_posf
+    #"debut du debut", e$
+pend_psof
+    #"fin du debut", e$
+pstart_ptlchg
+    #"je commence le changement d'outil", e$
+pstart_outil_ptlchg
+    n$, "(", *strtool$, ")", e$
+pend_outil_ptlchg
+pend_ptlchg
+    #"je fini mon changement d'outil", e$
+pstart_between_path_ptlchg0
+    #"je change de passe" e$
+pstart_between_op_ptlchg0
+    #"je change d'op sans changer d'outil", e$
+pend_ptlchg0
+    #"j'ai fini mon ptlchg0", e$
+pstart_peof
+    #"debut de la fin", e$
+pend_peof
+    if type_machine = 1,    [
+                            mode_deg = 1
+                            pdegage
+                            n$, splane_reset_stay, e$
+                            axeab_reel = 0
+                            axec_reel = 0
+                            n$, sg00, *axeab_reel, *axec_reel, e$
+                            ]
+    #"fin de la fin", e$
+pafter_end_peof
+    # apres le M30
+    #   "%" ,e$ #modif du 4-7-2019 le % etait deverouille
+pparameter$
+    #~prmcode$, "=", sparameter$, e$                # pour afficher tous les parametres
+    if prmcode$ = 10030, av_travail = rpar(sparameter$, 1)
+    if prmcode$ = 10031, av_plonge = rpar(sparameter$, 1)
+    if prmcode$ = 15140, av_retract = rpar(sparameter$, 1)
+    if prmcode$ = 15101, use_retract_plane = rpar(sparameter$, 1)
+    if prmcode$ = 15100, use_secu_plane = rpar(sparameter$, 1)
+    if prmcode$ = 15339, use_secu_start_end = rpar(sparameter$, 1)
+    if prmcode$ = 10024, feed_plane = rpar(sparameter$, 1)
+    if prmcode$ = 15374, retract_plane = rpar(sparameter$, 1)
+    if prmcode$ = 10020, secu_plane = rpar(sparameter$, 1)
+    if prmcode$ = 10027, garde_plane = rpar(sparameter$, 1)
+    if prmcode$ = 20004, paramT1  = rpar(sparameter$, 16)
+    if prmcode$ = 20007, paramT20 = rpar(sparameter$, 11)
+	if prmcode$ = 15166, NumOri =  rpar(sparameter$, 1)
+	if NumOri < 54, NumOri = 54
+pwrttparam$ # lire les parametres des outils
+    if prmcode$ = 20004, paramT1  = rpar(sparameter$, 16)
+    if prmcode$ = 20007, paramT20 = rpar(sparameter$, 11)
+	
+fbuf 1 0 80 1 1
+spath_dir : ""
+ssynced_buffer : ""
+return : 0
+buffer_1_size : 0
+rc1  : 0
+snom_tool : ""
+num_out : 0
+out_demande : 0
+sblanc : " "
+numpas : 0
+sdefoutil : ""
+soutil : ""
+fmt "T#" 4 ouTilAff 
+fmt "H#" 4 HAff
+fmt "D[#" 4 DAff "+50]"
+fmt "" 4 OutilNum
+fmt "" 4 var_outil
+varoutLus : 0
+var_outil : 600
+plis_tab
+    sbufname1$ = ssynced_buffer
+    buffer_1_size = rbuf(1, 0)
+    rc1 = 1
+    while rc1 <= buffer_1_size,
+    [
+        snom_tool = rbuf(1,rc1)
+        num_out = rpar(snom_tool,1)
+        if num_out = out_demande,
+        [
+            numpas = strstr(sblanc,snom_tool) +1 # on vois a partir d'ou il y a un blanc
+            if numpas > 0, sdefoutil = brksps(numpas,snom_tool) # on coupe a partir du blanc
+            soutil = sdefoutil
+            varoutLus = rpar(soutil,1)
+            rc1 = buffer_1_size + 1
+        ]
+    ]
+pcreer_buffer
+    spath_dir = spathnc$ + "Temp"
+    return = directory(1,spath_dir)
+    spathsub$ = spathnc$ + "Temp\"
+    snamesub$ = snamenc$ + "buffer"
+    sextsub$ = ".txt"
+    ssynced_buffer  = spathsub$ + snamesub$ + ".txt"
+	
+pwrtt$      # Lite des outil
+    strtool$ = ucase(strtool$)
+    if t$ > 0,
+    [
+		OutilNum = t$
+        var_outil = var_outil + 1
+        spaces$ =0
+        35,  *var_outil, "=", *OutilNum ," (", spaces$ = 0, strtool$, ")", spaces$ = 1, e$
+    	spaces$ = 1
+		
+		subout$ = 1,
+		*OutilNum ," ", *var_outil ,e$
+		subout$ = 0
+	]
+strtool_v7$ : 2
+fmt "T" 8 paramT1    # NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢
+fmt   10 paramT2      # Type d'outil
+fmt   10 paramT3      # Matiere de l'outil 1=Rapide 2=carbure 3=carbure revetu 4=cermet 5=borzon
+fmt   10 paramT4      # Type de rayon de bout 0=aucun 1=torique 2=spherique
+fmt "D=" 10 paramT5   # Diametre
+fmt "R=" 10 paramT6   # Rayon de bout
+fmt   10 paramT7      # Nombre de filet par mm
+fmt "A=" 10 paramT8   # Angle de bout
+fmt   10 paramT9      # NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢
+fmt   10 paramT10     # NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢
+fmt   10 paramT11     # Avance travail
+fmt   10 paramT12     # Avance plongee
+fmt   10 paramT13     # Avance retraction
+fmt   10 paramT14     # Vitesse de broche
+fmt   10 paramT15     # Type de lubrification 0=arret 1=eau 2=air 3=broche 4=les 2
+fmt   8 paramT16     # Nombre de dents
+fmt   10 paramT20     # DiamÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢
+fmt   "EP=" 10 paramT21     # Hauteur de coupe
+fmt   10 paramT22     # Hauteur de sortie totale
+fmt   10 paramT23     # Hauteur helice
+fmt   10 paramT24     # Diametre de queue
+fmt   10 paramT25     # Diametre porte-outil
+fmt   10 paramT26     # Hauteur porte-outil
+fmt   10 paramT27     # 0=sens horaire 1=sens horaire
+fmt   10 paramT28     # % de la vitesse de coupe
+fmt   10 paramT29     # % de l'avance par dent
+fmt   4 paramT30     # 0=pouces 1=metrique
+stypT00 : "OUTIL SPECIAL"
+stypT01 : "FORET A CENTRER"
+stypT02 : "FORET A NOYER"
+stypT03 : "FORET"
+stypT04 : "TARAUD A DROITE"
+stypT05 : "TARAUD A GAUCHE"
+stypT06 : "ALESOIR"
+stypT07 : "BARRE D'ALESAGE"
+stypT08 : "FRAISE A LAMER"
+stypT09 : ""
+stypT10 : "FRAISE 2 TAILLES"
+stypT11 : "FRAISE BOULE"
+stypT12 : "FRAISE A CHANFREINER"
+stypT13 : "TOURTEAU"
+stypT14 : "FRAISE 3 TAILLES"
+stypT15 : "FRAISE A RAYON"
+stypT16 : "FRAISE QUEUE D'ARONDE"
+stypT17 : "FRAISE CONIQUE"
+stypT18 : "FRAISE SPHERIQUE"
+stypT19 : "FRAISE TORIQUE"
+stypeT : ""
+fstrsel stypT00 paramT2 stypeT 20 -1
+smatT1  : "ACIER RAPIDE"
+smatT2  : "CARBURE"
+smatT3  : "CARBURE REVETU"
+smatT4  : "CERMET"
+smatT5  : "BORZON"
+smatT6  : "BORZON"
+smatT7  : "BORZON"
+smatT8  : "BORZON"
+smatT9  : "BORZON"
+smatT10 : "INCONNU"
+smatT : ""
+fstrsel smatT1 paramT3 smatT 10 -1
+
+ptypeBoutT # afficher on non le rayon de bout
+    if paramT4 <> 0, paramT6
+pangleT    # afficher on non l'angle de l'outil
+    if paramT2 = 3 | paramT2 = 12 | paramT2 = 17, paramT8
+phauteurT  # afficher la hauteur de dent pour une fraise 3 tailles
+    if paramT2 = 14, paramT21
+pcomment$
+    scomm$ = ucase(scomm$)
+    if gcode$ = 1005, n$, "(", scomm$,")", e$
+    if gcode$ = 1006, n$, scomm$,e$
+    if gcode$ = 1007, n$, "(", scomm$,")", e$
+    if gcode$ = 1008, n$, "(", scomm$,")", e$
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MILL|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>MI1: POLARITE AXE SECONDAIRE 0= + 1= -</text>
+				<value>1</value>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>Deplacement angulaire Max en degrees</text>
+				<inch_value>1.</inch_value>
+				<metric_value>1.</metric_value>
+			</misc_1>
+			<misc_2>
+				<text>Utiliser le G93 en  5 axes 1=oui/0=non</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>MR8: UTILISEZ LE CYCLE DE LISSAGE 0=NON 1=OUI</text>
+				<inch_value>1.</inch_value>
+				<metric_value>1.</metric_value>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>POINTAGE/PERCAGE/LAMAGE</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>DEBOURAGE</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Remontee</text>
+			</retract_amount>
+			<shift>
+				<text>Prof de passe mini</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>CYCLE BRISE COPEAUX</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>CYCLE TARAUDAGE</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>CYCLE ALESAGE A L'ALESOIR</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>CYCLE ALESAGE A LA BARRE</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<clearance>
+				<text>Plan de securite</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Orientation</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>Degagement</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Pereage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage alesoir</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage bare</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Taraudage brise-cop</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>""</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>""</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>""</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>""</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>""</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>""</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>""</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>""</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>""</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>""</text>
+			</canned_text_10>
+		</canned_text>
+		<tool_parameters>
+			<head_number>
+				<text>""</text>
+			</head_number>
+			<length_offset>
+				<text>""</text>
+			</length_offset>
+			<diameter_offset>
+				<text>""</text>
+			</diameter_offset>
+			<canned_text>
+				<text>""</text>
+			</canned_text>
+		</tool_parameters>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
