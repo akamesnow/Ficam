@@ -1,0 +1,2452 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V25.00 P3 E1 W25.00 T1676882530 M25.00 I0 O0
+# Post Name           : 440cc-240cc
+# Product             : FIL V9
+# Machine Name        : ROBOFIL 440CC et 240CC
+# Control Name        : CHARMILLES avec armoire FANUC CC
+# Description         : CHARMILLES avec armoire FANUC CC
+# Associated Post     :
+# Mill/Turn           : NO
+# 4-axis/Axis subs.   : YES
+# 5-axis              : NO
+# Executable          : MPWIRE v9.0
+#
+# POST PRO SPECIAL POUR CETTE ARMOIRE
+# STE PPRECICAL
+#    MODIFIE PAR VM LE 22/11/2002
+#       Version 1.0
+#
+# --------------------------------------------------------------------------
+# Revision log:
+# --------------------------------------------------------------------------
+# Programmers Note:
+# CNC 01/12/01  - Initial post setup V8.1, jce
+# CNC 06/01/01  - Added 'subsflag <> zero' to conditional statement in
+#                 postblock 'pcom_movea' for correct transition from a
+#                 NoCore operation to a Contour operation., rjm
+# CNC 01/08/02  - Initial post update for V9.0, rjm
+# CNC 02/27/02  - Add plin_end, pcir_end to reset brk_cc_pos to -1
+#                 for logic in pcntr, jph
+# CNC 03/01/02  - Altered logic on end of contour (cend) flag checks, rjm
+#                 Added 'rapid_off' option switch (yes/no) ->
+#                  Force linear lead-off move to be 'G0' rapid motions
+#                 Added 'flast_UV' option switch (yes/no)  ->
+#                  Force both U & V to output on final position on 4-axis paths
+#
+# --------------------------------------------------------------------------
+# Features:
+# --------------------------------------------------------------------------
+# This post supports Generic Fanuc code output for wire edm.
+# It is designed to support features of Mastercam Wire V7.
+#
+# Following Misc. Integers are used:
+#
+# mi1 - Work coordinate system
+#        0 and 1 = G92 output.
+#        2 = WCS of G54, G55.... based on Mastercam settings (use STCW).
+#
+# mi2 - Main program absolute or incremental positioning
+#        0 = absolute
+#        1 = incremental
+#
+# mi3 - Sub program absolute or incremental positioning
+#        0 = absolute
+#        1 = incremental
+#
+# mi4 - Substitute G62/G63 for G61 conical corner
+#        0 = G61 (min)
+#        1 = G62 (mean)
+#        2 = G63 (max)
+#
+# mi10 - Convert 2D wirepath to 4 axis
+#        0 = off
+#        1 = 4 axis direct
+#        2 = 4 axis taper
+#
+#Additional Notes:
+# 1)Metric is applied from the first NCI met_tool variable.  This is set
+#   from the configuration file selected in Screen/Configure.
+# 2)Subprograms only write the first wirepath, only the misc. functions
+#   in that path are written.
+# 3)If 'g60_mod_on' is active and legal line-arc-line motion is found,
+#   the arc conic is applied for the replaced arc move (reverts to line-line
+#   intersection).  An immediate taper or a gradual taper to or from the end
+#   of the converted arc with 'g60_mode' is not allowed.  A warning is
+#   generated.
+# 4)Arc conics (other than conical) not converted with 'g60_mode' do not
+#   have the conic applied.  The default of the machine is applied.
+# 5)Wirepaths that generate the warning-
+#   "THE WIREPATH DOES NOT REFLECT THE BACKPLOT, ENABLE 2D CONVERSION"
+#   should be converted to 4 axis by editing and setting mi10 in the NCI.
+# 6)Do not use work shifts in Mastercam with G92 output in post.
+#
+# --------------------------------------------------------------------------
+# Debugging and program switches
+# --------------------------------------------------------------------------
+m_one       :  -1   #Define constant
+zero        : 0     #Define constant
+one         : 1     #Define constant
+two         : 2     #Define constant
+three       : 3     #Define constant
+four        : 4     #Define constant
+five        : 5     #Define constant
+c9k         : 9999  #Define constant
+
+fastmode$    : 1     #Enable Quick Post Processing, (set to no for debug)
+bug1$        : 1     #0=No display, 1=Generic list box, 2=Editor
+bug2$        : 40     #Append postline labels, non-zero is column position?
+#CNC<<ECHEC>>bug3$        : 0     #Append whatline no. to each NC line?
+#CNC<<MSG-ERREUR(97)>> La variable, bloc PP ou mot clef n'est plus supporté
+bug4$        : 0     #Append NCI line no. to each NC line?
+whatno$      : yes$   #Do not perform whatline branches? (leave as yes)
+linktolvar$    : 1     #Associer les variables de tolérance X aux variables V9-
+linkplnvar$    : 1     #Associer les variables spécifiques plan X aux variables V9-?
+linklvar$      : 1     #Associer les variables spécifiques X Tournage aux variables V9-
+
+get_1004$    : 0     #Find gcode 1004 with getnextop?
+rpd_typ_v7$  : 0     #Use Version 7 style contour flags?
+strtool_v7$  : 2     #Use Version 7 toolname, 1= path components, 2=string
+tlchng_aft$  : 2     #Delay call to toolchange until move line, 2 calls null
+cant_tlchng$ : 1     #Ignore cantext entry on move with tlchng_aft
+newglobal$   : 1     #Error checking for global variables
+getnextop$   : 1     #Build the next variable table
+
+met_tool$ : 1
+
+# --------------------------------------------------------------------------
+# General Output Settings
+# --------------------------------------------------------------------------
+#Mi2 and mi3 control the XY output for absolute or incremental
+#Altering the arcoutput may produce a conflict with g60_mode (R address)
+sextnc$ : "ISO"
+arcoutput$   : 0     #IJ arc, 0 = IJK, 1 = R no sign, 2 = R signed neg. over 180
+arctype$     : 2     #IJ arc, 1=abs, 2=St-Ctr, 3=Ctr-St, 4=unsigned inc.
+do_full_arc$ : 0     #Allow full circle output? 0=no, 1=yes
+uvtyp_lin   : 2     #UV - linear XY move,
+                    #0=Signed incremental, u-prv_u calculation
+                    #1=Signed incr. delta, (u-x)-(prv_u-prv_x) calculation
+                    #2=Signed delta, u-x calculation
+                    #3=Absolute, u calculation
+uvtyp_arc   : 2     #UV - arc XY move,
+                    #0=Signed incremental, u-prv_u calculation
+                    #1=Signed incr. delta, (u-x)-(prv_u-prv_x) calculation
+                    #2=Signed delta, u-x calculation
+                    #3=Absolute, u calculation
+kltyp_lin   : 3     #KL - linear XY move,
+                    #0=Signed start-center inc., wxc-prv_u calculation
+                    #1=Signed center-start inc., prv_u-wxc calculation
+                    #2=Unsigned incremental, abs(wxc-prv_u) calculation
+                    #3=Signed XY-center inc., wxc-x calculation
+                    #4=Absolute, wxc calculation
+kltyp_arc   : 3     #KL - arc XY move,
+                    #0=Signed start-center inc., wxc-prv_u calculation
+                    #1=Signed center-start inc., prv_u-wxc calculation
+                    #2=Unsigned incremental, abs(wxc-prv_u) calculation
+                    #3=Signed IJ-center inc., wxc-i calculation
+                    #4=Absolute, wxc calculation
+g92_in_sub  : 1     #G92/G54 is written to start of sub if not incremental
+g92_frc_sb  : 1     #G92/G54 is written in each sub if g92_in_sub
+                    #G54 is written at each new wirepath
+g60_mod_on  : 1     #Activate G60_mode if wire taper is detected
+set_plot    : 1     #Never set to zero (0)
+                    #1 = Draw to screen 2d backplot on conversion
+                    #2 = Draw and keep as geometry 2d backplot
+                    #3 = Do not draw to screen
+
+man_wire    : 0     #Machine is manual wire feed?
+nosubs      : 0     #Do not support sub programs?
+feed_out    : 0     #Output the feedrate with motion?
+rapid_off   : yes$   #Force lead-off moves to be 'G0' rapid motions (yes/no)
+flast_UV    : no$    #Force output of BOTH 'U' & 'V' on final position (yes/no)
+
+sweep$       : 179   #Max. angle for G60_mode conversion, set during post read
+atol$        : 1     #Min. angle for G60_mode conversion
+ltol$        : 0.001   #Length tolerance for arccheck
+mtol$        : 0.000005#System motion tolerance
+vtol$        : 0.00005 #System tolerance
+arccheck$    : 1     #Check for small arcs, convert to linear
+breakarcs$   : 0     #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+omitseq$     : 0     #Omit sequence no.
+progname$    : 1     #Use uppercase for program name
+seqmax$      : 9999  #Max. sequence no.
+spaces$      : 1     #No. of spaces to add between fields
+subprg$      : 1     #Open subprogram file?
+
+#Position control variables
+scalex$      : 0     #Scale factor for X, zero is off for scale
+scaley$      : 0     #Scale factor for Y
+scalez$      : 0     #Scale factor for Z
+
+#Variables required to build wire radius and taper lists, reference
+bldnxtool$   : 0     #Builds table of taper and radius
+listrad$     : 0     #Enable radius list output, see pradlist
+listtpr$     : 0     #Enable taper list output, see ptprlist
+
+#MP variables used to set up the post, normally not changed
+cc_1013$     : 0     #Read cutter compensation at the toolchange
+g60_mode$    : 0     #G60 radius conversion, controlled by g60_mod_on above
+immediate$   : 1     #Immediate flag for immediate tapers, always on
+use_2d_uv$   : 1     #The 2D conversion routine to 4 axis, always on
+plot_2d_uv$  : 1     #Post generated backplot of converted 2D path, always on
+tooltable$   : 3     #Read for tool table and pwrtt
+qrtyp$       : 2     #System 4 axis, 0=Delta to XY, 1=0 and wq,wr, 2=abs.
+
+# --------------------------------------------------------------------------
+# Common User-defined Variable Initializations (not switches!)
+# --------------------------------------------------------------------------
+#Common variables and strings
+bld         : 0     #Block delete active
+result      : 0     #Return value for functions
+absinc$      : 0     #Abs/Inc mode flag
+wtgcode     : 1     #Wire taper gcode selector from wt
+max_atol$    : sweep$ #Saved value for tanflag
+sof         : 1     #Indicate that the sof code is needed
+postlchng   : 1     #Indicate that the machine needs to position in toolchange
+wtmax       : 0     #largest 2d wire taper from NCI
+
+#Saved variables
+sav_n       : 0     #Sequence number saved from main
+sav_x       : 0     #Absolute saved value for X
+sav_y       : 0     #Absolute saved value for Y
+sav_z       : 0     #Absolute saved value for Z
+sav_u       : 0     #Absolute saved value for U
+sav_v       : 0     #Absolute saved value for V
+sav_w       : 0     #Absolute saved value for W
+sav_g92x_m  : 0     #Saved X origin output, main
+sav_g92y_m  : 0     #Saved Y origin output, main
+sav_g92z_m  : 0     #Saved Z origin output, main
+sav_wt      : 0     #Saved and signed value for last taper
+sav_linarc  : 0     #Saved linarc
+sav_bld     : 0     #Saved block delete flag
+
+#Motion control flags
+cuttype     : 0     #Cut type flag, 0=2D, 1=direct, 2=taper
+leadintype  : 0     #Lead type flag, 0=None, 1=move
+strtflag    : 0     #Start pos. flag, 0 = thrd/strt eq., 1 = not equal
+thdcutflag  : 0     #Thread/cut flag, 0 = thrd/cut eq., 1 = not equal
+cntrflag    : 0     #Contour flag, 0 = before, 1 = contour, 2 = after
+                    #3 = single move case.
+tanflag     : 0     #Tangent elements
+l_lflag     : 0     #Define type elements, 0=fail, 1=ll, 2=la, 3=al, 4=aa
+wc_outflag  : 0     #Wire conic output
+                    #0=no corner output, arcs are conic by default
+                    #1=G60 constant corner
+                    #2=G61 conic corner
+                    #3=RK for independent upper radius
+                    #4=R-0 for fish tail
+                    #5=output of the explicit UV position
+wt_outflag  : 0     #Wire taper output
+                    #-1=g60_mode apply g60_last_wt to current move
+                    #0=no taper output
+                    #1=wt with current move
+                    #2=1 then wt_immd after current move
+                    #3=2 but update for wt_immd after move
+                    #4=wt after current move (forced)
+subsflag    : 0     #Sub program flag, 0 = off, 1 = before, 2 = start,
+                    #3 = contour, 4 = end, 5 = after, 6 = single line case.
+                    #neg. defines a subprogram call
+
+#Variables used in the incremental calculation
+xia         : 0     #Formated absolute value for X
+yia         : 0     #Formated absolute value for Y
+zia         : 0     #Formated absolute value for Z
+uia         : 0     #Formated absolute value for U
+via         : 0     #Formated absolute value for V
+wia         : 0     #Formated absolute value for W
+
+# --------------------------------------------------------------------------
+# Format statements - n=nonmodal, l=leading, t=trailing, i=inc, d=delta
+# --------------------------------------------------------------------------
+#Format statements
+fs2 1   0.7 0.3     #Decimal, absolute, 7 place, default for initialize (:)
+fs2 2   0.5 0.3     #Decimal, absolute, 4/3 place
+fs2 3   0.5 0.3d    #Decimal, delta, 4/3 place
+#Common format statements
+fs2 4   1 0 1 0     #Integer, not leading
+fs2 5   2 0 2 0l    #Integer, force two leading
+fs2 6   3 0 3 0l    #Integer, force three leading
+fs2 7   4 0 4 0l    #Integer, force four leading
+fs2 9   0.1 0.1     #Decimal, absolute, 1 place
+fs2 10  0.2 0.2     #Decimal, absolute, 2 place
+fs2 11  0.3 0.3     #Decimal, absolute, 3 place
+fs2 12  0.4 0.4     #Decimal, absolute, 4 place
+fs2 13  0.5 0.5     #Decimal, absolute, 5 place
+fs2 14  0.3 0.3d    #Decimal, delta, 3 place
+fs2 15  0.2 0.1     #Decimal, absolute, 2/1 place
+fs2 16  1 0 1 0n    #Integer, forced output
+
+fs 17   1.3l
+
+
+
+fmt  "H" 17 hateur_piece     # Epaisseur de coupe
+fmt  "H" 17 ahateur_piece    # memo
+# --------------------------------------------------------------------------
+# STRINGS
+# --------------------------------------------------------------------------
+serror1  : "THE WIREPATH DOES NOT REFLECT THE BACKPLOT, ENABLE 2D CONVERSION"
+
+strm        : "M"
+strn        : "N"
+stro        : "O"
+strp        : "P"
+srad        : "R"
+srminus     : "R-"
+sblank : ""
+
+#Cantext string definitions (spaces must be padded here)
+sm00        : "M00"
+sm01        : "M01"
+strtextno : ""
+strcantext : ""
+
+# --------------------------------------------------------------------------
+#Motion G code selection, post uses g20code for output of string
+sg00    : "G0"       #Rapid
+sg01    : "G1"       #Linear feed
+sg02    : "G2"       #Circular interpolation CW
+sg03    : "G3"       #Circular interpolation CCW
+sg04    : "G4"       #Dwell
+sg20code : ""        #Target for string
+sg30code : ""        #Target for string
+
+fstrsel sg00 g20code$ sg20code 5 -1
+fstrsel sg00 g30code$ sg30code 6 -1
+# --------------------------------------------------------------------------
+#Select english/metric code
+sg20    : "G20"      #Inch code
+sg21    : "G21"      #Metric code
+smetric : ""         #Target string
+
+fstrsel sg20 met_tool$ smetric 2 -1
+# --------------------------------------------------------------------------
+#Select reference return code
+sg28    : "G28"      #First reference point return
+sg30    : "G30"      #Second reference point return
+sg28ref : ""         #Target string
+
+fstrsel sg28 mi3$ sg28ref 2 -1
+# --------------------------------------------------------------------------
+#Cutter compensation G code selection
+scc0    : "G40"      #Cancel cutter compensation
+scc1    : "G41"      #Cutter compensation left
+scc2    : "G42"      #Cutter compensation right
+sccomp : ""          #Target for string
+
+fstrsel scc0 cc_pos$ sccomp 3 -1
+# --------------------------------------------------------------------------
+#Wire taper direction selector
+sg50t   : "G51"       #Taper < 0
+sg51t   : "G50"       #Taper = 0
+sg52t   : "G52"       #Taper > 0
+swtcode : ""          #Target string
+
+fstrsel sg50t wtgcode swtcode 3 -1
+# --------------------------------------------------------------------------
+#Wire corner type selector
+#These selectors are from Mastercam
+#WC=0, Conical corner type
+#WC=1, Sharp corner type
+#WC=2, Constant corner type
+#WC=3, Other corner type
+#WC=4, Fixed corner type
+#WC=5, Fish Tail corner type
+#These corner types can be output by post but are not reflected in backplot
+sg61    : "G61"       #Conical corner type, min
+sg62    : "G62"       #Conical corner type, mean
+sg63    : "G63"       #Conical corner type, max
+
+#These selectors are post specific
+sct0 : ""             #Default corner type
+sct1    : "G60"       #Constant corner type
+sct2    : "G61"       #Conical corner type, min
+sct3 : ""             #RK independent corner type
+sct4 : ""             #Fish tail corner type
+sct5 : ""             #UV corner type
+sctype : ""           #Target string
+
+fstrsel sct0 wc_outflag sctype 6 -1
+# --------------------------------------------------------------------------
+#Select incremental or absolute G code
+sg90    : "G90"      #Absolute code
+sg91    : "G91"      #Incremental code
+sgabsinc : ""        #Target string
+
+fstrsel sg90 absinc$ sgabsinc 2 -1
+# --------------------------------------------------------------------------
+#Tank M code selection
+sm34    : "M34"      #Tank fill
+sm35    : "M35"      #Tank empty
+stank : ""           #Target for string
+
+fstrsel sm34 tank$ stank 2 -1
+tank$ = 0    # modif VM pour ne pas gerer le reservoir
+# --------------------------------------------------------------------------
+#Power M code selection
+sm41    : "M41"      #Power off
+sm81    : "M81"      #Power on
+spower : ""          #Target for string
+
+fstrsel sm41 power$ spower 2 -1
+# --------------------------------------------------------------------------
+#Wire M code selection
+sm42    : "M42"      #Wire off
+sm82    : "M82"      #Wire on
+swire : ""           #Target for string
+
+fstrsel sm42 wire$ swire 2 -1
+# --------------------------------------------------------------------------
+#Water M code selection
+sm43    : "M43"      #Water off
+sm83    : "M83"      #Water on
+swater : ""          #Target for string
+
+fstrsel sm43 water$ swater 2 -1
+# --------------------------------------------------------------------------
+#Automatic thread/cut M code selection
+sm50z : ""              #Dummy for zero
+sm60    : "M60"      #Thread wire
+sm50    : "M50"      #Cut wire
+sautowire : ""       #Target for string
+
+fstrsel sm50z thrd_cut$ sautowire 3 -1
+# --------------------------------------------------------------------------
+fmt  "O"  7   progno$      #Program number
+fmt  "O"  7   subprogno   #Subroutine no. head of file
+fmt  "P" 7  subno$       #Subroutine call no.
+fmt  "G" 4  g_wcs       #WCS G address
+fmt  "P" 4  p_wcs       #WCS P address
+fmt  "S" 4  ccode$       #Condition code
+fmt  "D" 4  offset$      #Wire diameter offset
+fmt     2   tlrad$       #Wire radius, mult. by 2 for diameter
+fmt  "H" 4  tofs$        #Wire index to taper list
+fmt     2   wt$          #Wire taper
+# --------------------------------------------------------------------------
+#The variables for absolute output are xabs, yabs, zabs, uabs, vabs, wabs.
+#The variables for incremental output are xinc, yinc, zinc, uinc, vinc, winc.
+fmt  "N" 4  n$           #Sequence number
+fmt  "X" 2  xabs        #X position output
+fmt  "Y" 2  yabs        #Y position output
+fmt  "Z" 2  zabs        #Z position output
+fmt  "X" 3  xinc        #X position output
+fmt  "Y" 3  yinc        #Y position output
+fmt  "Z" 3  zinc        #Z position output
+fmt  "U" 2  uabs        #U position output
+fmt  "V" 2  vabs        #V position output
+fmt  "W" 2  wabs        #W position output
+fmt  "U" 3  uinc        #U position output
+fmt  "V" 3  vinc        #V position output
+fmt  "W" 3  winc        #W position output
+fmt  "U" 2  uout        #U position output
+fmt  "V" 2  vout        #V position output
+fmt  "W" 2  wout        #W position output
+fmt  "I" 3  iout        #Arc center description in X
+fmt  "J" 3  jout        #Arc center description in Y
+fmt  "K" 3  kout        #Arc center description in U
+fmt  "L" 3  lout        #Arc center description in V
+fmt     3   mout        #Arc center description in W, needed for vec math
+fmt  "R" 2  arcrad$      #Arc radius
+fmt  "R" 2  xy_rad      #Wire radius XY plane
+fmt  "K" 2  uv_rad      #Wire radius UV plane
+fmt  "T" 2  wtout       #Wire angle
+fmt  "X" 2  g92x_m      #X origin output, main
+fmt  "Y" 2  g92y_m      #Y origin output, main
+fmt  "Z" 2  g92z_m      #Z origin output, main
+fmt  "J" 2  xyheight$    #Base height
+fmt  "I" 2  uvheight$    #Part height
+
+fmt  "I" 2  new_uvheight# Modif VM pour i en relatif par rapport a J et calculé par rapport a trimplane
+fmt  "J" 2  new_xyheight# Modif VM pour i en relatif par rapport a J et calculé par rapport a trimplane
+
+fmt  "I" 2  old_new_uvheight# Modif VM pour i en relatif par rapport a J et calculé par rapport a trimplane
+fmt  "J" 2  old_new_xyheight# Modif VM pour i en relatif par rapport a J et calculé par rapport a trimplane
+
+fmt  "F" 15 fr$          #Feedrate
+fmt  "P" 11 dwell$       #Dwell
+fmt  "M" 5  cantext$     #Canned text
+
+
+fmt  "X" 1 xr$       # premier point en rapide VM
+fmt  "Y" 1 yr$       # premier point en rapide VM
+fmt     1 chghpa
+fmt     1 debut
+debut : 0
+
+phauteur
+
+          hateur_piece = abs(trimplane1$ - trimplane2$)
+              if hateur_piece = 0, hateur_piece = uvheight$ - xyheight$    # calcul pour bug en poche
+
+
+paffichehauteur
+
+
+    if debut = 1 & (hateur_piece <> ahateur_piece), pquestion_chghpa
+
+
+            n$, hateur_piece, e$
+              ahateur_piece = hateur_piece
+
+#---------------------------------------------------------------------------
+#   Question 1
+#
+stechfil : "XS25"
+fq 1 stechfil "TABLE FIL ?"
+
+#---------------------------------------------------------------------------
+#   Question 2
+#
+stechno : "TECHNO"
+fq 2 stechno "TABLE DE TECHNOLOGIE pour hauteur //hateur_piece// ?"
+
+
+#---------------------------------------------------------------------------
+#   Question 3
+#
+
+fq 3 progno$ "Numéro du programme ?"
+
+
+
+
+
+pquestion   # question pour les technos
+
+
+    q1
+    q2
+    stechfil = ucase (stechfil)
+    stechno = ucase (stechno)
+
+    spaces$ = 0
+
+    n$, " G11(WIR,", stechfil, ")", e$
+    n$, " G11(TEC,", stechno, ")", e$
+
+    spaces$ = 1
+
+pquestion_chghpa
+
+    q2
+    stechno = ucase (stechno)
+
+    spaces$ = 0
+    n$, " G11(TEC,", stechno, ")", e$
+    spaces$ = 1
+
+
+# --------------------------------------------------------------------------
+# Tool Comment / Manual Entry Section
+# --------------------------------------------------------------------------
+pradlist$        #List of wire radii, only offset and tlrad are read
+      *offset$, " = ", *tlrad$, e$
+
+ptprlist$        #List of taper angles, only tofs (index) and wt are read
+                #List is checked in linear/circular (0,1,2,3) and "tofs" set
+      *tofs$, " = ", *wt$, e$
+
+pcomment$        #Comment from manual entry (must call pcomment2 if booleans)
+      pcomment2
+
+pcomment2       #Comment from manual entry
+      scomm$ = ucase (scomm$)
+      if gcode$ = 1007 | gcode$  = 1008, n$, "(", scomm$, ")"
+
+      else, "(", scomm$, ")", e$
+
+# --------------------------------------------------------------------------
+# Start of File and Toolchange Setup
+# --------------------------------------------------------------------------
+pprep$           #Pre NCI read postblock
+      chord_tol$ = 0.00005 #System tolerance for 2D conversion
+      if scalex$ | scaley$ | scalez$, fastmode$ = zero
+      omitcrlf$ = 0  #End NC block with CR/LF, 0=CR/LF, 1=use eob
+      eob$ = 0       #Assign first eob character
+      prv_eob$ = 0   #Assign second eob character
+
+pq$              #Setup post based on switch settings
+      if arctype$ = one | arctype$ = four,
+        [
+        result = newfs(two, iout)
+        result = newfs(two, jout)
+        ]
+      else,
+        [
+        result = newfs(three, iout)
+        result = newfs(three, jout)
+        ]
+
+pheader$         #Call before start of file
+      if met_tool$ = one, #Metric constants and variable adjustments
+        [
+        ltol$ = 0.025
+        mtol$ = 0.00005
+        vtol$ = 0.00125
+        chord_tol$ = 0.00125
+        ]
+
+psof0$           #Start of file for tool zero
+      psof$
+
+psof$            #Start of file for non-zero tool number
+      pcuttype
+      g20code$ = zero
+      cc_pos$ = zero
+      prv_xia = vequ(startx$)
+      prv_uia = vequ(startx$)
+
+       "%", e$
+    if progno$ = 0,q3
+
+    smcname$ = ucase (smcname$)
+      *progno$,"(",smcname$,")", e$
+
+      comment$
+      pbld, n$, sg20code, smetric, *sgabsinc, [if feed_out, "G94"], e$
+    phauteur
+    pquestion
+
+    paffichehauteur
+    chghpa = no$
+
+    n$, "G949", *xr$, *yr$, e$  # VM
+        n$, "M31",e$
+        n$, "G10 P16 R0",e$
+
+      if strtflag = one, ptlch_strt
+      else,
+        [
+        prv_g20code$ =  -1
+        prv_xabs = c9k
+        prv_yabs = c9k
+        ptlch_nstrt
+        ]
+
+      # if t = 1, n, "M37", phauteur, e
+      #  else, n, "M38", phauteur, e
+
+
+      pbld, n$, pconchg$, e$
+      motst$ = one
+      sof = zero
+    debut = 1
+
+ptlchg0$         #Call from NCI null tool change (tool number repeats)
+      ptlchg$
+
+ptlchg$          #Tool change
+      pcuttype
+      g20code$ = zero
+      comment$
+      #if there was no motion, stop gcode, else force motion
+      if (motst$ < one | motst$ > 7) & not(strtflag), !g20code$
+      else,
+        [
+        prv_g20code$ =  -1
+        prv_xabs = c9k
+        prv_yabs = c9k
+        ]
+
+    phauteur
+
+      if strtflag = 1, ptlch_strt
+      else, ptlch_nstrt
+
+
+    paffichehauteur
+
+      pbld, n$, pconchg$, e$
+
+
+
+     #  if t = 1, n, "M37", phauteur, e
+     #   else, n, "M38", phauteur, e
+
+
+ptlch_strt      #Tool change, use start position
+      pstart_pos
+      pcom_moveb
+      pcantxt
+      pcantxt1, pbld, n$, pwcs, pfxout, pfyout, pzout, pstrtij, strcantext, e$
+      pcom_movea
+      prstore_pos
+      ptlch_nstrt
+
+repos : no$      # Set = YES, if re-positioning to a new thread point #Added
+ptlch_nstrt     #Tool change, do not use start position
+      pcom_moveb
+
+      #Added
+      # if NOT the first position in program AND X and/or Y is moving...
+      if sof = zero & (xinc <> zero | yinc <> zero),
+        repos = yes$
+      else,
+        repos = no$
+
+    #Ajout VM
+    # si changement de hauteur, forcer le G92
+          ptestij
+
+
+
+# --------- ligne suinante mpdifiee par VM pfxout et pfyout a la place de pxout et pyout
+
+
+      pcantxt1, pbld, n$, pwcs, `sg20code, sgabsinc, pxout, pyout, pzout,
+        pstrtij, strcantext, e$
+
+    #"*****************",*repos, *chghpa, e
+
+      if repos = yes$ & chghpa = no$ & debut = 1,  #Added
+        [
+        sof = one # to trigger the 'G92' code output in call to PWCS
+        # FORCE outpit of X and Y (but do NOT call 'pstrtij' for I & J)
+        pcantxt1, pbld, n$, pwcs, `sg20code, sgabsinc, pfxout, pfyout, pzout,
+          strcantext, e$
+        sof = zero # reset state
+        ]
+
+      if repos = yes$ & chghpa = yes$ & debut = 1,  #Added
+        [
+        sof = one # to trigger the 'G92' code output in call to PWCS
+        # FORCE outpit of X and Y (but do NOT call 'pstrtij' for I & J)
+        pcantxt1, pbld, n$, pwcs, `sg20code, sgabsinc, pfxout, pfyout, pzout, pstrtij,
+          strcantext, e$
+        sof = zero # reset state
+        ]
+
+      if repos = no$ & chghpa = yes$ & debut = 1,  #Added
+        [
+        sof = one # to trigger the 'G92' code output in call to PWCS
+        # FORCE outpit of X and Y (but do NOT call 'pstrtij' for I & J)
+        pcantxt1, pbld, n$, pwcs, `sg20code, sgabsinc, pfxout, pfyout, pzout, pstrtij,
+          strcantext, e$
+        sof = zero # reset state
+        ]
+
+
+      postlchng = zero
+      pcantxt
+      pbld, n$, stank, e$
+      pcom_movea
+
+pmiscint$        #Check misc. integer setting to set flag
+      brk_cc_pos$ =  -1#Set to see if a move is being broken at start
+      linarc$ = zero
+      absinc$ = mi2$
+      if mi4$,
+        [
+        if mi4$ = one, sct2 = sg62
+        else, sct2 = sg63
+        ]
+      else, sct2 = sg61
+
+      if mi10$,
+        [
+        immediate$ = zero
+        plot_2d_uv$ = -set_plot
+        if mi10$ = two, linarc$ = one
+        ]
+      else,
+        [
+        immediate$ = one
+        plot_2d_uv$ = set_plot #screen drawn backplot, control setting
+        ]
+      sav_linarc = linarc$
+
+ptlchg1002$      #Call at actual toolchange, examine start position
+
+      pthdstrttype
+      cntrflag = zero
+      if nosubs = one | subtyp$ = zero, subsflag = zero
+      else,
+        [
+        subsflag = one
+        prv_cend$ = zero
+        prv_cstart$ = zero
+        ]
+      if g60_mod_on = one & wtmax, g60_mode$ = one
+      else, g60_mode$ = zero
+      sav_wt = inittaper$
+      postlchng = one
+
+ptoolend$        #End of tool path
+      pcntr
+      if nosubs = zero & subtyp$, psubs
+      if subsflag = four, pendsub
+      prv_wc_outflag =  -1
+
+peof0$           #End of file for tool zero
+      peof$
+
+peof$            #End of file for non-zero tool
+      ptoolend$
+      comment$
+            n$, "G10 P16 R0", e$
+      pbld, n$, "M30",e$
+
+      if nchsub$ > one,
+        [
+        " ", e$
+        " ", e$
+        mergesub$
+        clearsub$
+        ]
+
+      "%",e$
+
+pwcs            #Coordinate setting
+      if sof | mi1$ > one,
+        [
+        if mi1$ > one, pwcs_g54
+        else, "G92"
+        !g20code$
+        !absinc$
+        prv_g92x_m = vequ (xabs)
+        ]
+
+pwcs_g54        #G54 coordinate setting
+      if workofs$ < 6, g_wcs = workofs$ + 54
+      else, p_wcs = workofs$ - 5
+      if workofs$ < 6 & (prv_g_wcs <> g_wcs | g92_frc_sb = yes$), *g_wcs
+      if workofs$ > 5 & (prv_p_wcs <> p_wcs | g92_frc_sb = yes$), "G54.1", *p_wcs
+      !workofs$, !g_wcs, !p_wcs
+
+
+pstrtij         #Base/height setting for Fanuc
+
+
+
+
+      if sof & chghpa = no$, new_uvheight, new_xyheight
+      if sof & chghpa = yes$, *new_uvheight, *new_xyheight
+
+
+    old_new_uvheight = new_uvheight
+    old_new_xyheight = new_xyheight
+
+ptestij
+
+
+    #"---------------------test", *wtrim, e
+
+    @trimplane1$
+    @trimplane2$
+    @uvheight$
+    @xyheight$
+    @wtrim$
+
+
+
+
+    new_uvheight = trimplane1$ - trimplane2$
+    new_xyheight = trimplane2$
+
+    if abs(trimplane1$ - trimplane2$) = 0 | wtrim$ = 0, [
+        new_xyheight = xyheight$
+        new_uvheight = uvheight$ - xyheight$
+            ]
+
+    if new_xyheight <> old_new_xyheight | new_uvheight <> old_new_uvheight,
+              chghpa = yes$
+              else, chghpa = no$
+
+
+
+
+
+# --------------------------------------------------------------------------
+# Motion NC output
+# --------------------------------------------------------------------------
+prapidout       #Output to NC of linear movement - 2D rapid
+      pcantxt1, pbld, n$, sgabsinc, pccomp, sg20code, pwtcode,
+        pxout, pyout, pzout, pwtout, strcantext, e$
+      pwtoutaft
+
+plinout         #Output to NC of linear movement - 2D feed
+      pcantxt1, pbld, n$, sgabsinc, pccomp, sg20code, pwtcode,
+        pxout, pyout, pzout, pctype, pwtout, pfrout, strcantext, e$
+      pwtoutaft
+
+pcirout         #Output to NC of circular interpolation - 2D
+      pcantxt1, pbld, n$, sgabsinc, pccomp, sg20code, pwtcode,
+        pxout, pyout, pzout, parc, pctype, pwtout, pfrout, strcantext, e$
+      pwtoutaft
+
+pnc_out_4       #Build 4 axis motion blocks
+      if (g20code$ = two & g30code$ = 3)
+      | (g20code$ = three & g30code$ = two), result = mprint (serror1)
+      if xinc | yinc | uinc | vinc,
+        [
+        pbld, n$, sgabsinc, pccomp
+        if g20code$ < two & (xinc | yinc), plinxy4
+        if g20code$ > one & (xinc | yinc), pcirxy4
+        if g30code$ > one & (uinc | vinc), pciruv4
+        else, plinuv4
+        if not(xinc) & not(yinc), prv_g20code$ = g30code$
+        else, prv_g30code$ = g20code$
+        ]
+
+plinxy4         #Linear XY component - 4 axis direct and taper
+      # if RAPID_OFF = YES, Force linear lead-off moves to be 'G0' motions
+
+      #if (rapid_off = yes & prv_cend = three)          # modif Vm
+      # & (g20code < two & g30code < two), g20code = zero   # modif VM
+
+      sg20code, pxout, pyout, pzout
+      !g30code$
+
+pcirxy4         #Circular XY component - 4 axis direct
+      sg20code, pxout, pyout, pzout, parc
+      !g30code$
+
+plinuv4         #Linear UV component - 4 axis direct and taper
+      pcantxt1, sg30code, puvout, pwout, pfrout, strcantext
+
+pciruv4         #Circular UV component - 4 axis direct
+      pcantxt1, sg30code, puvout, pwout, parckl, pfrout, strcantext
+
+pconchg$         #Control setting change
+      if gcode$ = 1010, pbld, n$, ccode$, offset$, e$
+      else, ccode$, offset$,e$
+
+pnc_out         #Calls to motion postblocks
+      if cuttype = zero, pnc_out_2
+      else, pnc_out_4
+
+pnc_out_2       #Calls to motion postblocks, 2D
+      if g20code$ = zero, prapidout
+      if g20code$ = one, plinout
+      if g20code$ > one & g20code$ < four, pcirout
+      !g20code$, !g30code$
+
+pdwl_spd$        #Call from NCI gcode 4
+      comment$
+      pcantxt
+      if fmtrnd(dwell$), pcantxt1, pbld, n$, *sg20code, *dwell$, strcantext, e$
+      pcantxt2
+
+prapid$          #Output to NC on subsflag
+      pcom_moveb
+      pcantxt
+      pstrtsub
+      pnc_out,e$
+      pendsub
+      pcom_movea
+
+pzrapid$         #Output to NC of linear movement - rapid Z only
+      prapid$
+
+plin$            #Output to NC of linear movement - feed
+
+
+        if cc$ = 140, wt$ = 0
+      prapid$
+
+pz$              #Output to NC of linear movement - feed Z only
+      prapid$
+
+pcir$            #Output to NC of circular interpolation
+      prapid$
+
+pedm$            #4 Axis Taper
+      pcntr     #Set control flags
+      if cntrflag = one, g20code$ = one
+      else,
+       [
+       if rapid_off = yes$,  # Force lead-off moves to be 'G0' rapid motions
+       g20code$ = zero
+       ]
+      g30code$ = g20code$
+      prapid$
+
+pdir_tapr$       #2D conversion routine postblock to switch direct to taper
+                #linarc controls switch
+      if (g20code$ = two & g30code$ = three)
+      | (g20code$ = three & g30code$ = two), linarc$ = one
+
+pcom_moveb      #Common motion preparation routines, before
+      pcntr
+      if nosubs = zero & subtyp$, psubs
+      if cuttype = zero & gcode$ < five, g20code$ = gcode$
+      pget_wt
+      xabs = vequ(x$)
+      if cuttype < two, u$ = vequ(wx$)
+      uabs = vequ(u$)
+      xia = fmtrnd(xabs)
+      yia = fmtrnd(yabs)
+      zia = fmtrnd(zabs)
+      xinc = vsub(xia, prv_xia)
+      uia = fmtrnd(uabs)
+      via = fmtrnd(vabs)
+      wia = fmtrnd(wabs)
+      uinc = vsub(uia, prv_uia)
+
+pcom_movea      #Common motion preparation routines, after
+      if (cend$ = two | cend$ = three) & nextop$ = 1011 & subsflag <> zero,
+        [
+        !cend$
+        psubs
+        pendsub
+        ]
+      pcantxt2
+      if mi2$ = zero & mi3$ = zero & nosubs = zero
+      & subtyp$ & subsflag = four
+      & (skimpass$ =  -2| thdcutflag = one),
+        [
+        if mi1$ <= one,
+          [
+          g92x_m = vequ (xabs)
+          n$, pbld, 'G92', g92x_m, g92y_m, e$
+          ]
+        !g92x_m, !g92y_m
+        ]
+      !xia, !yia, !zia, !uia, !via, !wia
+      !uabs, !vabs, !wabs, !uinc, !vinc, !winc
+      !gcode$, !x$, !y$, !z$, !u$, !v$, !w$, !wx$, !wy$, !wt$
+      !cstart$, !cend$, !g60_mode$
+      linarc$ = sav_linarc
+
+plin_end$        #End of linear
+      brk_cc_pos$ =  -1
+
+pcir_end$        #End of circular
+      brk_cc_pos$ =  -1
+
+# --------------------------------------------------------------------------
+# Motion output components
+# --------------------------------------------------------------------------
+pbld            #Canned text - block delete
+      if bld = one, '/'
+
+pfbld           #Force - block delete
+      "/"
+
+pccomp          #Cutter Compensation
+      sccomp
+
+pwtcode         #Wire taper gcode
+      swtcode
+
+pxout           #X output
+      if absinc$ = zero , xabs, !xinc
+      else, xinc, !xabs
+
+pfxout          #Force X axis output
+      if absinc$ = zero, *xabs, !xinc
+      else, *xinc, !xabs
+
+pyout           #Y output
+      if absinc$ = zero, yabs, !yinc
+      else, yinc, !yabs
+
+pfyout          #Force Y axis output
+      if absinc$ = zero, *yabs, !yinc
+      else, *yinc, !yabs
+
+pzout           #Z output
+
+     # if absinc = zero, zabs, !zinc
+     # else, zinc, !zabs
+
+pfzout          #Force Z axis output
+     # if absinc = zero, *zabs, !zinc
+     # else, *zinc, !zabs
+
+puvout          #UV output
+      if g20code$ < two,
+        [
+        if uvtyp_lin >= two, #make absolute formats highest
+          [
+          result = newfs(two, uout)
+          result = newfs(two, vout)
+          ]
+        else,
+          [
+          result = newfs(three, uout)
+          result = newfs(three, vout)
+          ]
+        if uvtyp_lin = zero, uout = vequ(uinc)
+        if uvtyp_lin = one,
+          [
+          uout = (uabs - xabs) - (prv_uabs - prv_xabs)
+          vout = (vabs - yabs) - (prv_vabs - prv_yabs)
+          ]
+        if uvtyp_lin = two, uout = vsub(uabs, xabs)
+        if uvtyp_lin = three, uout = vequ(uabs)
+        ]
+      else,
+        [
+        if uvtyp_arc >= two, #make absolute formats highest
+          [
+          result = newfs(two, uout)
+          result = newfs(two, vout)
+          ]
+        else,
+          [
+          result = newfs(three, uout)
+          result = newfs(three, vout)
+          ]
+        if uvtyp_arc = zero, uout = vequ(uinc)
+        if uvtyp_arc = one,
+          [
+          uout = (uabs - xabs) - (prv_uabs - prv_xabs)
+          vout = (vabs - yabs) - (prv_vabs - prv_yabs)
+          ]
+        if uvtyp_arc = two, uout = vsub(uabs, xabs)
+        if uvtyp_arc = three, uout = vequ(uabs)
+        ]
+      if (flast_UV & prv_cend$ = three),
+        *uout, *vout # Force both U & V to output on final position
+      else,
+        *uout, *vout   # Standard output based on FMT setting   * VM
+
+pwout           #W output
+      if absinc$ = zero, wabs, !winc
+      else, winc, !wabs
+
+pfwout          #Force W output
+      if absinc$ = zero, *wabs, !winc
+      else, *winc, !wabs
+
+parc            #Arc center output - IJ, arctype controls form
+      if arcoutput$ = zero,
+        [
+        iout = i$
+        jout = j$
+        iout, jout
+        ]
+      else,
+        [
+        if abs(sweep$) <= 180 | arcoutput$ = one,
+        result = nwadrs(srad, arcrad$)
+        else, result = nwadrs(srminus, arcrad$)
+        *arcrad$
+        ]
+
+parckl          #Arc center output - KL
+      if g20code$ < two,
+        [
+        if kltyp_lin >= three, #make absolute formats highest
+          [
+          result = newfs(two, kout)
+          result = newfs(two, lout)
+          ]
+        else,
+          [
+          result = newfs(three, kout)
+          result = newfs(three, lout)
+          ]
+        if kltyp_lin = zero, kout = vsub(wxc$, prv_uabs)
+        if kltyp_lin = one, kout = vsub(prv_uabs, wxc$)
+        if kltyp_lin = two,
+          [
+          kout = abs(wxc$ - prv_uabs)
+          lout = abs(wyc$ - prv_vabs)
+          ]
+        if kltyp_lin = three, kout = vsub(wxc$, xabs)
+        if kltyp_lin = four, kout = vequ(wxc$)
+        ]
+      else,
+        [
+        if kltyp_arc >= three, #make absolute formats highest
+          [
+          result = newfs(two, kout)
+          result = newfs(two, lout)
+          ]
+        else,
+          [
+          result = newfs(three, kout)
+          result = newfs(three, lout)
+          ]
+        if kltyp_lin = zero, kout = vsub(wxc$, prv_uabs)
+        if kltyp_lin = one, kout = vsub(prv_uabs, wxc$)
+        if kltyp_lin = two,
+          [
+          kout = abs(wxc$ - prv_uabs)
+          lout = abs(wyc$ - prv_vabs)
+          ]
+        if kltyp_lin = three, kout = vsub(wxc$, xc$)
+        if kltyp_lin = four, kout = vequ(wxc$)
+        ]
+      kout, lout
+      if kltyp_lin <> four,
+        [
+        prv_kout = zero
+        prv_lout = zero
+        ]
+
+pctype          #Intersection and implied corner conics
+      if wc_outflag = one, sctype, *xy_rad #G60R
+      if wc_outflag = two, sctype, *xy_rad #G61R
+      if wc_outflag = three, *xy_rad, *uv_rad #RK
+      if wc_outflag = four, #R-0
+        [
+        result = nwadrs(srminus, xy_rad)
+        *xy_rad
+        result = nwadrs(srad, xy_rad)
+        ]
+      if wc_outflag = five, puvout, pwout #UV
+
+pwtout          #Wire taper output with block
+      if listtpr$ & bldnxtool$, tofs$
+      else,
+        [
+        if wt_outflag =  -1,pget_wt_last
+        if wt_outflag & wt_outflag <> four, wtout
+        ]
+
+pfrout          #Wire feed output
+      if feed_out & fr$ > zero, fr$
+
+pwtoutaft       #Wire taper output after block
+      if wt_outflag >= two,
+        [
+        if wt_outflag = two, pget_wt_immd
+        if prv_wtgcode <> wtgcode | wt_outflag = four, prv_wtout = c9k
+        pbld, n$, swtcode, wtout, e$
+        ]
+      #this is always the last taper, saved for comparison
+      sav_wt = wt_immd$
+
+pget_wt         #Assign wt to wtout
+      if prv_cntrflag = two, wt$ = zero
+      wtgcode = fsg3(wt$)
+      wtout = abs(wt$)
+      sav_wt = wt$
+
+pget_wt_immd    #Assign wt_immd to wtout
+      if prv_cntrflag = two, pget_wt
+      wtgcode = fsg3(wt_immd$)
+      wtout = abs(wt_immd$)
+
+pget_wt_last    #Assign last_g60_wt to wtout
+      if prv_cntrflag = two, pget_wt
+      wtgcode = fsg3(last_g60_wt$)
+      wtout = abs(last_g60_wt$)
+
+# --------------------------------------------------------------------------
+# Canned cycle calls
+# pcan1 thru pcan8 and pcan1_2 thru pcan8_2 are available
+# only pcan1 and pcan1_2 are shown as examples
+# --------------------------------------------------------------------------
+pcan1$           #Canned cycle 1
+      pbld, n$, x$, y$, e$
+
+pcan1_2$         #Canned cycle 1, repeat position
+      pbld, n$, x$, y$, e$
+
+
+# --------------------------------------------------------------------------
+#Subprogram postblocks
+# --------------------------------------------------------------------------
+pstrtsub        #Start of subroutine
+      if subsflag = two | subsflag = 6,
+        [
+        if subtyp$ = one,
+          [
+          if absinc$ = zero,
+            [
+            g92x_m = vequ (prv_xabs)
+            sav_g92x_m = vequ (g92x_m)
+            ]
+          if (g92_in_sub = zero & mi1$ <= one) & absinc$ = zero,
+            [
+            n$, pbld, "G92", *g92x_m, *g92y_m, e$
+            !g92x_m, !g92y_m
+            ]
+          subprogno = subno$
+          pbld, n$, "M98", *subno$, e$
+          subout$ = one
+          sav_n = n$
+          subprogno, e$
+          n$ = seqno$
+          if g92_in_sub = one & (absinc$ = zero
+          | g92_frc_sb = one),
+            [
+            absinc$ = zero
+            pbld, n$, sgabsinc, e$
+            if mi1$ > one, n$, pbld, pwcs_g54, e$
+            else, n$, pbld, "G92", *g92x_m, *g92y_m, e$ #G192 restart here
+            absinc$ = mi3$
+            pbld, n$, *sgabsinc, e$
+            ]
+          else,
+            [
+            absinc$ = mi3$
+            pbld, n$, *sgabsinc, e$
+            ]
+          ]
+        else,
+          [
+          subprogno = subno$
+          pbld, n$, "M98", *subno$, e$
+          no_nc_out$ = one #shut output off
+          ]
+        if absinc$ = zero, prv_g92x_m = vequ (sav_g92x_m)
+        ]
+
+pendsub         #End of subroutine
+      if subsflag = four | subsflag = 6,
+        [
+        absinc$ = mi2$
+        pbld, n$, *sgabsinc, e$
+        pbld, n$, "M99", e$
+        " ", e$
+        " ", e$
+        subout$ = zero
+        n$ = sav_n
+        no_nc_out$ = zero
+        ]
+
+psubs           #Set the subprogram flag
+      if subsflag = two & subout$, subsflag = three
+      if (cstart$ = two | cstart$ = three) & leadintype = one,
+        subsflag = two
+      if (prv_cstart$ = two | prv_cstart$ = three) & leadintype = zero,
+        subsflag = two
+      if subsflag = four, subsflag = five
+      if (prv_cend$ = two | prv_cend$ = three) & subsflag <= three,
+        subsflag = four
+      if (cstart$ = two | cstart$ = three) & (cend$ = two | cend$ = three),
+        subsflag = 6
+
+# --------------------------------------------------------------------------
+# Canned Text
+# --------------------------------------------------------------------------
+pcantxt            #Canned text - before output call
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$ = zero, pcant_1
+        if cant_pos2$ = zero, pcant_2
+        if cant_pos3$ = zero, pcant_3
+        if cant_pos4$ = zero, pcant_4
+        if cant_pos5$ = zero, pcant_5
+        if cant_pos6$ = zero, pcant_6
+        if cant_pos7$ = zero, pcant_7
+        if cant_pos8$ = zero, pcant_8
+        if cant_pos9$ = zero, pcant_9
+        if cant_pos10$ = zero, pcant_10
+        pbld, n$, strcantext, e$
+        strcantext = sblank
+        ]
+      if thrd_cut$ = one & not(postlchng),
+        [
+        if man_wire = one,
+          [
+          pbld, n$, swire, e$
+        #  pbld, n, spower, e
+        #  pbld, n, swater, e
+          ]
+        else, pbld, n$, sautowire, e$
+        ]
+
+pcantxt1           #Canned text - with move
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$ = one, pcant_1
+        if cant_pos2$ = one, pcant_2
+        if cant_pos3$ = one, pcant_3
+        if cant_pos4$ = one, pcant_4
+        if cant_pos5$ = one, pcant_5
+        if cant_pos6$ = one, pcant_6
+        if cant_pos7$ = one, pcant_7
+        if cant_pos8$ = one, pcant_8
+        if cant_pos9$ = one, pcant_9
+        if cant_pos10$ = one, pcant_10
+        ]
+      #Output of strcantext occurs at the end of the output line
+
+pcantxt2           #Canned text - after output call
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$ = two, pcant_1
+        if cant_pos2$ = two, pcant_2
+        if cant_pos3$ = two, pcant_3
+        if cant_pos4$ = two, pcant_4
+        if cant_pos5$ = two, pcant_5
+        if cant_pos6$ = two, pcant_6
+        if cant_pos7$ = two, pcant_7
+        if cant_pos8$ = two, pcant_8
+        if cant_pos9$ = two, pcant_9
+        if cant_pos10$ = two, pcant_10
+        pbld, n$, strcantext, e$
+        strcantext = sblank
+        ]
+      if thrd_cut$ = two,
+        [
+        if man_wire = one,
+          [
+
+          wire$ = zero
+          power$ = zero
+          water$ = zero
+          pbld, n$, swire, e$
+        #  pbld, n, spower, e
+        #  pbld, n, swater, e
+          ]
+        else, pbld, n$, sautowire, e$
+
+        ]
+
+      sav_bld = bld
+      if subsflag = two | subsflag = three, bld = one
+    #  pbld, n, swater, e
+    #  pbld, n, spower, e
+      pbld, n$, stank, e$
+      if cstop$, pbld, n$, *sm00, e$
+      if cgstop$, pbld, n$, *sm01, e$
+      bld = sav_bld
+
+pcant_1         #Canned text - output call
+      cantext$ = cant_val1$
+      pcant_out
+
+pcant_2         #Canned text - output call
+      cantext$ = cant_val2$
+      pcant_out
+
+pcant_3         #Canned text - output call
+      cantext$ = cant_val3$
+      pcant_out
+
+pcant_4         #Canned text - output call
+      cantext$ = cant_val4$
+      pcant_out
+
+pcant_5         #Canned text - output call
+      cantext$ = cant_val5$
+      pcant_out
+
+pcant_6         #Canned text - output call
+      cantext$ = cant_val6$
+      pcant_out
+
+pcant_7         #Canned text - output call
+      cantext$ = cant_val7$
+      pcant_out
+
+pcant_8         #Canned text - output call
+      cantext$ = cant_val8$
+      pcant_out
+
+pcant_9         #Canned text - output call
+      cantext$ = cant_val9$
+      pcant_out
+
+pcant_10        #Canned text - output call
+      cantext$ = cant_val10$
+      pcant_out
+
+pcant_out       #Canned text - build the string for output
+      #Assign string select type outputs
+      if cantext$ = three, bld = one
+      if cantext$ = four, bld = zero
+      #Build the cantext string
+      if cantext$ = one, strcantext = strcantext + sm00
+      if cantext$ = two, strcantext = strcantext + sm01
+      if cantext$ > four,
+        [
+        strtextno = no2str(cantext$)
+        strcantext = strcantext + strm + strtextno
+        ]
+
+# --------------------------------------------------------------------------
+# Position calculations, generally these do not need to be modified
+# --------------------------------------------------------------------------
+pcuttype        #Determine the cut type, 0=2D, 1=direct, 2=taper
+      pleadintype
+      cuttype = zero
+      if uvflag$, cuttype = one
+      if gcode$ = 11 | nextop$ = 11, cuttype = two
+
+pleadintype     #Determine the lead in type
+      leadintype = not(cstart$ = two | cstart$ = three)
+
+pthdstrttype    #Determine the start/thread position type
+       #  *threadx, *startx, e
+       #  *thready, *starty, e
+       #  *threadx, *cutx, e
+       #  *thready, *cuty, e
+
+      if fmtrnd(threadx$) <> fmtrnd(startx$)
+      | fmtrnd(thready$) <> fmtrnd(starty$), strtflag = one
+      else, strtflag = zero
+
+      if fmtrnd(threadx$) <> fmtrnd(cutx$)
+      | fmtrnd(thready$) <> fmtrnd(cuty$), thdcutflag = one
+      else, thdcutflag = zero
+
+   # strtflag = one
+   # *strtflag, *thdcutflag
+
+pcntr           #Set control flags
+      if not(prv_cntrflag) & cntrflag &  brk_cc_pos$ <>  -1,cc_pos$ = brk_cc_pos$
+
+      #Set the contour flags
+      !cntrflag
+      if cstart$ = two | cstart$ = three, cntrflag = one # flag start of contour
+
+      if prv_cend$ = two | prv_cend$ = three, # prior move was last of contour
+        [
+        cntrflag = two  # flag that this the leadoff move
+        if leadintype = zero & nextop$ > four, !cntrflag
+        ]
+
+      if (cstart$ = two | cstart$ = three)
+         & (cend$ = two | cend$ = three), cntrflag = 3 #single move
+
+      #set line_line flag
+      if gcode$ = zero | gcode$ = one,
+        [
+        if nextop$ = zero | nextop$ = one, l_lflag = one
+        else,
+          [
+          if nextop$ > one & nextop$ < four, l_lflag = two
+          else, l_lflag = zero
+          ]
+        ]
+      else,
+        [
+        if gcode$ > one & gcode$ < four,
+          [
+          if nextop$ = zero | nextop$ = one, l_lflag = three
+          else,
+            [
+            if nextop$ > one & nextop$ < four, l_lflag = four
+            else, l_lflag = 0
+            ]
+          ]
+        else, l_lflag = zero
+        ]
+      #set tangent flag
+      if abs(move_ang$) > atol$ & abs(move_ang$) < max_atol$,
+      tanflag = zero
+      else, tanflag = one
+      #set wc_outflag/wt_outflag flag
+      if wtmax = zero | cuttype,
+        [
+        wt_outflag = zero
+        wc_outflag = zero
+        if wc$ = 5 & tanflag = zero & cntrflag = one
+        & prv_cntrflag = one,
+          [
+          wc_outflag = four #R-0, fish
+          xy_rad = zero
+          ]
+        if prv_cntrflag = zero, !wabs
+        ]
+      else,
+        [
+        #Set the wt_outflag -
+        #sav_wt is last taper, wt is current taper and wt_immd
+        #is same unless immediate taper, if immediate taper
+        #wt_immd is second point on current and nextwt is
+        #taper at end of next move.
+        #Four tapers for replaced arcs with g60_mode are saved
+        #prv_last_g60_wt and last_g60_wt are the tapers in order
+        #for the start of the arc.
+        #wt and wt_immd are the tapers in order for the end of the
+        #arc.  If they are not immediate the values are set equal.
+        #Tapers are tested for the current and next move to
+        #determine if the change.  Based on the change, type of
+        #intersection and control flags, the wt_outflag is set.
+        #Set the wc_outflag -
+        #Corner types are set based on the corner or arc corner
+        #(g60_mode) setting in the NCI.
+        #Arcs are defined with IJ, lower radius, xy_rad (R) and
+        #upper radius, uv_rad (K).
+
+        if wtmax,
+          [
+          if ((g60_mode$ = two & fmtrnd(sav_wt) <> fmtrnd(last_g60_wt$))
+          | (prv_g60_mode$ = two & g60_mode$ = one
+          & fmtrnd(sav_wt) <> fmtrnd(wt$)) | immediate$ > two),
+            result = mprint(serror1)
+          if tanflag = one | prv_cntrflag = zero,
+            [
+            if immediate$ = two | immediate$ >= four, wt_outflag = two
+            else, wt_outflag = one
+            wc_outflag = zero
+            !wabs
+            ]
+          else, #intersection, test for taper changes
+            [
+            if g60_mode$ <> two,
+              [
+              if (fmtrnd(sav_wt) <> fmtrnd(wt$)
+              | fmtrnd(wt_immd$) <> fmtrnd(nextwt$)),
+                [
+                wc_outflag = zero
+                if l_lflag > one
+                | (use_2d_uv$ > one & wc$)
+                | (use_2d_uv$ > two & wc$ = zero),
+                result = mprint(serror1)
+                else, #line-line with gradual taper
+                  [
+                  wc_outflag = five #UV
+                  wt_outflag = zero
+                  #display must be sharp
+                  if wc$ = zero | wc$ > two, #result = mprint(serror1)
+                  ]
+                ]
+              else, #tapers are constant
+                [
+                if wc$ = three & cntrflag = one, #other
+                  [
+                  if immediate$ = one, wt_outflag = four
+                  else, wt_outflag = two
+                  wc_outflag = zero
+                  ]
+                else, #normal intersection with constant taper
+                  [
+                  if immediate$ = one, wt_outflag = one
+                  else, wt_outflag = three
+                  if cntrflag = one & prv_cntrflag = one,
+                    [
+                    if wc$ = zero,
+                      [
+                      wc_outflag = two #G61R
+                      xy_rad = zero
+                      ]
+                    #wc=1,wc=2,wc=3 are sharp, no wc_outflag
+                    if wc$ = one | wc$ = two | wc$ = three,
+                      [
+                      wc_outflag = zero
+                      xy_rad = zero
+                      ]
+                    if wc$ = four,
+                      [
+                      wc_outflag = three #RK
+                      xy_rad = zero
+                      uv_rad = wc_rad$
+                      ]
+                    if wc$ = five,
+                      [
+                      wc_outflag = four #R-0, fish
+                      xy_rad = zero
+                      ]
+                    ]
+                  else, wc_outflag = zero #start and end, no corners
+                  ]
+                ]
+              ]
+            else, #g60_mode active, apply starting taper
+              [
+              wt_outflag =  -1
+              wc_outflag = zero
+              uv_rad = zero
+              if warc_ctyp$ = zero,
+                [
+                wc_outflag = two #G61R
+                xy_rad = arcrad$
+                ]
+              if warc_ctyp$ = one | warc_ctyp$ >= three,
+                [
+                wc_outflag = three #RK
+                xy_rad = arcrad$
+                if warc_ctyp$ = four, uv_rad = warc_rad$
+                ]
+              if warc_ctyp$ = two,
+                [
+                wc_outflag = one #G60R
+                xy_rad = arcrad$
+                ]
+              ]
+            ]
+          ]
+        ]
+
+pstart_pos      #Copy start to current position
+      sav_x = vequ(x$)
+      sav_u = vequ(u$)
+      x$ = vequ(startx$)
+      u$ = vequ(startx$)
+
+prstore_pos     #Restore current position
+      x$ = vequ(sav_x)
+      u$ = vequ(sav_u)
+
+# --------------------------------------------------------------------------
+# Tooltable calls
+# --------------------------------------------------------------------------
+pwrtt$           #Write tool table, scans entire file
+      if abs(wt_max$) > abs(wtmax), wtmax = wt_max$
+
+# --------------------------------------------------------------------------
+# Numbered questions for Mastercam Wire
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 300.0
+1538. Rapid feedrate (metric)? 10000.0
+
+64. Lock UV height above XY height? y
+65. Maximum step size for 4 axis wirepaths? 1000.0
+66. Set start position to first point in contour? y
+68. Maximum UV axis distance from XY? 100.0
+69. 4 axis maximum taper angle? 45.0
+74. Minimum arc length? 0.0002
+
+80. Communications port number for receive and transmit(1 or 2) ? 1
+81. Baud rate(110, 150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400)? 1200
+82. Parity(E/O/N)? E
+83. Data bits(7 or 8)? 7
+84. Stop bits(1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line(seconds)? 0.0
+87. Ascii, Eia, or Binary(A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+
+90. Drive and subdirectory for NC programs?
+91. Name of executable post processor? MPWIRE
+92. Name of reverse post processor? RPWIRE
+93. Reverse post PST file name? RPWFANUC
+
+100. Number of places for sequence numbers? 3
+101. Number of decimal places for sequence numbers? 3
+161. Enable Home Position button? y
+162. Enable Reference Point button? n
+163. Enable Misc. Values button? y
+164. Enable Rotary Axis button? n
+165. Enable Tool Plane button? n
+166. Enable Construction Plane button? n
+167. Enable Tool Display button? y
+168. Check tplane during automatic work origin creation? n
+
+170. Enable dual corner types and upper radius with arcs? y
+171. Enable fishtail display? y
+172. Flip taper on 2 line/arc lead in? n
+
+198. Draw 4 axis sync lines? y
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values (METRIC)
+# --------------------------------------------------------------------------
+201. Default miscellaneous real variable 1(mr1)? 0.0
+202. Default miscellaneous real variable 2(mr2)? 0.0
+203. Default miscellaneous real variable 3(mr3)? 0.0
+204. Default miscellaneous real variable 4(mr4)? 0.0
+205. Default miscellaneous real variable 5(mr5)? 0.0
+206. Default miscellaneous real variable 6(mr6)? 0.0
+207. Default miscellaneous real variable 7(mr7)? 0.0
+208. Default miscellaneous real variable 8(mr8)? 0.0
+209. Default miscellaneous real variable 9(mr9)? 0.0
+210. Default miscellaneous real variable 10(mr10)? 0.0
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values (METRIC)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Enable/Disable Miscellaneous Real Variable switches
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. Miscellaneous integer variable 1 WCS, 0-1=G92,2=G54...? 0
+302. Miscellaneous integer variable 2 Main program,0=Abs. 1=Inc.? 0
+303. Miscellaneous integer variable 3 Subprogram,0=Abs. 1=Inc.? 0
+304. Miscellaneous integer variable 4 Wire,0=Auto 1=Manual? 0
+305. Miscellaneous integer variable 5(mi5)? 0
+306. Miscellaneous integer variable 6(mi6)? 0
+307. Miscellaneous integer variable 7(mi7)? 0
+308. Miscellaneous integer variable 8(mi8)? 0
+309. Miscellaneous integer variable 9(mi9)? 0
+310. Miscellaneous integer variable 10(mi10)? 0
+
+# --------------------------------------------------------------------------
+# Enable/Disable Miscellaneous Integer Variable switches
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+#400. Name of associated cfg file?
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? y
+414. Read START/EXIT section? y
+415. Read SCREEN section? y
+416. Read FILE NAMES section? y
+
+1023. Auto entry(L=line, Y=line+arc, A=2lines+arc)? L
+1024. Auto exit(L=line, R=arc, Y=line+arc, A=2lines+arc)? L
+
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? y
+1502. Write operation information to binary file (.ops)? n
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+# Do NOT manually change the answer for Q.1999 !
+1999. Product major version number that post supports? 9
+
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+# --------------------------------------------------------------------------
+# special 2line/arc lead in/out option
+# --------------------------------------------------------------------------
+4001. Move to arc center in 2 line/radius lead in/out? y
+
+# --------------------------------------------------------------------------
+# WIRE Miscellaneous Settings (METRIC)
+# --------------------------------------------------------------------------
+4065. Maximum step size for 4 axis wirepaths (metric)? 10000.0
+4068. Maximum UV axis distance from XY (metric)? 500.0
+4074. Minimum arc length (metric)? 0.005
+4195. Tool motion step_size (metric)? 5.0
+
+# --------------------------------------------------------------------------
+# Change at Point Reverse Pass Association (1=point, 2=move, 3=prior point)
+# --------------------------------------------------------------------------
+4900. Reverse Skim Pass Position for Change Corner Type? 1
+4901. Reverse Skim Pass Position for Change UV Arc Type ? 2
+4902. Reverse Skim Pass Position for Change Rapid Move? 2
+4903. Reverse Skim Pass Position for Change FeedRate? 3
+4904. Reverse Skim Pass Position for Change Manual Entry? 1
+4907. Reverse Skim Pass Position for Change Canned Text? 1
+4910. Reverse Skim Pass Position for Change Wire Compensation? 1
+4911. Reverse Skim Pass Position for Change Condition Code? 2
+4912. Reverse Skim Pass Position for Change Wire Offset? 1
+4913. Reverse Skim Pass Position for Change Wire Diameter? 1
+4914. Reverse Skim Pass Position for Change Wire Overburn? 1
+4915. Reverse Skim Pass Position for Change Dwell? 1
+4920. Reverse Skim Pass Position for Change Auxiliary Register 1? 1
+4921. Reverse Skim Pass Position for Change Auxiliary Register 2? 1
+4922. Reverse Skim Pass Position for Change Auxiliary Register 3? 1
+4923. Reverse Skim Pass Position for Change Auxiliary Register 4? 1
+4924. Reverse Skim Pass Position for Change Auxiliary Register 5? 1
+4925. Reverse Skim Pass Position for Change Auxiliary Register 6? 1
+4926. Reverse Skim Pass Position for Change Auxiliary Register 7? 1
+4927. Reverse Skim Pass Position for Change Auxiliary Register 8? 1
+4928. Reverse Skim Pass Position for Change Auxiliary Register 9? 1
+4929. Reverse Skim Pass Position for Change Auxiliary Register 10? 1
+4930. Reverse Skim Pass Position for Change Contour flags? 1
+4931. Reverse Skim Pass Position for Change Stop flags? 1
+4932. Reverse Skim Pass Position for Change Thread/Cut flags? 1
+4933. Reverse Skim Pass Position for Change Power flags? 1
+4934. Reverse Skim Pass Position for Change Tank level? 1
+4935. Reverse Skim Pass Position for Change Flush flags? 1
+
+# --------------------------------------------------------------------------
+# Auxiliary Register Modality
+# --------------------------------------------------------------------------
+4940. Auxilary Register 1 (n = Non-Modal, y = Modal)? y
+4941. Auxilary Register 2 (n = Non-Modal, y = Modal)? y
+4942. Auxilary Register 3 (n = Non-Modal, y = Modal)? y
+4943. Auxilary Register 4 (n = Non-Modal, y = Modal)? y
+4944. Auxilary Register 5 (n = Non-Modal, y = Modal)? y
+4945. Auxilary Register 6 (n = Non-Modal, y = Modal)? y
+4946. Auxilary Register 7 (n = Non-Modal, y = Modal)? y
+4947. Auxilary Register 8 (n = Non-Modal, y = Modal)? y
+4948. Auxilary Register 9 (n = Non-Modal, y = Modal)? y
+4949. Auxilary Register 10 (n = Non-Modal, y = Modal)? y
+
+
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_WIRE|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>0-1=G92,2=AUTO-G54,G55...</text>
+			</misc_1>
+			<misc_2>
+				<text>Prog Principal,0=Abs. 1=Inc.</text>
+			</misc_2>
+			<misc_3>
+				<text>Sous Prog,0=Abs. 1=Inc.</text>
+			</misc_3>
+			<misc_4>
+				<text>Sub G61 w/G62/G63, 0=Off,1=G62,2=G63</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>Convertion 2D,1=4D direct,2=4D depouille</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Enfier</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Couper</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Text 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Text 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Text 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Text 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Text 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Text 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Text 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Text 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+	</control>
+<control>
+		<control_label>CTRL_WIRE|440CC-240CC</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>0-1=G92,2=AUTO-G54,G55...</text>
+			</misc_1>
+			<misc_2>
+				<text>Prog Principal,0=Abs. 1=Inc.</text>
+			</misc_2>
+			<misc_3>
+				<text>Sous Prog,0=Abs. 1=Inc.</text>
+			</misc_3>
+			<misc_4>
+				<text>Sub G61 w/G62/G63, 0=Off,1=G62,2=G63</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>Convertion 2D,1=4D direct,2=4D depouille</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Enfier</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Couper</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Text 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Text 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Text 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Text 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Text 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Text 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Text 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Text 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_WIRE|SERGE440</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>0-1=G92,2=AUTO-G54,G55...</text>
+			</misc_1>
+			<misc_2>
+				<text>Prog Principal,0=Abs. 1=Inc.</text>
+			</misc_2>
+			<misc_3>
+				<text>Sous Prog,0=Abs. 1=Inc.</text>
+			</misc_3>
+			<misc_4>
+				<text>Sub G61 w/G62/G63, 0=Off,1=G62,2=G63</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>Convertion 2D,1=4D direct,2=4D depouille</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Enfier</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Couper</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Text 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Text 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Text 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Text 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Text 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Text 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Text 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Text 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_WIRE|W_AGIE_CHARMILLE-440CC-240CC_UV</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>0-1=G92,2=AUTO-G54,G55...</text>
+			</misc_1>
+			<misc_2>
+				<text>Prog Principal,0=Abs. 1=Inc.</text>
+			</misc_2>
+			<misc_3>
+				<text>Sous Prog,0=Abs. 1=Inc.</text>
+			</misc_3>
+			<misc_4>
+				<text>Sub G61 w/G62/G63, 0=Off,1=G62,2=G63</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>Convertion 2D,1=4D direct,2=4D depouille</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<z_depth>
+				<text>Z depth</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Enfier</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Couper</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Text 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Text 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Text 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Text 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Text 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Text 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Text 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Text 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]

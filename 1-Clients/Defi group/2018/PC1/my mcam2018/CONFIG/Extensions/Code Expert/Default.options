@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<Options xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn://Mastercam/Options">
+  <Option Id="cf905d38-e975-47df-8750-e9e1ab7595ac" ValueSource="AllDocuments.AreLineModificationMarksVisible">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="289a4fff-3fa0-483b-bd0d-9d824de9c786" ValueSource="AllDocuments.AreWordWrapGlyphsVisible">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="29c61fe8-c387-4cfd-8675-fa99445f74ba" ValueSource="AllDocuments.CanCutCopyBlankLineWhenNoSelection">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="c838449f-6c49-47a5-b412-1501b597beb5" ValueSource="AllDocuments.CanCutCopyDragWithRtf">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="7b8343ce-94b3-498d-b4e0-e947e872eebc" ValueSource="AllDocuments.CanCutCopyDragWithHtml">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="68d4c0e9-c252-4a44-a36e-c04fac96e8d7" ValueSource="AllDocuments.CanScrollPastDocumentEnd">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="4be8a77f-88b1-4b3c-a1a6-887019bcbb52" ValueSource="AllDocuments.IsWhitespaceVisible">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="c911cbaa-7815-4634-807a-9541928cb5c0" ValueSource="AllDocuments.IsCurrentLineHighlightingEnabled">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="4d776ccd-b5c6-4a99-b0a4-e737fa295571" ValueSource="AllDocuments.WordWrapMode">
+    <Value xsi:type="Enum">
+      <Value>None</Value>
+    </Value>
+  </Option>
+  <Option Id="ce1df9b9-fd63-4659-9734-359522e29099" ValueSource="AllDocuments.ScrollToCaretOnSelectAll">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="efb64358-9547-43fc-a6f2-d03d2c58ab05" ValueSource="AllDocuments.AutoConvertTabsToSpaces">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="a2fa6fcb-d3cf-413f-9e80-e38afbeccc39" ValueSource="AllDocuments.WhitespaceTrimModes">
+    <Value xsi:type="Enum">
+      <Value>None</Value>
+    </Value>
+  </Option>
+  <Option Id="1e3e9513-f2ab-4916-804c-264cda303fc7" ValueSource="AllDocuments.IsSelectionMarginVisible">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="c74791bf-b902-468e-9e73-9bec98f55bca" ValueSource="AllDocuments.IsIndicatorMarginVisible">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="47dfcf53-1065-4506-89bb-1425bd3faeb0" ValueSource="AllDocuments.IsLineNumberMarginVisible">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="20e578fb-00eb-4299-98b8-393510adedce" ValueSource="AllDocuments.IsRulerMarginVisible">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="02b05eb8-cdac-4e5c-ae15-536799d93f1b" ValueSource="AllDocuments.DefaultEncoding">
+    <Value xsi:type="xsd:int">-1</Value>
+  </Option>
+  <Option Id="e719128d-6e33-4708-9557-1c756505b555" ValueSource="InterfaceColors.Foreground">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>0</R>
+      <G>0</G>
+      <B>0</B>
+    </Value>
+  </Option>
+  <Option Id="22ce8dbd-f563-4a48-ae4e-432834dfcc94" ValueSource="InterfaceColors.Background">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>255</R>
+      <G>255</G>
+      <B>255</B>
+    </Value>
+  </Option>
+  <Option Id="6629bb96-0fd6-46cc-9730-97b250db99e0" ValueSource="InterfaceColors.ReadOnlyBackground">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>175</R>
+      <G>175</G>
+      <B>175</B>
+    </Value>
+  </Option>
+  <Option Id="44ecbc30-19ef-4d02-a7fc-efacbf712d36" ValueSource="InterfaceColors.SelectionMarginBackground">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>255</R>
+      <G>255</G>
+      <B>255</B>
+    </Value>
+  </Option>
+  <Option Id="409607e0-81b4-4a6b-b4ea-efedd97eb925" ValueSource="InterfaceColors.OutliningMarginBackground">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>255</R>
+      <G>255</G>
+      <B>255</B>
+    </Value>
+  </Option>
+  <Option Id="dd5feace-2b90-4882-9e09-5fe395967887" ValueSource="InterfaceColors.CaretBrush">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>0</R>
+      <G>0</G>
+      <B>0</B>
+    </Value>
+  </Option>
+  <Option Id="a0a80d52-28ed-4ae1-a2a0-cae329727cdc" ValueSource="InterfaceColors.SelectionBorderActiveBrush">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>237</R>
+      <G>246</G>
+      <B>255</B>
+    </Value>
+  </Option>
+  <Option Id="7751961d-7e2b-47f4-9c13-4c1d9b08a037" ValueSource="InterfaceColors.SelectionBackgroundActive">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>204</R>
+      <G>204</G>
+      <B>204</B>
+    </Value>
+  </Option>
+  <Option Id="19b423a4-8630-4e0a-95a2-e0781358c9f2" ValueSource="InterfaceColors.SelectionBorderInactiveBrush">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>245</R>
+      <G>222</G>
+      <B>179</B>
+    </Value>
+  </Option>
+  <Option Id="f7afdff3-b472-43d4-9587-462997d2ba9b" ValueSource="InterfaceColors.InactiveSelectionBackground">
+    <Value xsi:type="Color">
+      <A>255</A>
+      <R>245</R>
+      <G>222</G>
+      <B>179</B>
+    </Value>
+  </Option>
+  <Option Id="ad9662ed-a8cd-40e0-a89f-f0deee59bbbe" ValueSource="NCFileExtensions.Extensions">
+    <Value xsi:type="xsd:string" />
+  </Option>
+  <Option Id="6c00d956-2f8f-4abe-a401-9148396965e1" ValueSource="CommunicationsOptions.Communications">
+    <Value xsi:type="xsd:string">C:\Program Files\Mcam2018\common\Editors\CIMCOEdit8\CimcoDNC.exe</Value>
+  </Option>
+  <Option Id="18f0d3f1-caee-42eb-ac42-1ae5d9af7c54" ValueSource="CommunicationsOptions.SendSwitch">
+    <Value xsi:type="xsd:string">/transmit</Value>
+  </Option>
+  <Option Id="fac34e39-3c62-4eef-9f23-98f584d5025b" ValueSource="CommunicationsOptions.ReceiveSwitch" />
+  <Option Id="44056524-f842-41d4-aa79-c6234ae66191" ValueSource="NCTabs.TabSize">
+    <Value xsi:type="xsd:int">4</Value>
+  </Option>
+  <Option Id="4424384f-61f3-457e-b7e9-25c7e6a2c21c" ValueSource="NCFontsAndColors.Styles">
+    <Value xsi:type="Collection" />
+  </Option>
+  <Option Id="712d005e-b752-42a0-a8cd-39626b1ca906" ValueSource="NCFontsAndColors.FontFamilyName">
+    <Value xsi:type="xsd:string">Courier New</Value>
+  </Option>
+  <Option Id="0f66162e-6ed6-4317-8717-c08a2e74bf36" ValueSource="NCFontsAndColors.FontSize">
+    <Value xsi:type="xsd:double">12</Value>
+  </Option>
+  <Option Id="02927035-a73d-4a29-8f1d-ab311aa3d8c4" ValueSource="NCConfig.Name">
+    <Value xsi:type="xsd:string">Fraiseuse Fanuc</Value>
+  </Option>
+  <Option Id="7df68822-af8f-4767-99ad-31963e3499fa" ValueSource="MPNETTabs.TabSize">
+    <Value xsi:type="xsd:int">4</Value>
+  </Option>
+  <Option Id="9379a578-8257-432f-8001-bfa2a120c9f6" ValueSource="MPNETFontsAndColors.Styles">
+    <Value xsi:type="Collection" />
+  </Option>
+  <Option Id="73154d36-d9f6-451e-bc33-ac78ff312e54" ValueSource="MPNETFontsAndColors.FontFamilyName">
+    <Value xsi:type="xsd:string">Courier New</Value>
+  </Option>
+  <Option Id="11b7cb62-9b6e-4875-bfe6-64e716ba9667" ValueSource="MPNETFontsAndColors.FontSize">
+    <Value xsi:type="xsd:double">12</Value>
+  </Option>
+  <Option Id="946fb688-3faf-418f-bd29-506770a1b4b4" ValueSource="BreakpointOptions.Save">
+    <Value xsi:type="xsd:boolean">true</Value>
+  </Option>
+  <Option Id="956a08bf-aed7-42ff-9a39-1a52013a7e2b" ValueSource="BreakpointOptions.AskBeforeDeletingAllBreakpoints">
+    <Value xsi:type="xsd:boolean">false</Value>
+  </Option>
+  <Option Id="8b9dad91-0ce4-43fa-ab1c-6b896d2beb0c" ValueSource="MPTabs.TabSize">
+    <Value xsi:type="xsd:int">4</Value>
+  </Option>
+  <Option Id="1b820b5a-f2ca-4ed4-8b92-e5d68ad1746f" ValueSource="MPFontsAndColors.Styles">
+    <Value xsi:type="Collection" />
+  </Option>
+  <Option Id="c72ab108-2471-43f5-a5e5-fdd5af07fbd7" ValueSource="MPFontsAndColors.FontFamilyName">
+    <Value xsi:type="xsd:string">Courier New</Value>
+  </Option>
+  <Option Id="9b70a737-d149-4c88-af59-1acc728b9e50" ValueSource="MPFontsAndColors.FontSize">
+    <Value xsi:type="xsd:double">12</Value>
+  </Option>
+  <Option Id="3b1fe077-6953-4d69-b5c7-6a06a701b9b1" ValueSource="VBScriptTabs.TabSize">
+    <Value xsi:type="xsd:int">4</Value>
+  </Option>
+  <Option Id="f2dcd311-c801-4af1-a802-5891c202dbe2" ValueSource="VBScriptFontsAndColors.Styles">
+    <Value xsi:type="Collection" />
+  </Option>
+  <Option Id="c943e25a-3aad-4fcd-99c4-b4a3ee0e4482" ValueSource="VBScriptFontsAndColors.FontFamilyName">
+    <Value xsi:type="xsd:string">Courier New</Value>
+  </Option>
+  <Option Id="15616a54-b20e-46b8-b328-4857625d1960" ValueSource="VBScriptFontsAndColors.FontSize">
+    <Value xsi:type="xsd:double">12</Value>
+  </Option>
+  <Option Id="a46c4752-3c1f-4f3d-9d0f-94360d2b78b6" ValueSource="DefaultTextTabs.TabSize">
+    <Value xsi:type="xsd:int">4</Value>
+  </Option>
+  <Option Id="09e1ff1a-6f12-409d-ae8f-f132594e55fb" ValueSource="DefaultTextFontsAndColors.Styles">
+    <Value xsi:type="Collection" />
+  </Option>
+  <Option Id="5d9148f5-557f-49d7-a720-0f1cf8b1c21b" ValueSource="DefaultTextFontsAndColors.FontFamilyName">
+    <Value xsi:type="xsd:string">Courier New</Value>
+  </Option>
+  <Option Id="ec15a58e-a613-4036-97af-2b25283c4812" ValueSource="DefaultTextFontsAndColors.FontSize">
+    <Value xsi:type="xsd:double">12</Value>
+  </Option>
+  <Option Id="c5b82b00-d339-4fc0-aa85-2dfee594acdf" ValueSource="FileCompareOptions.FileCompare" />
+  <Option Id="eae4149a-49f0-4d59-a4cc-6e79ff8c9bef" ValueSource="ExternalApplicationOptions.ExternalApplication" />
+</Options>

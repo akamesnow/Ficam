@@ -1,0 +1,682 @@
+___Date: Mon Sep 14 2020___
+Error:                                      08:27:06 Mon Sep 14 2020
+  Syst. mesure position Z: Amplit. trop faible
+Error:                                      08:27:06 Mon Sep 14 2020
+  
+Error:                                      08:27:06 Mon Sep 14 2020
+  Module : Q:/CommonTNC/sources/regel/stibctrl.cpp
+Error:                                      08:27:06 Mon Sep 14 2020
+  Line   : 188
+Error:                                      08:27:06 Mon Sep 14 2020
+  EIP    : bin\regel.elf:CODE32:0X000AF73D
+Error:                                      08:27:06 Mon Sep 14 2020
+  Process: REGEL
+Error:                                      08:27:06 Mon Sep 14 2020
+  Thread : REGELINT
+Error:                                      08:27:06 Mon Sep 14 2020
+  errno  : 2
+Error:                                      08:27:06 Mon Sep 14 2020
+  Call Stack:
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F0C3
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F248
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X000AF73D
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00060E06
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009A9AB
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009ACF6
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009B310
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00170871
+Error:                                      08:27:06 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0017BCDA
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  set env dev5=5
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  set env dev6=6
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  dosfsck -a /dev/hda5
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  dosfsck 2.11, 12 Mar 2005, FAT32, LFN
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  /dev/hda5: 3328 files, 11062/59221 clusters
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  dosfsck -a /dev/hda6
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  dosfsck 2.11, 12 Mar 2005, FAT32, LFN
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  /dev/hda6: 355 files, 10495/1639330 clusters
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  set env dev5=
+Info:    BDEHAN                             08:27:06 Mon Sep 14 2020
+  set env dev6=
+Reset                                       08:27:06 Mon Sep 14 2020
+Info:    MAIN        START                  08:27:15 Mon Sep 14 2020
+  iTNC530
+Info:    MAIN        START                  08:27:15 Mon Sep 14 2020
+  NC-SOFTWARE = 340490 07 SP9 FCL:4
+Info:    MAIN        PATH                   08:27:15 Mon Sep 14 2020
+  SIMPGM = 
+Info:    MAIN        PATH                   08:27:15 Mon Sep 14 2020
+  NCEDIT = 
+Info:    MAIN        PATH                   08:27:16 Mon Sep 14 2020
+  RUNTCH = TNC:\TOOL_P.TCH
+Error:                                      08:27:17 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Info:    GEO                                08:27:17 Mon Sep 14 2020
+  ERROR SOURCE: GEORUN
+Info:    GEO         Aux:                   08:27:17 Mon Sep 14 2020
+  PGM : TNC:\$MDI.H
+Line: 89
+
+Info:    MAIN        PATH                   08:27:17 Mon Sep 14 2020
+  KINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    MAIN        PATH                   08:27:18 Mon Sep 14 2020
+  SIMKINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    CTRL        Kinematik              08:27:19 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:27:19 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    CTRL        Kinematik              08:27:20 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:27:20 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    MAIN        HWSDialog              08:27:20 Mon Sep 14 2020
+  Restart
+Info:    MAIN        HWSDialog              08:27:20 Mon Sep 14 2020
+  normal
+Info:    CTRL        Kinematik              08:27:21 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:27:21 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    MAIN                               08:27:22 Mon Sep 14 2020
+  DSP 340514 08.2 
+Info:    SOKY                               08:27:33 Mon Sep 14 2020
+  KEYSOURCE: KEYBOARD
+Info:    SOKY                               08:27:33 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01AE -> CE                           08:27:33 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:27:33 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Key: 0x01AE -> CE                           08:27:34 Mon Sep 14 2020
+Key: 0x01AE -> CE                           08:27:34 Mon Sep 14 2020
+Key: 0x01AE -> CE                           08:27:34 Mon Sep 14 2020
+Info:    MAIN        NOTAUS                 08:27:37 Mon Sep 14 2020
+  starting notaus-test from RESTART
+Info:    CTRL        Kinematik              08:27:37 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:27:37 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Error:                                      08:27:38 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:27:38 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Error:                                      08:27:38 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    PLC                                08:27:38 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        NOTAUS                 08:27:39 Mon Sep 14 2020
+  End of notaus-test from RESTART
+Info:    CTRL        REG                    08:27:39 Mon Sep 14 2020
+  
+  AXIS 0 ENDAT REF=-199.78
+
+Info:    CTRL        REG                    08:27:39 Mon Sep 14 2020
+  
+  AXIS 1 ENDAT REF=-265.082
+
+Info:    CTRL        REG                    08:27:39 Mon Sep 14 2020
+  
+  AXIS 2 ENDAT REF=-83.554
+
+Info:    CTRL        REG                    08:27:39 Mon Sep 14 2020
+  
+  AXIS 3 ENDAT REF=-0.0014
+  transposed into limits from -0.00143138 to -0.0014
+  ambiguous pos changed to -0.0014 using CMOS position:-0.0012
+
+Info:    CTRL        REG                    08:27:39 Mon Sep 14 2020
+  
+  AXIS 4 ENDAT REF=0
+  transposed into limits from 5.95055e-06 to 0
+
+Key: 0x01AE -> CE                           08:27:41 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:27:41 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:27:41 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:27:41 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    PYTHON      DMG_MAIN               08:27:41 Mon Sep 14 2020
+  
+  memory limit:= 30[MB]
+  time slice:=    250000[us]
+  interpret PLC:\\PYTHON\\DMG_MAIN.PY
+  
+
+Key: 0x01AE -> CE                           08:27:41 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:27:41 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Error:                                      08:27:41 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    PLC                                08:27:41 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x01AE -> CE                           08:27:41 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:27:42 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Key: 0x01AE -> CE                           08:27:41 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:27:42 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Error:                                      08:27:42 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:27:42 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Error:                                      08:27:42 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    PLC                                08:27:42 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        ERRCLEARED             08:27:43 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Key: 0x0189 -> Softkey 9                    08:27:48 Mon Sep 14 2020
+Info:    SOKY                               08:27:48 Mon Sep 14 2020
+  
+  IDENT:   GRS.S_END
+  PROCESS: MAIN
+  SOFTKEY: /SYS:/resource/sk/1024x768/allg/end.bmx
+  OVERLAY: 0
+
+Info:    MAIN        ERRCLEARED             08:28:04 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:28:04 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:28:04 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x01AE -> CE                           08:28:08 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:28:08 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:28:08 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:28:08 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    SOKY                               08:28:09 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01C3 -> Auto                         08:28:09 Mon Sep 14 2020
+Info:    MAIN        PATH                   08:28:09 Mon Sep 14 2020
+  RUNBRKPGM = 
+Info:    MAIN        ERRCLEARED             08:28:10 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:28:10 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:28:10 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    SOKY                               08:28:11 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01CB -> PGM MGT                      08:28:11 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:28:13 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:28:13 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:28:13 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x0188 -> Softkey 8                    08:28:17 Mon Sep 14 2020
+Info:    SOKY                               08:28:17 Mon Sep 14 2020
+  
+  IDENT:   GRS.S_FILEMANAGER_LASTFILES
+  PROCESS: FILEMAN
+  SOFTKEY: SYS:/resource/sk\1024x768\dir\LASTFILS.bmx
+
+Info:    OS          WINEVENT               08:28:18 Mon Sep 14 2020
+  FILEMAN.STARTUP.READY
+Info:    SOKY                               08:28:19 Mon Sep 14 2020
+  PROCESS: FILEMAN
+Key: 0x01A8 -> Enter                        08:28:19 Mon Sep 14 2020
+Info:    MAIN        PATH                   08:28:19 Mon Sep 14 2020
+  RUNPGM = TNC:\cfao\REP18-20977-OP20-A-POINCON DE CAMB-A.H
+Info:    SOKY                               08:28:22 Mon Sep 14 2020
+  KEYSOURCE: PLCNCSTART
+Info:    SOKY                               08:28:22 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01F0 -> NC Start                     08:28:22 Mon Sep 14 2020
+Stib: ON                                    08:28:22 Mon Sep 14 2020
+Info:    MAIN        PGM                    08:28:22 Mon Sep 14 2020
+  TNC:\cfao\REP18-20977-OP20-A-POINCON DE CAMB-A.H
+Info:    MAIN        LINE                   08:28:22 Mon Sep 14 2020
+  0
+Info:    PLC         NC_START_Taste         08:28:22 Mon Sep 14 2020
+  I146: 0
+Info:    MAIN        PLCPOS                 08:28:25 Mon Sep 14 2020
+  
+  OK: Positioning
+  AXISMASK: 0x0004
+  AX: POS:       FEED:      FLAG:
+  02: 0          24000      0x 4
+
+Error:                                      08:28:25 Mon Sep 14 2020
+  P642 Magazin noch aktiv
+Info:    PLC                                08:28:25 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        PLCPOS                 08:28:25 Mon Sep 14 2020
+  
+  OK: Positioning
+  AXISMASK: 0x0003
+  AX: POS:       FEED:      FLAG:
+  00: -7974300   24000      0x 4
+  01: -2651500   24000      0x 6
+
+Info:    MAIN        ERRCLEARED             08:28:28 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:28:28 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:28:28 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        PLCPOS                 08:28:29 Mon Sep 14 2020
+  
+  OK: Positioning
+  AXISMASK: 0x0004
+  AX: POS:       FEED:      FLAG:
+  02: -1471500   24000      0x 6
+
+Info:    MAIN        ERRCLEARED             08:28:29 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    MAIN        ERRCLEARED             08:28:32 Mon Sep 14 2020
+  P642 Magazin noch aktiv
+Error:                                      08:28:33 Mon Sep 14 2020
+  P642 Magazin noch aktiv
+Info:    PLC                                08:28:33 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        ERRCLEARED             08:28:36 Mon Sep 14 2020
+  P642 Magazin noch aktiv
+Error:                                      08:32:07 Mon Sep 14 2020
+  Syst. mesure position Z: Amplit. trop faible
+Error:                                      08:32:07 Mon Sep 14 2020
+  
+Error:                                      08:32:07 Mon Sep 14 2020
+  Module : Q:/CommonTNC/sources/regel/stibctrl.cpp
+Error:                                      08:32:07 Mon Sep 14 2020
+  Line   : 188
+Error:                                      08:32:07 Mon Sep 14 2020
+  EIP    : bin\regel.elf:CODE32:0X000AF73D
+Error:                                      08:32:07 Mon Sep 14 2020
+  Process: REGEL
+Error:                                      08:32:07 Mon Sep 14 2020
+  Thread : REGELINT
+Error:                                      08:32:07 Mon Sep 14 2020
+  errno  : 2
+Error:                                      08:32:07 Mon Sep 14 2020
+  Call Stack:
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F0C3
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F248
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X000AF73D
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00060E06
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009A9AB
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009ACF6
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009B310
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00170871
+Error:                                      08:32:07 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0017BCDA
+Reset                                       08:32:11 Mon Sep 14 2020
+Info:    MAIN        START                  08:32:20 Mon Sep 14 2020
+  iTNC530
+Info:    MAIN        START                  08:32:20 Mon Sep 14 2020
+  NC-SOFTWARE = 340490 07 SP9 FCL:4
+Info:    MAIN        PATH                   08:32:20 Mon Sep 14 2020
+  RUNPGM = 
+Info:    MAIN        PATH                   08:32:20 Mon Sep 14 2020
+  SIMPGM = 
+Info:    MAIN        PATH                   08:32:20 Mon Sep 14 2020
+  NCEDIT = 
+Info:    MAIN        PATH                   08:32:22 Mon Sep 14 2020
+  RUNTCH = TNC:\TOOL_P.TCH
+Error:                                      08:32:22 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Info:    GEO                                08:32:22 Mon Sep 14 2020
+  ERROR SOURCE: GEORUN
+Info:    GEO         Aux:                   08:32:22 Mon Sep 14 2020
+  PGM : TNC:\cfao\REP18-20977-OP20-A-POINCON DE CAMB-A.H
+Line: 23
+
+Info:    MAIN        PATH                   08:32:23 Mon Sep 14 2020
+  KINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    MAIN        PATH                   08:32:23 Mon Sep 14 2020
+  SIMKINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    CTRL        Kinematik              08:32:25 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:32:25 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    CTRL        Kinematik              08:32:25 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:32:25 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    MAIN        HWSDialog              08:32:25 Mon Sep 14 2020
+  Restart
+Info:    MAIN        HWSDialog              08:32:25 Mon Sep 14 2020
+  normal
+Info:    CTRL        Kinematik              08:32:27 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:32:27 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    SOKY                               08:32:27 Mon Sep 14 2020
+  KEYSOURCE: KEYBOARD
+Info:    SOKY                               08:32:27 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01AE -> CE                           08:32:27 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:32:27 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Info:    MAIN                               08:32:27 Mon Sep 14 2020
+  DSP 340514 08.2 
+Key: 0x01AE -> CE                           08:32:32 Mon Sep 14 2020
+Info:    MAIN        NOTAUS                 08:32:36 Mon Sep 14 2020
+  starting notaus-test from RESTART
+Error:                                      08:32:36 Mon Sep 14 2020
+  P3 POSI. INITI. CHANGE-OUTIL MANQUE
+Info:    PLC                                08:32:36 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    CTRL        Kinematik              08:32:36 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    08:32:36 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Error:                                      08:32:37 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:32:37 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Error:                                      08:32:38 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    PLC                                08:32:38 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x01AE -> CE                           08:32:41 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:32:41 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Error:                                      08:32:41 Mon Sep 14 2020
+  P685 Niveau installation à réfrigérant max. !
+Info:    PLC                                08:32:41 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x01AE -> CE                           08:32:42 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             08:32:42 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Error:                                      08:32:42 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    PLC                                08:32:42 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    PYTHON      DMG_MAIN               08:32:43 Mon Sep 14 2020
+  
+  memory limit:= 30[MB]
+  time slice:=    250000[us]
+  interpret PLC:\\PYTHON\\DMG_MAIN.PY
+  
+
+Info:    MAIN        ERRCLEARED             08:32:45 Mon Sep 14 2020
+  P811 BA-SmartKey - kein TAG eingelegt!
+Info:    MAIN        NOTAUS                 08:32:53 Mon Sep 14 2020
+  End of notaus-test from RESTART
+Info:    CTRL        REG                    08:32:53 Mon Sep 14 2020
+  
+  AXIS 0 ENDAT REF=-797.438
+
+Info:    CTRL        REG                    08:32:53 Mon Sep 14 2020
+  
+  AXIS 1 ENDAT REF=-265.137
+
+Info:    CTRL        REG                    08:32:53 Mon Sep 14 2020
+  
+  AXIS 2 ENDAT REF=-147.131
+
+Info:    CTRL        REG                    08:32:53 Mon Sep 14 2020
+  
+  AXIS 3 ENDAT REF=-0.0014
+  transposed into limits from -0.00140456 to -0.0014
+  ambiguous pos changed to -0.0014 using CMOS position:-0.0014
+
+Info:    CTRL        REG                    08:32:53 Mon Sep 14 2020
+  
+  AXIS 4 ENDAT REF=0
+  transposed into limits from 3.81371e-05 to 0
+
+Info:    SOKY                               08:33:07 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01C4 -> Edit                         08:33:07 Mon Sep 14 2020
+Info:    SOKY                               08:33:07 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01C7 -> Mod                          08:33:07 Mon Sep 14 2020
+Info:    SOKY                               08:33:09 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x002A -> *                            08:33:09 Mon Sep 14 2020
+Key: 0x002A -> *                            08:33:10 Mon Sep 14 2020
+Key: 0x002A -> *                            08:33:10 Mon Sep 14 2020
+Key: 0x002A -> *                            08:33:10 Mon Sep 14 2020
+Info:    SOKY                               08:33:11 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01A8 -> Enter                        08:33:11 Mon Sep 14 2020
+Error:                                      08:33:11 Mon Sep 14 2020
+  P832 Lampentest aktivALLE AUS
+Info:    PLC                                08:33:11 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Info:    MAIN        ERRCLEARED             08:33:11 Mon Sep 14 2020
+  P832 Lampentest aktiv  ALLE AUS
+Key: 0x0189 -> Softkey 9                    08:33:12 Mon Sep 14 2020
+Info:    SOKY                               08:33:12 Mon Sep 14 2020
+  
+  IDENT:   GRS.S_END
+  PROCESS: MAIN
+  SOFTKEY: /SYS:/resource/sk/1024x768/allg/end.bmx
+  OVERLAY: 0
+
+Info:    SOKY                               08:33:13 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01C0 -> Manual                       08:33:13 Mon Sep 14 2020
+Key: 0x0168 -> Softkey Right 8              08:33:14 Mon Sep 14 2020
+Info:    SOKY                               08:33:14 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: 
+
+Key: 0x0160 -> Softkey Right 0              08:33:15 Mon Sep 14 2020
+Info:    SOKY                               08:33:15 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\BAR_UP.bmx
+
+Info:    SOKY                               08:33:15 Mon Sep 14 2020
+  KEYSOURCE: PLC
+Key: 0x017D -> Softkey Right >>             08:33:15 Mon Sep 14 2020
+Info:    SOKY                               08:33:16 Mon Sep 14 2020
+  KEYSOURCE: KEYBOARD
+Key: 0x0166 -> Softkey Right 6              08:33:16 Mon Sep 14 2020
+Info:    SOKY                               08:33:16 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\UniversalHelp.bmx
+
+Key: 0x0161 -> Softkey Right 1              08:33:17 Mon Sep 14 2020
+Info:    SOKY                               08:33:17 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\HELP_TC.bmx
+
+Error:                                      08:33:18 Mon Sep 14 2020
+  P834 Achtung Servicemenü aktiv    Überwachung aus !!   
+Info:    PLC                                08:33:18 Mon Sep 14 2020
+  ERROR SOURCE: PLC
+Key: 0x0167 -> Softkey Right 7              08:33:18 Mon Sep 14 2020
+Info:    SOKY                               08:33:18 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\WZ_KLAPPE.bmx
+
+Key: 0x0184 -> Softkey 4                    08:33:20 Mon Sep 14 2020
+Info:    SOKY                               08:33:20 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\WZ_KLAPPE_ZU.bmx
+
+Key: 0x0183 -> Softkey 3                    08:33:21 Mon Sep 14 2020
+Info:    SOKY                               08:33:21 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\WZ_KLAPPE_AUF.bmx
+
+Key: 0x0160 -> Softkey Right 0              08:33:24 Mon Sep 14 2020
+Info:    SOKY                               08:33:24 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\BAR_UP.bmx
+
+Info:    SOKY                               08:33:24 Mon Sep 14 2020
+  KEYSOURCE: PLC
+Key: 0x017D -> Softkey Right >>             08:33:24 Mon Sep 14 2020
+Info:    SOKY                               08:33:27 Mon Sep 14 2020
+  KEYSOURCE: KEYBOARD
+Key: 0x0165 -> Softkey Right 5              08:33:27 Mon Sep 14 2020
+Info:    SOKY                               08:33:27 Mon Sep 14 2020
+  
+  PROCESS: PLC
+  SOFTKEY: PLC:\SK\1024\INIT_TC.bmx
+
+Info:    MAIN        ERRCLEARED             08:33:27 Mon Sep 14 2020
+  P3 POSI. INITI. CHANGE-OUTIL MANQUE
+Error:                                      09:25:36 Mon Sep 14 2020
+  Syst. mesure position Z: Amplit. trop faible
+Error:                                      09:25:36 Mon Sep 14 2020
+  
+Error:                                      09:25:36 Mon Sep 14 2020
+  Module : Q:/CommonTNC/sources/regel/stibctrl.cpp
+Error:                                      09:25:36 Mon Sep 14 2020
+  Line   : 188
+Error:                                      09:25:36 Mon Sep 14 2020
+  EIP    : bin\regel.elf:CODE32:0X000AF73D
+Error:                                      09:25:36 Mon Sep 14 2020
+  Process: REGEL
+Error:                                      09:25:36 Mon Sep 14 2020
+  Thread : REGELINT
+Error:                                      09:25:36 Mon Sep 14 2020
+  errno  : 2
+Error:                                      09:25:36 Mon Sep 14 2020
+  Call Stack:
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F0C3
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0010F248
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X000AF73D
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00060E06
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009A9AB
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009ACF6
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0009B310
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X00170871
+Error:                                      09:25:36 Mon Sep 14 2020
+  bin\regel.elf:CODE32:0X0017BCDA
+Reset                                       09:25:41 Mon Sep 14 2020
+Info:    MAIN        START                  09:25:49 Mon Sep 14 2020
+  iTNC530
+Info:    MAIN        START                  09:25:49 Mon Sep 14 2020
+  NC-SOFTWARE = 340490 07 SP9 FCL:4
+Info:    MAIN        PATH                   09:25:49 Mon Sep 14 2020
+  SIMPGM = 
+Info:    MAIN        PATH                   09:25:49 Mon Sep 14 2020
+  NCEDIT = 
+Info:    MAIN        PATH                   09:25:51 Mon Sep 14 2020
+  RUNTCH = TNC:\TOOL_P.TCH
+Error:                                      09:25:51 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Info:    GEO                                09:25:51 Mon Sep 14 2020
+  ERROR SOURCE: GEORUN
+Info:    GEO         Aux:                   09:25:51 Mon Sep 14 2020
+  PGM : TNC:\cfao\REP18-20977-OP20-A-POINCON DE CAMB-A.H
+Line: 23
+
+Info:    MAIN        PATH                   09:25:51 Mon Sep 14 2020
+  KINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    MAIN        PATH                   09:25:52 Mon Sep 14 2020
+  SIMKINTAB = PLC:\KINEMATIK\KINE_4.tab
+Info:    CTRL        Kinematik              09:25:54 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    09:25:54 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    CTRL        Kinematik              09:25:54 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    09:25:54 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    MAIN        HWSDialog              09:25:54 Mon Sep 14 2020
+  Restart
+Info:    MAIN        HWSDialog              09:25:54 Mon Sep 14 2020
+  normal
+Info:    CTRL        Kinematik              09:25:55 Mon Sep 14 2020
+  
+  tool nr 1 R=25000 L=956114
+
+Info:    CTRL        REG                    09:25:55 Mon Sep 14 2020
+  
+  DCM: No. of calculations=0
+
+Info:    SOKY                               09:25:56 Mon Sep 14 2020
+  KEYSOURCE: KEYBOARD
+Info:    SOKY                               09:25:56 Mon Sep 14 2020
+  PROCESS: MAIN
+Key: 0x01AE -> CE                           09:25:56 Mon Sep 14 2020
+Info:    MAIN        ERRCLEARED             09:25:56 Mon Sep 14 2020
+  N8110 Programme CN interrompu
+Info:    MAIN                               09:25:56 Mon Sep 14 2020
+  DSP 340514 08.2 
+Info:    REMO        A_LG                   09:26:25 Mon Sep 14 2020
+  Addr:0xC0A803D9 Priv:0x03 No:2
+Info:    REMO        A_LG                   09:26:25 Mon Sep 14 2020
+  Addr:0xC0A803D9 Priv:0x0B No:2
+Info:    REMO        A_LG                   09:27:12 Mon Sep 14 2020
+  Addr:0xC0A803D9 Priv:0x0F No:2

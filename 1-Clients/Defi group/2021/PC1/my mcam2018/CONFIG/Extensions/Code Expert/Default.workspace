@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workspace xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn://Mastercam/Extensions/Workspace">
+  <Windows>
+    <Window>
+      <Key>
+        <Id>684f00ca-5cf5-470a-a844-ca1a510b30e3</Id>
+      </Key>
+      <State>
+        <Comment>Progress bar window</Comment>
+        <Value>
+          <Placement>
+            <Flags>0</Flags>
+            <MaxPosition>
+              <X>-1</X>
+              <Y>-1</Y>
+            </MaxPosition>
+            <MinPosition>
+              <X>-1</X>
+              <Y>-1</Y>
+            </MinPosition>
+            <NormalPosition>
+              <Bottom>285</Bottom>
+              <Left>156</Left>
+              <Right>792</Right>
+              <Top>156</Top>
+            </NormalPosition>
+            <ShowCmd>1</ShowCmd>
+          </Placement>
+        </Value>
+      </State>
+    </Window>
+    <Window>
+      <Key>
+        <Id>f7536527-0d83-42f6-a616-11ac4b9a9f4a</Id>
+      </Key>
+      <State>
+        <Comment>Main application window</Comment>
+        <Value>
+          <ControlStates>
+            <StateContainer>
+              <Type>DockSiteLayout</Type>
+              <States i:type="StringStates">
+                <Control>
+                  <Key>
+                    <Id>4c2a7545-7ac6-497c-a6f3-4f64c7351c0a</Id>
+                  </Key>
+                  <State>
+                    <Comment>Main document workspace dock site state</Comment>
+                    <Value>&lt;DockSiteLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SerializationFormat="ToolWindowsOnly" Version="2"&gt;
+	&lt;AutoHideHost /&gt;
+	&lt;Content xsi:type="Workspace"&gt;
+		&lt;Content xsi:type="TabbedMdiHost"&gt;
+			&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="1e4833cf-873d-4138-a300-ae490105a48b" /&gt;
+		&lt;/Content&gt;
+	&lt;/Content&gt;
+	&lt;ToolWindows&gt;
+		&lt;ToolWindow UniqueId="82a69f78-65f2-4279-b50b-760192d991b2" SerializationId="FindReplaceToolWindow" IsOpen="false" State="Docked" /&gt;
+	&lt;/ToolWindows&gt;
+&lt;/DockSiteLayout&gt;</Value>
+                  </State>
+                </Control>
+              </States>
+            </StateContainer>
+          </ControlStates>
+          <Placement>
+            <Flags>0</Flags>
+            <MaxPosition>
+              <X>-1</X>
+              <Y>-1</Y>
+            </MaxPosition>
+            <MinPosition>
+              <X>-1</X>
+              <Y>-1</Y>
+            </MinPosition>
+            <NormalPosition>
+              <Bottom>846</Bottom>
+              <Left>78</Left>
+              <Right>1102</Right>
+              <Top>78</Top>
+            </NormalPosition>
+            <ShowCmd>1</ShowCmd>
+          </Placement>
+        </Value>
+      </State>
+    </Window>
+  </Windows>
+</Workspace>

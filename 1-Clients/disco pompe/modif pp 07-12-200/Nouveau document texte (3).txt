@@ -1,0 +1,38 @@
+enlver sur 5x operation g136 en find de prog 
+sur 5 x en dernier rajouter apres m404 G136 si seulement dernire operation 5x
+si retractation forcé alors rejouer 
+N822 M866
+N823 G00 X9999.
+N824 G00 B0.
+N825 M12
+N826 G148
+N827 M404
+ en find e parcours 5x 
+
+
+en derniere operation rajouter le code 
+G148
+et m404
+
+
+example """""""""""
+
+N1464 M866
+N1465 G00 X9999.
+N1466 G00 B0.
+N827 G148
+N828 M404
+N1467 G136
+N1468 G20HP=1.
+N1469 M12
+N1470 M101 M103 M105
+N1471 M174
+N1472 M109
+N1473 M01
+N1474 M50
+N1475 M88 M288
+N1476 M215
+
+"""""""""""""""""
+
+rajouter g50 en deb de prog 

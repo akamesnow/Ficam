@@ -1,0 +1,10428 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1014
+  9
+$ACADMAINTVER
+ 70
+     9
+  9
+$DWGCODEPAGE
+  3
+ANSI_1252
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMIN
+ 10
+-207.032062679832
+ 20
+-455.4027751997995
+ 30
+0.0
+  9
+$EXTMAX
+ 10
+223.5912145556895
+ 20
+96.94928630102304
+ 30
+98.98912856059866
+  9
+$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$LIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$ORTHOMODE
+ 70
+     0
+  9
+$REGENMODE
+ 70
+     1
+  9
+$FILLMODE
+ 70
+     1
+  9
+$QTEXTMODE
+ 70
+     0
+  9
+$MIRRTEXT
+ 70
+     1
+  9
+$DRAGMODE
+ 70
+     2
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$OSMODE
+ 70
+    37
+  9
+$ATTMODE
+ 70
+     1
+  9
+$TEXTSIZE
+ 40
+2.5
+  9
+$TRACEWID
+ 40
+1.0
+  9
+$TEXTSTYLE
+  7
+STANDARD
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+BYLAYER
+  9
+$CECOLOR
+ 62
+   256
+  9
+$CELTSCALE
+ 40
+1.0
+  9
+$DELOBJ
+ 70
+     1
+  9
+$DISPSILH
+ 70
+     0
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+2.5
+  9
+$DIMEXO
+ 40
+0.625
+  9
+$DIMDLI
+ 40
+3.75
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+1.25
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+2.5
+  9
+$DIMCEN
+ 40
+2.5
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+     0
+  9
+$DIMLIM
+ 70
+     0
+  9
+$DIMTIH
+ 70
+     0
+  9
+$DIMTOH
+ 70
+     0
+  9
+$DIMSE1
+ 70
+     0
+  9
+$DIMSE2
+ 70
+     0
+  9
+$DIMTAD
+ 70
+     1
+  9
+$DIMZIN
+ 70
+     8
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+     1
+  9
+$DIMSHO
+ 70
+     1
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+     0
+  9
+$DIMALTD
+ 70
+     3
+  9
+$DIMALTF
+ 40
+0.03937007874016
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$DIMTOFL
+ 70
+     1
+  9
+$DIMTVP
+ 40
+0.0
+  9
+$DIMTIX
+ 70
+     0
+  9
+$DIMSOXD
+ 70
+     0
+  9
+$DIMSAH
+ 70
+     0
+  9
+$DIMBLK1
+  1
+
+  9
+$DIMBLK2
+  1
+
+  9
+$DIMSTYLE
+  2
+ISO-25
+  9
+$DIMCLRD
+ 70
+     0
+  9
+$DIMCLRE
+ 70
+     0
+  9
+$DIMCLRT
+ 70
+     0
+  9
+$DIMTFAC
+ 40
+1.0
+  9
+$DIMGAP
+ 40
+0.625
+  9
+$DIMJUST
+ 70
+     0
+  9
+$DIMSD1
+ 70
+     0
+  9
+$DIMSD2
+ 70
+     0
+  9
+$DIMTOLJ
+ 70
+     0
+  9
+$DIMTZIN
+ 70
+     8
+  9
+$DIMALTZ
+ 70
+     0
+  9
+$DIMALTTZ
+ 70
+     0
+  9
+$DIMFIT
+ 70
+     3
+  9
+$DIMUPT
+ 70
+     0
+  9
+$DIMUNIT
+ 70
+     2
+  9
+$DIMDEC
+ 70
+     2
+  9
+$DIMTDEC
+ 70
+     2
+  9
+$DIMALTU
+ 70
+     2
+  9
+$DIMALTTD
+ 70
+     3
+  9
+$DIMTXSTY
+  7
+STANDARD
+  9
+$DIMAUNIT
+ 70
+     0
+  9
+$LUNITS
+ 70
+     2
+  9
+$LUPREC
+ 70
+     4
+  9
+$SKETCHINC
+ 40
+1.0
+  9
+$FILLETRAD
+ 40
+10.0
+  9
+$AUNITS
+ 70
+     0
+  9
+$AUPREC
+ 70
+     0
+  9
+$MENU
+  1
+.
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$PELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$LIMCHECK
+ 70
+     0
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$CHAMFERC
+ 40
+0.0
+  9
+$CHAMFERD
+ 40
+0.0
+  9
+$SKPOLY
+ 70
+     0
+  9
+$TDCREATE
+ 40
+2453737.5
+  9
+$TDUPDATE
+ 40
+2458302.39227022
+  9
+$TDINDWG
+ 40
+0.0000000116
+  9
+$TDUSRTIMER
+ 40
+0.0000000116
+  9
+$USRTIMER
+ 70
+     1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+     0
+  9
+$PDMODE
+ 70
+     2
+  9
+$PDSIZE
+ 40
+0.1
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$COORDS
+ 70
+     1
+  9
+$SPLFRAME
+ 70
+     0
+  9
+$SPLINETYPE
+ 70
+     6
+  9
+$SPLINESEGS
+ 70
+     8
+  9
+$ATTDIA
+ 70
+     0
+  9
+$ATTREQ
+ 70
+     1
+  9
+$HANDLING
+ 70
+     1
+  9
+$HANDSEED
+  5
+114
+  9
+$SURFTAB1
+ 70
+     6
+  9
+$SURFTAB2
+ 70
+     6
+  9
+$SURFTYPE
+ 70
+     6
+  9
+$SURFU
+ 70
+     6
+  9
+$SURFV
+ 70
+     6
+  9
+$UCSNAME
+  2
+
+  9
+$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$PUCSNAME
+  2
+
+  9
+$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$USERI1
+ 70
+     0
+  9
+$USERI2
+ 70
+     0
+  9
+$USERI3
+ 70
+     0
+  9
+$USERI4
+ 70
+     0
+  9
+$USERI5
+ 70
+     0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  9
+$WORLDVIEW
+ 70
+     1
+  9
+$SHADEDGE
+ 70
+     3
+  9
+$SHADEDIF
+ 70
+    70
+  9
+$TILEMODE
+ 70
+     1
+  9
+$MAXACTVP
+ 70
+    64
+  9
+$PINSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PLIMCHECK
+ 70
+     0
+  9
+$PEXTMIN
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PEXTMAX
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PLIMMIN
+ 10
+-20.0
+ 20
+-7.5
+  9
+$PLIMMAX
+ 10
+277.0
+ 20
+202.5
+  9
+$UNITMODE
+ 70
+     0
+  9
+$VISRETAIN
+ 70
+     1
+  9
+$PLINEGEN
+ 70
+     0
+  9
+$PSLTSCALE
+ 70
+     1
+  9
+$TREEDEPTH
+ 70
+  3020
+  9
+$PICKSTYLE
+ 70
+     1
+  9
+$CMLSTYLE
+  2
+STANDARD
+  9
+$CMLJUST
+ 70
+     0
+  9
+$CMLSCALE
+ 40
+20.0
+  9
+$PROXYGRAPHICS
+ 70
+     1
+  9
+$MEASUREMENT
+ 70
+     1
+  0
+ENDSEC
+  0
+SECTION
+  2
+CLASSES
+  0
+CLASS
+  1
+ACDBDICTIONARYWDFLT
+  2
+AcDbDictionaryWithDefault
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+VISUALSTYLE
+  2
+AcDbVisualStyle
+  3
+ObjectDBX Classes
+ 90
+     4095
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+MATERIAL
+  2
+AcDbMaterial
+  3
+ObjectDBX Classes
+ 90
+     1153
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+SCALE
+  2
+AcDbScale
+  3
+ObjectDBX Classes
+ 90
+     1153
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+TABLESTYLE
+  2
+AcDbTableStyle
+  3
+ObjectDBX Classes
+ 90
+     4095
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+MLEADERSTYLE
+  2
+AcDbMLeaderStyle
+  3
+ACDB_MLEADERSTYLE_CLASS
+ 90
+     4095
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+SUN
+  2
+AcDbSun
+  3
+SCENEOE
+ 90
+     1153
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+DICTIONARYVAR
+  2
+AcDbDictionaryVar
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+XRECORD
+  2
+AcDbXrecord
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+LWPOLYLINE
+  2
+AcDbPolyline
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     1
+  0
+CLASS
+  1
+HATCH
+  2
+AcDbHatch
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     1
+  0
+CLASS
+  1
+ACDBPLACEHOLDER
+  2
+AcDbPlaceHolder
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     0
+  0
+CLASS
+  1
+LAYOUT
+  2
+AcDbLayout
+  3
+ObjectDBX Classes
+ 90
+        0
+280
+     0
+281
+     0
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+  5
+8
+102
+{ACAD_XDICTIONARY
+360
+109
+102
+}
+330
+0
+100
+AcDbSymbolTable
+ 70
+     1
+  0
+VPORT
+  5
+29
+330
+8
+100
+AcDbSymbolTableRecord
+100
+AcDbViewportTableRecord
+  2
+*ACTIVE
+ 70
+     0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+344.1869158878504
+ 22
+148.5
+ 13
+0.0
+ 23
+0.0
+ 14
+10.0
+ 24
+10.0
+ 15
+10.0
+ 25
+10.0
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+0.0
+ 27
+0.0
+ 37
+0.0
+ 40
+297.0
+ 41
+1.972972972850329
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+     0
+ 72
+   100
+ 73
+     1
+ 74
+     3
+ 75
+     0
+ 76
+     0
+ 77
+     0
+ 78
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+  5
+5
+330
+0
+100
+AcDbSymbolTable
+ 70
+     5
+  0
+LTYPE
+  5
+14
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+BYBLOCK
+ 70
+     0
+  3
+
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  5
+15
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+BYLAYER
+ 70
+     0
+  3
+
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  5
+16
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+CONTINUOUS
+ 70
+     0
+  3
+Solid line
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  5
+6F
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+CONTINUOUS2
+ 70
+     0
+  3
+Solid Line
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  5
+70
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+DASHED
+ 70
+     0
+  3
+__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+ 72
+    83
+ 73
+     2
+ 40
+0.5
+ 49
+0.375
+ 74
+     0
+ 49
+-0.125
+ 74
+     0
+  0
+LTYPE
+  5
+71
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+CENTER
+ 70
+     0
+  3
+____ _ ____ _ ____ _ ____ _ ____ _ ____ _ ____ _
+ 72
+    83
+ 73
+     4
+ 40
+1.0
+ 49
+0.625
+ 74
+     0
+ 49
+-0.125
+ 74
+     0
+ 49
+0.125
+ 74
+     0
+ 49
+-0.125
+ 74
+     0
+  0
+LTYPE
+  5
+72
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+PHANTOM
+ 70
+     0
+  3
+___ _ _ ___ _ _ ___ _ _ ___ _ _ ___ _ _ ___ _ _ 
+ 72
+    83
+ 73
+     6
+ 40
+1.0
+ 49
+0.5
+ 74
+     0
+ 49
+-0.1
+ 74
+     0
+ 49
+0.1
+ 74
+     0
+ 49
+-0.1
+ 74
+     0
+ 49
+0.1
+ 74
+     0
+ 49
+-0.1
+ 74
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+  5
+2
+330
+0
+100
+AcDbSymbolTable
+ 70
+     4
+  0
+LAYER
+  5
+10
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+0
+ 70
+     0
+ 62
+     7
+  6
+CONTINUOUS
+  0
+LAYER
+  5
+73
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+_0100770102-FLAN_-_BOSS_-E
+ 70
+     0
+ 62
+     1
+  6
+CONTINUOUS
+  0
+LAYER
+  5
+74
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+_0100770102-FLAN_-_BOSS_-0
+ 70
+     0
+ 62
+     1
+  6
+CONTINUOUS
+  0
+LAYER
+  5
+75
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+UNNAMED_LEVEL_998
+ 70
+     0
+ 62
+     1
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+  5
+3
+330
+0
+100
+AcDbSymbolTable
+ 70
+     2
+  0
+STYLE
+  5
+11
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+STANDARD
+ 70
+     0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+     0
+ 42
+2.5
+  3
+txt
+  4
+
+  0
+STYLE
+  5
+AD
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+MCSTICK_A0_500000_S0_00000
+ 70
+     0
+ 40
+0.0
+ 41
+0.5
+ 50
+0.0
+ 71
+     0
+ 42
+2.5
+  3
+Simplex
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+  5
+6
+330
+0
+100
+AcDbSymbolTable
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+  5
+7
+330
+0
+100
+AcDbSymbolTable
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+  5
+9
+330
+0
+100
+AcDbSymbolTable
+ 70
+     4
+  0
+APPID
+  5
+12
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD
+ 70
+     0
+  0
+APPID
+  5
+6E
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+MASTERCAM_2018
+ 70
+     0
+  0
+APPID
+  5
+108
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD_OBJECT_CHANGE_GUID
+ 70
+     0
+  0
+APPID
+  5
+113
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD_MLEADERVER
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+  5
+A
+330
+0
+100
+AcDbSymbolTable
+ 70
+     1
+  0
+DIMSTYLE
+105
+27
+330
+A
+100
+AcDbSymbolTableRecord
+100
+AcDbDimStyleTableRecord
+  2
+ISO-25
+ 70
+     0
+  3
+
+  4
+
+  5
+
+  6
+
+  7
+
+ 40
+1.0
+ 41
+2.5
+ 42
+0.625
+ 43
+3.75
+ 44
+1.25
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+140
+2.5
+141
+2.5
+142
+0.0
+143
+0.03937007874016
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.625
+ 71
+     0
+ 72
+     0
+ 73
+     0
+ 74
+     0
+ 75
+     0
+ 76
+     0
+ 77
+     1
+ 78
+     8
+170
+     0
+171
+     3
+172
+     1
+173
+     0
+174
+     0
+175
+     0
+176
+     0
+177
+     0
+178
+     0
+270
+     2
+271
+     2
+272
+     2
+273
+     2
+274
+     3
+340
+11
+275
+     0
+280
+     0
+281
+     0
+282
+     0
+283
+     0
+284
+     8
+285
+     0
+286
+     0
+287
+     3
+288
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+BLOCK_RECORD
+  5
+1
+330
+0
+100
+AcDbSymbolTable
+ 70
+     0
+  0
+BLOCK_RECORD
+  5
+1F
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*MODEL_SPACE
+  0
+BLOCK_RECORD
+  5
+23
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*PAPER_SPACE
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+20
+330
+1F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*MODEL_SPACE
+ 70
+     0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*MODEL_SPACE
+  1
+
+  0
+ENDBLK
+  5
+21
+330
+1F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+24
+330
+23
+100
+AcDbEntity
+ 67
+     1
+  8
+0
+100
+AcDbBlockBegin
+  2
+*PAPER_SPACE
+ 70
+     0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*PAPER_SPACE
+  1
+
+  0
+ENDBLK
+  5
+25
+330
+23
+100
+AcDbEntity
+ 67
+     1
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+3DSOLID
+  5
+76
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-0
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbModelerGeometry
+ 70
+     1
+  1
+noi fij n o 
+  1
+=0;& {n {m {rn {rn |
+  1
+,+-618@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {rn {rn {o 4::/ 4::/@4:/+ 6810-: nh ^ KKMV]@G^ \VL@Q^ RZ lh conoohhonomrYS^ Qarc]0,,qrZ'+-*qna cma |
+  1
+3*2/ {l {rn {k {o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {j {rn {m 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+,7:33 {i {rn {rn {h {m |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {l {m oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {g {rn {k 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {f {no {nn {k {rn {nm n o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {i {k oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {nl {rn {h 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {nk {nj {ni {k {rn {nh n o |
+  1
+300/ {rn {ng {nf {h |
+  1
+<01:r,*-9><: {rn rnmnqkhohjhfihokjii rmgkqkkgkjgfgonngmf fiqggfnmgjiojfgiik o o n roqoolknkjgkhmjinhlnmg riqlfffffogfnnonkmi o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {f {h oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {mo {rn {no 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {mn {mm {ml {k {rn {mk n o |
+  1
+300/ {rn {mj {mi {no |
+  1
+<01:r,*-9><: {rn rnniqfjkhojmmjlflgn rkonqllgljhmjgfjfkf fiqggfnmgjiojfgiik o o n roqoolknkjgkhmjinhlkng riqlfffffogfnnonfig o n o o o n o o o o o |
+  1
+300/ {rn {rn {mh {h |
+  1
+<0:;8: {rn {nf {nf {mg {mf o {nn {rn |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {nk {no oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {lo {rn {nj 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {ln {lm {ll {k {rn {lk o o |
+  1
+300/ {rn {lj {li {nj |
+  1
+/3>1:r,*-9><: {rn rmnnqffomgjlnfghgmn rmikqlmomhgiognlmh fiqfgfnmgjiojfgijg o o n n o o o o o o o |
+  1
+300/ {rn {rn {lh {no |
+  1
+<0:;8: {rn {mi {mi {lg {lf o {ni {rn |
+  1
+<0:;8: {rn {mh {mh {ko {kn n {ng {rn |
+  1
+<0:;8: {rn {mg {mg {nf {mf n {km {rn |
+  1
+:;8: {rn {kl {kl {mg {kk o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {mn {nj oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {kj {rn {mm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {ki {kh {kg {k {rn {kf n o |
+  1
+300/ {rn {jo {jn {mm |
+  1
+/3>1:r,*-9><: {rn rmnnqffomgjlnfghgmn rmikqlmomhgiognlmh fgqfgfnmgjiojfgijg o o n n o o o o o o o |
+  1
+300/ {rn {jm {jl {nj |
+  1
+<0:;8: {rn {jk {jj {ji {jh n {ml {rn |
+  1
+<0:;8: {rn {lh {lh {jl {jg n {mj {rn |
+  1
+<0:;8: {rn {lg {lg {mi {lf n {jo {rn |
+  1
+:;8: {rn {jf {jf {lg {io o |
+  1
+<0:;8: {rn {ko {ko {mh {kn o {jm {rn |
+  1
+:;8: {rn {in {in {ko {im o |
+  1
+300/ {rn {rn {mg {mm |
+  1
+):-+:' {rn {mf {il |
+  1
+:336/,:r<*-): {rn rnmnqkhohjhfihokjii rmgkqkkgkjgfgonngk fgqfgfnmgjiojfgijg o o n oqoolknkjgkhmjinjlkl iqlfffffogfnnoniii o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ln {mm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {ik {rn {lm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {ij {ii {ih {k {rn {ig n o |
+  1
+300/ {rn {rn {if {lm |
+  1
+,/361:r,*-9><: {rn o $ :'><+,*- 1*=, n l 0/:1 0/:1 101: 101: m l 
+  1
+ o n n n 
+  1
+ o l oqj m nqoooooooolnfjoooh l 
+  1
+ rnkoqokgghflkgmgnl rkniqkofmilhnjfllkf fiqfgfnmgjiojfgijg 
+  1
+ rnkoqokgghflkgmgnl rkniqkofmilhnjfllkf fgqfgfnmgjiojfgijg 
+  1
+ rnlfqfghfmjhjkllmkj rkniqmilogkilmknji fiqfgfnmgjiojfgikk 
+  1
+ rnlfqfghfmjhjkllmkj rkniqmilogkilmknji fgqfgfnmgjiojfgikk 
+  1
+ rnlfqfkningolnihmom rkniqnnljjoofnjnkkn fiqfgfnmgjiojfgihm 
+  1
+ rnlfqfkningolnihmom rkniqnnljjoofnjnkkn fgqfgfnmgjiojfgihm 
+  1
+ rnlfqghgigojlhommi rknjqgnnomohfnlnlgn fiqfgfnmgjiojfgihm 
+  1
+ rnlfqghgigojlhommi rknjqgnnomohfnlnlgn fgqfgfnmgjiojfgihm 
+  1
+ rnlfqgimffnmkmhhgon rknjqiinlfhjggojif fiqfgfnmgjiojfgikk 
+  1
+ rnlfqgimffnmkmhhgon rknjqiinlfhjggojif fgqfgfnmgjiojfgikk 
+  1
+ rnlfqgilfojnojjlfjk rknjqjnfknilnfjfoji fiqfgfnmgjiojfgihm 
+  1
+ rnlfqgilfojnojjlfjk rknjqjnfknilnfjfoji fgqfgfnmgjiojfgihm 
+  1
+ o 
+  1
+ " o o o o |
+  1
+300/ {rn {km {lg {mm |
+  1
+<0:;8: {rn {ho {hn {if {hm o {ll {rn |
+  1
+300/ {rn {rn {ko {nj |
+  1
+<0:;8: {rn {jl {jl {lh {jg o {lj {rn |
+  1
+<0:;8: {rn {hl {li {hk {hj n {ml {rn |
+  1
+<0:;8: {rn {li {hi {hh {hg n {ml {rn |
+  1
+<0:;8: {rn {hf {go {li {jh o {kg {gn |
+  1
+:;8: {rn {gm {gl {ji {gk o |
+  1
+:;8: {rn {gj {gj {jl {gi o |
+  1
+):-+:' {rn {lf {gh |
+  1
+:336/,:r<*-): {rn rnniqfjkhojmmjlflhj rkonqllgljhmjgfjfkf fgqfgfnmgjiojfgijg o o n oqoolknkjgkhmjjjfglnf iqlfffffogfnnommmj o n o o |
+  1
+):-+:' {rn {kn {gg |
+  1
+:336/,:r<*-): {rn rnmnqkhohjhfihokjii rmgkqkkgkjgfgonngk fiqfgfnmgjiojfgijg o o n oqoolknkjgkhmjinjlkl iqlfffffogfnnoniii o n o o |
+  1
+/061+ {rn rnmnqkihlkllgmlmook rmhgqokgkjfgfnoogmk fgqfgfnmgjiojfgijg |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ki {lm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {gf {rn {kh 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {fo {fn {fm {k {rn {fl n o |
+  1
+300/ {rn {rn {fk {kh |
+  1
+<01:r,*-9><: {rn rnklqgijfjhnhlinhnm rknjqmnlkhmlffgkgfh fiqggfnmgjiojfgiik o o n roqoomnlknnjkjlmilijl rlqffffffklomlojhon o n o o o n o o o o o |
+  1
+<0:;8: {rn {go {hf {jn {hm n {kg {fj |
+  1
+<0:;8: {rn {fi {jn {fk {fh o {ll {rn |
+  1
+<0:;8: {rn {jn {fg {ff {noo o {ll {rn |
+  1
+:;8: {rn {non {nom {if {nol o |
+  1
+<0:;8: {rn {nok {jk {noj {noi n {ml {rn |
+  1
+<0:;8: {rn {noh {nog {jk {hj o {nof {rn |
+  1
+:;8: {rn {nno {gm {hk {nnn o |
+  1
+<0:;8: {rn {jj {nnm {nnl {nnk n {ml {rn |
+  1
+<0:;8: {rn {nnj {nni {jj {hg o {ih {rn |
+  1
+:;8: {rn {gl {nnh {hh {nng o |
+  1
+<0:;8: {rn {if {ji {nni {nnf o {kg {nmo |
+  1
+<0:;8: {rn {ji {if {noh {nmn n {kg {nmm |
+  1
+/<*-): {rn o o $ :'//< 1*=, n 0/:1 m 
+  1
+ mqhlhgoonnklmlmijn:rooh n oqffffgfnihfillijnm n 
+  1
+ jqigflnmmiongiihmj:romh oqffffgfnhnnjgmfikk 
+  1
+ o o 
+  1
+ jqooooooooooooooom:rooj 
+  1
+ ,/361: o $ -:9 o " n o n n n o n nqoooooooolnfjoooh 
+  1
+ " o o |
+  1
+):-+:' {rn {jh {nml |
+  1
+):-+:' {rn {jh {nmk |
+  1
+61+<*-):r<*-): {rn o $ :'><+<*- 1*=, l 0/:1 l 
+  1
+ mqhlhgoonnklmlmijn:rooh l oqkfffgfkknhkllhiji m oqffffgfnihfillijnm l 
+  1
+ rnlfqgilfojokinifon rknjqjnfkmjjkhmhfnl fiqfgfnmgjiojfgihm 
+  1
+ rnlfqgimffnfmmjhljn rknjqiinkokohofjlhg fiqfgfnmgjiojfgikk 
+  1
+ rnlfqghgignmnghilgi rknjqgnnomkoiglmmmk fiqfgfnmgjiojfgihm 
+  1
+ rnlfqfkningolnihmom rkniqnnljjoofnjnkkn fiqfgfnmgjiojfgihm 
+  1
+ rnlfqfghfmjhjkllmkj rkniqmilogkilmknji fiqfgfnmgjiojfgikk 
+  1
+ rnkoqokgghflkgmgnl rkniqkofmilhnjfllkf fiqfgfnmgjiojfgijg 
+  1
+ o 
+  1
+ 1*33@,*-9><: 
+  1
+ 1*33@,*-9><: 
+  1
+ 1*33=, 
+  1
+ 1*33=, 
+  1
+ " o o |
+  1
+):-+:' {rn {jg {nmj |
+  1
+:336/,:r<*-): {rn rnniqfjkhojmmjlflhj rkonqllgljhmjgfjfkf fiqfgfnmgjiojfgijg o o n oqoolknkjgkhmjjjfglnf iqlfffffogfnnommmj o n o o |
+  1
+/061+ {rn rnniqfjnmfoikoiigm rlfkqflgljgnifgkfmh fgqfgfnmgjiojfgijg |
+  1
+/061+ {rn rnmnqkihlkllgmlmook rmhgqokgkjfgfnoogmk fiqfgfnmgjiojfgijg |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ij {kh oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {nmi {rn {ii 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {nmh {nmg {nmf {k {rn {nlo n o |
+  1
+300/ {rn {rn {nln {ii |
+  1
+/3>1:r,*-9><: {rn rnjoqklhomfnhkjlijg rknfqmoffihnnninhoi fiqggfnmgjiojfgiik roqooojlljmggillhhhoglm roqffffffgjhihlkijgf o o o rn o o o o o |
+  1
+<0:;8: {rn {nni {nnj {ho {fh n {ih {rn |
+  1
+/<*-): {rn o n $ :'//< 1*=, m 0/:1 nnj 
+  1
+ o m oqonokniiiiiiiiiiiii m oqomoglllllllllllllm m oqokniiiiiiiiiiiiiik m oqogllllllllllllllmf m 
+  1
+ oqnmj m oqnkjglllllllllllln m oqnjimj m oqninkjglllllllllln m oqnikoimj m 
+  1
+ oqnijlikjglllllllln m oqniionjimj m oqniilknnkjglllllln m oqniijolfoimj m oqniijgjmgikjglllln m 
+  1
+ oqniiiiiiiiiiiiiiii m oqniihkgokighj m oqniigmfkmhogllllln m oqniifnogohmfniiiii m oqniiffmnghj m 
+  1
+ oqnihlnhhogllllllln m oqnihfighj m oqnifmhogllllllllln m oqnhnghj m oqnhhogllllllllllln m 
+  1
+ oqnghj m oqmogllllllllllllln m oqmj m oqmfniiiiiiiiiiiiil m oqlnmj m 
+  1
+ oqlmmfniiiiiiiiiiil m oqlmgnmj m oqllohmfniiiiiiiiil m oqllmolnmj m oqllmigmmfniiiiiiil m 
+  1
+ oqllloohgnmj m oqlllnhojhmfniiiiil m oqlllmjnfjlnmj m oqlllmfmiklmmfniiil m oqlllllllllllllllln m 
+  1
+ oqkniiiiiiiiiiiiiil m oqkjgllllllllllllln m oqkhfniiiiiiiiiiiil m oqkgfjgllllllllllln m oqkfkhfniiiiiiiiiil m 
+  1
+ oqkfhlfjgllllllllln m oqkfgifhfniiiiiiiil m oqkfflkgfjgllllllln m oqkffihkkhfniiiiiil m oqkffglhmlfjgllllln m 
+  1
+ oqkfffnginfhfniiiil m oqj m oqjooognlgomoglllmi m oqjoonimhiokniiiiil m oqjoomkknkoimj m 
+  1
+ oqjoolmjjmoglllllmi m oqjooijnokniiiiiiil m oqjonlomoglllllllmi m oqjomiokniiiiiiiiil m oqjojmoglllllllllmi m 
+  1
+ oqjnokniiiiiiiiiiil m oqjmoglllllllllllmi m oqjkniiiiiiiiiiiiil m oqjglllllllllllllmi m oqimj m 
+  1
+ oqikjglllllllllllmi m oqijimj m oqiinkjglllllllllmi m oqiikoimj m oqiijlikjglllllllmi m 
+  1
+ oqiiionjimj m oqiiilknnkjglllllmi m oqiiijolfoimj m oqiiijgjmgikjglllmi m oqiiiiiiiiiiiiiiiil m 
+  1
+ oqiiihkgokighj m oqiiigmfkmhogllllmi m oqiiiffmnghj m oqiihlnhhogllllllmi m oqiihfighj m 
+  1
+ oqiifmhogllllllllmi m oqihnghj m oqihhogllllllllllmi m oqighj m oqhogllllllllllllmi m 
+  1
+ oqhj m oqhfniiiiiiiiiiiihk m oqgnmj m oqgmmfniiiiiiiiiihk m oqgmgnmj m 
+  1
+ oqglohmfniiiiiiiihk m oqglmolnmj m oqglmigmmfniiiiiihk m oqglloohgnmj m oqgllogfnfmhogllllh m 
+  1
+ oqgllnhojhmfniiiihk m oqgllmjnfjlnmj m oqglllllllllllllllh m oqgllknkhnljkniiihk m oqgllkfioflhj m 
+  1
+ oqglljlihglgjkniihk m oqglljhhkhlfjgllllh m oqgllijggjkniiiiihk m oqgllfgklhj m oqglkiljkniiiiiiihk m 
+  1
+ oqgljflhj m oqglgjkniiiiiiiiihk m oqgklhj m oqgjkniiiiiiiiiiihk m oqghj m 
+  1
+ oqfniiiiiiiiiiiiihk m oqfjglllllllllllllh m oqfhfniiiiiiiiiiihk m oqfgfjglllllllllllh m n m 
+  1
+ oqffffffffffffffmgf nqoooooooolnfkgihj 
+  1
+ oqffffffffffffffmml oqffkjkfhmkgnfmikjn 
+  1
+ oqffffffffffffffnji oqfggiglhinfihnggii 
+  1
+ oqffffffffffffffof oqfgloliklgkkomlfom 
+  1
+ oqffffffffffffffoml oqfhhkomkkinnoknkni 
+  1
+ oqfffffffffffffggf oqfiinkikioiffffkn 
+  1
+ oqfffffffffffffghig oqfjkfkminoinhinnmn 
+  1
+ oqfffffffffffffgjnm oqflmjgnhmgngmmjjok 
+  1
+ oqfffffffffffffgmmk oqfnokmonlhlfilmhn 
+  1
+ oqffffffffffffffoml oqggglnijkfmhikngnm 
+  1
+ oqffffffffffffffgkj oqgiikookkjjklhjiin 
+  1
+ oqffffffffffffffggf oqgjjkimlgllmihljil 
+  1
+ oqfffffffffffffffll oqgkkjifohjkjnlimgk 
+  1
+ oqfffffffffffffffji oqglfnmhnfgjjnfhoi 
+  1
+ oqfffffffffffffffji oqgllifimjlhngjghkh 
+  1
+ oqfffffffffffffffhg oqglofgnfkimjljmfnh 
+  1
+ n oqgmgmholkomlhkijmi 
+  1
+ n oqgmifnkgmkjkgnoogk 
+  1
+ n oqgmjjjffgoloiomkfj 
+  1
+ n oqgmkggmimfhhmgojnl 
+  1
+ n oqgmkmojkkiinlglfgg 
+  1
+ n oqgmlgiighmhfllihlk 
+  1
+ n oqgmljmglkohjjijnng 
+  1
+ n oqgmlljfohfnigfgigh 
+  1
+ n oqgmlngfgmgomokngk 
+  1
+ n oqgmlnojmoljjlmnlnj 
+  1
+ n oqgmlomojgnifkjglnk 
+  1
+ n oqgmmfhgmhnoknggnkg 
+  1
+ n oqgmmfljfinoknmojol 
+  1
+ n oqgmmgfngngihgilokg 
+  1
+ n oqgmmgjnlkmoiofohmi 
+  1
+ n oqgmmgnogijjfmjofok 
+  1
+ n oqgmmhiihmkhjloijkj 
+  1
+ oqfffffffffffffffgf oqgmmhmkkniioflolfj 
+  1
+ n oqgmmigmnofnnhllofh 
+  1
+ n oqgmmilfgonfongmlng 
+  1
+ n oqgmmjfhkfjllgomnhl 
+  1
+ n oqgmmjjjngghhkmmomf 
+  1
+ n oqgmmjnmggmgimojnfl 
+  1
+ n oqgmmlkliinkmlhhkfn 
+  1
+ n oqgmmnhkkjokogkmnfi 
+  1
+ n oqgmngliolhmnmmohll 
+  1
+ n oqgmnkfhiijihhlhlmi 
+  1
+ n oqgmogmofjhgglfnioh 
+  1
+ n oqgmonkkknikflhnomg 
+  1
+ n oqgnghfnkhkfilkjhj 
+  1
+ n oqgnhklfnfhnnnmofi 
+  1
+ n oqgnkhljmooimohfjhk 
+  1
+ n oqgnmollgklkmigfjll 
+  1
+ n oqgoiilllljinmomonn 
+  1
+ n oqgonmklmimimnflinl 
+  1
+ n oqhfokhnigjkmifgklm 
+  1
+ n oqhhfhkogglfimjhkki 
+  1
+ oqffffffffffffffgmm oqhjglnnkmnkimfoojk 
+  1
+ oqffffffffffffffikj oqhlholhjfmfiikilgh 
+  1
+ oqffffffffffffffgmm oqhnjgonollghnonknl 
+  1
+ n oqifkhnoionnghkmnnm 
+  1
+ oqffffffffffffffg oqigknhhmiigfkfmlgi 
+  1
+ oqffffffffffffffilk oqihlihghinfgfikkmh 
+  1
+ oqffffffffffffffjlk oqiigklmnfjlinomkgl 
+  1
+ oqffffffffffffffkkj oqiilnfknmfgioookh 
+  1
+ oqffffffffffffffk oqiiojhjhlmlhmgolm 
+  1
+ oqfffffffffffffflji oqijhfjfklkhghjnflf 
+  1
+ oqffffffffffffffllk oqijiijnkkonnnfmlmm 
+  1
+ oqfffffffffffffflnm oqijjlklfihmilgihhf 
+  1
+ oqffffffffffffffmgf oqijkifomifoofnjmoi 
+  1
+ oqffffffffffffffmgf oqijkolihoognfminjh 
+  1
+ oqffffffffffffffikj oqijlhoffminmklhnhl 
+  1
+ n oqijllglnglgfihgghl 
+  1
+ oqfffffffffffffffgf oqijlmnfgnjnmknijhn 
+  1
+ n oqijlojikjkkimmilon 
+  1
+ n oqijmfhkhhkhnjkimoi 
+  1
+ n oqijmgflofiffjjhgoh 
+  1
+ oqffffffffffffffof oqijmgjmmjgmgnjfmjj 
+  1
+ oqfffffffffffffgmon oqijmgnnkmoohkmknm 
+  1
+ oqffffffffffffffnnm oqijmhfnoonooifnllk 
+  1
+ n oqijmhhojgmoiimlngk 
+  1
+ oqffffffffffffffikj oqijmhkfmnofonhklgh 
+  1
+ oqffffffffffffffmgf oqijmhmfhkkliomfiil 
+  1
+ oqffffffffffffffmgf oqinmgfhlffofhghjkk 
+  1
+ oqffffffffffffffmgf oqjifigfjfojlklilhk 
+  1
+ oqffffffffffffffmgf oqjkfohjlojokongjkm 
+  1
+ oqffffffffffffffmgf oqjmgjhlgmfnfgfikkj 
+  1
+ oqffffffffffffffmgf oqjnglmiollhgiokgmj 
+  1
+ oqffffffffffffffmgf oqjognojojflmklnokf 
+  1
+ oqfffffffffffffflon oqjomffjlggnmfjgfll 
+  1
+ oqffffffffffffffmgf oqkfhgfnmgliniglnoj 
+  1
+ oqffffffffffffffmgf oqkfjllfnoomgghjjni 
+  1
+ oqffffffffffffffmhg oqkfmhghlighjhniofj 
+  1
+ oqffffffffffffffmgf oqkfnjnnjniiimjjlfk 
+  1
+ oqffffffffffffffmih oqkfomljhhgmiiomngl 
+  1
+ oqffffffffffffffmji oqkgfjfhfnngmjngghj 
+  1
+ oqffffffffffffffmih oqkggfioohlfomknikh 
+  1
+ oqffffffffffffffmhg oqkggiknnjjjkhhkion 
+  1
+ oqffffffffffffffmih oqkgglmmmkkllkmhghf 
+  1
+ oqffffffffffffffmih oqkggnimhgggigfjmfm 
+  1
+ oqffffffffffffffmhg oqkggoollljnfolggjg 
+  1
+ oqffffffffffffffmgf oqkghfmlioglgjnlggm 
+  1
+ oqffffffffffffffmgf oqkghgklggmomihinff 
+  1
+ oqffffffffffffffmhg oqkghgokonggjjflfni 
+  1
+ oqffffffffffffffmgf oqkghhiknjjhfigjhj 
+  1
+ oqffffffffffffffmgf oqkghhmmlgfkmlhjnlj 
+  1
+ oqffffffffffffffmgf oqkghigkkmfgonjofhg 
+  1
+ oqffffffffffffffmih oqkghikikhonhflmofj 
+  1
+ oqffffffffffffffmgf oqkghiokhokokokhlmf 
+  1
+ oqffffffffffffffmgf oqkghjikgknmmnmkfgm 
+  1
+ oqffffffffffffffmgf oqkghjmkfhgjnlgnloj 
+  1
+ oqffffffffffffffmgf oqkghkgjnnjgnkkikgj 
+  1
+ oqffffffffffffffmgf oqkghkkjmjlmmifngkj 
+  1
+ oqfffffffffffffflon oqkghkojlfoilflhmll 
+  1
+ oqffffffffffffffmgf oqkghlijjmgniliklm 
+  1
+ oqffffffffffffffmgf oqkghmoiohglmliokil 
+  1
+ oqffffffffffffffmgf oqkghokiilomhlmkgjm 
+  1
+ oqffffffffffffffmgf oqkgihmhhlkknlfghfm 
+  1
+ oqffffffffffffffmgf oqkgikoggkjhnfmfiff 
+  1
+ oqffffffffffffffmgf oqkgjhhnoifmnlmklm 
+  1
+ oqffffffffffffffmgf oqkgjnlllmnknmngmhk 
+  1
+ oqffffffffffffffmgf oqkglgjhgmgigmhnin 
+  1
+ oqffffffffffffffmgf oqkgmjgmkjnnkihgj 
+  1
+ oqffffffffffffffmgf oqkgoolnhommglhikhk 
+  1
+ oqffffffffffffffmgf oqkhhkgnknhngoffkkn 
+  1
+ oqffffffffffffffmgf oqkhmlgoglnhmnifokf 
+  1
+ oqffffffffffffffmgf oqkihmgmnmjnjlohfmn 
+  1
+ oqffffffffffffffmgf oqkjhogkloholhhklin 
+  1
+ oqffffffffffffffmgf oqkkigfknfkhofhohij 
+  1
+ oqffffffffffffffmgf oqkmijofijhjglkfnlj 
+  1
+ oqffffffffffffffmgf oqkoinjhkjihoonfinj 
+  1
+ oqffffffffffffffmhg oqlgjhfkiigolkgnmgg 
+  1
+ oqffffffffffffffmhg oqlijkiimnhfkjnmomk 
+  1
+ oqffffffffffffffmgf oqljjmfimnlmojiognh 
+  1
+ oqffffffffffffffmgf oqlkjnljniiogmhgmjj 
+  1
+ oqfffffffffffffflon oqlkoojmgilkfkgiffi 
+  1
+ oqffffffffffffffmgf oqllkfhmgkihkfjojmg 
+  1
+ oqffffffffffffffmgf oqllmklmljngmimionf 
+  1
+ oqffffffffffffffmgf oqlmfgfmklknjgngfgn 
+  1
+ oqffffffffffffffmgf oqlmgimmlkghmhhmfll 
+  1
+ oqffffffffffffffmgf oqlmhljmkogllkhnijm 
+  1
+ oqffffffffffffffmhg oqlmihnhkojhinnilfl 
+  1
+ oqffffffffffffffmgf oqlmiogmklfjlhkonf 
+  1
+ oqffffffffffffffmgf oqlmjhikfkgmjoofkoi 
+  1
+ oqffffffffffffffmgf oqlmjkkhkiioinjlkgj 
+  1
+ oqfffffffffffffflon oqlmjmgghmmfnllmhgl 
+  1
+ oqffffffffffffffmgf oqlmjnmffgmoknmmoki 
+  1
+ oqfffffffffffffflnm oqlmjojoinnofolfjig 
+  1
+ oqffffffffffffffmgf oqlmkfhnmkohoghhmmi 
+  1
+ oqffffffffffffffmgf oqlmkflnjjjlgfoffhf 
+  1
+ oqffffffffffffffmgf oqlmkgfnghomnnhkfh 
+  1
+ oqffffffffffffffmgf oqlmkgjollkjhnimki 
+  1
+ oqffffffffffffffmgf oqlmkgnmkffgmhkmojj 
+  1
+ oqffffffffffffffmgf oqlmkhhkiikffkfjljj 
+  1
+ oqffffffffffffffmhg oqlmkhllnmfjjjgfjlf 
+  1
+ oqffffffffffffffmhg oqlmkiflkkkkojmkghm 
+  1
+ oqffffffffffffffmih oqlmkijlhjflfifigj 
+  1
+ oqffffffffffffffmkj oqlmkjhklgfnmmonmgi 
+  1
+ oqffffffffffffffmkj oqlmkkfjonfkniinnfi 
+  1
+ oqffffffffffffffmml oqlmkllimhgfhnlokf 
+  1
+ oqffffffffffffffmon oqlmknhhjkogokfmmnh 
+  1
+ oqffffffffffffffnji oqlmlgiooiolmligogh 
+  1
+ oqffffffffffffffnon oqlmljkmjggfilhgifi 
+  1
+ oqffffffffffffffoon oqlmmfohimfjigffljj 
+  1
+ oqfffffffffffffgfnm oqlmmmhmhoihokhhklh 
+  1
+ oqffffffffffffffkkj oqlmnoomhflimgjljhf 
+  1
+ n oqlnfhllomholiomnli 
+  1
+ oqfffffffffffffff oqlnhnflmnffnojlhgk 
+  1
+ oqffffffffffffffgmm oqlnkijkoonioffkhhg 
+  1
+ oqfffffffffffffflhg oqlofjhkkmjfmkgllkh 
+  1
+ oqfffffffffffffgfnm oqlokkfhmmgiklijgl 
+  1
+ oqffffffffffffffkkj oqmfkllhfkgmkgghnhm 
+  1
+ n oqmgknggliioknilkgl 
+  1
+ n oqmilgihommiljmkgln 
+  1
+ n oqmkljgjfkkfmmlllkl 
+  1
+ n oqmmlmhojgjfnlgglhn 
+  1
+ n oqmomffhkjnomnlihkf 
+  1
+ nqooooooooooooooom oqnfmgkimhjjmlkhkog 
+  1
+ n oqngmhoiommjkmfimkm 
+  1
+ n oqnhhilnfmnkmnfkghg 
+  1
+ n oqnhmjiojfihomigijl 
+  1
+ n oqnhoomlfooknmglgkf 
+  1
+ n oqnihkghfolfkljgiim 
+  1
+ n oqniimnfikmkhhjjffk 
+  1
+ n oqnikfjnjjiignjihfh 
+  1
+ nqooooooooooooooom oqniklnhkkhmigmgojn 
+  1
+ n oqniligllgnginghofj 
+  1
+ n oqnilliillmkjmoookk 
+  1
+ n oqnilokfmfkojjomonn 
+  1
+ n oqnimgfohhoihonlnnk 
+  1
+ n oqnimhlmmjoolfginnk 
+  1
+ n oqnimifminfljglgkkm 
+  1
+ n oqnimijmfgggkfnogjl 
+  1
+ oqfffffffffffffffhg oqniminlljgllfglmij 
+  1
+ n oqnimjhlhmgoomhhojf 
+  1
+ n oqnimjlkofhkoljkjom 
+  1
+ n oqnimkfkkiifhijkgi 
+  1
+ n oqnimkjlnnfhnfnkhnh 
+  1
+ n oqnimknjmojfkjlomlk 
+  1
+ oqffffffffffffffiji oqnimlhhmfnffhogfmg 
+  1
+ oqffffffffffffffmgf oqnimlljfkkfogfjknh 
+  1
+ oqffffffffffffffilk oqnimmfilnklonfmjfg 
+  1
+ n oqnimmjiiglgihnhoi 
+  1
+ n oqnimmligigjngimjig 
+  1
+ n oqnimmnhojlmnlnjngg 
+  1
+ oqfffffffffffffffhg oqnimnfhmlhfohihgnj 
+  1
+ n oqnimnhhkmmikjmhhmf 
+  1
+ n oqnimnlhhfmnmokhkif 
+  1
+ n oqnimofgninhihfhlng 
+  1
+ n oqninflfilgmjhkhmij 
+  1
+ n oqninhgnnnhjoklglf 
+  1
+ n oqninkikoihjgilhhl 
+  1
+ n oqninnkhomgholiomkg 
+  1
+ oqffffffffffffffikj oqniojnmfnhmnllmgkk 
+  1
+ oqffffffffffffffmgf oqnjfghggkffogiijfh 
+  1
+ oqffffffffffffffikj oqnjginojhfhhgmffjn 
+  1
+ n oqnjhlkmkgihkhgljhn 
+  1
+ n oqnjkgojhjkmgojmfkj 
+  1
+ n oqnjmmifhllohmognnf 
+  1
+ oqfffffffffffffffgf oqnkhnfjkillofonkk 
+  1
+ n oqnkmnmkoinkjhloknl 
+  1
+ n oqnlnfhmolmiligfofj 
+  1
+ n oqnmnglnijgkhjjjmh 
+  1
+ n oqnonjnnkgfjiiohkgi 
+  1
+ n oqognmlfkolfgokkilml 
+  1
+ oqfffffffffffffffgf oqoiofnomgkmmgijhnml 
+  1
+ n oqokoilnmolnkilnfgon 
+  1
+ n oqolokigingngmgofjlg 
+  1
+ n oqomolngfnomngkkglmk 
+  1
+ n oqonjmlhffoljhllikln 
+  1
+ n oqononiolljhlfnkflgm 
+  1
+ n oqookggjfgihhhnjflhgh 
+  1
+ n o 
+  1
+ jqooooooooooooooom:rooj 
+  1
+ ,/361: o $ -:9 o " n o n n n o n nqoooooooolnfjoooh 
+  1
+ " o o |
+  1
+<0:;8: {rn {nlm {ho {nln {nll o {ll {rn |
+  1
+:;8: {rn {nom {nlk {fk {nlj o |
+  1
+<0:;8: {rn {hn {nli {nlh {nlg o {ll {rn |
+  1
+<0:;8: {rn {nog {noh {hn {noo n {nof {rn |
+  1
+:;8: {rn {nlf {non {ff {nko o |
+  1
+):-+:' {rn {hm {nkn |
+  1
+):-+:' {rn {hm {nkm |
+  1
+61+<*-):r<*-): {rn o $ :'><+<*- 1*=, m 0/:1 m 
+  1
+ o m n m 
+  1
+ rnlfqgilfojnojjlfjk rknjqjnfknilnfjfoim fgqfgfnmgjiojfgijg 
+  1
+ rnlfqgihoglfjhgihhm rknjqfgmfokifkiffjg fgqfgfnmgjiojfgijg 
+  1
+ rnkoqokgghflkgmgnl rkniqkofmilhnjflljj fgqfgfnmgjiojfgijg 
+  1
+ o 
+  1
+ 1*33@,*-9><: 
+  1
+ 1*33@,*-9><: 
+  1
+ 1*33=, 
+  1
+ 1*33=, 
+  1
+ " o o |
+  1
+<0:;8: {rn {nkl {hl {nkk {nkj n {ml {rn |
+  1
+<0:;8: {rn {nki {nkh {hl {noi o {nkg {rn |
+  1
+:;8: {rn {nkf {nno {noj {njo o |
+  1
+<0:;8: {rn {ff {hk {go {nmn o {nof {rn |
+  1
+<0:;8: {rn {hk {ff {nki {njn n {nof {rn |
+  1
+300/ {rn {rn {ff {njm |
+  1
+):-+:' {rn {hj {njl |
+  1
+,+->687+r<*-): {rn rnlfqfohfnjkfglklgk rkogqigngookgfioihi fiqfgfnmgjiojfgijg oqooiklilhgnjggoffl roqffffhfmgiloljgjon o o o |
+  1
+<0:;8: {rn {hi {njk {njj {nji n {ml {rn |
+  1
+<0:;8: {rn {njh {njg {hi {nnk o {fm {rn |
+  1
+:;8: {rn {nnh {njf {nnl {nio o |
+  1
+<0:;8: {rn {fk {hh {njg {nin o {ih {rn |
+  1
+<0:;8: {rn {hh {fk {hf {nnf n {ih {rn |
+  1
+):-+:' {rn {nnk {nim |
+  1
+:336/,:r<*-): {rn rnklqgijfjhnhlinhnm rknjqmnlkhmlffgkgfh fiqfgfnmgjiojfghmf rnqllkhfmikilgmknkk:ronk nqjknfgonijfngofgi:ronk rn lqgnhohhgmjlljgnjj rnqnfjhfnlniogkilml riqflggflfolfohmmgk:ronk n o o |
+  1
+:;8: {rn {gl {nom {nni {nil o |
+  1
+/<*-): {rn o o $ :'//< 1*=, n 0/:1 m 
+  1
+ o n n n 
+  1
+ o o 
+  1
+ oqj o 
+  1
+ jqooooooooooooooom:rooj 
+  1
+ ,/361: o $ -:9 o " n o n n n o n nqoooooooolnfjoooh 
+  1
+ " o o |
+  1
+:;8: {rn {gm {non {noh {nik o |
+  1
+/<*-): {rn o n $ :'//< 1*=, n 0/:1 m 
+  1
+ o n n n 
+  1
+ o nqoooooooolnfjoooh 
+  1
+ oqkfffffffffffffmfj nqoooooooolnfjoooh 
+  1
+ jqooooooooooooooom:rooj 
+  1
+ ,/361: o $ -:9 o " n o n n n o n nqoooooooolnfjoooh 
+  1
+ " o o |
+  1
+/061+ {rn rnlfqgilfojnojjlfjh rknjqjnfknilnfjfoji fiqfgfnmgjiojfgijg |
+  1
+/061+ {rn rnkoqokgghflkgmgnl rkniqkofmilhnjflljj fiqfgfnmgjiojfgijg |
+  1
+/061+ {rn rnniqfjnmfoikoiigm rlfkqflgljgnifgkfmh fiqfgfnmgjiojfgijg |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {fo {ii oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {nij {rn {fn 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {nii {nih {nig {k {rn {nif n o |
+  1
+300/ {rn {rn {nho {fn |
+  1
+<01:r,*-9><: {rn rnjoqnmmoggkflnogjm rknjqmnonlkjhmmflhl fiqggfnmgjiojfgiik o o n roqoomnlknnjkjlkhfggj rlqffffffkloiljgjhn o n o o o n o o o o o |
+  1
+<0:;8: {rn {njg {njh {fi {nll n {fm {rn |
+  1
+<0:;8: {rn {nhn {fi {nho {nhm o {ll {rn |
+  1
+:;8: {rn {nlk {nhl {nln {nhk o |
+  1
+):-+:' {rn {fh {nhj |
+  1
+:336/,:r<*-): {rn rnklqgijfjhnhlinhnm rknjqmnlkhmlffgkgfh fgqfgfnmgjiojfgijg o o rn lqgnhohhgmjlljgnjj rnqnfjhfnlniogkilml o n o o |
+  1
+<0:;8: {rn {fg {nhi {nhh {nhg o {ll {rn |
+  1
+<0:;8: {rn {nkh {nki {fg {nlg n {nkg {rn |
+  1
+:;8: {rn {nhf {nlf {nlh {ngo o |
+  1
+):-+:' {rn {nlg {ngn |
+  1
+,+->687+r<*-): {rn rnlfqfohfnjkfglklgk rkogqigngookgfioihi fgqfgfnmgjiojfgijg oqooiklilhgnjggoffl roqffffhfmgiloljgjon o o o |
+  1
+/061+ {rn rnlfqgilfojnojjlfjh rknjqjnfknilnfjfoji fgqfgfnmgjiojfgijg |
+  1
+/061+ {rn rnkoqokgghflkgmgnl rkniqkofmilhnjflljj fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {ngm {nok {ngl {ngk n {ml {rn |
+  1
+<0:;8: {rn {ngj {ngi {nok {nkj o {ngh {rn |
+  1
+:;8: {rn {ngg {nkf {nkk {ngf o |
+  1
+<0:;8: {rn {nlh {noj {nog {njn o {nkg {rn |
+  1
+<0:;8: {rn {noj {nlh {ngj {nfo n {nkg {rn |
+  1
+300/ {rn {rn {nlh {nfn |
+  1
+):-+:' {rn {noi {nfm |
+  1
+:336/,:r<*-): {rn rnlnqfogognmognlilh rkogqilolofkikolkih fiqfgfnmgjiojfgjl nqjnjhnmfjgiihokin:ronk rgqmmkinnihfhjhkhgg:ronj n rkqhkjilngljfkkoogi iqkkoknhjifmnhojfl nqmkfooofomhollonn:ronl n o o |
+  1
+:;8: {rn {nno {nlf {nog {nfl o |
+  1
+9><: {nfk {rn {nof {k {rn {nfj n o |
+  1
+/061+ {rn rnlfqfohfnjkfglklgk rkogqigngookgfioihi fiqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {nnm {nfi {nfh {nfg n {ml {rn |
+  1
+<0:;8: {rn {nff {moo {nnm {nji o {nmf {rn |
+  1
+:;8: {rn {njf {mon {njj {mom o |
+  1
+<0:;8: {rn {nln {nnl {moo {mol o {fm {rn |
+  1
+<0:;8: {rn {nnl {nln {nnj {nin n {fm {rn |
+  1
+):-+:' {rn {nji {mok |
+  1
+,+->687+r<*-): {rn rnklqgigofnmgfoholj rknfqmnlkhngloohfjl fiqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggilkooohgff o o o |
+  1
+:;8: {rn {nnh {nlk {njg {moj o |
+  1
+/061+ {rn rnklqgigofnmgfoholj rknfqmnlkhngloohfjl fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnkoqokgghflkgmgnl rkniqkofmilhnjflljj fiqfgfnmgjiojfgijg o o n o o |
+  1
+,+->687+r<*-): {rn rnlfqgilfojnojjlfjh rknjqjnfknilnfjfoji fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {nmh {fn oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {moi {rn {nmg 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {moh {mog {mof {k {rn {mno n o |
+  1
+300/ {rn {rn {mnn {nmg |
+  1
+/3>1:r,*-9><: {rn rnjkqogjmhgkjhhghll rlkiqmnjjjjimojgmmg ffqogfnmgjiojfgijm roqffffffgjhihlkijgf oqooojlljmggillhhhoglm o o o n o o o o o |
+  1
+<0:;8: {rn {moo {nff {nlm {nhm n {nmf {rn |
+  1
+<0:;8: {rn {mnm {nlm {mnn {mnl o {ll {rn |
+  1
+:;8: {rn {nhl {mnk {nho {mnj o |
+  1
+):-+:' {rn {nll {mni |
+  1
+,+->687+r<*-): {rn rnklqgigofnmgfoholj rknfqmnlkhngloohfjl fgqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggilkooohgff o o o |
+  1
+/061+ {rn rnklqgigofnmgfoholj rknfqmnlkhngloohfjl fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {nli {mnh {mng {mnf o {ll {rn |
+  1
+<0:;8: {rn {ngi {ngj {nli {nhg n {ngh {rn |
+  1
+:;8: {rn {mmo {nhf {nhh {mmn o |
+  1
+):-+:' {rn {nhg {mmm |
+  1
+:336/,:r<*-): {rn rnlnqfogognmognlim rkogqilolofkikolkih fgqfgfnmgjiojfgjl nqjnjhnmfjgjiggihf:ronk rgqmmkinnihfmmkjigj:ronj n rkqhkjilnglimjnkgjl iqkkoknhjifilkmnnf nqmkfooofomhollonn:ronl n o o |
+  1
+/061+ {rn rnlfqfohfnjkfglklgk rkogqigngookgfioihi fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {mml {nkl {mmk {mmj n {ml {rn |
+  1
+<0:;8: {rn {mmi {mmh {nkl {ngk o {mmg {rn |
+  1
+:;8: {rn {mmf {ngg {ngl {mlo o |
+  1
+<0:;8: {rn {nhh {nkk {nkh {nfo o {ngh {rn |
+  1
+<0:;8: {rn {nkk {nhh {mmi {mln n {ngh {rn |
+  1
+300/ {rn {rn {nhh {mlm |
+  1
+):-+:' {rn {nkj {mll |
+  1
+,+->687+r<*-): {rn rnmlqkhffkfoonholkh rlfmqkgmhglofghmiof fiqfgfnmgjiojfgijg roqgojojmnfimmimffof roqjflmolfhfjkhifjll o o o |
+  1
+:;8: {rn {nkf {nhf {nkh {mlk o |
+  1
+9><: {mlj {njm {nkg {k {rn {mli o o |
+  1
+/061+ {rn rnliqijlhnloklfmihl rkomqngfgfngfjomioj fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnlfqfohfnjkfglklgk rkogqigngookgfioihi fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {mlh {rn {njm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnlfqginhokjgjggilh rknjqginmfhnnnogfik fiqggfnmgjiojfgiik oqffffhfmgilollminn oqooiklilhgnfiigfllfh o o o rn o o o o o |
+  1
+<0:;8: {rn {njk {mlg {mlf {mko n {ml {rn |
+  1
+<0:;8: {rn {mkn {mkm {njk {nfg o {nig {rn |
+  1
+:;8: {rn {mon {mkl {nfh {mkk o |
+  1
+<0:;8: {rn {nho {njj {mkm {mkj o {nmf {rn |
+  1
+<0:;8: {rn {njj {nho {njh {mol n {nmf {rn |
+  1
+):-+:' {rn {nfg {mki |
+  1
+:336/,:r<*-): {rn rnjoqnmmoggkflnogjj rknjqmnonlkjhmmflhl fiqfgfnmgjiojfgini rgqjokmonmffkgnkkg:ronj rnqokolgojoffgfimom:ronk rn roqoomnlknnjkjlkjlmnnk rlqffffffkloiljgmmf kqnilllilkmlkkllh:ronk n o o |
+  1
+:;8: {rn {njf {nhl {moo {mkh o |
+  1
+/061+ {rn rnjoqnmkmmmiogjimon rknfqmnonlkoomfhmlg fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnklqgigofnmgfoholj rknfqmnlkhngloohfjl fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {nii {nmg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {mkg {rn {nih 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {mkf {mjo {mjn {k {rn {mjm n o |
+  1
+300/ {rn {rn {mjl {nih |
+  1
+<01:r,*-9><: {rn rnjoqogholngjggolik rlkfqjolokkmjmokgol fiqggfnmgjiojfgiik o o n roqoomnlknnjkjlkgogolf rlqffffffkloilhjhgg o n o o o n o o o o o |
+  1
+<0:;8: {rn {mkm {mkn {nhn {mnl n {nig {rn |
+  1
+<0:;8: {rn {mjk {nhn {mjl {mjj o {ll {rn |
+  1
+:;8: {rn {mnk {mji {mnn {mjh o |
+  1
+):-+:' {rn {nhm {mjg |
+  1
+:336/,:r<*-): {rn rnjoqnmmoggkflnogjj rknjqmnonlkjhmmflhl fgqfgfnmgjiojfgini rgqjokmonmffkgnkkg:ronj rnqokolgojoffgfimom:ronk rn roqoomnlknnjkjlkjlmnnk rlqffffffkloiljgmmf kqnilllilkmlkkllh:ronk n o o |
+  1
+/061+ {rn rnjoqnmkmmmiogjimon rknfqmnonlkoomfhmlg fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {nhi {mjf {mio {min o {ll {rn |
+  1
+<0:;8: {rn {mmh {mmi {nhi {mnf n {mmg {rn |
+  1
+:;8: {rn {mim {mmo {mng {mil o |
+  1
+):-+:' {rn {mnf {mik |
+  1
+,+->687+r<*-): {rn rnmlqkhffkfoonholkh rlfmqkgmhglofghmiof fgqfgfnmgjiojfgijg roqgojojmnfimmimffof roqjflmolfhfjkhifjll o o o |
+  1
+/061+ {rn rnliqijlhnloklfmihl rkomqngfgfngfjomioj fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {mij {ngm {mii {mih n {ml {rn |
+  1
+<0:;8: {rn {mig {mif {ngm {mmj o {mho {rn |
+  1
+:;8: {rn {mhn {mmf {mmk {mhm o |
+  1
+<0:;8: {rn {mng {ngl {ngi {mln o {mmg {rn |
+  1
+<0:;8: {rn {ngl {mng {mig {mhl n {mmg {rn |
+  1
+300/ {rn {rn {mng {mhk |
+  1
+):-+:' {rn {ngk {mhj |
+  1
+:336/,:r<*-): {rn rnniqfjkhojmmjlflgh rkonqllgljhmjgfjfkf fiqfgfnmgjiojfgijg o o n noqfffhhmnjnjjjfnn oqohogoonjnfjgiljfgm o n o o |
+  1
+:;8: {rn {ngg {mmo {ngi {mhi o |
+  1
+9><: {mhh {nfn {ngh {k {rn {mhg n o |
+  1
+/061+ {rn rnmlqkhffkfoonholkh rlfmqkgmhglofghmiof fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnliqijlhnloklfmihl rkomqngfgfngfjomioj fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {mhf {rn {nfn 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnlnqfogognmognlink rkogqilolofkikolkhg fiqggfnmgjiojfgiik o o n roqookmigmlofoifokgfnn rhqfffffgginniggjll o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {nfk {njm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {nfi {mgo {mgn {mgm n {ml {rn |
+  1
+<0:;8: {rn {mgl {mgk {nfi {mko o {mof {rn |
+  1
+:;8: {rn {mkl {mgj {mlf {mgi o |
+  1
+<0:;8: {rn {mnn {nfh {mgk {mgh o {nig {rn |
+  1
+<0:;8: {rn {nfh {mnn {nff {mkj n {nig {rn |
+  1
+):-+:' {rn {mko {mgg |
+  1
+,+->687+r<*-): {rn rnjkqnmmoghfmlhkklj rknjqmogoookjigkomk fiqfgfnmgjiojfgijg oqooojlljmggikomjljii oqffffffgjhihlkjglk o o o |
+  1
+:;8: {rn {mon {mnk {mkm {mgf o |
+  1
+/061+ {rn rnjkqnmmoghfmlhkklj rknjqmogoookjigkomk fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjoqnmkmmmiogjimon rknfqmnonlkoomfhmlg fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {moh {nih oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {mfo {rn {mog 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {mfn {mfm {mfl {k {rn {mfk o o |
+  1
+300/ {rn {rn {mfj {mog |
+  1
+/3>1:r,*-9><: {rn rnkkqmklfojjigjgofn rlkjqjoininnjfgmilg fiqggfnmgjiojfgiik oqooojlljmggillhhhoglm oqffffffgjhihlkijgf o o o n o o o o o |
+  1
+<0:;8: {rn {mgk {mgl {mnm {mjj n {mof {rn |
+  1
+<0:;8: {rn {mfi {mnm {mfj {mfh o {ll {rn |
+  1
+:;8: {rn {mji {mfg {mjl {mff o |
+  1
+):-+:' {rn {mnl {loo |
+  1
+,+->687+r<*-): {rn rnjkqnmmoghfmlhkklj rknjqmogoookjigkomk fgqfgfnmgjiojfgijg oqooojlljmggikomjljii oqffffffgjhihlkjglk o o o |
+  1
+/061+ {rn rnjkqnmmoghfmlhkklj rknjqmogoookjigkomk fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {mnh {lon {lom {lol o {ll {rn |
+  1
+<0:;8: {rn {mif {mig {mnh {min n {mho {rn |
+  1
+:;8: {rn {lok {mim {mio {loj o |
+  1
+):-+:' {rn {min {loi |
+  1
+:336/,:r<*-): {rn rnniqfjkhojmmjlflgh rkonqllgljhmjgfjfkf fgqfgfnmgjiojfgijg o o n noqfffhhmnjnjjjfnn oqohogoonjnfjgiljfgm o n o o |
+  1
+/061+ {rn rnmlqkhffkfoonholkh rlfmqkgmhglofghmiof fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {loh {mml {log {lof n {ml {rn |
+  1
+<0:;8: {rn {lno {lnn {mml {mih o {lnm {rn |
+  1
+:;8: {rn {lnl {mhn {mii {lnk o |
+  1
+<0:;8: {rn {mio {mmk {mmh {mhl o {mho {rn |
+  1
+<0:;8: {rn {mmk {mio {lno {lnj n {mho {rn |
+  1
+300/ {rn {rn {mio {lni |
+  1
+):-+:' {rn {mmj {lnh |
+  1
+,+->687+r<*-): {rn rnojqgnniklhlhfhfhk rkmlqjmfjnjimgnnhkj fiqfgfnmgjiojfgijg roqooiklilhhkkfjoljlgi oqffffhfmgilognlmkf o o o |
+  1
+:;8: {rn {mmf {mim {mmh {lng o |
+  1
+9><: {lnf {mlm {mmg {k {rn {lmo o o |
+  1
+/061+ {rn rnojqfjkfllohlglhfk rkonqmihjjhnohooofl fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnmlqkhffkfoonholkh rlfmqkgmhglofghmiof fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {lmn {rn {mlm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnlhqlnmkonmkiolhfg rkomqihjmkhllkgknnh fiqggfnmgjiojfgiik oqjflmolfhfjkhigonm roqgojojmnfimmilokm o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {mlj {nfn oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {mlg {lmm {lml {lmk n {ml {rn |
+  1
+<0:;8: {rn {lmj {lmi {mlg {mgm o {mjn {rn |
+  1
+:;8: {rn {mgj {lmh {mgn {lmg o |
+  1
+<0:;8: {rn {mjl {mlf {lmi {lmf o {mof {rn |
+  1
+<0:;8: {rn {mlf {mjl {mkn {mgh n {mof {rn |
+  1
+):-+:' {rn {mgm {llo |
+  1
+:336/,:r<*-): {rn rnjoqogholngjggolih rlkfqjolokkmjmokgol fiqfgfnmgjiojfgini rnqokolgojoffgfnigi:ronk gqjokmonmffkhhhgin:ronj rn rlqffffffkloilhjjhj oqoomnlknnjkjlkjjlmji kqnilllilkmlkkllik:ronk n o o |
+  1
+:;8: {rn {mkl {mji {mgk {lln o |
+  1
+/061+ {rn rnjkqogholnmgfkfhjl rlkfqjoofnonlijfkjk fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjkqnmmoghfmlhkklj rknjqmogoookjigkomk fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {mkf {mog oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {llm {rn {mjo 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {lll {llk {llj {k {rn {lli n o |
+  1
+300/ {rn {rn {llh {mjo |
+  1
+<01:r,*-9><: {rn rnkkqjnihnmhikkjfkh rlljqjoionkngjnojoh fiqggfnmgjiojfgiik o o n roqoojlljmggillfkmkogi rfqfffffgjhhokkjmfm o n o o o n o o o o o |
+  1
+<0:;8: {rn {lmi {lmj {mjk {mfh n {mjn {rn |
+  1
+<0:;8: {rn {llg {mjk {llh {llf o {ll {rn |
+  1
+:;8: {rn {mfg {lko {mfj {lkn o |
+  1
+):-+:' {rn {mjj {lkm |
+  1
+:336/,:r<*-): {rn rnjoqogholngjggolih rlkfqjolokkmjmokgol fgqfgfnmgjiojfgini rnqokolgojoffgfnigi:ronk gqjokmonmffkhhhgin:ronj rn rlqffffffkloilhjjhj oqoomnlknnjkjlkjjlmji kqnilllilkmlkkllik:ronk n o o |
+  1
+/061+ {rn rnjkqogholnmgfkfhjl rlkfqjoofnonlijfkjk fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {mjf {lkl {lkk {lkj o {ll {rn |
+  1
+<0:;8: {rn {lnn {lno {mjf {lol n {lnm {rn |
+  1
+:;8: {rn {lki {lok {lom {lkh o |
+  1
+):-+:' {rn {lol {lkg |
+  1
+,+->687+r<*-): {rn rnojqgnniklhlhfhfhk rkmlqjmfjnjimgnnhkj fgqfgfnmgjiojfgijg roqooiklilhhkkfjoljlgi oqffffhfmgilognlmkf o o o |
+  1
+/061+ {rn rnojqfjkfllohlglhfk rkonqmihjjhnohooofl fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {lkf {mij {ljo {ljn n {ml {rn |
+  1
+<0:;8: {rn {ljm {ljl {mij {lof o {ljk {rn |
+  1
+:;8: {rn {ljj {lnl {log {lji o |
+  1
+<0:;8: {rn {lom {mii {mif {lnj o {lnm {rn |
+  1
+<0:;8: {rn {mii {lom {ljm {ljh n {lnm {rn |
+  1
+300/ {rn {rn {lom {ljg |
+  1
+):-+:' {rn {mih {ljf |
+  1
+:336/,:r<*-): {rn rnljqgnnommlmfnnmfm rkmlqhmmioifjninkgn fiqfgfnmgjiojfgijg o o n oqhkgkklofnlmglhigl rmfqffoiimklnoliijk o n o o |
+  1
+:;8: {rn {mhn {lok {mif {lio o |
+  1
+9><: {lin {mhk {mho {k {rn {lim n o |
+  1
+/061+ {rn rnojqgnniklhlhfhfhk rkmlqjmfjnjimgnnhkj fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnojqfjkfllohlglhfk rkonqmihjjhnohooofl fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {lil {rn {mhk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnniqfjkhojmmjlflgn rkonqllgljhmjgfjfkf fiqggfnmgjiojfgiik o o n roqoojgiggnhkfglnoijll rnoqfffffgklijhkjhm o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {mhh {mlm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {mgo {lik {lij {lii n {ml {rn |
+  1
+<0:;8: {rn {lih {lig {mgo {lmk o {mfl {rn |
+  1
+:;8: {rn {lmh {lif {lml {lho o |
+  1
+<0:;8: {rn {mfj {mgn {lig {lhn o {mjn {rn |
+  1
+<0:;8: {rn {mgn {mfj {mgl {lmf n {mjn {rn |
+  1
+):-+:' {rn {lmk {lhm |
+  1
+,+->687+r<*-): {rn rnjoqogkgfhhklljong rlkjqjolokkgmnknokh fiqfgfnmgjiojfgijg oqffffffgjhihlkjglk roqooojlljmgghljngmohjj o o o |
+  1
+:;8: {rn {mgj {mfg {lmi {lhl o |
+  1
+/061+ {rn rnjoqogkgfhhklljong rlkjqjolokkgmnknokh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjkqogholnmgfkfhjl rlkfqjoofnonlijfkjk fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {mfn {mjo oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {lhk {rn {mfm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {lhj {lhi {lhh {k {rn {lhg o o |
+  1
+300/ {rn {rn {lhf {mfm |
+  1
+/3>1:r,*-9><: {rn rnmiqjjkgljmlilkigf rllnqifhggfmnfkligf fiqggfnmgjiojfgiik roqhoihmfkngiifmlj oqhohkglfkmkmlhkjmk o o o n o o o o o |
+  1
+<0:;8: {rn {lig {lih {mfi {llf n {mfl {rn |
+  1
+<0:;8: {rn {lgo {mfi {lhf {lgn o {ll {rn |
+  1
+:;8: {rn {lko {lgm {llh {lgl o |
+  1
+):-+:' {rn {mfh {lgk |
+  1
+,+->687+r<*-): {rn rnjoqogkgfhhklljong rlkjqjolokkgmnknokh fgqfgfnmgjiojfgijg oqffffffgjhihlkjglk roqooojlljmgghljngmohjj o o o |
+  1
+/061+ {rn rnjoqogkgfhhklljong rlkjqjolokkgmnknokh fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {lon {lgj {lgi {lgh o {ll {rn |
+  1
+<0:;8: {rn {ljl {ljm {lon {lkj n {ljk {rn |
+  1
+:;8: {rn {lgg {lki {lkk {lgf o |
+  1
+):-+:' {rn {lkj {lfo |
+  1
+:336/,:r<*-): {rn rnljqgnnommlmfnnmfm rkmlqhmmioifjninkgn fgqfgfnmgjiojfgijg o o n oqhkgkklofnlmglhigl rmfqffoiimklnoliijk o n o o |
+  1
+/061+ {rn rnojqgnniklhlhfhfhk rkmlqjmfjnjimgnnhkj fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {lfn {loh {lfm {lfl n {ml {rn |
+  1
+<0:;8: {rn {lfk {lfj {loh {ljn o {lfi {rn |
+  1
+:;8: {rn {lfh {ljj {ljo {lfg o |
+  1
+<0:;8: {rn {lkk {log {lnn {ljh o {ljk {rn |
+  1
+<0:;8: {rn {log {lkk {lfk {lff n {ljk {rn |
+  1
+300/ {rn {rn {lkk {koo |
+  1
+):-+:' {rn {lof {kon |
+  1
+,+->687+r<*-): {rn rnkhqohomjihimnokfm rkjkqonmflnkmfljnjn fiqfgfnmgjiojfgijg oqfffigghkhilgmjfii oqomkfkgnolokmhlnghl o o o |
+  1
+:;8: {rn {lnl {lki {lnn {kom o |
+  1
+9><: {kol {lni {lnm {k {rn {kok o o |
+  1
+/061+ {rn rnljqoimjhfmlhhgkjm rkjlqhnlmiflgmijnkj fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnojqgnniklhlhfhfhk rkmlqjmfjnjimgnnhkj fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {koj {rn {lni 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnojqfimofhjkoilohf rkooqnjkkjfngofkjog fiqggfnmgjiojfgiik roqffffhfmgilognljlh roqooiklilhhkkfkffijlh o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {lnf {mhk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {lmm {koi {koh {kog n {ml {rn |
+  1
+<0:;8: {rn {kof {kno {lmm {lii o {llj {rn |
+  1
+:;8: {rn {lif {knn {lij {knm o |
+  1
+<0:;8: {rn {llh {lml {kno {knl o {mfl {rn |
+  1
+<0:;8: {rn {lml {llh {lmj {lhn n {mfl {rn |
+  1
+):-+:' {rn {lii {knk |
+  1
+:336/,:r<*-): {rn rnkkqjnihnmhikkjflg rlljqjoionkngjnojoh fiqfgfnmgjiojfggkl hqojhgifimmloklllk:ronj rnqgokkgfmmfjomklog:ronk n roqoojlljmggilkokmkmmk rfqfffffgjhhokkjokl rnqgoknnmknjonjghfi:ronl n o o |
+  1
+:;8: {rn {lmh {lko {lig {knj o |
+  1
+/061+ {rn rnkkqjmmokgojloflhl rlkjqjoionmhimhini fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjoqogkgfhhklljong rlkjqjolokkgmnknokh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {lll {mfm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {kni {rn {llk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {knh {kng {knf {k {rn {kmo n o |
+  1
+300/ {rn {rn {kmn {llk |
+  1
+<01:r,*-9><: {rn rnjjqlkmgoniijgnkfi rlolqfnihihfmmmlmfi fiqggfnmgjiojfgiik o o n roqomnlknnjkjlkfmfghf rlfqfffffkloiioknjg o n o o o n o o o o o |
+  1
+<0:;8: {rn {kno {kof {llg {lgn n {llj {rn |
+  1
+<0:;8: {rn {kmm {llg {kmn {kml o {ll {rn |
+  1
+:;8: {rn {lgm {kmk {lhf {kmj o |
+  1
+):-+:' {rn {llf {kmi |
+  1
+:336/,:r<*-): {rn rnkkqjnihnmhikkjflg rlljqjoionkngjnojoh fgqfgfnmgjiojfggkl hqojhgifimmloklllk:ronj rnqgokkgfmmfjomklog:ronk n roqoojlljmggilkokmkmmk rfqfffffgjhhokkjokl rnqgoknnmknjonjghfi:ronl n o o |
+  1
+/061+ {rn rnkkqjmmokgojloflhl rlkjqjoionmhimhini fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {lkl {kmh {kmg {kmf o {ll {rn |
+  1
+<0:;8: {rn {lfj {lfk {lkl {lgh n {lfi {rn |
+  1
+:;8: {rn {klo {lgg {lgi {kln o |
+  1
+):-+:' {rn {lgh {klm |
+  1
+,+->687+r<*-): {rn rnkhqohomjihimnokfm rkjkqonmflnkmfljnjn fgqfgfnmgjiojfgijg oqfffigghkhilgmjfii oqomkfkgnolokmhlnghl o o o |
+  1
+/061+ {rn rnljqoimjhfmlhhgkjm rkjlqhnlmiflgmijnkj fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {kll {lkf {klk {klj n {ml {rn |
+  1
+<0:;8: {rn {kli {klh {lkf {lfl o {klg {rn |
+  1
+:;8: {rn {klf {lfh {lfm {kko o |
+  1
+<0:;8: {rn {lgi {ljo {ljl {lff o {lfi {rn |
+  1
+<0:;8: {rn {ljo {lgi {kli {kkn n {lfi {rn |
+  1
+300/ {rn {rn {lgi {kkm |
+  1
+):-+:' {rn {ljn {kkl |
+  1
+,+->687+r<*-): {rn rnjoqgmomjimmglgok rkjkqonofloifinnlgi fiqfgfnmgjiojfgijg oqffffffgjhihlkjglk roqooojlljmggilkooohgff o o o |
+  1
+:;8: {rn {ljj {lgg {ljl {kkk o |
+  1
+9><: {kkj {ljg {ljk {k {rn {kki n o |
+  1
+/061+ {rn rnkhqohomjihimnokfm rkjkqonmflnkmfljnjn fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnljqoimjhfmlhhgkjm rkjlqhnlmiflgmijnkj fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {kkh {rn {ljg 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnljqgnnommlmfnnmfk rkmlqhmmioifjninkif fiqggfnmgjiojfgiik o o n roqonioojgijfomllfnhh rmfqfffffjhlmoflnjn o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {lin {lni oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {lik {kkg {kkf {kjo n {ml {rn |
+  1
+<0:;8: {rn {kjn {kjm {lik {kog o {lhh {rn |
+  1
+:;8: {rn {knn {kjl {koh {kjk o |
+  1
+<0:;8: {rn {lhf {lij {kjm {kjj o {llj {rn |
+  1
+<0:;8: {rn {lij {lhf {lih {knl n {llj {rn |
+  1
+):-+:' {rn {kog {kji |
+  1
+,+->687+r<*-): {rn rnlhqkkfkngjhhjkgn rlkmqjgogjliofjinh fiqfgfnmgjiojfgijg oqhohkglfkmlfkmkhgl oqhoihmfkngifghgjnk o o o |
+  1
+:;8: {rn {lif {lgm {kno {kjh o |
+  1
+/061+ {rn rnlhqkkfkngjhhjkgn rlkmqjgogjliofjinh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnkkqjmmokgojloflhl rlkjqjoionmhimhini fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {lhj {llk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {kjg {rn {lhi 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {kjf {kio {kin {k {rn {kim n o |
+  1
+300/ {rn {rn {kil {lhi |
+  1
+/3>1:r,*-9><: {rn rnnjqjohfjmkinjhkjm rmffqffjhklhojfkkoj fiqggfnmgjiojfgiik roqffgnlnjgoilffjlhh roqoinnonnmhoifhoooh o o o n o o o o o |
+  1
+<0:;8: {rn {kjm {kjn {lgo {kml n {lhh {rn |
+  1
+<0:;8: {rn {kik {lgo {kil {kij o {ll {rn |
+  1
+:;8: {rn {kmk {kii {kmn {kih o |
+  1
+):-+:' {rn {lgn {kig |
+  1
+,+->687+r<*-): {rn rnlhqkkfkngjhhjkgn rlkmqjgogjliofjinh fgqfgfnmgjiojfgijg oqhohkglfkmlfkmkhgl oqhoihmfkngifghgjnk o o o |
+  1
+/061+ {rn rnlhqkkfkngjhhjkgn rlkmqjgogjliofjinh fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {lgj {kif {kho {khn o {ll {rn |
+  1
+<0:;8: {rn {klh {kli {lgj {kmf n {klg {rn |
+  1
+:;8: {rn {khm {klo {kmg {khl o |
+  1
+):-+:' {rn {kmf {khk |
+  1
+,+->687+r<*-): {rn rnjoqgmomjimmglgok rkjkqonofloifinnlgi fgqfgfnmgjiojfgijg oqffffffgjhihlkjglk roqooojlljmggilkooohgff o o o |
+  1
+/061+ {rn rnkhqohomjihimnokfm rkjkqonmflnkmfljnjn fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {khj {lfn {khi {khh n {ml {rn |
+  1
+<0:;8: {rn {khg {khf {lfn {klj o {kgo {rn |
+  1
+:;8: {rn {kgn {klf {klk {kgm o |
+  1
+<0:;8: {rn {kmg {lfm {lfj {kkn o {klg {rn |
+  1
+<0:;8: {rn {lfm {kmg {khg {kgl n {klg {rn |
+  1
+300/ {rn {rn {kmg {kgk |
+  1
+):-+:' {rn {lfl {kgj |
+  1
+,+->687+r<*-): {rn rmohqolmoimihfglmom rkjjqkomhhjnffhffjm fiqfgfnmgjiojfgijg oqfffifljfklghlofhi oqomkhjlnmhfomlgiokn o o o |
+  1
+:;8: {rn {lfh {klo {lfj {kgi o |
+  1
+9><: {kgh {koo {lfi {k {rn {kgg n o |
+  1
+/061+ {rn rnjoqgmomjimmglgok rkjkqonofloifinnlgi fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnkhqohomjihimnokfm rkjkqonmflnkmfljnjn fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {kgf {rn {koo 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnlkqkimnfjlinjigkf rkjlqifgmgimgolnilg fiqggfnmgjiojfgiik roqomkfkgnolokmhoikii oqfffigghkhilgmigfg o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {kol {ljg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {koi {kfo {kfn {kfm n {ml {rn |
+  1
+<0:;8: {rn {kfl {kfk {koi {kjo o {knf {rn |
+  1
+:;8: {rn {kjl {kfj {kkf {kfi o |
+  1
+<0:;8: {rn {kmn {koh {kfk {kfh o {lhh {rn |
+  1
+<0:;8: {rn {koh {kmn {kof {kjj n {lhh {rn |
+  1
+):-+:' {rn {kjo {kfg |
+  1
+:336/,:r<*-): {rn rnjjqlkmgoniijgnjn rlolqfnihihfmmmlmgj fiqfgfnmgjiojfgijg o o n mgqmifnhihkijllmjg rmgqmffljhifihnlnnl o n o o |
+  1
+:;8: {rn {knn {kmk {kjm {kff o |
+  1
+/061+ {rn rnmhqohlimkfnfmgngk rllmqmninmjingfkjfh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnlhqkkfkngjhhjkgn rlkmqjgogjliofjinh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {knh {lhi oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {joo {rn {kng 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {jon {jom {jol {k {rn {jok n o |
+  1
+300/ {rn {rn {joj {kng |
+  1
+/3>1:r,*-9><: {rn rnnjqhmkihglgfgnfnm rmfiqkfoohmhologg fiqggfnmgjiojfgiik roqffgofjmkmlohlfgii roqoinifnghlhmmolmhin o o o n o o o o o |
+  1
+<0:;8: {rn {kfk {kfl {kmm {kij n {knf {rn |
+  1
+<0:;8: {rn {joi {kmm {joj {joh o {ll {rn |
+  1
+:;8: {rn {kii {jog {kil {jof o |
+  1
+):-+:' {rn {kml {jno |
+  1
+:336/,:r<*-): {rn rnjjqlkmgoniijgnjn rlolqfnihihfmmmlmgj fgqfgfnmgjiojfgijg o o n mgqmifnhihkijllmjg rmgqmffljhifihnlnnl o n o o |
+  1
+/061+ {rn rnmhqohlimkfnfmgngk rllmqmninmjingfkjfh fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {kmh {jnn {jnm {jnl o {ll {rn |
+  1
+<0:;8: {rn {khf {khg {kmh {khn n {kgo {rn |
+  1
+:;8: {rn {jnk {khm {kho {jnj o |
+  1
+):-+:' {rn {khn {jni |
+  1
+,+->687+r<*-): {rn rmohqolmoimihfglmom rkjjqkomhhjnffhffjm fgqfgfnmgjiojfgijg oqfffifljfklghlofhi oqomkhjlnmhfomlgiokn o o o |
+  1
+/061+ {rn rnjoqgmomjimmglgok rkjkqonofloifinnlgi fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {jnh {kll {jng {jnf n {ml {rn |
+  1
+<0:;8: {rn {jmo {jmn {kll {khh o {jmm {rn |
+  1
+:;8: {rn {jml {kgn {khi {jmk o |
+  1
+<0:;8: {rn {kho {klk {klh {kgl o {kgo {rn |
+  1
+<0:;8: {rn {klk {kho {jmo {jmj n {kgo {rn |
+  1
+300/ {rn {rn {kho {jmi |
+  1
+):-+:' {rn {klj {jmh |
+  1
+,+->687+r<*-): {rn rmohqonnmjnigmofgim rkniqlfikiokjmfjjjm fiqfgfnmgjiojfgijg roqooojlljmggillhnijhmg roqffffffgjhihlkjglk o o o |
+  1
+:;8: {rn {klf {khm {klh {jmg o |
+  1
+9><: {jmf {kkm {klg {k {rn {jlo n o |
+  1
+/061+ {rn rmohqolmoimihfglmom rkjjqkomhhjnffhffjm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjoqgmomjimmglgok rkjkqonofloifinnlgi fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {jln {rn {kkm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnjnqoohhjimonifkmn rkjkqonogloijfkjnfl fiqggfnmgjiojfgiik oqooojlljmggillhhhoglm oqffffffgjhihlkijgf o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {kkj {koo oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {kkg {jlm {jll {jlk n {ml {rn |
+  1
+<0:;8: {rn {jlj {jli {kkg {kfm o {kin {rn |
+  1
+:;8: {rn {kfj {jlh {kfn {jlg o |
+  1
+<0:;8: {rn {kil {kkf {jli {jlf o {knf {rn |
+  1
+<0:;8: {rn {kkf {kil {kjn {kfh n {knf {rn |
+  1
+):-+:' {rn {kfm {jko |
+  1
+,+->687+r<*-): {rn rnnjqknhjlgkkojjoih rlonqkhmhmmglfkikgf fiqfgfnmgjiojfgijg roqoinnonnmhoifhnfokn oqffgnlnjgoilffkfll o o o |
+  1
+:;8: {rn {kjl {kii {kfk {jkn o |
+  1
+/061+ {rn rnnjqknhjlgkkojjoih rlonqkhmhmmglfkikgf fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnmhqohlimkfnfmgngk rllmqmninmjingfkjfh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {kjf {kng oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {jkm {rn {kio 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {jkl {jkk {jkj {k {rn {jki n o |
+  1
+300/ {rn {rn {jkh {kio |
+  1
+<01:r,*-9><: {rn rnnnqhmnhhmnnhglil rmfiqknljfnognijkkl fiqggfnmgjiojfgiik o o n roqoomnlknnjkjljnogljj rlqffffffkloiflgig o n o o o n o o o o o |
+  1
+<0:;8: {rn {jli {jlj {kik {joh n {kin {rn |
+  1
+<0:;8: {rn {jkg {kik {jkh {jkf o {ll {rn |
+  1
+:;8: {rn {jog {jjo {joj {jjn o |
+  1
+):-+:' {rn {kij {jjm |
+  1
+,+->687+r<*-): {rn rnnjqknhjlgkkojjoih rlonqkhmhmmglfkikgf fgqfgfnmgjiojfgijg roqoinnonnmhoifhnfokn oqffgnlnjgoilffkfll o o o |
+  1
+/061+ {rn rnnjqknhjlgkkojjoih rlonqkhmhmmglfkikgf fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {kif {jjl {jjk {jjj o {ll {rn |
+  1
+<0:;8: {rn {jmn {jmo {kif {jnl n {jmm {rn |
+  1
+:;8: {rn {jji {jnk {jnm {jjh o |
+  1
+):-+:' {rn {jnl {jjg |
+  1
+,+->687+r<*-): {rn rmohqonnmjnigmofgim rkniqlfikiokjmfjjjm fgqfgfnmgjiojfgijg roqooojlljmggillhnijhmg roqffffffgjhihlkjglk o o o |
+  1
+/061+ {rn rmohqolmoimihfglmom rkjjqkomhhjnffhffjm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {jjf {khj {jio {jin n {ml {rn |
+  1
+<0:;8: {rn {jim {jil {khj {jnf o {jik {rn |
+  1
+:;8: {rn {jij {jml {jng {jii o |
+  1
+<0:;8: {rn {jnm {khi {khf {jmj o {jmm {rn |
+  1
+<0:;8: {rn {khi {jnm {jim {jih n {jmm {rn |
+  1
+300/ {rn {rn {jnm {jig |
+  1
+):-+:' {rn {khh {jif |
+  1
+,+->687+r<*-): {rn rnfnqolmfojmijnohfi rkniqooogmjnhjjjhmg fiqfgfnmgjiojfgijg roqfffifljfklghllgng roqomkhjlnmhfomlgiokn o o o |
+  1
+:;8: {rn {kgn {jnk {khf {jho o |
+  1
+9><: {jhn {kgk {kgo {k {rn {jhm n o |
+  1
+/061+ {rn rmohqonnmjnigmofgim rkniqlfikiokjmfjjjm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rmohqolmoimihfglmom rkjjqkomhhjnffhffjm fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {jhl {rn {kgk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnkgqoofiijfojgohgj rkjlqfknllgkhofmfjh fiqggfnmgjiojfgiik roqomkhjlnmhfomkomkkk oqfffifljfklghlmlfh o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {kgh {kkm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {kfo {jhk {jhj {jhi n {ml {rn |
+  1
+<0:;8: {rn {jhh {jhg {kfo {jlk o {jol {rn |
+  1
+:;8: {rn {jlh {jhf {jll {jgo o |
+  1
+<0:;8: {rn {joj {kfn {jhg {jgn o {kin {rn |
+  1
+<0:;8: {rn {kfn {joj {kfl {jlf n {kin {rn |
+  1
+):-+:' {rn {jlk {jgm |
+  1
+,+->687+r<*-): {rn rnnjqjolikholmoonff rlooqoiiohiokjiljlg fiqfgfnmgjiojfgijg roqoinifnghlhmmonnhfm oqffgofjmkmlohlgjgf o o o |
+  1
+:;8: {rn {kfj {jog {jli {jgl o |
+  1
+/061+ {rn rnnjqjolikholmoonff rlooqoiiohiokjiljlg fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnnjqknhjlgkkojjoih rlonqkhmhmmglfkikgf fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {jon {kio oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {jgk {rn {jom 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {jgj {jgi {jgh {k {rn {jgg o o |
+  1
+300/ {rn {rn {jgf {jom |
+  1
+/3>1:r,*-9><: {rn rnnmqiooommohohfmon rmfoqfjjinlifjommkn fiqggfnmgjiojfgiik roqhfikknmfmjojklkgl oqiokhnjgjifokflhml o o o n o o o o o |
+  1
+<0:;8: {rn {jhg {jhh {joi {jkf n {jol {rn |
+  1
+<0:;8: {rn {jfo {joi {jgf {jfn o {ll {rn |
+  1
+:;8: {rn {jjo {jfm {jkh {jfl o |
+  1
+):-+:' {rn {joh {jfk |
+  1
+,+->687+r<*-): {rn rnnjqjolikholmoonff rlooqoiiohiokjiljlg fgqfgfnmgjiojfgijg roqoinifnghlhmmonnhfm oqffgofjmkmlohlgjgf o o o |
+  1
+/061+ {rn rnnjqjolikholmoonff rlooqoiiohiokjiljlg fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {jnn {jfj {jfi {jfh o {ll {rn |
+  1
+<0:;8: {rn {jil {jim {jnn {jjj n {jik {rn |
+  1
+:;8: {rn {jfg {jji {jjk {jff o |
+  1
+):-+:' {rn {jjj {ioo |
+  1
+,+->687+r<*-): {rn rnfnqolmfojmijnohfi rkniqooogmjnhjjjhmg fgqfgfnmgjiojfgijg roqfffifljfklghllgng roqomkhjlnmhfomlgiokn o o o |
+  1
+/061+ {rn rmohqonnmjnigmofgim rkniqlfikiokjmfjjjm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {ion {jnh {iom {iol n {ml {rn |
+  1
+<0:;8: {rn {iok {ioj {jnh {jin o {ioi {rn |
+  1
+:;8: {rn {ioh {jij {jio {iog o |
+  1
+<0:;8: {rn {jjk {jng {jmn {jih o {jik {rn |
+  1
+<0:;8: {rn {jng {jjk {iok {iof n {jik {rn |
+  1
+300/ {rn {rn {jjk {ino |
+  1
+):-+:' {rn {jnf {inn |
+  1
+:336/,:r<*-): {rn rnfnqngnkmkolmjmml rknoqoomiiliofmllm fiqfgfnmgjiojfgijg o o rn jqfffffffffffffhhg lqkifkkifjnfjlinkm:ronk o n o o |
+  1
+:;8: {rn {jml {jji {jmn {inm o |
+  1
+9><: {inl {jmi {jmm {k {rn {ink n o |
+  1
+/061+ {rn rnfnqolmfojmijnohfi rkniqooogmjnhjjjhmg fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rmohqonnmjnigmofgim rkniqlfikiokjmfjjjm fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {inj {rn {jmi 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rmohqonomnnnlmmnnfk rknkqkkinkkhnjinlml fiqggfnmgjiojfgiik oqffffffgjhihlkijgf roqooojlljmggillhhhoglm o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {jmf {kgk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {jlm {ini {inh {ing n {ml {rn |
+  1
+<0:;8: {rn {inf {imo {jlm {jhi o {jkj {rn |
+  1
+:;8: {rn {jhf {imn {jhj {imm o |
+  1
+<0:;8: {rn {jkh {jll {imo {iml o {jol {rn |
+  1
+<0:;8: {rn {jll {jkh {jlj {jgn n {jol {rn |
+  1
+):-+:' {rn {jhi {imk |
+  1
+:336/,:r<*-): {rn rnnnqhmnhhmnnhglimm rmfiqknljfnognijkkl fiqfgfnmgjiojfgijg o o rn rlqffmlgofifmmfiijh roqmkihihkfkgggnlmlg o n o o |
+  1
+:;8: {rn {jlh {jjo {jhg {imj o |
+  1
+/061+ {rn rnnjqhnknjloghoijgk rmfiqiioljgjhijkmhn fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnnjqjolikholmoonff rlooqoiiohiokjiljlg fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {jkl {jom oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {imi {rn {jkk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {imh {img {imf {k {rn {ilo n o |
+  1
+300/ {rn {rn {iln {jkk |
+  1
+<01:r,*-9><: {rn rnmnqkhohjhfihokjii rmgkqkkgkjgfgonngmf fiqggfnmgjiojfgiik o o n roqoojgiggnhkfgmghlklg rnoqfffffgklijloggm o n o o o n o o o o o |
+  1
+<0:;8: {rn {imo {inf {jkg {jfn n {jkj {rn |
+  1
+<0:;8: {rn {ilm {jkg {iln {ill o {ll {rn |
+  1
+:;8: {rn {jfm {ilk {jgf {ilj o |
+  1
+):-+:' {rn {jkf {ili |
+  1
+:336/,:r<*-): {rn rnnnqhmnhhmnnhglimm rmfiqknljfnognijkkl fgqfgfnmgjiojfgijg o o rn rlqffmlgofifmmfiijh roqmkihihkfkgggnlmlg o n o o |
+  1
+/061+ {rn rnnjqhnknjloghoijgk rmfiqiioljgjhijkmhn fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {jjl {ilh {ilg {ilf o {ll {rn |
+  1
+<0:;8: {rn {ioj {iok {jjl {jfh n {ioi {rn |
+  1
+:;8: {rn {iko {jfg {jfi {ikn o |
+  1
+):-+:' {rn {jfh {ikm |
+  1
+:336/,:r<*-): {rn rnfnqngnkmkolmjmml rknoqoomiiliofmllm fgqfgfnmgjiojfgijg o o rn jqfffffffffffffhhg lqkifkkifjnfjlinkm:ronk o n o o |
+  1
+/061+ {rn rnfnqolmfojmijnohfi rkniqooogmjnhjjjhmg fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {ikl {jjf {ikk {ikj n {ml {rn |
+  1
+<0:;8: {rn {iki {ikh {jjf {iol o {ikg {rn |
+  1
+:;8: {rn {ikf {ioh {iom {ijo o |
+  1
+<0:;8: {rn {jfi {jio {jil {iof o {ioi {rn |
+  1
+<0:;8: {rn {jio {jfi {iki {ijn n {ioi {rn |
+  1
+300/ {rn {rn {jfi {ijm |
+  1
+):-+:' {rn {jin {ijl |
+  1
+,+->687+r<*-): {rn rngjqngnkmkolmjmmli rlnhqfhjikhnlklngfl fiqfgfnmgjiojfgijg o rn o o o |
+  1
+:;8: {rn {jij {jfg {jil {ijk o |
+  1
+9><: {ijj {jig {jik {k {rn {iji n o |
+  1
+/061+ {rn rngjqngnkmkolmjmmli rknoqoomiiliofmllm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnfnqolmfojmijnohfi rkniqooogmjnhjjjhmg fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {ijh {rn {jig 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rmohqgnonifoomfkgn rkniqknimkmmnigmjmj fiqggfnmgjiojfgiik oqomkhjlnmhfomkookng roqfffifljfklghlmkog o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {jhn {jmi oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {jhk {ijg {ijf {iio n {ml {rn |
+  1
+<0:;8: {rn {iin {iim {jhk {ing o {jgh {rn |
+  1
+:;8: {rn {imn {iil {inh {iik o |
+  1
+<0:;8: {rn {jgf {jhj {iim {iij o {jkj {rn |
+  1
+<0:;8: {rn {jhj {jgf {jhh {iml n {jkj {rn |
+  1
+):-+:' {rn {ing {iii |
+  1
+,+->687+r<*-): {rn rnnkqfohjlhmghgjgom rmflqffkhmhijkolkij fiqfgfnmgjiojfgijg oqiokhnjgjifokfhkm oqhfikknmfmjojlfmog o o o |
+  1
+:;8: {rn {jhf {jfm {imo {iih o |
+  1
+/061+ {rn rnnkqfohjlhmghgjgom rmflqffkhmhijkolkij fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnnjqhnknjloghoijgk rmfiqiioljgjhijkmhn fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {jgj {jkk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {iig {rn {jgi 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {iif {iho {ihn {k {rn {ihm n o |
+  1
+300/ {rn {rn {ihl {jgi |
+  1
+/3>1:r,*-9><: {rn rnlmqjnnnjglmgnnkh rmglqhllknhhfgllfkh fiqggfnmgjiojfgiik oqfgjmimjjmfggmkolf roqnhnokggmglkhimlkh o o o rn o o o o o |
+  1
+<0:;8: {rn {iim {iin {jfo {ill n {jgh {rn |
+  1
+<0:;8: {rn {ihk {jfo {ihl {ihj o {ll {rn |
+  1
+:;8: {rn {ilk {ihi {iln {ihh o |
+  1
+):-+:' {rn {jfn {ihg |
+  1
+,+->687+r<*-): {rn rnnkqfohjlhmghgjgom rmflqffkhmhijkolkij fgqfgfnmgjiojfgijg oqiokhnjgjifokfhkm oqhfikknmfmjojlfmog o o o |
+  1
+/061+ {rn rnnkqfohjlhmghgjgom rmflqffkhmhijkolkij fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {jfj {ihf {igo {ign o {ll {rn |
+  1
+<0:;8: {rn {ikh {iki {jfj {ilf n {ikg {rn |
+  1
+:;8: {rn {igm {iko {ilg {igl o |
+  1
+):-+:' {rn {ilf {igk |
+  1
+,+->687+r<*-): {rn rngjqngnkmkolmjmmli rlnhqfhjikhnlklngfl fgqfgfnmgjiojfgijg o rn o o o |
+  1
+/061+ {rn rngjqngnkmkolmjmmli rknoqoomiiliofmllm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {igj {ion {igi {igh n {ml {rn |
+  1
+<0:;8: {rn {igg {igf {ion {ikj o {ifo {rn |
+  1
+:;8: {rn {ifn {ikf {ikk {ifm o |
+  1
+<0:;8: {rn {ilg {iom {ioj {ijn o {ikg {rn |
+  1
+<0:;8: {rn {iom {ilg {igg {ifl n {ikg {rn |
+  1
+300/ {rn {rn {ilg {ifk |
+  1
+):-+:' {rn {iol {ifj |
+  1
+:336/,:r<*-): {rn rnfnqngnkmkolmjmmll rlnhqfhjikhnlklnggm fiqfgfnmgjiojfgijg o o rn roqnkgjnghihknklfing jqffgninjiilmlfnmh o n o o |
+  1
+:;8: {rn {ioh {iko {ioj {ifi o |
+  1
+9><: {ifh {ino {ioi {k {rn {ifg n o |
+  1
+/061+ {rn rngjqngnkmkolmjmmli rlnhqfhjikhnlklngfl fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rngjqngnkmkolmjmmli rknoqoomiiliofmllm fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {iff {rn {ino 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnfnqngnkmkolmjmmll rknoqoomiiliofmllm fiqggfnmgjiojfgiik o o n roqoolmonnhlngomiimjml rjqffffffnkiokohffg o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {inl {jig oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {ini {hoo {hon {hom n {ml {rn |
+  1
+<0:;8: {rn {hol {hok {ini {iio o {imf {rn |
+  1
+:;8: {rn {iil {hoj {ijf {hoi o |
+  1
+<0:;8: {rn {iln {inh {hok {hoh o {jgh {rn |
+  1
+<0:;8: {rn {inh {iln {inf {iij n {jgh {rn |
+  1
+):-+:' {rn {iio {hog |
+  1
+:336/,:r<*-): {rn rnmnqkhohjhfihokjil rmgkqkkgkjgfgonngmf fiqfgfnmgjiojfgijg lqjlfjohjoklfkkmfl:roni kqiinhoffjhjihlnmj:roni n gqhiogjkmnfmjokklh riqijnghkkmhmlhfjik o n o o |
+  1
+:;8: {rn {imn {ilk {iim {hof o |
+  1
+/061+ {rn rnnmqhoffolhkhhfjnn rmfnqnoolllkohljimf fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnnkqfohjlhmghgjgom rmflqffkhmhijkolkij fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {imh {jgi oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {hno {rn {img 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {hnn {hnm {hnl {k {rn {hnk n o |
+  1
+300/ {rn {rn {hnj {img |
+  1
+<01:r,*-9><: {rn rnliqkkmjijnooilokj rmgmqfflihjojfmfjnf fiqggfnmgjiojfgiik o o n roqoomnlknnjkjkhkiimi rlqffffffkllononmkf o n o o o n o o o o o |
+  1
+<0:;8: {rn {hok {hol {ilm {ihj n {imf {rn |
+  1
+<0:;8: {rn {hni {ilm {hnj {hnh o {ll {rn |
+  1
+:;8: {rn {ihi {hng {ihl {hnf o |
+  1
+):-+:' {rn {ill {hmo |
+  1
+:336/,:r<*-): {rn rnmnqkhohjhfihokjil rmgkqkkgkjgfgonngmf fgqfgfnmgjiojfgijg lqhghnmmkhnhmknflg:roni kqfghglnlimnkkmfn:roni n gqhiogjkmnfmjokklh riqijnghkkmhmlhfjik o n o o |
+  1
+/061+ {rn rnnmqhoffolhkhhfjnn rmfnqnoolllkohljimf fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {ilh {hmn {hmm {hml o {ll {rn |
+  1
+<0:;8: {rn {igf {igg {ilh {ign n {ifo {rn |
+  1
+:;8: {rn {hmk {igm {igo {hmj o |
+  1
+):-+:' {rn {ign {hmi |
+  1
+:336/,:r<*-): {rn rnfnqngnkmkolmjmmll rlnhqfhjikhnlklnggm fgqfgfnmgjiojfgijg o o rn roqnkgjnghihknklfing jqffgninjiilmlfnmh o n o o |
+  1
+/061+ {rn rngjqngnkmkolmjmmli rlnhqfhjikhnlklngfl fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {hmh {ikl {hmg {hmf n {ml {rn |
+  1
+<0:;8: {rn {hlo {hln {ikl {igh o {hlm {rn |
+  1
+:;8: {rn {hll {ifn {igi {hlk o |
+  1
+<0:;8: {rn {igo {ikk {ikh {ifl o {ifo {rn |
+  1
+<0:;8: {rn {ikk {igo {hlo {hlj n {ifo {rn |
+  1
+300/ {rn {rn {igo {hli |
+  1
+):-+:' {rn {ikj {hlh |
+  1
+,+->687+r<*-): {rn rmoiqljjhlfjjofkjjk rlnmqlkfjljolkgjmgi fiqfgfnmgjiojfgijg oqfffifljfklghlofhi oqomkhjlnmhfomlgiokn o o o |
+  1
+:;8: {rn {ikf {igm {ikh {hlg o |
+  1
+9><: {hlf {ijm {ikg {k {rn {hko n o |
+  1
+/061+ {rn rnfnqlmffkmhffflihl rlnnqfhhkgjjihffkhl fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rngjqngnkmkolmjmmli rlnhqfhjikhnlklngfl fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {hkn {rn {ijm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rngjqngnkmkolmjmmli rknkqiokonkklmfhggf fiqggfnmgjiojfgiik n lqomhofmkijjhfjmgk:roni o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ijj {ino oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {ijg {hkm {hkl {hkk n {ml {rn |
+  1
+<0:;8: {rn {hkj {hki {ijg {hom o {ihn {rn |
+  1
+:;8: {rn {hoj {hkh {hon {hkg o |
+  1
+<0:;8: {rn {ihl {ijf {hki {hkf o {imf {rn |
+  1
+<0:;8: {rn {ijf {ihl {iin {hoh n {imf {rn |
+  1
+):-+:' {rn {hom {hjo |
+  1
+,+->687+r<*-): {rn rnlmqlogikiojmoohhi rmgmqjiifmngihflnnn fiqfgfnmgjiojfgijg roqnhnokggmglkhiognj roqfgjmimjjmfggmnhjm o o o |
+  1
+:;8: {rn {iil {ihi {hok {hjn o |
+  1
+/061+ {rn rnlmqlogikiojmoohhi rmgmqjiifmngihflnnn fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnnmqhoffolhkhhfjnn rmfnqnoolllkohljimf fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {iif {img oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {hjm {rn {iho 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {hjl {hjk {hjj {k {rn {hji o o |
+  1
+300/ {rn {rn {hjh {iho |
+  1
+/3>1:r,*-9><: {rn rnkmqnfinmfhhlhfmjn rmfoqiifhonkomhggml fiqggfnmgjiojfgiik oqkhhmojohjkmngkoi roqghghfnfikooolhkil o o o rn o o o o o |
+  1
+<0:;8: {rn {hki {hkj {ihk {hnh n {ihn {rn |
+  1
+<0:;8: {rn {hjg {ihk {hjh {hjf o {ll {rn |
+  1
+:;8: {rn {hng {hio {hnj {hin o |
+  1
+):-+:' {rn {ihj {him |
+  1
+,+->687+r<*-): {rn rnlmqlogikiojmoohhi rmgmqjiifmngihflnnn fgqfgfnmgjiojfgijg roqnhnokggmglkhiognj roqfgjmimjjmfggmnhjm o o o |
+  1
+/061+ {rn rnlmqlogikiojmoohhi rmgmqjiifmngihflnnn fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {ihf {hil {hik {hij o {ll {rn |
+  1
+<0:;8: {rn {hln {hlo {ihf {hml n {hlm {rn |
+  1
+:;8: {rn {hii {hmk {hmm {hih o |
+  1
+):-+:' {rn {hml {hig |
+  1
+,+->687+r<*-): {rn rmoiqljjhlfjjofkjjk rlnmqlkfjljolkgjmgi fgqfgfnmgjiojfgijg oqfffifljfklghlofhi oqomkhjlnmhfomlgiokn o o o |
+  1
+/061+ {rn rnfnqlmffkmhffflihl rlnnqfhhkgjjihffkhl fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {hif {igj {hho {hhn n {ml {rn |
+  1
+<0:;8: {rn {hhm {hhl {igj {hmf o {hhk {rn |
+  1
+:;8: {rn {hhj {hll {hmg {hhi o |
+  1
+<0:;8: {rn {hmm {igi {igf {hlj o {hlm {rn |
+  1
+<0:;8: {rn {igi {hmm {hhm {hhh n {hlm {rn |
+  1
+300/ {rn {rn {hmm {hhg |
+  1
+):-+:' {rn {igh {hhf |
+  1
+,+->687+r<*-): {rn rmoiqllfhloomijfhjg rmgmqlkmigmmlmnnmmm fiqfgfnmgjiojfgijg roqooojlljmggillhnijhmg roqffffffgjhihlkjglk o o o |
+  1
+:;8: {rn {ifn {hmk {igf {hgo o |
+  1
+9><: {hgn {ifk {ifo {k {rn {hgm n o |
+  1
+/061+ {rn rmoiqljjhlfjjofkjjk rlnmqlkfjljolkgjmgi fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnfnqlmffkmhffflihl rlnnqfhhkgjjihffkhl fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {hgl {rn {ifk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnfnqngnkmkolmjmmli rlnhqfhjikhnlklnggm fiqggfnmgjiojfgiik o o n roqoolmonnhlngomiimjml rjqffffffnkiokohffg o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ifh {ijm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {hoo {hgk {hgj {hgi n {ml {rn |
+  1
+<0:;8: {rn {hgh {hgg {hoo {hkk o {hnl {rn |
+  1
+:;8: {rn {hkh {hgf {hkl {hfo o |
+  1
+<0:;8: {rn {hnj {hon {hgg {hfn o {ihn {rn |
+  1
+<0:;8: {rn {hon {hnj {hol {hkf n {ihn {rn |
+  1
+):-+:' {rn {hkk {hfm |
+  1
+:336/,:r<*-): {rn rnliqkkmjijnooilokm rmgmqfflihjojfmfjnf fiqfgfnmgjiojfgjni lqnjiokghinimhhmmk:ronk rmqnoknlhhogkmmfngh:ronk rn lqfknojomnkmljomoi roqigknfjlnlhgiflfjk nqlghhhghgohgnkkjh:ronl n o o |
+  1
+:;8: {rn {hoj {hng {hki {hfl o |
+  1
+/061+ {rn rnlmqjonjnkggilfjlk rmglqihhgholhlognff fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnlmqlogikiojmoohhi rmgmqjiifmngihflnnn fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {hnn {iho oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {hfk {rn {hnm 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {hfj {hfi {hfh {k {rn {hfg n o |
+  1
+300/ {rn {rn {hff {hnm |
+  1
+<01:r,*-9><: {rn rnlfqfmmkllfflhlfim rmflqfgihllnkijkf fiqggfnmgjiojfgiik o o n roqoomnlknnjkjhmmmhign rlqffffffklhijnngfg o n o o o n o o o o o |
+  1
+<0:;8: {rn {hgg {hgh {hni {hjf n {hnl {rn |
+  1
+<0:;8: {rn {goo {hni {hff {gon o {ll {rn |
+  1
+:;8: {rn {hio {gom {hjh {gol o |
+  1
+):-+:' {rn {hnh {gok |
+  1
+:336/,:r<*-): {rn rnliqkkmjijnooilokm rmgmqfflihjojfmfjnf fgqfgfnmgjiojfgijg o o rn lqfknojomnkmljomoi roqigknfjlnlhgiflfjk o n o o |
+  1
+/061+ {rn rnlmqjonjnkggilfjlk rmglqihhgholhlognff fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {hmn {goj {goi {goh o {ll {rn |
+  1
+<0:;8: {rn {hhl {hhm {hmn {hij n {hhk {rn |
+  1
+:;8: {rn {gog {hii {hik {gof o |
+  1
+):-+:' {rn {hij {gno |
+  1
+,+->687+r<*-): {rn rmoiqllfhloomijfhjg rmgmqlkmigmmlmnnmmm fgqfgfnmgjiojfgijg roqooojlljmggillhnijhmg roqffffffgjhihlkjglk o o o |
+  1
+/061+ {rn rmoiqljjhlfjjofkjjk rlnmqlkfjljolkgjmgi fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {gnn {hmh {gnm {gnl n {ml {rn |
+  1
+<0:;8: {rn {gnk {gnj {hmh {hhn o {gni {rn |
+  1
+:;8: {rn {gnh {hhj {hho {gng o |
+  1
+<0:;8: {rn {hik {hmg {hln {hhh o {hhk {rn |
+  1
+<0:;8: {rn {hmg {hik {gnk {gnf n {hhk {rn |
+  1
+300/ {rn {rn {hik {gmo |
+  1
+):-+:' {rn {hmf {gmn |
+  1
+,+->687+r<*-): {rn rnjfqjgljooihmnjjnh rmgnqngkfikjhjmkjlm fiqfgfnmgjiojfgijg roqfffifljfklghnfioh roqomkhjlnmhfohlggmim o o o |
+  1
+:;8: {rn {hll {hii {hln {gmm o |
+  1
+9><: {gml {hli {hlm {k {rn {gmk n o |
+  1
+/061+ {rn rmoiqllfhloomijfhjg rmgmqlkmigmmlmnnmmm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rmoiqljjhlfjjofkjjk rlnmqlkfjljolkgjmgi fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {gmj {rn {hli 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnfoqjhgijmfimlgimf rlnnqfjggglofkijnfm fiqggfnmgjiojfgiik roqomkhjlnmhfomlfoohi oqfffifljfklghlmkl o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {hlf {ifk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {hkm {gmi {gmh {gmg n {ml {rn |
+  1
+<0:;8: {rn {gmf {glo {hkm {hgi o {hjj {rn |
+  1
+:;8: {rn {hgf {gln {hgj {glm o |
+  1
+<0:;8: {rn {hjh {hkl {glo {gll o {hnl {rn |
+  1
+<0:;8: {rn {hkl {hjh {hkj {hfn n {hnl {rn |
+  1
+):-+:' {rn {hgi {glk |
+  1
+,+->687+r<*-): {rn rnlkqjllhkkhfhglhih rmgiqjoggkmfnhllmnm fiqfgfnmgjiojfgijg roqghghfnfikoooljijl roqkhhmojohjkmngilfh o o o |
+  1
+:;8: {rn {hkh {hio {hgg {glj o |
+  1
+/061+ {rn rnlkqjllhkkhfhglhih rmgiqjoggkmfnhllmnm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnlmqjonjnkggilfjlk rmglqihhgholhlognff fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {hjl {hnm oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {gli {rn {hjk 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {glh {glg {glf {k {rn {gko n o |
+  1
+300/ {rn {rn {gkn {hjk |
+  1
+/3>1:r,*-9><: {rn rnklqkmfflfjkghmfhg rlomqnjklojhmnlmogk fiqggfnmgjiojfgiik oqffgnlnjgoilffkjkj oqoinnonnmhoifglkfif o o o rn o o o o o |
+  1
+<0:;8: {rn {glo {gmf {hjg {gon n {hjj {rn |
+  1
+<0:;8: {rn {gkm {hjg {gkn {gkl o {ll {rn |
+  1
+:;8: {rn {gom {gkk {hff {gkj o |
+  1
+):-+:' {rn {hjf {gki |
+  1
+,+->687+r<*-): {rn rnlkqjllhkkhfhglhih rmgiqjoggkmfnhllmnm fgqfgfnmgjiojfgijg roqghghfnfikoooljijl roqkhhmojohjkmngilfh o o o |
+  1
+/061+ {rn rnlkqjllhkkhfhglhih rmgiqjoggkmfnhllmnm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {hil {gkh {gkg {gkf o {ll {rn |
+  1
+<0:;8: {rn {gnj {gnk {hil {goh n {gni {rn |
+  1
+:;8: {rn {gjo {gog {goi {gjn o |
+  1
+):-+:' {rn {goh {gjm |
+  1
+,+->687+r<*-): {rn rnjfqjgljooihmnjjnh rmgnqngkfikjhjmkjlm fgqfgfnmgjiojfgijg roqfffifljfklghnfioh roqomkhjlnmhfohlggmim o o o |
+  1
+/061+ {rn rmoiqllfhloomijfhjg rmgmqlkmigmmlmnnmmm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {gjl {hif {gjk {gjj n {ml {rn |
+  1
+<0:;8: {rn {gji {gjh {hif {gnl o {gjg {rn |
+  1
+:;8: {rn {gjf {gnh {gnm {gio o |
+  1
+<0:;8: {rn {goi {hho {hhl {gnf o {gni {rn |
+  1
+<0:;8: {rn {hho {goi {gji {gin n {gni {rn |
+  1
+300/ {rn {rn {goi {gim |
+  1
+):-+:' {rn {hhn {gil |
+  1
+,+->687+r<*-): {rn rnjgqohninfimoffnll rmgnqngjhhnmohjlggl fiqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggillklmljjh o o o |
+  1
+:;8: {rn {hhj {gog {hhl {gik o |
+  1
+9><: {gij {hhg {hhk {k {rn {gii n o |
+  1
+/061+ {rn rnjfqjgljooihmnjjnh rmgnqngkfikjhjmkjlm fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rmoiqllfhloomijfhjg rmgmqlkmigmmlmnnmmm fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {gih {rn {hhg 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rmoiqllgfmfjjolgonf rmgoqgkmllfjfnfhjmj fiqggfnmgjiojfgiik oqffffffgjhihlkijgf roqooojlljmggillhhhoglm o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {hgn {hli oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {hgk {gig {gif {gho n {ml {rn |
+  1
+<0:;8: {rn {ghn {ghm {hgk {gmg o {hfh {rn |
+  1
+:;8: {rn {gln {ghl {gmh {ghk o |
+  1
+<0:;8: {rn {hff {hgj {ghm {ghj o {hjj {rn |
+  1
+<0:;8: {rn {hgj {hff {hgh {gll n {hjj {rn |
+  1
+):-+:' {rn {gmg {ghi |
+  1
+:336/,:r<*-): {rn rnlfqfmmkllfflhlfij rmflqfgihllnkijkggf fiqfgfnmgjiojfgijg o o n rnqfoggmolojoohlkkj lqjnjnihgimnnjjng o n o o |
+  1
+:;8: {rn {hgf {gom {glo {ghh o |
+  1
+/061+ {rn rnknqglnmjkmfghkhok rmfoqkhnjijmgkklllg fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnlkqjllhkkhfhglhih rmgiqjoggkmfnhllmnm fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {hfj {hjk oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {ghg {rn {hfi 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {ghf {ggo {ggn {k {rn {ggm n o |
+  1
+300/ {rn {rn {ggl {hfi |
+  1
+<01:r,*-9><: {rn rnkhqkjoffgkhnmkohg rlonqfokiinolhkiooh fiqggfnmgjiojfgiik o o n roqoomnlknnjkjkogghhhm rlqffffffklnhhhnnnh o n o o o n o o o o o |
+  1
+<0:;8: {rn {ghm {ghn {goo {gkl n {hfh {rn |
+  1
+<0:;8: {rn {ggk {goo {ggl {ggj o {ll {rn |
+  1
+:;8: {rn {gkk {ggi {gkn {ggh o |
+  1
+):-+:' {rn {gon {ggg |
+  1
+:336/,:r<*-): {rn rnlfqfmmkllfflhlfij rmflqfgihllnkijkggf fgqfgfnmgjiojfgijg o o n rnqfoggmolojoohlkkj lqjnjnihgimnnjjng o n o o |
+  1
+/061+ {rn rnknqglnmjkmfghkhok rmfoqkhnjijmgkklllg fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {goj {ggf {gfo {gfn o {ll {rn |
+  1
+<0:;8: {rn {gjh {gji {goj {gkf n {gjg {rn |
+  1
+:;8: {rn {gfm {gjo {gkg {gfl o |
+  1
+):-+:' {rn {gkf {gfk |
+  1
+,+->687+r<*-): {rn rnjgqohninfimoffnll rmgnqngjhhnmohjlggl fgqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggillklmljjh o o o |
+  1
+/061+ {rn rnjfqjgljooihmnjjnh rmgnqngkfikjhjmkjlm fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {gig {gnn {gfj {gfi n {ml {rn |
+  1
+<0:;8: {rn {gfh {gfg {gnn {gjj o {gff {rn |
+  1
+:;8: {rn {foo {gjf {gjk {fon o |
+  1
+<0:;8: {rn {gkg {gnm {gnj {gin o {gjg {rn |
+  1
+<0:;8: {rn {gnm {gkg {gfh {fom n {gjg {rn |
+  1
+300/ {rn {rn {gkg {fol |
+  1
+):-+:' {rn {gnl {fok |
+  1
+:336/,:r<*-): {rn rnjgqojmhnhgkhkjimm rmgjqngjhmijkhjfmjk fiqfgfnmgjiojfgini rnqoknmgkgnjggmohgk:ronk rgqkkjlnhhnjgmhilnm:ronj n lqffffffkloimhmkim roqoomnlknnjkjljhgnnnj kqnilllilkmlkkllh:ronk n o o |
+  1
+:;8: {rn {gnh {gjo {gnj {foj o |
+  1
+9><: {foi {gmo {gni {k {rn {foh n o |
+  1
+/061+ {rn rnjgqohninfimoffnll rmgnqngjhhnmohjlggl fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjfqjgljooihmnjjnh rmgnqngkfikjhjmkjlm fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fog {rn {gmo 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rmogqihhjknkfklnfhn rmgmqkoojignnkfjji fiqggfnmgjiojfgiik oqomkhjlnmhfohknflkk roqfffifljfklghnffhk o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {gml {hhg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {gmi {gjl {fof {fno n {ml {rn |
+  1
+<0:;8: {rn {fnn {fnm {gmi {gho o {glf {rn |
+  1
+:;8: {rn {ghl {fnl {gif {fnk o |
+  1
+<0:;8: {rn {gkn {gmh {fnm {fnj o {hfh {rn |
+  1
+<0:;8: {rn {gmh {gkn {gmf {ghj n {hfh {rn |
+  1
+):-+:' {rn {gho {fni |
+  1
+,+->687+r<*-): {rn rnklqfnkfiolngggkkj rmfkqmlnnlhhmikikjh fiqfgfnmgjiojfgijg oqoinnonnlknlkkngogf roqffgnlnjgomohkgki o o o |
+  1
+:;8: {rn {gln {gkk {ghm {fnh o |
+  1
+/061+ {rn rnklqfnkfiolngggkkj rmfkqmlnnlhhmikikjh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnknqglnmjkmfghkhok rmfoqkhnjijmgkklllg fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {glh {hfi oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fng {rn {glg 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {fnf {fmo {fmn {k {rn {fmm n o |
+  1
+300/ {rn {rn {fml {glg |
+  1
+/3>1:r,*-9><: {rn rnjoqnfklonffmmhfjj rlojqfolnfhfhionhhk fiqggfnmgjiojfgiik roqooojlljmggillhhhoglm roqffffffgjhihlkijgf o o o rn o o o o o |
+  1
+<0:;8: {rn {fnm {fnn {gkm {ggj n {glf {rn |
+  1
+<0:;8: {rn {ggf {gkm {fml {fmk o {ll {rn |
+  1
+:;8: {rn {ggi {fmj {ggl {fmi o |
+  1
+):-+:' {rn {gkl {fmh |
+  1
+,+->687+r<*-): {rn rnklqfnkfiolngggkkj rmfkqmlnnlhhmikikjh fgqfgfnmgjiojfgijg oqoinnonnlknlkkngogf roqffgnlnjgomohkgki o o o |
+  1
+/061+ {rn rnklqfnkfiolngggkkj rmfkqmlnnlhhmikikjh fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {gkh {ggk {fmg {fmf o {ll {rn |
+  1
+<0:;8: {rn {gfg {gfh {gkh {gfn n {gff {rn |
+  1
+:;8: {rn {flo {gfm {gfo {fln o |
+  1
+):-+:' {rn {gfn {flm |
+  1
+:336/,:r<*-): {rn rnjgqojmhnhgkhkjimm rmgjqngjhmijkhjfmjk fgqfgfnmgjiojfgini rnqoknmgkgnjggmohgk:ronk rgqkkjlnhhnjgmhilnm:ronj n lqffffffkloimhmkim roqoomnlknnjkjljhgnnnj kqnilllilkmlkkllh:ronk n o o |
+  1
+/061+ {rn rnjgqohninfimoffnll rmgnqngjhhnmohjlggl fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {fll {flk {gjl {gfi o {fmn {rn |
+  1
+:;8: {rn {flj {foo {gfj {fli o |
+  1
+<0:;8: {rn {gfo {gjk {gjh {fom o {gff {rn |
+  1
+<0:;8: {rn {gjk {gfo {fll {flh n {gff {rn |
+  1
+300/ {rn {rn {gfo {fmo |
+  1
+):-+:' {rn {gjj {flg |
+  1
+,+->687+r<*-): {rn rnjkqoiniljklnkilk rlonqfonnlkohmkolgn fiqfgfnmgjiojfgijg oqooojlljmgglfkkojhhfk oqffffffgjhihlkjglk o o o |
+  1
+:;8: {rn {gjf {gfm {gjh {flf o |
+  1
+9><: {fko {gim {gjg {k {rn {fkn o o |
+  1
+/061+ {rn rnjkqojmhngknigmgfm rmgjqnghgioiilokink fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjgqohninfimoffnll rmgnqngjhhnmohjlggl fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fkm {rn {gim 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnjfqijfofkhmkhnllg rmgnqngkfmkmkliloil ffqogfnmgjiojfgijm roqooojlljmggillhhhoglm roqffffffgjhihlkijgf o o o rn o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {gij {gmo oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {fkl {fkk {gig {fno o {ggn {rn |
+  1
+:;8: {rn {fnl {flj {fof {fkj o |
+  1
+<0:;8: {rn {ggl {gif {fkk {fki o {glf {rn |
+  1
+<0:;8: {rn {gif {ggl {ghn {fnj n {glf {rn |
+  1
+):-+:' {rn {fno {fkh |
+  1
+:336/,:r<*-): {rn rnkhqkjoffgkhnmkohj rlonqfokiinolhkiooh fiqfgfnmgjiojfgini nqoiihilfoloomhnkk:ronk rhqfjjogfhjmigfkgfm:ronj rn lqffhfimifhgfoojgf oqnmhikfololljlngog kqnilllilkmlkkllh:ronk n o o |
+  1
+:;8: {rn {ghl {ggi {fnm {fkg o |
+  1
+/061+ {rn rnklqkjloljhhlllihj rlonqhhhonmoohnmklh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnklqfnkfiolngggkkj rmfkqmlnnlhhmikikjh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {ghf {glg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fkf {rn {ggo 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+9><: {fjo {fol {gff {k {rn {fjn n o |
+  1
+300/ {rn {rn {fmg {ggo |
+  1
+<01:r,*-9><: {rn rnjoqoiniliooolifjf rlonqfolmignghgjhil fiqggfnmgjiojfgiik o o n roqoomnlknnjkjlhmknfkh rlqffffffklnoflhifk o n o o o n o o o o o |
+  1
+<0:;8: {rn {fkk {fkl {ggk {fmk n {ggn {rn |
+  1
+:;8: {rn {fmj {fjm {fml {fjl o |
+  1
+):-+:' {rn {ggj {fjk |
+  1
+:336/,:r<*-): {rn rnkhqkjoffgkhnmkohj rlonqfokiinolhkiooh fgqfgfnmgjiojfgijg o o rn lqffhfimifhgfoojgf oqnmhikfololljlngog o n o o |
+  1
+/061+ {rn rnklqkjloljhhlllihj rlonqhhhonmoohnmklh fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {flk {fll {ggf {fmf n {fmn {rn |
+  1
+:;8: {rn {fjm {flo {fmg {fjj o |
+  1
+):-+:' {rn {fmf {fji |
+  1
+,+->687+r<*-): {rn rnjkqoiniljklnkilk rlonqfonnlkohmkolgn fgqfgfnmgjiojfgijg oqooojlljmgglfkkojhhfk oqffffffgjhihlkjglk o o o |
+  1
+/061+ {rn rnjkqojmhngknigmgfm rmgjqnghgioiilokink fgqfgfnmgjiojfgijg |
+  1
+<0:;8: {rn {fmg {gfj {gfg {flh o {fmn {rn |
+  1
+<0:;8: {rn {gfj {fmg {fkl {fjh n {fmn {rn |
+  1
+):-+:' {rn {gfi {fjg |
+  1
+:336/,:r<*-): {rn rnjoqoiniliooolifim rlonqfolmignghgjhil fiqfgfnmgjiojfgini rgqjokmonmfgjogokjh:ronj rnqokolgojofghojnnf:ronk rn roqoomnlknnjkjlhniggfg rlqffffffklnoflhkgi kqnilllilkmlkkllhh:ronk n o o |
+  1
+:;8: {rn {foo {flo {gfg {fjf o |
+  1
+/061+ {rn rnjkqoiniljklnkilk rlonqfonnlkohmkolgn fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjkqojmhngknigmgfm rmgjqnghgioiilokink fiqfgfnmgjiojfgijg o o n o o |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fio {rn {fol 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+<01:r,*-9><: {rn rnjgqojmhnhgkhkjilk rmgjqngjhmijkhjfmjk fiqggfnmgjiojfgiik o o n roqoomnlknnjkjlkhjljlf rlqffffffkloimhlilf o n o o o n o o o o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {foi {gim oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+<0:;8: {rn {fml {fof {flk {fjh o {ggn {rn |
+  1
+<0:;8: {rn {fof {fml {fnn {fki n {ggn {rn |
+  1
+,+->687+r<*-): {rn rnkhqkjlnlmjgiifkgk rlojqfokiiokifmlhnh fiqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggiggoomolhg o o o |
+  1
+:;8: {rn {fnl {fmj {fkk {fin o |
+  1
+/061+ {rn rnkhqkjlnlmjgiifkgk rlojqfokiiokifmlhnh fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnklqkjloljhhlllihj rlonqhhhonmoohnmklh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {fnf {ggo oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+61+:8:-@>++-6=r1>2:@>++-6=r8:1r>++-6= {rn {fim {rn {fmo 4::/ 4::/@4:/+ 6810-: ng ^ KKMV]@G^ \VL@S^ FZM g |
+  1
+/3>1:r,*-9><: {rn rnjkqojmmhmjiiohhnf rmgkqljmnfiffmjhgnh fiqggfnmgjiojfgiik roqffffffgjhihlkijgf oqooojlljmggillhhhoglm o o o n o o o o o |
+  1
+):-+:' {rn {fmk {fil |
+  1
+,+->687+r<*-): {rn rnkhqkjlnlmjgiifkgk rlojqfokiiokifmlhnh fgqfgfnmgjiojfgijg roqffffffgjhihlkjglk oqooojlljmggiggoomolhg o o o |
+  1
+/061+ {rn rnkhqkjlnlmjgiifkgk rlojqfokiiokifmlhnh fgqfgfnmgjiojfgijg |
+  1
+:336/,:r<*-): {rn rnjoqoiniliooolifim rlonqfolmignghgjhil fgqfgfnmgjiojfgini rgqjokmonmfgjogokjh:ronj rnqokolgojofghojnnf:ronk rn roqoomnlknnjkjlhniggfg rlqffffffklnoflhkgi kqnilllilkmlkkllhh:ronk n o o |
+  1
+/061+ {rn rnjkqoiniljklnkilk rlonqfonnlkohmkolgn fgqfgfnmgjiojfgijg |
+  1
+:;8: {rn {flj {fjm {flk {fik o |
+  1
+/061+ {rn rnjoqoilhhonnjgmln rlojqfolmihingjjnmk fiqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjkqoiniljklnkilk rlonqfonnlkohmkolgn fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {fko {fol oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+,+->687+r<*-): {rn rnkhqkjlnlmjgiifkgk rlojqfokiiokifmlhnh fiqfgfnmgjiojfgijg o o n o o |
+  1
+-8=@<030-r,+r>++-6= {rn {rn {fjo {fmo oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg oqjonfiohgklnlhmjkg |
+  1
+/061+ {rn rnjoqoilhhonnjgmln rlojqfolmihingjjnmk fgqfgfnmgjiojfgijg |
+  1
+,+->687+r<*-): {rn rnjoqoilhhonnjgmln rlojqfolmihingjjnmk fiqfgfnmgjiojfgijg o o n o o |
+  1
+Z1;r09r^ \VLr;>+> 
+1001
+ACAD_OBJECT_CHANGE_GUID
+1070
+     0
+1071
+        0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+  0
+CIRCLE
+  5
+77
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+116.8898986930027
+ 20
+4.516055049413296
+ 30
+0.0
+ 40
+6.400000000000043
+  0
+LINE
+  5
+78
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+139.0810570621607
+ 20
+15.65911653682736
+ 30
+0.0
+ 11
+116.8190985410441
+ 21
+15.51582720096917
+ 31
+0.0
+  0
+ARC
+  5
+79
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+139.2741483856579
+ 20
+-14.34026205430581
+ 30
+0.0
+ 40
+30.00000000000001
+100
+AcDbArc
+ 50
+1.429569333226223
+ 51
+90.36877980947676
+  0
+LINE
+  5
+7A
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+169.5644728633947
+ 20
+-25.59949648729787
+ 30
+0.0
+ 11
+169.2648108166946
+ 21
+-13.59181896297747
+ 31
+0.0
+  0
+LINE
+  5
+7B
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+169.5624721301571
+ 20
+-29.34949595357335
+ 30
+0.0
+ 11
+169.5644728633947
+ 21
+-25.59949648729787
+ 31
+0.0
+  0
+LINE
+  5
+7C
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+131.9480018869986
+ 20
+-85.54049140729154
+ 30
+0.0
+ 11
+170.9543166338428
+ 21
+-85.56130240502495
+ 31
+0.0
+  0
+LINE
+  5
+7D
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+131.5523666096004
+ 20
+-69.56214499030091
+ 30
+0.0
+ 11
+131.9480018869986
+ 21
+-85.54049140729154
+ 31
+0.0
+  0
+ARC
+  5
+7E
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+125.5542050432766
+ 20
+-69.71066375771511
+ 30
+0.0
+ 40
+5.999999999999773
+100
+AcDbArc
+ 50
+1.418394629537798
+ 51
+90.00000000000162
+  0
+LINE
+  5
+7F
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+-3.263493990711481
+ 20
+-38.11274039734803
+ 30
+0.0
+ 11
+-2.105776333844631
+ 21
+-84.86896975179042
+ 31
+0.0
+  0
+LINE
+  5
+80
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+-3.262687358417907
+ 20
+-36.60085934618417
+ 30
+0.0
+ 11
+-3.263493990711481
+ 21
+-38.11274039734803
+ 31
+0.0
+  0
+ARC
+  5
+81
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+17.45620247150322
+ 20
+-25.98023819643385
+ 30
+0.0
+ 40
+4.000000000000088
+100
+AcDbArc
+ 50
+359.9694310464334
+ 51
+91.82874816054073
+  0
+LINE
+  5
+82
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+9.782679160507769
+ 20
+-22.44420004407732
+ 30
+0.0
+ 11
+17.32855344116751
+ 21
+-21.98227549852959
+ 31
+0.0
+  0
+LINE
+  5
+83
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+2.060384351375319
+ 20
+-13.06298452303054
+ 30
+0.0
+ 11
+6.023106718476583
+ 21
+-20.36049402393985
+ 31
+0.0
+  0
+ARC
+  5
+84
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+19.46830935627632
+ 20
+-33.87204139100805
+ 30
+0.0
+ 40
+40.0000000000001
+100
+AcDbArc
+ 50
+44.96943104643031
+ 51
+93.50301867910348
+  0
+LINE
+  5
+85
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+58.13239504360484
+ 20
+-15.978658302741
+ 30
+0.0
+ 11
+47.76766705298917
+ 21
+-5.602864644474721
+ 31
+0.0
+  0
+ARC
+  5
+86
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+51.05755561914836
+ 20
+-23.04595248965245
+ 30
+0.0
+ 40
+10.00000000000007
+100
+AcDbArc
+ 50
+359.9694310464305
+ 51
+44.96943104643082
+  0
+LINE
+  5
+87
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbLine
+ 10
+61.05458625545361
+ 20
+-28.61413746854305
+ 30
+0.0
+ 11
+61.0575541968048
+ 21
+-23.05128777828656
+ 31
+0.0
+  0
+ARC
+  5
+88
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+65.05458568609137
+ 20
+-28.61627158399659
+ 30
+0.0
+ 40
+4.00000000000014
+100
+AcDbArc
+ 50
+179.9694310464293
+ 51
+269.9694310464281
+  0
+ARC
+  5
+89
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+CONTINUOUS2
+ 62
+     8
+100
+AcDbCircle
+ 10
+130.7650138338922
+ 20
+-22.39519689881024
+ 30
+0.0
+ 40
+4.000000000000043
+100
+AcDbArc
+ 50
+359.9694310464334
+ 51
+72.60558173614464
+  0
+SPLINE
+  5
+8A
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbSpline
+210
+0.0
+220
+0.0
+230
+1.0
+ 70
+     8
+ 71
+     1
+ 72
+     5
+ 73
+     3
+ 74
+     0
+ 42
+0.000000001
+ 43
+0.000001
+ 40
+0.0
+ 40
+0.0
+ 40
+1.0
+ 40
+2.0
+ 40
+2.0
+ 10
+131.0709577536338
+ 20
+-18.39314483073247
+ 30
+0.0
+ 10
+131.525163790274
+ 20
+-18.44097781758194
+ 30
+0.0
+ 10
+131.9608051499767
+ 20
+-18.57811907347423
+ 30
+0.0
+  0
+ARC
+  5
+8B
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+124.1818508980784
+ 20
+-10.43732093332898
+ 30
+0.0
+ 40
+8.000000000000304
+100
+AcDbArc
+ 50
+216.384703502758
+ 51
+270.3687798522846
+  0
+LINE
+  5
+8C
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+108.0343245327693
+ 20
+-2.009188726896355
+ 30
+0.0
+ 11
+117.7414333290693
+ 21
+-15.18295276911965
+ 31
+0.0
+  0
+ARC
+  5
+8D
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+116.8898986930026
+ 20
+4.516055049413183
+ 30
+0.0
+ 40
+10.99999999999997
+100
+AcDbArc
+ 50
+90.36877980947726
+ 51
+216.384703502759
+  0
+LINE
+  5
+8E
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+170.9543166338428
+ 20
+-85.56130240502495
+ 30
+0.0
+ 11
+169.5624721301571
+ 21
+-29.34949595357335
+ 31
+0.0
+  0
+LINE
+  5
+8F
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+33.52718856836208
+ 20
+-63.71066375771522
+ 30
+0.0
+ 11
+125.5542050432764
+ 21
+-63.71066375771522
+ 31
+0.0
+  0
+ARC
+  5
+90
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+33.52718856836204
+ 20
+-69.7106637577154
+ 30
+0.0
+ 40
+6.000000000000209
+100
+AcDbArc
+ 50
+89.99999999999959
+ 51
+181.4183946295377
+  0
+LINE
+  5
+91
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+27.90107646889595
+ 20
+-84.88497927613838
+ 30
+0.0
+ 11
+27.52902700203794
+ 21
+-69.8591825251296
+ 31
+0.0
+  0
+LINE
+  5
+92
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+-2.105776333844631
+ 20
+-84.86896975179042
+ 30
+0.0
+ 11
+27.90107646889595
+ 21
+-84.88497927613838
+ 31
+0.0
+  0
+ARC
+  5
+93
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+0.7372679816357248
+ 20
+-36.58195757264906
+ 30
+0.0
+ 40
+4.000000000000027
+100
+AcDbArc
+ 50
+89.96943104642831
+ 51
+180.2707489698587
+  0
+LINE
+  5
+94
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+17.45267550644706
+ 20
+-32.59087515665624
+ 30
+0.0
+ 11
+0.7394020970892825
+ 21
+-32.58195814202179
+ 31
+0.0
+  0
+ARC
+  5
+95
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+17.45480962190095
+ 20
+-28.59087572556274
+ 30
+0.0
+ 40
+4.000000000000027
+100
+AcDbArc
+ 50
+269.9694310464277
+ 51
+359.9694310464342
+  0
+CIRCLE
+  5
+96
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+0.0000004141615619
+ 20
+0.0000023077615765
+ 30
+0.0
+ 40
+6.4
+  0
+ARC
+  5
+97
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+9.538274580592429
+ 20
+-18.45167371893211
+ 30
+0.0
+ 40
+4.000000000000235
+100
+AcDbArc
+ 50
+208.5030196286072
+ 51
+273.50301970104
+  0
+ARC
+  5
+98
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+-1.454783506661954
+ 20
+-14.97180482582399
+ 30
+0.0
+ 40
+4.000000000000369
+100
+AcDbArc
+ 50
+28.50301962861443
+ 51
+80.15119425798636
+  0
+LINE
+  5
+99
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+-1.881536698025684
+ 20
+-10.8378857772006
+ 30
+0.0
+ 11
+-0.7705881928748113
+ 21
+-11.03075461158812
+ 31
+0.0
+  0
+ARC
+  5
+9A
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+0.0000004141614625
+ 20
+0.0000023077615197
+ 30
+0.0
+ 40
+11.0
+100
+AcDbArc
+ 50
+52.79160207507269
+ 51
+260.1511942579899
+  0
+LINE
+  5
+9B
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+9.546269088077906
+ 20
+6.563222986949143
+ 30
+0.0
+ 11
+6.65187484139949
+ 21
+8.760856527012038
+ 31
+0.0
+  0
+ARC
+  5
+9C
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+11.9651325156977
+ 20
+9.748988156970938
+ 30
+0.0
+ 40
+3.999999999999666
+100
+AcDbArc
+ 50
+232.7916020750724
+ 51
+273.5369299446597
+  0
+LINE
+  5
+9D
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+15.61761747967864
+ 20
+5.967113242805169
+ 30
+0.0
+ 11
+12.21190001058585
+ 21
+5.756607187741338
+ 31
+0.0
+  0
+LINE
+  5
+9E
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+17.02426427350809
+ 20
+6.053221834256533
+ 30
+0.0
+ 11
+15.61761747967864
+ 21
+5.967113242805169
+ 31
+0.0
+  0
+LINE
+  5
+9F
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+97.90599324663508
+ 20
+-32.63379932995493
+ 30
+0.0
+ 11
+65.05245157063774
+ 21
+-32.61627101469037
+ 31
+0.0
+  0
+ARC
+  5
+A0
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbCircle
+ 10
+130.7616760063372
+ 20
+-28.65132821830156
+ 30
+0.0
+ 40
+3.999999999999998
+100
+AcDbArc
+ 50
+269.9694310464265
+ 51
+359.9694310464317
+  0
+LINE
+  5
+A1
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+134.7650132641227
+ 20
+-22.39733101426327
+ 30
+0.0
+ 11
+134.7616754370155
+ 21
+-28.65346233375487
+ 31
+0.0
+  0
+LINE
+  5
+A2
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+21.45620190328037
+ 20
+-25.98237231188767
+ 30
+0.0
+ 11
+21.45480905259444
+ 21
+-28.59300984101594
+ 31
+0.0
+  0
+LINE
+  5
+A3
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+124.23334192365
+ 20
+-18.43715522353671
+ 30
+0.0
+ 11
+131.0709577536338
+ 21
+-18.39314483073247
+ 31
+0.0
+  0
+LINE
+  5
+A4
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+192.4843275077887
+ 20
+-136.4510955810549
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+A5
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-32.51567249221132
+ 20
+-136.4510955810547
+ 30
+0.0
+ 11
+-32.51567249221118
+ 21
+66.54890441894531
+ 31
+0.0
+  0
+LINE
+  5
+A6
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+192.4843275077888
+ 20
+66.54890441894509
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+66.54890441894531
+ 31
+0.0
+  0
+LINE
+  5
+A7
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+192.4843275077887
+ 20
+-136.4510955810549
+ 30
+0.0
+ 11
+-32.5156724922113
+ 21
+-136.4510955810547
+ 31
+0.0
+  0
+CIRCLE
+  5
+A8
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbCircle
+ 10
+-32.51567077636719
+ 20
+66.54890441894531
+ 30
+0.0
+ 40
+30.40038188207772
+  0
+POINT
+  5
+A9
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbPoint
+ 10
+97.90866088867188
+ 20
+-27.63380432128906
+ 30
+0.0
+  0
+POINT
+  5
+AA
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbPoint
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+POINT
+  5
+AB
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbPoint
+ 10
+116.889892578125
+ 20
+4.516056060791016
+ 30
+0.0
+  0
+TEXT
+  5
+AC
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbText
+ 10
+42.38024109532971
+ 20
+23.64771556412575
+ 30
+0.0
+ 40
+5.0
+  1
+FLAN 76102/77102 IND A
+ 41
+0.5
+  7
+MCSTICK_A0_500000_S0_00000
+ 72
+     1
+ 11
+68.09452680961542
+ 21
+26.14771556412575
+ 31
+0.0
+100
+AcDbText
+ 73
+     2
+  0
+LINE
+  5
+AE
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-32.51567249221114
+ 20
+87.064101366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+67.54890441894531
+ 31
+0.0
+  0
+LINE
+  5
+AF
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B0
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B1
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B2
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B3
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+79.98432750778883
+ 20
+84.564101366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B4
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B5
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B6
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+B7
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+TEXT
+  5
+B8
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbText
+ 10
+65.32706610064294
+ 20
+85.64260136631705
+ 30
+0.0
+ 40
+5.0
+  1
+225.00
+ 41
+0.5
+  7
+MCSTICK_A0_500000_S0_00000
+ 72
+     1
+ 11
+71.87468514826199
+ 21
+88.14260136631705
+ 31
+0.0
+100
+AcDbText
+ 73
+     2
+  0
+LINE
+  5
+B9
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+79.98432750778883
+ 20
+84.564101366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+BA
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+BB
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+BC
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+BD
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+BE
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+192.4843275077888
+ 20
+87.064101366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+67.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+BF
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+C0
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+-27.51567249221114
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+-32.51567249221114
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+C1
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+83.73160136631701
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+C2
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+187.4843275077888
+ 20
+85.396601366317
+ 30
+0.0
+ 11
+192.4843275077888
+ 21
+84.564101366317
+ 31
+0.0
+  0
+LINE
+  5
+C3
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+223.5912145556895
+ 20
+-136.4510955810549
+ 30
+0.0
+ 11
+193.4843275077887
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+C4
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+C5
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+C6
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556898
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+C7
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556897
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+C8
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.0912145556896
+ 20
+-34.95109558105491
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+C9
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+CA
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+CB
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556898
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+CC
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556897
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+TEXT
+  5
+CD
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbText
+ 10
+210.9650955080706
+ 20
+-32.43757034345452
+ 30
+0.0
+ 40
+5.0
+  1
+203.00
+ 41
+0.5
+  7
+MCSTICK_A0_500000_S0_00000
+ 72
+     1
+ 11
+217.5127145556896
+ 21
+-29.93757034345452
+ 31
+0.0
+100
+AcDbText
+ 73
+     2
+  0
+LINE
+  5
+CE
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.0912145556896
+ 20
+-34.95109558105491
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+CF
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+D0
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+D1
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556898
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+D2
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556897
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+D3
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+223.5912145556898
+ 20
+66.54890441894509
+ 30
+0.0
+ 11
+193.4843275077888
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+D4
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+D5
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556896
+ 20
+-131.4510955810549
+ 30
+0.0
+ 11
+221.0912145556895
+ 21
+-136.4510955810549
+ 31
+0.0
+  0
+LINE
+  5
+D6
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+221.9237145556898
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+D7
+330
+1F
+100
+AcDbEntity
+  8
+_0100770102-FLAN_-_BOSS_-E
+  6
+CONTINUOUS2
+ 62
+   191
+100
+AcDbLine
+ 10
+220.2587145556897
+ 20
+61.54890441894509
+ 30
+0.0
+ 11
+221.0912145556898
+ 21
+66.54890441894509
+ 31
+0.0
+  0
+LINE
+  5
+D8
+330
+1F
+100
+AcDbEntity
+  8
+UNNAMED_LEVEL_998
+  6
+DASHED
+ 62
+     8
+100
+AcDbLine
+ 10
+130.7595418908835
+ 20
+-32.65132764893724
+ 30
+0.0
+ 11
+97.90599324663508
+ 21
+-32.63379932995493
+ 31
+0.0
+  0
+VIEWPORT
+  5
+D9
+330
+23
+100
+AcDbEntity
+ 67
+     1
+  8
+0
+100
+AcDbViewport
+ 10
+128.5
+ 20
+97.5
+ 30
+0.0
+ 40
+314.226
+ 41
+222.18
+ 68
+     1
+ 69
+     1
+1001
+ACAD
+1000
+MVIEW
+1002
+{
+1070
+    16
+1010
+0.0
+1020
+0.0
+1030
+0.0
+1010
+0.0
+1020
+0.0
+1030
+1.0
+1040
+0.0
+1040
+222.18
+1040
+128.5
+1040
+97.5
+1040
+50.0
+1040
+0.0
+1040
+0.0
+1070
+     0
+1070
+   100
+1070
+     0
+1070
+     3
+1070
+     0
+1070
+     0
+1070
+     0
+1070
+     0
+1040
+0.0
+1040
+0.0
+1040
+0.0
+1040
+10.0
+1040
+10.0
+1040
+10.0
+1040
+10.0
+1070
+     0
+1002
+{
+1002
+}
+1002
+}
+  0
+ENDSEC
+  0
+SECTION
+  2
+OBJECTS
+  0
+DICTIONARY
+  5
+C
+330
+0
+100
+AcDbDictionary
+  3
+ACAD_GROUP
+350
+D
+  3
+ACAD_LAYOUT
+350
+1A
+  3
+ACAD_MATERIAL
+350
+43
+  3
+ACAD_MLEADERSTYLE
+350
+6B
+  3
+ACAD_MLINESTYLE
+350
+17
+  3
+ACAD_PLOTSETTINGS
+350
+19
+  3
+ACAD_SCALELIST
+350
+47
+  3
+ACAD_VISUALSTYLE
+350
+2A
+  3
+ACDBHEADERROUNDTRIPXREC
+350
+DB
+  3
+ACDBVARIABLEDICTIONARY
+350
+FC
+  3
+DWGPROPS
+350
+107
+  0
+DICTIONARY
+  5
+109
+330
+8
+100
+AcDbDictionary
+280
+     1
+  3
+ACAD_XREC_ROUNDTRIP
+360
+10A
+  0
+DICTIONARY
+  5
+D
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  0
+DICTIONARY
+  5
+1A
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  0
+DICTIONARY
+  5
+43
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+BYBLOCK
+350
+45
+  3
+BYLAYER
+350
+44
+  3
+GLOBAL
+350
+46
+  0
+DICTIONARY
+  5
+6B
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+STANDARD
+350
+6C
+  0
+DICTIONARY
+  5
+17
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+STANDARD
+350
+18
+  0
+DICTIONARY
+  5
+19
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  0
+DICTIONARY
+  5
+47
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+A0
+350
+48
+  3
+A1
+350
+49
+  3
+A2
+350
+4A
+  3
+A3
+350
+4B
+  3
+A4
+350
+4C
+  3
+A5
+350
+4D
+  3
+A6
+350
+4E
+  3
+A7
+350
+4F
+  3
+A8
+350
+50
+  3
+A9
+350
+51
+  3
+B0
+350
+52
+  3
+B1
+350
+53
+  3
+B2
+350
+54
+  3
+B3
+350
+55
+  3
+B4
+350
+56
+  3
+B5
+350
+57
+  3
+B6
+350
+58
+  3
+B7
+350
+59
+  3
+B8
+350
+5A
+  3
+B9
+350
+5B
+  3
+C0
+350
+5C
+  3
+C1
+350
+5D
+  3
+C2
+350
+5E
+  3
+C3
+350
+5F
+  3
+C4
+350
+60
+  3
+C5
+350
+61
+  3
+C6
+350
+62
+  3
+C7
+350
+63
+  3
+C8
+350
+64
+  3
+C9
+350
+65
+  3
+D0
+350
+66
+  3
+D1
+350
+67
+  3
+D2
+350
+68
+  0
+DICTIONARY
+  5
+2A
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+2DWIREFRAME
+350
+2F
+  3
+BASIC
+350
+32
+  3
+BRIGHTEN
+350
+36
+  3
+COLORCHANGE
+350
+3A
+  3
+CONCEPTUAL
+350
+34
+  3
+DIM
+350
+35
+  3
+EDGECOLOROFF
+350
+3D
+  3
+FACEPATTERN
+350
+39
+  3
+FLAT
+350
+2B
+  3
+FLATWITHEDGES
+350
+2C
+  3
+GOURAUD
+350
+2D
+  3
+GOURAUDWITHEDGES
+350
+2E
+  3
+HIDDEN
+350
+31
+  3
+JITTEROFF
+350
+3B
+  3
+LINEPATTERN
+350
+38
+  3
+OVERHANGOFF
+350
+3C
+  3
+REALISTIC
+350
+33
+  3
+SHADED
+350
+42
+  3
+SHADED_WITH_EDGES
+350
+41
+  3
+SHADES_OF_GRAY
+350
+3E
+  3
+SKETCHY
+350
+3F
+  3
+THICKEN
+350
+37
+  3
+WIREFRAME
+350
+30
+  3
+X-RAY
+350
+40
+  0
+DICTIONARY
+  5
+DB
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+CEPSNID
+350
+E5
+  3
+CEPSNTYPE
+350
+E4
+  3
+DIMSTYLEDATA
+350
+FB
+  3
+FINGERPRINTGUID
+350
+E6
+  3
+HYPERLINKBASE
+350
+DE
+  3
+INSUNITS
+350
+E3
+  3
+LAYOUTDICT
+350
+E0
+  3
+LWETCUNION
+350
+E2
+  3
+PLOTSETDICT
+350
+E1
+  3
+PSVPSCALE
+350
+E8
+  3
+PUCSBASE
+350
+EB
+  3
+PUCSORGBACK
+350
+F1
+  3
+PUCSORGBOTTOM
+350
+ED
+  3
+PUCSORGFRONT
+350
+F0
+  3
+PUCSORGLEFT
+350
+EE
+  3
+PUCSORGRIGHT
+350
+EF
+  3
+PUCSORGTOP
+350
+EC
+  3
+PUCSORTHOREF
+350
+E9
+  3
+PUCSORTHOVIEW
+350
+EA
+  3
+STYLESHEET
+350
+DF
+  3
+TSTACKALIGN
+350
+DC
+  3
+TSTACKSIZE
+350
+DD
+  3
+UCSBASE
+350
+F4
+  3
+UCSORGBACK
+350
+FA
+  3
+UCSORGBOTTOM
+350
+F6
+  3
+UCSORGFRONT
+350
+F9
+  3
+UCSORGLEFT
+350
+F7
+  3
+UCSORGRIGHT
+350
+F8
+  3
+UCSORGTOP
+350
+F5
+  3
+UCSORTHOREF
+350
+F2
+  3
+UCSORTHOVIEW
+350
+F3
+  3
+VERSIONGUID
+350
+E7
+  0
+DICTIONARY
+  5
+FC
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbDictionary
+  3
+CANNOSCALE
+350
+10B
+  3
+CENTEREXE
+350
+103
+  3
+CENTERLTYPEFILE
+350
+104
+  3
+CMLEADERSTYLE
+350
+FE
+  3
+CTABLESTYLE
+350
+FD
+  3
+DIMASSOC
+350
+105
+  3
+HIDETEXT
+350
+106
+  3
+MSLTSCALE
+350
+10C
+  3
+PSOLHEIGHT
+350
+100
+  3
+PSOLWIDTH
+350
+FF
+  0
+XRECORD
+  5
+107
+102
+{ACAD_REACTORS
+330
+C
+102
+}
+330
+C
+100
+AcDbXrecord
+  1
+DWGPROPS COOKIE
+  2
+
+  3
+
+  4
+
+  6
+File was created by Mastercam 2018
+  7
+
+  8
+
+  9
+
+300
+=
+301
+=
+302
+=
+303
+=
+304
+=
+305
+=
+306
+=
+307
+=
+308
+=
+309
+=
+ 40
+0.0
+ 41
+2453737.416666667
+ 42
+2458302.308936886
+  1
+
+ 90
+        0
+  0
+XRECORD
+  5
+10A
+102
+{ACAD_REACTORS
+330
+109
+102
+}
+330
+109
+100
+AcDbXrecord
+102
+VTR_0.000_0.000_1.000_1.000_VISUALSTYLE
+340
+2F
+102
+VTR_0.000_0.000_1.000_1.000_GRIDDISPLAY
+ 70
+     3
+102
+VTR_0.000_0.000_1.000_1.000_GRIDMAJOR
+ 70
+     5
+102
+VTR_0.000_0.000_1.000_1.000_DEFAULTLIGHTING
+280
+     1
+102
+VTR_0.000_0.000_1.000_1.000_DEFAULTLIGHTINGTYPE
+ 70
+     1
+102
+VTR_0.000_0.000_1.000_1.000_BRIGHTNESS
+141
+0.0
+102
+VTR_0.000_0.000_1.000_1.000_CONTRAST
+142
+0.0
+  0
+MATERIAL
+  5
+45
+102
+{ACAD_REACTORS
+330
+43
+102
+}
+102
+{ACAD_XDICTIONARY
+360
+10F
+102
+}
+330
+43
+100
+AcDbMaterial
+  1
+BYBLOCK
+  0
+MATERIAL
+  5
+44
+102
+{ACAD_REACTORS
+330
+43
+102
+}
+102
+{ACAD_XDICTIONARY
+360
+10D
+102
+}
+330
+43
+100
+AcDbMaterial
+  1
+BYLAYER
+  0
+MATERIAL
+  5
+46
+102
+{ACAD_REACTORS
+330
+43
+102
+}
+102
+{ACAD_XDICTIONARY
+360
+111
+102
+}
+330
+43
+100
+AcDbMaterial
+  1
+GLOBAL
+  0
+ACAD_PROXY_OBJECT
+  5
+6C
+102
+{ACAD_REACTORS
+330
+6B
+102
+}
+330
+6B
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      505
+ 93
+      610
+310
+40901902A4063FBFFFFFE0000000000000020400000000000020404214DD185B99185C990000000000000104090141901A00000000000004100000000000000041025764000000000000039000
+340
+14
+340
+0
+340
+11
+340
+0
+ 94
+        0
+1001
+ACAD_MLEADERVER
+1070
+     2
+  0
+MLINESTYLE
+  5
+18
+102
+{ACAD_REACTORS
+330
+17
+102
+}
+330
+17
+100
+AcDbMlineStyle
+  2
+Standard
+ 70
+     0
+  3
+
+ 62
+   256
+ 51
+90.0
+ 52
+90.0
+ 71
+     2
+ 49
+0.5
+ 62
+   256
+  6
+BYLAYER
+ 49
+-0.5
+ 62
+   256
+  6
+BYLAYER
+  0
+ACAD_PROXY_OBJECT
+  5
+48
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+       41
+310
+903313A31580
+  0
+ACAD_PROXY_OBJECT
+  5
+49
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903313A324000000000000004000
+  0
+ACAD_PROXY_OBJECT
+  5
+4A
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903313A344000000000000104000
+  0
+ACAD_PROXY_OBJECT
+  5
+4B
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903313A354000000000000144000
+  0
+ACAD_PROXY_OBJECT
+  5
+4C
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903313A384000000000000204000
+  0
+ACAD_PROXY_OBJECT
+  5
+4D
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A31304000000000000244000
+  0
+ACAD_PROXY_OBJECT
+  5
+4E
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A31364000000000000304000
+  0
+ACAD_PROXY_OBJECT
+  5
+4F
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A32304000000000000344000
+  0
+ACAD_PROXY_OBJECT
+  5
+50
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A333040000000000003E4000
+  0
+ACAD_PROXY_OBJECT
+  5
+51
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A34304000000000000444000
+  0
+ACAD_PROXY_OBJECT
+  5
+52
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+904313A35304000000000000494000
+  0
+ACAD_PROXY_OBJECT
+  5
+53
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      121
+310
+905313A3130304000000000000594000
+  0
+ACAD_PROXY_OBJECT
+  5
+54
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903323A310000000000000010100
+  0
+ACAD_PROXY_OBJECT
+  5
+55
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903343A310000000000000410100
+  0
+ACAD_PROXY_OBJECT
+  5
+56
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      105
+310
+903383A310000000000000810100
+  0
+ACAD_PROXY_OBJECT
+  5
+57
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      113
+310
+90431303A310000000000000910100
+  0
+ACAD_PROXY_OBJECT
+  5
+58
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      121
+310
+9053130303A310000000000001650100
+  0
+ACAD_PROXY_OBJECT
+  5
+59
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      257
+310
+90E312F31323822203D2031272D3022000000000000200FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5A
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D312F363422203D2031272D3022000000000000240FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5B
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D312F333222203D2031272D3022000000000000280FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5C
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D312F313622203D2031272D30220000000000002C0FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5D
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D332F333222203D2031272D30220000000000002E0FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5E
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      241
+310
+90C312F3822203D2031272D3022000000000000300FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+5F
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D332F313622203D2031272D3022000000000000320FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+60
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      241
+310
+90C312F3422203D2031272D3022000000000000340FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+61
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      241
+310
+90C332F3822203D2031272D3022000000000000360FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+62
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      241
+310
+90C312F3222203D2031272D3022000000000000380FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+63
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      241
+310
+90C332F3422203D2031272D30220000000000003A0FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+64
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      161
+310
+90A3122203D2031272D30224000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+65
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      257
+310
+90E312D312F3222203D2031272D30220000000000003E0FC000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+66
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      225
+310
+90A3322203D2031272D302200000000000002100000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+67
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      225
+310
+90A3622203D2031272D302200000000000006100000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+68
+102
+{ACAD_REACTORS
+330
+47
+102
+}
+330
+47
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      503
+ 93
+      249
+310
+90D31272D3022203D2031272D30220000000000000A100000000000000284000
+  0
+ACAD_PROXY_OBJECT
+  5
+2F
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      436
+310
+42CC9915DA5C99599C985B595049028333333333333E33F0000000000000F90107901411070040501600405405064090741402480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+32
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      388
+310
+4150985CDA58D07406404333333333333E33F0000000000000F90107A41107004050150841D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+36
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      428
+310
+42109C9A59DA1D195B90C409028333333333333E33F0000000000000F9010790141107004050150841D405064090741402480A029950
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3A
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      452
+310
+42D0DBDB1BDC90DA185B99D95104090240C333333333333E33F0000000000000F90108901411070040501508421405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+34
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      500
+310
+4290DBDB98D95C1D1D585B10940D028333333333333E33F0000000000000F90107902409070040501000000000018199010841D405064090740C02480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+35
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      412
+310
+40D11A5B50B409028333333333333E33F0000000000000F9010790141107004050150841D405064090741402480A02677FFFFFD0
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3D
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      452
+310
+43115919D950DBDB1BDC93D999916409028333333333333E33F0000000000000F9010790141107004050150841D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+39
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      444
+310
+42D19858D95C185D1D195C9B90F409028333333333333E33F0000000000000F9010790141107004050150841D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+2B
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      380
+310
+41119B185D240901404333333333333E33F0000000000000F9010740A907004050150841D405064090741402480A1B50
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+2C
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      468
+310
+43519B185D15DA5D1A115919D95CD0140901404333333333333E33F0000000000000F90107409019070040501600405405064090741402480A1B50
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+2D
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      404
+310
+41D1DBDD5C985D5910240902404333333333333E33F0000000000000F9010740A9070040501641D405064090741402480A1B50
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+2E
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      492
+310
+4411DBDD5C985D5915DA5D1A115919D95CD0340902404333333333333E33F0000000000000F90107409019070040501600405405064090741402480A1B50
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+31
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      476
+310
+41921A5919195B90640502408333333333333E33F0000000000000F901079024090700405020000000000001110200405405064090740C02480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3B
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      428
+310
+42529A5D1D195C93D999914409028333333333333E33F0000000000000F9010790141107004050150A41D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+38
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      444
+310
+42D31A5B995C185D1D195C9B90E409028333333333333E33F0000000000000F9010790141107004050750841D405064090741402483A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3C
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      444
+310
+42D3DD995C9A185B99D3D999915409028333333333333E33F0000000000000F9010790141107004050150941D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+33
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      428
+310
+425499585B1A5CDD1A58D08409038333333333333E33F0000000000000F9010740A907004050150800405405064090740C02480A1B40
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+42
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      420
+310
+4194DA1859195911B40902404333333333333E33F0000000000000F9010740A41107004050150800405405064090840C02480A0B40
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+41
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      516
+310
+4454DA18591959081DDA5D1A08195919D95CD1A40902404333333333333E33F0000000000000F901074090142907004050250800405405064090740C02480A0B40
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3E
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      532
+310
+4394DA1859195CC81BD98811DC985E5174090240C333333333333E33F0000000000000F901079024090741D01000000000000111010841D405064090740C02480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+3F
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      476
+310
+41D4DAD95D18DA1E51840502408333333333333E33F0000000000000F901079024090741D01000000000000111010B41D405064090741802480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+37
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      412
+310
+41D51A1A58DAD95B90D409028333333333333E33F0000000000000F9010790141107004050150C41D405064090741402480A0350
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+30
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      420
+310
+4255DA5C99599C985B595059028333333333333E33F0000000000000F90107901411070040501600405405064090740C02480A0340
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+ACAD_PROXY_OBJECT
+  5
+40
+102
+{ACAD_REACTORS
+330
+2A
+102
+}
+330
+2A
+100
+AcDbProxyObject
+ 90
+      499
+ 91
+      501
+ 93
+      404
+310
+41560B54985E51940902404000000000000E03F0000000000000F9010740501907004050150841D405064090740C02480A1B40
+1001
+ACAD
+1000
+AcDbSavedByObjectVersion
+1070
+     0
+  0
+XRECORD
+  5
+E5
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+0
+  0
+XRECORD
+  5
+E4
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 90
+        0
+  0
+XRECORD
+  5
+FB
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+1000
+DSTYLE
+1002
+{
+1070
+   340
+340
+11
+1002
+}
+  0
+XRECORD
+  5
+E6
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+  1
+{621cd3cd-2a16-4c6b-a223-8b5a34267c45}
+  0
+XRECORD
+  5
+DE
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+  1
+
+  0
+XRECORD
+  5
+E3
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 90
+        4
+  0
+XRECORD
+  5
+E0
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+1A
+  0
+XRECORD
+  5
+E2
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 90
+    10781
+  0
+XRECORD
+  5
+E1
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+19
+  0
+XRECORD
+  5
+E8
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 40
+0.0
+  0
+XRECORD
+  5
+EB
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+0
+  0
+XRECORD
+  5
+F1
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+ED
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F0
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+EE
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+EF
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+EC
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+E9
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+0
+  0
+XRECORD
+  5
+EA
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 70
+     0
+  0
+XRECORD
+  5
+DF
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+  1
+
+  0
+XRECORD
+  5
+DC
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 90
+        1
+  0
+XRECORD
+  5
+DD
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 90
+       70
+  0
+XRECORD
+  5
+F4
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+0
+  0
+XRECORD
+  5
+FA
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F6
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F9
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F7
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F8
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F5
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+XRECORD
+  5
+F2
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+340
+0
+  0
+XRECORD
+  5
+F3
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+ 70
+     0
+  0
+XRECORD
+  5
+E7
+102
+{ACAD_REACTORS
+330
+DB
+102
+}
+330
+DB
+100
+AcDbXrecord
+  1
+{FAEB1C32-E019-11D5-929B-00C0DF256EC4}
+  0
+DICTIONARYVAR
+  5
+10B
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+1:1
+  0
+DICTIONARYVAR
+  5
+103
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+3.500000
+  0
+DICTIONARYVAR
+  5
+104
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+acadiso.lin
+  0
+DICTIONARYVAR
+  5
+FE
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+Standard
+  0
+DICTIONARYVAR
+  5
+FD
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+Standard
+  0
+DICTIONARYVAR
+  5
+105
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+2
+  0
+DICTIONARYVAR
+  5
+106
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+1
+  0
+DICTIONARYVAR
+  5
+10C
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+1
+  0
+DICTIONARYVAR
+  5
+100
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+80.000000
+  0
+DICTIONARYVAR
+  5
+FF
+102
+{ACAD_REACTORS
+330
+FC
+102
+}
+330
+FC
+100
+DictionaryVariables
+280
+     0
+  1
+5.000000
+  0
+DICTIONARY
+  5
+10F
+330
+45
+100
+AcDbDictionary
+280
+     1
+  3
+ACAD_XREC_ROUNDTRIP
+360
+110
+  0
+DICTIONARY
+  5
+10D
+330
+44
+100
+AcDbDictionary
+280
+     1
+  3
+ACAD_XREC_ROUNDTRIP
+360
+10E
+  0
+DICTIONARY
+  5
+111
+330
+46
+100
+AcDbDictionary
+280
+     1
+  3
+ACAD_XREC_ROUNDTRIP
+360
+112
+  0
+XRECORD
+  5
+110
+102
+{ACAD_REACTORS
+330
+10F
+102
+}
+330
+10F
+100
+AcDbXrecord
+102
+MATERIAL
+148
+0.0
+149
+0.0
+149
+0.0
+ 93
+        0
+ 94
+      127
+282
+     0
+ 72
+     1
+ 77
+     1
+171
+     1
+175
+     1
+179
+     1
+273
+     0
+  0
+XRECORD
+  5
+10E
+102
+{ACAD_REACTORS
+330
+10D
+102
+}
+330
+10D
+100
+AcDbXrecord
+102
+MATERIAL
+148
+0.0
+149
+0.0
+149
+0.0
+ 93
+        0
+ 94
+      127
+282
+     0
+ 72
+     1
+ 77
+     1
+171
+     1
+175
+     1
+179
+     1
+273
+     0
+  0
+XRECORD
+  5
+112
+102
+{ACAD_REACTORS
+330
+111
+102
+}
+330
+111
+100
+AcDbXrecord
+102
+MATERIAL
+148
+0.0
+149
+0.0
+149
+0.0
+ 93
+        0
+ 94
+      127
+282
+     0
+ 72
+     1
+ 77
+     1
+171
+     1
+175
+     1
+179
+     1
+273
+     0
+  0
+ENDSEC
+  0
+EOF

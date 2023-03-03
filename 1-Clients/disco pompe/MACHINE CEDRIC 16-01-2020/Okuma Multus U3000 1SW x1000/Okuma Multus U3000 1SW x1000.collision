@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="C1 vs W" name="C1 vs W" group1="default 8in_chuck_left0,left spindle c1 axis,rehausse_left,workpiece_adapter" group2="default 8in_chuck_right0,rehausse_right,right spindle c2 axis,right spindle w axis,workpiece2_adapter" />
+    <collcheck id="C1 vs Z1" name="C1 vs Z1" group1="default 8in_chuck_left0,left spindle c1 axis,rehausse_left,workpiece_adapter" group2="a axis,b axis,b axis m1,rear shroud,tool spindle0,x axis" />
+    <collcheck id="Machine housing vs Z1" name="Machine housing vs Z1" group1="carter_palpeur,left enclosure wall" group2="a axis,b axis,b axis m1,rear shroud,tool spindle0,x axis" />
+    <collcheck id="W vs Z1" name="W vs Z1" group1="default 8in_chuck_right0,rehausse_right,right spindle c2 axis,right spindle w axis,workpiece2_adapter" group2="a axis,b axis,b axis m1,rear shroud,tool spindle0,x axis" />
+</machine_definition>

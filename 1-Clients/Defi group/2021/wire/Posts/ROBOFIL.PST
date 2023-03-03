@@ -1,0 +1,2664 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V23.00 P3 E1 W23.00 T1676882118 M23.00 I0 O0
+# ----------------------------------------
+# - Post pro fil 4 axes UV  avec  CMD    -
+# - Version 6.0                          -
+# ----------------------------------------
+# -     MASTERCAM VX     F.I.CAM         -
+# ----------------------------------------
+# - Réalisé le      : 26/04/06  Par : VM -
+# - Pour la société : FICAM              -
+# - Armoire CN      : CHARMILLES         -
+# - Nom MACHINE     : ROBOFIL 510P       -
+# - Fichier associé : .txt               -
+# ----------------------------------------
+# - Variable mi1    : N° D d' attaque    -
+# - Variable mr1    : Valeur D d'attaque -
+# - Variable mr2    : CLE                -
+# ----------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS      -
+#  AJOUT DE LA GESTION DES G28 29 30 en depouille
+#  MODIF DES G29  et A0 SUR 1er mouvement et passes inversées
+#  GESTION DU M7 M8 en G60 et M9 en G61 avec REG1
+#  CHOIX DE SPG DD0 ou A: en fonction question MACHINE
+#  Ajout des commentaire d'operation dans iso
+#  Gestion des coupure enfillage dans l'iso
+#  POSSIBILITE de faire un gros ISO seul
+#  POSSIBILITE de faire un ISO par coupure
+#  POSSIBILITE de faire un ISO par passe
+#  modif des commentaire 1006 en texte et pas msg
+#  choix machine ajout MEM:
+#  ajout en MSG du non du MC8
+#  GESTION DES GOP SI ORIGINE D'USINNAGE DIFF de 0
+#  Reste a voir le probleme des cercles en depouille (cas special en charmille) en 2 lignes et arc OK
+#  Enlever le u0 v0 dans le pnewiso (merdique si sub = 0)
+#  Reecriture de D0 au chgmt d'outil
+#------------------ CONFIG DU PST -----------------------------------------
+
+sub       : 2      # flag pour ecrire les iso:  en un gros ISO  sub 0
+                   # en séparé avec CMD a chaque coupure sub 1
+                   # en séparé avec CMD a chaque coupure et chaque passe sub 2
+
+sextnc$  : "CMD"         # extention du NC  (ISO si sub : 0   CMD si sub >=1)
+sextsub$ : "ISO"         # Extension des sous prog en ISO
+
+#---------------------DEBUG------------------------------------------------
+fastmode$ : 1
+bug1$      : 2      # 1 = Output post to screen - 2 = output leader to screen
+bug2$      : 60     # Add postline label to each line at column 'bug2'
+#CNC<<ECHEC>>bug3$      : 0      # Add whatline to each line ? yes/no
+#CNC<<MSG-ERREUR(48)>> La variable, bloc PP ou mot clef n'est plus supporté
+bug4$      : 0      # Add -.nci line no. to each line? yes/no
+whatno$    : yes$   # Omit branch on whatline = 1,2,3? yes/no
+linktolvar$    : 1  #Associer les variables de tolérance X aux variables V9-
+linkplnvar$    : 1  #Associer les variables spécifiques plan X aux variables V9-?
+linklvar$      : 1  #Associer les variables spécifiques X Tournage aux variables V9-
+cant_tlchng$   : 1  #Ignorer entrée de texte programmé au changement avec tlchng_aft?
+newglobal$     : 1  #Activer la vérification d'erreur pour les variables globales?
+
+#rpd_typ_v7$ : 1     #Use Version 7 style contour flags?
+#---------------------------------------------------------------------------
+
+
+
+# --------- FORMATS DES VARIABLES ------------
+#                 i=incr., n=nonmodal, l=leave ldg., t=leave trlg. d = delta format
+fs  1  1.3l      # force 1 chiffre avant virgule met . 3 chiffres apres virgule
+#fs  1  1 3t      # en micron
+fs  2  1.3ln     # idem mais non modale
+fs  3  1 0        # 1 chiffre mini avant virgule  pas de virgule pas de chiffre apres
+fs  4  1 0n       # idem mais non modale
+fs  5  4 0ln    # 4 chiffres avant pas de virgule pas de chiffre apres non modal force 0 de tete
+fs  6  1 3tn    # 1 chiffre mini avant virgule  pas de virgule 3 apres force 0 de queue non modal
+fs  7  1.3l       # 1 chiffre mini avant virgule  virgule . 3 apres force 0 de tete
+
+
+# -------------- AFFECTATION DES VARIABLES --------------------
+
+#------------------------Positions ----------------------------
+fmt  "X" 1 x$           # XY bas
+fmt  "Y" 1 y$
+
+fmt  "X" 1 old_x       # XY bas memo
+fmt  "Y" 1 old_y
+
+fmt  "X" 1 wx$          # XY haut en 4axes direct
+fmt  "Y" 1 wy$
+
+fmt  "X" 1 old_wx      # XY haut en 4axes direct memo
+fmt  "Y" 1 old_wy
+
+fmt  "I"    2  i$       # arc center (X, Y)
+fmt  "J"    2  j$
+
+fmt  "I"    2  wxc$     # arc center (X, Y) of the UV axis for 4-axis direct only.
+fmt  "J"    2  wyc$
+
+fmt  "I"    2  wxcd
+fmt  "J"    2  wycd
+
+fmt  "I"    2  xcd
+fmt  "J"    2  ycd
+
+fmt  "X" 1 xr$           # Position rapide
+fmt  "Y" 1 yr$
+fmt  "GOH,H" 1 rpd_hght$     # plan de secu
+fmt  "GOH,H" 1 old_rpd_hght     # plan de secu
+
+fmt  "X" 1 startx$       # Position départ
+fmt  "Y" 1 starty$
+
+fmt  "X" 1 threadx$      # Position enffilage
+fmt  "Y" 1 thready$
+
+fmt  "X" 1 cutx$         # Position coupe
+fmt  "Y" 1 cuty$
+
+fmt  "U" 1 u$            # UV
+fmt  "V" 1 v$
+
+fmt  "u" 1 old_u         # Position UV précédente
+fmt  "v" 1 old_v
+
+#----------angles ------------------
+fmt  "A" 1 wt$          # angle de dépouille signé varible system
+fmt  "A" 1 depouille   # angle de dépouille signé memo
+fmt  "A" 1 swt         # angle de dépouille en valeur absolue
+
+#---------hauteurs-------------------
+
+fmt  "w"  2 xyheight$    # Z du plan programmé
+fmt  "r"  1 uvheight$    # Z du plan UV
+
+fmt  "PLUV" 1 trimplane1$# Z plan de limitation UV
+fmt  "PLXY" 1 trimplane2$# Z plan de limitation XY
+
+fmt  "W"  1 planw
+fmt  "R"  1 planr
+
+fmt "" 2 hateur_piece   # HAUTEUR PIECE (trimplane1-trimplane2)
+fmt "" 2 ahateur_piece
+fmt "MOV,Z" 2 degage
+#----------param outil------------------
+
+fmt  "PASSE " 3     t$          # num outil
+fmt  "PASSE " 3     pass$       # Num passe
+fmt  "nbr PASSE " 3 ntools$     # nombre de passes
+
+fmt  "G38 D" 3  lofs$               # Offset
+fmt  "D" 3  offset$
+fmt  "d" 3 old_lofs
+
+fmt  "E" 3  dofs$               # Condition code
+fmt  "Ancien E" 3  old_dofs           #  MEMO DU Condition code
+
+fmt  "E" 3 ccode$
+
+fmt  "DIAM" 1 tldia$            # diam fil+gap outil
+fmt  ""   7 gap
+
+fmt "D"    3 mi1$               # offset d'attaque
+fmt ""     7 mr1$               # valeur offset d'attaque
+fmt "CLE," 7 mr2$               # Cle
+
+fmt "CLE," 7 reg2$       # cle des param d'usinage
+reg2$ :  -99999
+fmt "old cle" 7 old_reg2    # memo de la cle des param d'usinage
+
+
+fmt  "Gcode"     1  gcode$      # Format linear G-code selector for modality only
+fmt  "G"         3 lasteg
+fmt  "OPCode"    4 opcode$
+fmt  "OLDOPCode" 4 old_opcode
+fmt  "NextOp"    1 nextop$
+fmt  "CC"        3 ccomp$      # corection outil armoire
+
+fmt  "R" 1 arcrad$
+
+fmt  "LONG USINEE "  1 cutlength
+
+
+
+fmt "FLAG" 1 flagstop # memo d'un stop pour en ajouter un au G40
+fmt "FLAGthdsave" 1 thrd_cutsave
+
+# ------------- numérotation ---------------------
+fmt  "%" 3 progno$     # Program no.
+fmt  "N"   3  n$       # numéro de ligne
+fmt  "N"   4  ndebut  # memo 1er N
+fmt    4  isono       # numero1 ascii sous prog
+fmt    4  isono2      # numero2 ascii sous prog
+
+
+# ------------ divers ---------------------
+
+fmt    4  wire$       # Wire ( fil présent)
+fmt    4  power$      # Power on
+
+fmt    4  sub        # flag utiliser les subout
+fmt    4  cmd        # flag ecriture dans CMD
+
+fmt    1  debut
+fmt    1  typeusi
+fmt    1  usi
+
+# memo pour le arc en g28 29 30
+
+fmt  "X" 1 xsave
+fmt  "Y" 1 ysave
+fmt  "A" 1 depouillesave
+fmt  "CC" 1 ccompsave
+fmt    1  save
+fmt "cendsave" 1 cendsave
+fmt "TC" 3 coin_prg
+fmt "Stop" 1 cstopsave
+fmt "Stop" 1 cgstopsave
+
+# gestion des GOP
+
+fmt "GOP," 3 numgop
+fmt "oldwox" 1 old_wox
+fmt "oldwoy" 1 old_woy
+fmt        1 faitgop
+
+
+
+
+
+stexte : ""              # String des commentaire (usinage texte)
+
+
+#   ZONE de FORMULES  si : uniquement au dédut si = mise a jour systématique
+#
+
+subprg$    : 1
+auxprg$    : 1
+extprg$    : 1
+mergesub$  : 0
+mergeaux$  : 0
+mergeext$  : 0
+
+
+
+
+spaces$    : 1
+
+tooltable$  : yes$
+strtool_v7$ : 1      # Use Version 7 toolname, 1= path components, 2=string
+bldnxtool$  : 1      # Build next tool table? yes/no
+listtpr$    : no$     # sortire  la table de taper apres pheader (bldnxtool : 1 ptprlist)
+listrad$    : no$     # sortire  la table de rayon (bldnxtool : 1 pradlist)
+
+seqmax$    : 99999  # Max. sequence no.
+omitseq$   : no$
+
+arctype$   : 1       # 1 pour absolu  2 delta du point de départ(incremental) 3  delta du centre(incremental inverse)
+#nobrk     : yes     # Omit break of rapid linear (xy, z, or z, xy)? yes/no
+do_full_arc$ : 0     #Allow full circle output? 0=no, 1=yes
+breakarcs$   : 2     #CD_VAR Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+get_1004$   : 1      # Find gcode 1004 with getnextop?
+getnextop$  : 1
+
+skipmotest$ : no$     # Setting this variable to 1 (yes) allows the post processor to output lines of NC code which do not contain motion.
+
+progname$  : 1       # Nom en majuscule
+
+wiredirect$ : 1      # est mis a 1 par un 4 axes direct
+qrtyp$      : 0      # Calcul U V     (0 delta de XY ) (2 UV ABSOLU) (1 angle fil perpendiculaire (Q) et paralelle (R) au parcour)
+
+scalex$    : 1      # echelle en x
+scaley$    : 1      # echelle en y
+scalez$    : 1      # echelle en z
+
+wtflag    : 1      # Flag coté de dépouille 1 G50 2 G51 3 G52
+rpflag    : 0      # Flag de Reposition en chg outil pour savoir si couper le Fil
+
+wt$       : 99     # agle de dépouille system
+depouille : 99     # agle de dépouille affiché
+swt       : 99     # Angle de dépouille non signé (ABS (wt))
+swt       = abs (wt$)
+
+wc$        : 0      # type de coin forcé pour l'affiché
+
+wire$     : 0      # fil en place au début
+fil       : 0      # presence fil (flag)
+power$    : 0      # Generateur en marche
+
+lofs$      : 99
+dofs$      : 99
+
+reg1$   :  -1
+
+u$         : 0
+v$         : 0
+
+old_x      : 0
+old_y      : 0
+old_u      : 0
+old_v      : 0
+
+isono  :  65     # code ascii des caractére de numérotation des fichiers iso
+isono2 :  65
+
+snomiso : ""         # nom des fichires ISO
+sisoend : ""
+sisoend2 : ""
+
+degage = hateur_piece + 100
+
+#   Question 1
+#
+fmt "OUI" 3 oui
+oui :0
+fq 1 oui "CREER L'ENTETE DU PROGRAMME //snamenc$//.CMD      0 pour NON - 1 pour OUI"
+
+#   Question 2
+#
+sclient : ""
+fq 2 sclient "CLIENT"
+
+#   Question 3
+#
+srepere : ""
+fq 3 srepere "REPERE"
+
+#   Question 4
+#
+sindice : ""
+fq 4 sindice "INDICE"
+
+#   Question 5
+#
+numerote : 1
+fq 5 numerote "NUMEROTER LES LIGNES DES PROG. ISO ?       0 pour NON - 1 pour OUI"
+
+#   Question 6
+#
+
+fq 6 snomiso "NOM DES ISO pour //snamenc$//.CMD"
+
+#   Question 7
+#
+stechno : "UXS25A"
+fq 7 stechno "TABLE DE TECHNO pour //snamenc$//.CMD Hauteur //hateur_piece//"
+
+stfil : "XS25"
+fq 8 stfil "TABLE DE FIL pour //snamenc$//.CMD"
+
+
+
+
+
+slancement : ""
+fq 10 slancement "Numéro de Lancement pour //snamenc$//.CMD"
+
+sprogrameur : ""
+fq 11 sprogrameur "Nom du programeur pour //snamenc$//.CMD"
+
+
+fmt "MACHINE" 3 machine
+machine :0
+fq 12 machine  "Appel des ISO dans CMD en a: =0   DD0 =1   MEM = 2"
+
+# ------------------------------ STRINGS ---------------------------------------
+# Codes G 0 1 2 3
+sg00    : "G00"  # Rapide
+sg01    : "G01"  # Travail
+sg02    : "G02"  # cercle horaire
+sg03    : "G03"  # cercle trigo
+sg04 : ""        #
+sg05    : "G92"  #
+sgcode : ""
+
+fstrsel  sg00 gcode$ sgcode 6 -1
+
+# Gestion direction angle de dépouille (G50 51 52)
+stg0 : ""                # NULL string
+sg50    : "G50"          # angle 0
+sg51    : "G51"          # angle > 0
+sg52    : "G52"          # angle < 0
+swtcode : ""
+
+fstrsel  stg0 wtflag swtcode 4 -1
+
+# Gestion des type de coins XY
+sct0    : "llG28"              # conique
+sct1    : "llG29"              # angle vif
+sct2    : "llG29"              # rayon constant
+sct3    : "(AUTRE)"            # autre
+sct4    : "(FIXE)"             # fixe
+sct5    : "(QUEUE)"            # queue de poisson
+sct6    : "llaG27"             # annulation (rajouté)
+sct7    : "llaG29"             # annulation (rajouté)
+
+stypecoinxy : ""
+
+fstrsel  sct0 wc$ stypecoinxy 8 -1
+
+# Gestion des type de d'arc UV
+scd0    : "rrG28"                    # conique
+scd1    : "rrG30"                    # angle vif
+scd2    : "rrG30"                    # rayon constant
+scd3    : "AUTRE"                  # autre
+scd4    : "FIXE"                   # fixe
+scd5    : "QUEUE"                  # queue de poisson
+stypecoinuv : ""
+
+fstrsel  scd0 warc_ctyp$  stypecoinuv 6 -1
+
+# Gestion des type de coins xy et uv pour progcn
+
+scprg0   : "G28"          # conique
+scprg1   : "G29"          # coin aigus
+scprg2   : "G30"          # rayon cst
+scpgr3   : "AUTRE"        # autre
+scprg4   : "FIXE"         # fixe
+scprg5   : "QUEUE"        # queue
+scprg6   : "G27"          # annulation de tous les modes
+
+scoinprg : ""
+fstrsel scprg0 coin_prg scoinprg 7 -1
+
+
+
+# compensation fil XY
+scc0 : ""             # Pas de changement de cc
+sg40    : "G40"     # Annul cc
+sg41    : "G41"     # cc gauche
+sg42    : "G42"     # cc droite
+sg140   : "G40"      # dernier mvt annul cc
+sccomp : ""
+
+fstrsel  scc0 ccomp$ sccomp 5 -1
+
+# compensation fil en 4 axes
+sccd0 : ""              # cutter compensation state not changed
+sgd40    : "G140"       # cancel cutter compensation
+sgd41    : "G141"       # cutter compensation left
+sgd42    : "G142"       # cutter compensation right
+sgd140   : "G140"       # last linear move --> cancel cutter comp
+scomp4ax : ""
+
+fstrsel  sccd0 ccomp$ scomp4ax 5 -1
+
+#-------------------------------------------------------
+
+# Marche Generateur
+sm41    : "M21 (ARRET  GENERATEUR)"   # Generateur off (test POWER)
+sm81    : "M20 (MARCHE GENERATEUR)"   # Génerateur on
+smpower : ""
+
+fstrsel  sm41 power$ smpower 2 -1
+
+# CODE DE STRATEGIE
+
+stra0 : "G60"         # STATEGIE
+stra1 : "G61"
+strategie : ""
+
+fstrsel stra0 reg1$ strategie 2 -1
+
+# CODE EAU
+sw0    : "M9"           # PAS D EAU
+sw1    : "M7 M8"        # EAU
+sw2    : "M7 M8"        # AUTRE EAU
+seau : ""
+fstrsel  sw0 water$ seau 3 -1
+
+
+# Présence fil au départ de l'usinnage
+
+sfil0     : "(FIL NON ENFILE)"
+sfil1     : "(FIL DEJA ENFILE)"
+sfildebut : ""
+fstrsel  sfil0 wire$ sfildebut 2 -1
+
+#-------------------------------------------------------
+
+
+# TYPE d'usinnahe
+styp0    : "INCONNU"
+styp1    : "1 PASSE 2D"
+styp2    : "PASSES MULTIPLES 2D INVERSEES"
+styp3    : "PASSES MULTIPLES 2D UNIDIR"
+styp4    : "CYCLES PROGRAMMES"
+styp5    : "POCHE"
+styp6    : "POINT RAPIDE"
+styp7    : "PASSES MULTIPLES 4 AXES UV INVERSEES"
+styp8    : "PASSES MULTIPLES 4 AXES UV UNIDIR"
+styp9    : "1 PASSE 4 AXES UV"
+styp10   : "COUPURE ATTACHE"
+styp11 : ""
+styp12 : ""
+styp13 : ""
+styp14 : ""
+styp15 : ""
+styp16 : ""
+styp17 : ""
+styp18 : ""
+styp19 : ""
+styp20 : ""
+styp21    : "1 PASSE 2D AVEC DEPOUILLE"
+styp22    : "PASSES MULTIPLES 2D INVERSEES AVEC DEPOUILLE"
+styp23    : "PASSES MULTIPLES 2D UNIDIR AVEC DEPOUILLE"
+styp24    : "CYCLES PROGRAMMES AVEC DEPOUILLE"
+styp25    : "POCHE AVEC DEPOUILLE"
+styp26    : "POINT RAPIDE AVEC DEPOUILLE"
+styp27    : "PASSES MULTIPLES 4 AXES UV INVERSEES AVEC DEPOUILLE"
+styp28    : "PASSES MULTIPLES 4 AXES UV UNIDIR AVEC DEPOUILLE"
+styp29    : "1 PASSE 4 AXES UV AVEC DEPOUILLE"
+styp30    : "COUPURE ATTACHE"
+
+stypeusi : ""
+
+fstrsel  styp0 typeusi stypeusi 31 -1
+
+
+
+# COUPURE DE FIL
+
+scou0 : ""
+scou1   : "M6 (ENFILLAGE)"
+scou2   : "M12 (COUPURE)"
+scou3   : "VAL3"
+scoupure : ""
+
+fstrsel  scou0 flag_cut scoupure 4 -1
+
+fmt "FLAGCUT" 1 flag_cut
+
+#--------------------------- lecture param type entree
+
+fmt  "R" 2 result
+sentree : ""         # type de mouvenet en entree
+ssortie : ""         # type de mouvement de sortie
+sentreeattache : ""  # type de mouvement en entree attache
+ssortieattache : ""  # type de mouvement de sortie attache
+
+
+fprmtbl    1    4           # poche
+       10700    sentree
+       10701    ssortie
+       10707    sentreeattache
+       10708    ssortieattache
+
+pparameter$
+           result = fprm (1)
+
+pdebug
+    fastmode$ = 0
+    err_file$ = 4
+
+pprep$
+    #pdebug
+    arctype$=1       # 1 pour absolu  2 delta du point de départ(incremental) 3  delta du centre(incremental inverse)
+    #nobrk     : yes     # Omit break of rapid linear (xy, z, or z, xy)? yes/no
+    do_full_arc$=0     #Allow full circle output? 0=no, 1=yes
+    breakarcs$=2     #CD_VAR Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+#-------------------------------------------------------
+psisono2     # Non des sous prog
+
+             if isono = 91, isono2 = isono2 + 1
+             if isono = 91, isono = 65
+
+             sisoend = no2asc(isono)
+         sisoend2 = no2asc (isono2)
+
+             snamesub$ = snomiso + sisoend2 + sisoend
+
+psisono      # Renome le nom des ISO
+
+             if isono <= 64, snamesub$ = snomiso
+
+             else, psisono2
+             snamesub$ = ucase (snamesub$)
+             isono = isono +1
+#-------------------------------------------------------
+
+pfil        # test de l'etat du fil
+
+         if fil = 1, pcut
+         if fil = 0, penfil
+
+pcut        # coupe fil
+          n$, "(COUPER LE FIL)" ,e$
+          fil = 0
+          ex$
+
+penfil       # enfile fil
+         n$, "(ENFILER)",e$
+         fil = 1
+
+#-------------------------------------------------------
+plecreg     # lecture des registres auxiliaires
+
+            if cmd = 0, n$, "(", *reg1$, *reg2$, *reg3$, *reg4$, *reg5$, ")", e$
+            if cmd = 1, "MSG,", *reg1$, *reg2$, *reg3$, *reg4$, *reg5$, e$
+
+#-------------------------------------------------------
+ptcode      # FLAG DE SENS DE DEPOUILLE (G50 G51 G52)
+
+          if wt$ = 0, wtflag = 1
+          if wt$ < 0, wtflag = 2
+          if wt$ > 0, wtflag = 3
+
+#-------------------------------------------------------
+
+pinfoentre   # type d'entree sortie
+
+            *tabcut$, e$
+            *sentree, e$         # type de mouvenet en entree
+            *ssortie, e$         # type de mouvement de sortie
+            *sentreeattache, e$  # type de mouvement en entree attache
+            *ssortieattache, e$  # type de mouvement de sortie attache
+
+      !tabcut$
+
+     if tabcut$ = 0,  pescontour
+     if tabcut$ = 1,  pesattache
+
+
+
+
+pescontour   # type d'entree sortie sur contour
+
+        if sentree = "N", n$, "(ENTREE RIEN)", e$
+        if sentree = "L", n$, "(ENTREE LIGNE)", e$
+        if sentree = "R", n$, "(ENTREE ARC)", e$
+        if sentree = "Y", n$, "(ENTREE LIGNE ET RAYON)", e$
+        if sentree = "A", n$, "(ENTREE 2 LIGNE ET RAYON)", e$
+
+        if ssortie = "N", n$, "(SORTIE RIEN)", e$
+        if ssortie = "L", n$, "(SORTIE LIGNE)", e$
+        if ssortie = "R", n$, "(SORTIE ARC)", e$
+        if ssortie = "Y", n$, "(SORTIE RAYON ET LIGNE)", e$
+        if ssortie = "A", n$, "(SORTIE RAYON ET 2 LIGNES)", e$
+
+
+pesattache
+
+        if sentreeattache = "N", n$, "(ENTREE RIEN)", e$
+        if sentreeattache = "L", n$, "(ENTREE LIGNE)", e$
+        if sentreeattache = "R", n$, "(ENTREE ARC)", e$
+        if sentreeattache = "Y", n$, "(ENTREE LIGNE ET RAYON)", e$
+        if sentreeattache = "A", n$, "(ENTREE 2 LIGNE ET RAYON)", e$
+
+        if ssortieattache = "N", n$, "(SORTIE RIEN)", e$
+        if ssortieattache = "L", n$, "(SORTIE LIGNE)", e$
+        if ssortieattache = "R", n$, "(SORTIE ARC)", e$
+        if ssortieattache = "Y", n$, "(SORTIE RAYON ET LIGNE)", e$
+        if ssortieattache = "A", n$, "(SORTIE RAYON ET 2 LIGNES)", e$
+
+#------------------------------------------------------------
+
+pcan         #Canned text - cantext = 0, 1, 2, 3
+
+             # if cantext = 1, "M01"
+             # if cantext = 2, "cantext2"
+             # if cantext = 3, "cantext3"
+
+
+ptypeusi      # type d'usinnage
+
+
+
+            #    n, "(", *opcode, ")", e
+            #    n, "(", *nextop, ")", e
+            #    n, *tabcut, e
+
+              old_opcode = opcode$
+
+              typeusi = 0
+
+              if opcode$ = 201, typeusi = 1 # (1 PASSE 2D)
+              if opcode$ = 206, typeusi = 2 # (PASSES MULTIPLES 2D INVERSEES)
+              if opcode$ = 213, typeusi = 3 # (PASSES MULTIPLES 2D UNIDIR)
+
+              if opcode$ = 203, typeusi = 4 # (CYCLES PROGRAMMES)
+
+              if opcode$ = 204, typeusi = 5 # (POCHE)
+
+              if opcode$ = 214, typeusi = 6 # (POINT RAPIDE)
+
+              if opcode$ = 210, typeusi = 7 # (PASSES MULTIPLES 4 AXES UV INVERSEES)
+              if opcode$ = 211, typeusi = 8 # (PASSES MULTIPLES 4 AXES UV UNIDIR)
+              if opcode$ = 205, typeusi = 9 # (1 PASSE 4 AXES UV)
+
+              usi = typeusi
+
+              if tabcut$ = 1,   typeusi = 10 # (COUPURE ATTACHE)
+
+              #if wt <> 0,      typeusi = typeusi + 20
+
+             #if cmd = 0 , n, "ECRIT DANS ISO", e
+             #if cmd = 1 , "ECRIT DANS CMD", e
+
+
+pscomm0$  # Textes entree manuel
+
+               stexte = ucase (scomm0$)
+
+
+           if gcode$ = 1005,   n$, "(", stexte, ")",e$
+
+           if gcode$ = 1006 & sub > 0, subout$ = 0
+           if gcode$ = 1006,  spaces$ = 0
+           if gcode$ = 1006,  stexte,e$
+           if gcode$ = 1006,  spaces$ = 1
+           if gcode$ = 1006 & sub > 0, subout$ = 1
+
+pcomment$ # commentaire d'operation
+
+               scomm$ = ucase (scomm$)
+
+           if gcode$ = 1008, n$," (", scomm$, ")",e$
+
+
+pgop   # gestion des ORIQINES fil
+    faitgop = 0
+
+poldgop
+        @wox$
+        @woy$
+        @old_wox
+        @old_woy
+
+       if wox$ = 0 & woy$ = 0, faitgop = 0
+
+
+         if wox$ <> 0 & wox$ <> old_wox | woy$ <> 0 & woy$ <> old_woy , [
+              faitgop = 1
+              numgop = numgop +1
+              *numgop, e$
+             ]
+
+        old_wox = wox$
+        old_woy = woy$
+
+
+#--------------------------------------------------------
+pentete     # QUESTION POUR L'ENTETE
+
+           q2, q3, q4,q10, q11
+
+
+           sclient = ucase(sclient)
+           srepere = ucase(srepere)
+           sindice = ucase(sindice)
+           slancement = ucase(slancement)
+           sprogrameur = ucase(sprogrameur)
+
+           "MSG, NC DU  :", date$, e$
+           "MSG, CLIENT :", sclient, e$
+           "MSG, REPERE :", srepere, e$
+           "MSG, INDICE :", sindice, e$
+           "MSG, LANCEMENT :", slancement, e$
+           "MSG, PROGRAMEUR :", sprogrameur, e$
+           " ", e$
+
+pheader$     # ENTETE DE PROGRAMME
+
+           subout$ = 0
+           snomiso = snamenci$
+           spathsub$ = spathnc$
+           snamenc$ = ucase(snamenc$)
+
+
+        #  q5           # NUMEROTER LES LIGNES DE PROG ISO
+        #  if numerote=0, omitseq=1
+
+
+
+            if sub > 0, [
+
+              q12           # type machine por dd0 ou a:
+              #if machine =0, stechno = snamenc
+
+               oui = 0
+               q1           # GENERER ENTETTE
+
+               q6           # nom des ISO
+        stechno = snamenc$
+              hateur_piece = abs(trimplane1$ - trimplane2$)
+              if hateur_piece = 0, hateur_piece = uvheight$ - xyheight$    # calcul pour bug en poche
+              ahateur_piece = hateur_piece
+
+               q7           # table de techno
+                  stechno = ucase(stechno)
+               q8           # table de fil
+                  stfil = ucase(stfil)
+
+               spaces$ = 0
+                "ZCL,2", e$
+                ";NOM DE DESSIN: ", *smcname$, *smcext$, e$      #*smcpath, *smcname, *smcext, e
+                "CCF,INIPAR.CMD", e$
+                " ", e$
+                "DRP,AUTO", e$
+                " ", e$
+
+              if oui = 1, pentete
+
+
+                   ]
+
+        # "MSG,PASSES UTILIEES"            # PWRTT
+
+
+psof0$       # Start of file for tool zero                        1001
+          psof$
+
+
+psof$        # Start of file for non-zero tool number             1001
+
+              fil = wire$                # condition fil enfile
+              gap = tldia$               # Øfil + gap
+              cmd = 1                   # flag ecriture dans CMD
+              gcode$ = 0
+              ndebut = n$
+
+              hateur_piece = abs(trimplane1$ - trimplane2$)
+              if hateur_piece = 0, hateur_piece = uvheight$ - xyheight$    # calcul pour bug en poche
+              ahateur_piece = hateur_piece
+
+              subout$ = 0                # pour ecrire dans NC (CMD)
+
+              isono  =  65              # code ascii des caractére de numérotation des fichiers iso
+              isono2 =  65
+
+              psisono                   # CREER LE NOM du ISO
+
+              ptypeusi                  # type d'usinnage
+
+              u$ = 0
+              v$ = 0
+
+              x$ = xr$
+              y$ = yr$
+
+           if sub > 0, [                # ECRITURE DU CMD
+
+                   "TEC,", stechno, e$
+                   "WIR,", stfil, e$
+
+     # if offset <> 0, "TOF,", *offset, ",", *gap, e     # Affiche D si <> 0
+     # if offset <> 0, "MSG,", *gap, e
+
+        if mi1$ > 0, "TOF,", *mi1$, ",", *mr1$, e$            # Affiche D si mi1 > 0
+        if mi1$ > 0, "MSG,", *mr1$, e$
+
+                  if mr2$ <> 0 , mr2$, e$                    # CLE
+                   reg2$, e$                  # CLE
+
+      # if wt <> 0, "TRE,1"
+
+                    "CLS", e$
+                    "HPA,", *hateur_piece, e$
+                    "REX,", ccode$, e$
+
+                    pgop     # gestion origines
+
+    if faitgop = 0, "MOV,", *threadx$, ",", *thready$, ",", *u$, ",", *v$, e$
+    if faitgop = 1, "MVR,", *threadx$, ",", *thready$, ",", *u$, ",", *v$, e$
+
+                  #  *rpd_hght$, e$
+                    old_rpd_hght = rpd_hght$
+            "MSG,", *sfildebut, e$
+
+        if sub = 2, "MSG,", *t$, e$
+                    "MSG,", stypeusi, e$
+
+
+        if fil = 0, "THD", e$                        # si pas fil , enfiler
+    "TFE,0", e$                  # Annuler le decalage fil du regime avant le dessin
+        if machine = 0, "DRS,A:", *snamesub$, e$         # DESSIN SOUS PROG
+        if machine = 1, "DRS,DD0:", *snamesub$, e$       # DESSIN SOUS PROG
+        if machine = 2, "DRS,MEM:", *snamesub$, e$       # DESSIN SOUS PROG
+    "TFE,1", e$                  # Active le decalage fil du regime avant le dessin de l'usinage
+
+
+        if machine = 0, "SPG,A:", *snamesub$, e$         # EXECUTER SOUS PROG
+        if machine = 1, "SPG,DD0:", *snamesub$, e$       # EXECUTER SOUS PROG
+        if machine = 2, "SPG,MEM:", *snamesub$, e$       # EXECUTER SOUS PROG
+
+                      #  "CLS", e$
+
+        #"MSG, POSITION DE DEPART",  *startx,  *starty,  e
+        #"MSG, POSITION DENFILAGE",  *threadx, *thready,  e
+        #"MSG, POSITION DE COUPE",   *cutx,    *cuty, e
+
+                       ]      # FIN ECRITURE DU CMD
+
+               pnewiso        # DEBUT PROG ISO
+
+
+
+pcmdsuite   # CHANGEMENT DE SOUS PROG
+
+
+
+              gap = tldia$               # Øfil + gap
+              cmd = 1                   # flag ecriture dans CMD
+              psisono                   # CREER LE NOM du ISO
+              ptypeusi                  # type d'usinnage
+
+              u$ = 0
+              v$ = 0
+
+              x$ = xr$
+              y$ = yr$
+
+              n$, "M02", e$
+
+              subout$ = 0
+              spaces$ = 0
+
+               "WCT",e$
+
+     #  if offset <> 0, "TOF,", *offset, ",", *gap, e     # Affiche D si <> 0
+     #  if offset <> 0, "MSG,", *gap, e
+
+        if mi1$ > 0, "TOF,", *mi1$, ",", *mr1$, e$           # Affiche D si mi1 <> 0
+        if mi1$ > 0, "MSG,", *mr1$, e$
+
+       if mr2$ <> 0 , mr2$, e$                              # CLE
+        reg2$, e$                              # CLE
+
+      # if wt <> 0, "TRE,1", e
+
+         hateur_piece = abs(trimplane1$ - trimplane2$)
+         if hateur_piece = 0, hateur_piece = uvheight$ - xyheight$ # calcul pour bug en poche
+
+         if hateur_piece <> ahateur_piece, [
+                  q7           # table de techno
+                  stechno = ucase(stechno)
+            "TEC,", stechno, e$
+        "HPA,", hateur_piece , e$
+        ahateur_piece = hateur_piece
+                    ]
+
+                    "REX,", *ccode$, e$
+
+                     pgop     # gestion origines
+
+                   #if rpd_hght$ >= old_rpd_hght, rpd_hght$, e$
+
+    if faitgop = 0, "MOV,", *threadx$,",", *thready$,",", *u$,",", *v$, e$
+    if faitgop = 1, "MVR,", *threadx$,",", *thready$,",", *u$,",", *v$, e$
+
+                  # if rpd_hght$ < old_rpd_hght, rpd_hght$, e$
+                   old_rpd_hght = rpd_hght$
+
+                        #"CLS", e$
+
+        if sub = 2, "MSG,", *t$, e$
+                    "MSG,", *stypeusi, e$
+                    "THD", e$                            # si pas fil , enfiler
+
+    "TFE,0", e$                  # Annuler le decalage fil du regime avant le dessin
+        if machine = 0, "DRS,A:", *snamesub$, e$         # DESSIN SOUS PROG
+        if machine = 1, "DRS,DD0:", *snamesub$, e$       # DESSIN SOUS PROG
+        if machine = 2, "DRS,MEM:", *snamesub$, e$       # DESSIN SOUS PROG
+    "TFE,1", e$                  # Active le decalage fil du regime avant le dessin de l'usinage
+
+
+        if machine = 0, "SPG,A:", *snamesub$, e$         # EXECUTER SOUS PROG
+        if machine = 1, "SPG,DD0:", *snamesub$, e$       # EXECUTER SOUS PROG
+        if machine = 2, "SPG,MEM:", *snamesub$, e$       # EXECUTER SOUS PROG
+
+
+pcmdsuite2   # CHANGEMENT DE SOUS PROG SANS COUPURE
+
+
+
+              gap = tldia$               # Øfil + gap
+              cmd = 1                   # flag ecriture dans CMD
+              psisono                   # CREER LE NOM du ISO
+              ptypeusi                  # type d'usinnage
+
+              u$ = 0
+              v$ = 0
+
+              x$ = xr$
+              y$ = yr$
+
+              n$, "M02", e$
+
+              subout$ = 0
+              spaces$ = 0
+
+             #  "WCT",e
+
+     #  if offset <> 0, "TOF,", *offset, ",", *gap, e     # Affiche D si <> 0
+     #  if offset <> 0, "MSG,", *gap, e
+
+        if mi1$ > 0, "TOF,", *mi1$, ",", *mr1$, e$           # Affiche D si mi1 <> 0
+        if mi1$ > 0, "MSG,", *mr1$, e$
+
+       if mr2$ <> 0 , mr2$, e$                              # CLE
+        reg2$, e$                              # CLE
+
+      # if wt <> 0, "TRE,1", e
+
+         hateur_piece = abs(trimplane1$ - trimplane2$)
+         if hateur_piece = 0, hateur_piece = uvheight$ - xyheight$ # calcul pour bug en poche
+
+         if hateur_piece <> ahateur_piece,[
+                  q7           # table de techno
+        "TEC,", stechno, e$
+        "HPA,", hateur_piece , e$
+        ahateur_piece = hateur_piece
+                    ]
+
+                    "REX,", *ccode$, e$
+
+              pgop     # gestion origines
+
+         if sub = 2, "MSG,", *t$, e$
+                    "MSG,", *stypeusi, e$
+
+
+                        #"CLS", e$
+
+    "TFE,0", e$                  # Annuler le decalage fil du regime avant le dessin
+        if machine = 0, "DRS,A:", *snamesub$, e$         # DESSIN SOUS PROG
+        if machine = 1, "DRS,DD0:", *snamesub$, e$       # DESSIN SOUS PROG
+        if machine = 2, "DRS,MEM:", *snamesub$, e$       # DESSIN SOUS PROG
+    "TFE,1", e$                  # Active le decalage fil du regime avant le dessin de l'usinage
+
+
+        if machine = 0, "SPG,A:", *snamesub$, e$         # EXECUTER SOUS PROG
+        if machine = 1, "SPG,DD0:", *snamesub$, e$       # EXECUTER SOUS PROG
+        if machine = 2, "SPG,MEM:", *snamesub$, e$       # EXECUTER SOUS PROG
+
+
+
+
+
+
+pnewiso     # nouveau iso apres une coupure
+
+              gcode$ = 5             # pour G92
+              debut = 1             # flag pour le coup du 1er D <>
+              cmd = 0               # flag ecriture dans CMD
+
+          ptypeusi              # savoir le type usinage
+              depouille = 0         # angle de dépouille forcé a 0
+
+
+
+              u$ = 0
+              v$ = 0
+
+              n$ = ndebut
+
+          if sub > 0, newsub$        # nouveau nom de nc
+          if sub > 0, subout$ = 1    #
+
+
+
+          if sub > 0,  !dofs$              # force l'affichage du E qui et ecrit par ccode
+          old_dofs = dofs$                 # memo du E pour le cas un ISO par E
+                       !depouille
+    old_reg2 = reg2$         # memo de la clé d'usinage
+
+          if sub > 0,  "%(",*snamesub$,")", e$
+          if sub = 0,  "%(",*snamenc$,")", e$
+
+
+                n$, " (",*stypeusi,")", e$  # affiche le type d'usinnage
+               # n,"LE MI1=", *mi1, e
+                comment$
+
+                spaces$ = 1                # esapces dans les iso
+
+               # pinfoentre                # type entre sortie
+               # plecreg                   # lecture des registres auxiliaires
+
+
+                x$ = threadx$           # eviter le G0 apres
+                y$ = thready$
+
+                pplanWR
+
+               # n$, "G92", *startx, *starty, e$               # G92 sur position de départ
+                 n$, *sgcode, *x$, *y$, *planw, *planr, e$    # G92 sur point enfilage
+
+                thrd_cut$ =1
+                flag_cut = thrd_cut$
+               if sub = 0 & fil = 0, n$, scoupure, e$              # enfillage dan l'iso
+
+                !flag_cut
+
+
+                old_x = x$             # Memo position
+                old_y = y$
+                #old_u = u          # SUPPIMER CAR REMENT LE DERNIER POINT DU ISO PRECEDENT vm
+                #old_v = v
+
+                #n$, *smpower, e$             # code générateur
+                #n$, *seau, e$                # code d'eau
+
+
+
+
+                ptcode                           # Sens depouille
+                if sub = 0, n$, dofs$, e$        # Affichage du E
+                #n, "G38", e
+
+             ### if typeusi < 7, n, *stypecoinxy, e
+
+               if ccomp$ = 0 , ccomp$ = 1
+
+    ######  if mi1 < 0, n, *sccomp, *lofs, depouille, e       # affichage du D en fonction de mi1 (D attaque)
+
+               if mi1$ > 0, offset$ = mi1$
+               if mi1$ > 0, n$, *sccomp, *offset$, depouille, e$
+
+
+
+pplanWR      # calcul des plan W et R
+
+           #  *xyheight, *uvheight, e
+           #  *trimplane1, *trimplane2, e
+
+
+          if usi <7 | usi > 9, planw = xyheight$                       # 2D
+          if usi <7 | usi > 9, planr = uvheight$ - xyheight$            # 2D
+
+          if usi >=7 & usi <= 9, planw = trimplane2$                   # 4 axes
+          if usi >=7 & usi <= 9, planr = trimplane1$ - trimplane2$      # 4 axes
+
+
+
+
+
+ptlchg0$     # Null tool change                                   1002
+
+            ptlchg$
+
+
+ptlchg$      # Tool change                                        1002
+            # plecreg
+
+    # Reecriture de D0 au chgmt d'outil
+    old_lofs = lofs$
+    lofs$ =  -999
+    !lofs$
+    lofs$ = old_lofs
+    #-----------------------------------------
+
+           flag_cut = thrd_cut$
+
+
+        @old_dofs , @dofs$, @old_reg2, @reg2$
+
+            if thrd_cut$ = 2 & sub > 0, pcmdsuite  # ECRITURE SUITE CMD si coupure
+            if thrd_cut$ = 2 & sub > 0, pnewiso    # NOUVEAU ENTETE ISO si coupure
+            if thrd_cut$ = 2 & sub > 0 , ex$
+
+            if dofs$ <> old_dofs & sub = 2 , pcmdsuite2 # ECRITURE SUITE CMD si chg regime
+            if dofs$ <> old_dofs & sub = 2 , pnewiso    # NOUVEAU ENTETE ISO
+
+
+            if reg2$ <> old_reg2 & sub > 0 , pcmdsuite2 # ECRITURE SUITE CMD si chg de clé
+            if reg2$ <> old_reg2 & sub > 0 , pnewiso    # NOUVEAU ENTETE ISO si cgh de clé
+
+
+            if thrd_cut$ = 2 & sub = 0, n$, scoupure,e$
+
+
+
+peof0$       # End of file for tool zero                          1003
+       peof$
+
+peof$        # End of file for non-zero tool
+
+            # fin du dernier ISO
+
+
+           #   ptcode
+           #    *swtcode, *swt
+
+               n$, "M02",e$
+
+
+          if sub > 0, [      # Ecriture fin dans CMD
+
+               subout$ = 0
+               spaces$ = 0
+
+               "WCT", e$
+               !cutlength
+         if cutlength <> 0, "MSG,", *cutlength, e$
+
+              # degage, e$
+               "SCF,1", e$
+               " ", e$
+               "MSG,RELEVER LE COMPTEUR", e$
+                 ]
+
+
+psave       # memo des valeur avant un cecle*
+
+                    xsave = x$
+                    ysave = y$
+            depouillesave = depouille
+            thrd_cutsave  = thrd_cut$
+            if cc$ <> 0, ccompsave = ccomp$
+
+            if cend$ <> 0, cendsave = cend$
+
+            if cstop$ = 1, cstopsave = 1
+            if cgstop$ = 1, cgstopsave = 1
+
+            save = 1
+
+                old_x = x$             # Memo position
+                old_y = y$
+                old_u = u$
+                old_v = v$
+
+
+
+
+plin$     # Linear
+
+         #  *thrd_cut, *tabcut
+         #  *debut, e
+         #  *cc, e
+         # "---------", *cstart, *cend, *cutpos2, e
+
+        #"-----------------", cc_pos$, *cc$, ccomp$, e
+
+          if x$ = old_x & y$ = old_y , ex$               # test pour meme position
+
+          save = 0                               # truc pour g2 apres
+          depouille = wt$
+          flag_cut = thrd_cut$
+          #"tttttttttttttttttttt", *nextop
+       #-------------------- VERIF TYPE USI --------------------------------------
+          if opcode$ <> old_opcode, ptypeusi          # Verif du type d'usinnage
+        #  n, stypeusi, e
+          if typeusi = 0, n$, "BOULETTE",e$            # si erreur de type quitter
+          if typeusi = 0, ex$                         # si erreur de type quitter
+
+       #  if opcode = 209 | opcode = 208 , p4axedc   # pour 4axes direct
+
+       #-------------------- Si prochain Mouvent en G40, preparer un G29 ------------------
+            !nextccomp$
+            if nextccomp$ = 4, wc$ = 1
+
+        #-------------------- Si prochain Mouvent en G40, preparer un G61 ------------------
+            !nextccomp$
+           if nextccomp$ = 4 & fastmode$ = 0, n$, "(PRochain mvt anullcc donc forcer G61)" , e$
+           if nextccomp$ = 4, reg1$ = 1
+
+        #-------------------- Si stop, preparer un G61 ------------------
+        !cstop$, !cgstop$, !flagstop
+       if cstop$ <> 0, reg1$ = 1
+       if cgstop$ <> 0, reg1$ = 1
+        if flagstop <> 0, reg1$ = 1
+
+       #-------------------- Si annulation G41 ou 42, preparer un G29 ------------------
+           if cc$ = 140 , depouille = 0              # si annul correction dépouille a 0
+           if cc$ = 140,  wc$ = 1                     # G29 si dernier G1
+
+       #---------------MODIF DES G29 ET A0 sur premier mouvement --------------
+            if cc$ = 41 | cc$ = 42, [
+                wc$ = 1
+                depouille = 0
+                ]
+
+      #------------REGIME STRATEGIE EAU --------------------------------------------------
+       ptcode                                   # pour g50 51 52 jai pas si utilisé
+           if debut = 0,  n$, dofs$, e$          # pour changement de regime dans meme iso
+          if reg1$ = 1,   n$, strategie, e$      # G61 en fontion de reg1
+           if reg1$ <> 0, water$ = 0        # arret arrosage en fonction de registre auxiliaire 1
+           #if reg1$ <> 0, n$, seau,e$
+
+
+     # ---------  sauvegarde du G1 si G2 ou G3 pour mettre le type d'arc uv a faire en cours d'iso et quitter le rest
+           !debut , !nextop$
+
+            if debut = 0, [
+              if nextop$ = 2 | nextop$ = 3, psave , ex$
+                 ]
+     #-----------------------------------------------------------------------------------
+
+
+          coin_prg = wc$
+
+         if debut = 1, n$, *scoinprg, e$
+         if debut = 0, n$, scoinprg, e$
+
+    n$, lofs$, e$           # affichage de D
+
+        # if thrd_cut = 2, n, sccomp       # si coupure G40 avant G1 ANNULE PA vm LE 5 JUIN 2001
+
+    # G41 en entree
+  if debut = 1, [
+
+    if cc$ = 41 | cc$= 42 | cc$ = 40, n$, *sgcode, *x$, *y$, depouille, e$
+    if cc$ = 41 | cc$= 42 | cc$ = 40, n$, sccomp, e$
+                ]
+   # G41 en passe inversée
+  if debut = 0, [
+
+    if cc$ = 41 | cc$= 42 | cc$ = 40, n$, *sgcode, *x$, *y$, depouille, e$
+    if cc$ = 41 | cc$= 42 | cc$ = 40, n$, sccomp, e$
+                ]
+
+    # REste du coutour
+    if cc$ = 0, n$, *sgcode,*x$, *y$, depouille, sccomp, lofs$, e$
+
+          if reg1$ = 0,   n$, strategie, e$      # G60 en fontion de reg1
+
+
+    # annulation g41
+
+    if cc$ = 140, n$, sccomp,e$
+    if cc$ = 140, n$, *sgcode, *x$, *y$, depouille, lofs$, e$
+    if cc$ = 140, n$, "G39", e$
+
+
+
+
+         if cc$ = 140 &  flagstop = 1 , n$, "M00 (ENLEVER CHUTE)",e$
+         if cc$ = 140 &  flagstop = 2 , n$, "M01 (ENLEVER CHUTE)",e$
+         if cc$ = 140 , flagstop = 0
+
+         if nextop$ <> 1004 & sub = 0, n$, scoupure,e$
+
+     if cstop$  = 1,  n$, "M00 (STOP)",e$
+         if cgstop$ = 1,  n$, "M01 (STOP OPTIONNEL)",e$
+
+     if cstop$  = 1,  flagstop = 1
+         if cgstop$ = 1,  flagstop = 2
+
+      #  if debut = 1 & mi1 <0 & (nextop = 2 | nextop = 3), n, *sccomp, *lofs, depouille, e, n, *sgcode, depouille, *x, *y, e
+         if debut = 1 & mi1$ >0,  n$, *sccomp, *lofs$, depouille,e$
+
+          # if cend <> 0 ,  n, "(fin CONTOUR)"
+
+
+                old_x = x$             # Memo position
+                old_y = y$
+                old_u = u$
+                old_v = v$
+
+            debut = 0
+        if cc$ = 140, lofs$ =  -1
+        if cc$ = 140, !lofs$
+
+pciravant    # Ligne avant un cercle
+
+    #"-----------------------------------pciravant", e$
+
+
+               depouille = depouillesave     # recup de la depouille du G1 d'avant
+               ccomp$ = ccompsave             # recup du G41 G42
+               flag_cut = thrd_cutsave
+
+            if cendsave <> 0, warc_ctyp$ = 1  # si fin contour, G29 avant arc de sortie
+
+             wc$ = warc_ctyp$
+             !wc$
+             coin_prg = wc$
+
+             n$, scoinprg, e$                   #  type de coin si pas apres prise de g41 if ccompsave = 0,
+
+
+
+
+    # G41 en etree
+
+  if debut = 1, [
+             if ccompsave <> 0, n$, lofs$, e$
+             if ccompsave <> 0, n$, "G01", *xsave, *ysave, depouille, e$
+             if ccompsave <> 0, n$, sccomp, e$
+
+                ]
+
+   # G41 en passe inversée
+
+  if debut = 0, [
+             if ccompsave <> 0, n$, lofs$, e$
+             if ccompsave <> 0, n$, "G01", *xsave, *ysave, depouille, e$
+             if ccompsave <> 0, n$, sccomp, e$
+
+                 ]
+
+    # REste du coutour
+       if ccompsave = 0, n$, "G01", *xsave, *ysave, depouille, lofs$, e$
+
+
+
+          if sub = 0, n$, scoupure, e$
+     if cstopsave  = 1,  n$, "M00 (STOP)"
+         if cgstopsave = 1,  n$, "M01 (STOP OPTIONNEL)"
+
+     if cstopsave  = 1,  flagstop = 1
+         if cgstopsave = 1,  flagstop = 2
+
+
+
+
+
+             save = 0
+             ccompsave = 0
+             cendsave = 0
+             cstopsave = 0
+             cgstopsave = 0
+
+             ccomp$ = 0
+             debut = 0
+
+                old_x = xsave             # Memo position
+                old_y = ysave
+
+
+pcir$        # Circular interpolation
+
+
+
+          #if x$ = old_x & y$ = old_y , ex$
+
+          if save = 1 , pciravant,e$
+
+     #  if cstart = 1 , n, "(1re G2 ou G3 du CONTOUR)"
+     #  if cend <> 0, n, "(DERNIER G2 ou G3 du CONTOUR)", *cend
+       #n, *nextccomp
+
+          depouille = wt$
+
+          flag_cut = thrd_cut$
+          thrd_cutsave = thrd_cut$
+          wc$ = warc_ctyp$
+             !wc$
+             coin_prg = wc$
+
+
+
+          if opcode$ <> old_opcode, ptypeusi          # Verif du type d'usinnage
+          if typeusi = 0, ex$                         # si erreur de type quitter
+
+          # if opcode = 209 | opcode = 208 , p4axedc  # 4axes direct
+
+
+            if cc$ = 140 , depouille = 0     # si annul correction dépouille a 0
+
+        #ptcode                          # pour g50 51 52
+
+
+            if debut = 0,  n$, dofs$,e$
+            if reg1$ <> 0, water$ = 0  # arret arrosage
+           # if reg1$ <> 0, n$, seau,e$
+
+
+            if debut = 0 & cc$ <> 140 & cc$ <> 0,  n$, sccomp, *lofs$, e$
+            if debut = 0 & cc$ <> 140 & cc$ = 0,  n$, sccomp, lofs$, e$
+
+             n$, scoinprg, e$
+       #-------------------- Si prochain Mouvent en G40, preparer un G61 ------------------
+            !nextccomp$
+            #if nextccomp$ = 4, wc$ = 1
+           if nextccomp$ = 4 & fastmode$ = 0, n$, "(PRochain mvt anullcc donc forcer G61)" , e$
+           if nextccomp$ = 4, reg1$ = 1
+
+
+
+        #-------------------- Si stop, preparer un G61 ------------------
+        !cstop$, !cgstop$, !flagstop
+       if cstop$ <> 0, reg1$ = 1
+       if cgstop$ <> 0, reg1$ = 1
+        if flagstop <> 0, reg1$ = 1
+
+
+
+
+           n$, strategie, e$                   # G60 ou G61 en fontion de reg1
+           if reg1$ <> 0, water$ = 0        # arret arrosage en fonction de registre auxiliaire 1
+          # if reg1$ <> 0, n$, seau,e$
+
+
+
+
+            if debut = 0,  n$, *sgcode, *x$, *y$, *i$, *j$, depouille, e$
+            if debut = 1,  n$, *sgcode, *x$, *y$, *i$, *j$, depouille, e$
+
+
+            if sub = 0, n$, scoupure,e$
+
+            if cc$ = 140 &  flagstop = 1 , n$, "M00 (ENLEVER CHUTE)",e$
+            if cc$ = 140 &  flagstop = 2 , n$, "M01 (ENLEVER CHUTE)",e$
+            if cc$ = 140 , flagstop = 0
+
+       if cstop$  = 1,  n$, "M00 (STOP)",e$
+         if cgstop$ = 1,  n$, "M01 (STOP OPTIONNEL)",e$
+
+           if cstop$  = 1,  flagstop = 1
+           if cgstop$ = 1,  flagstop = 2
+
+           if debut = 1 & mi1$ >0,  n$, *sccomp, *lofs$, depouille,e$
+
+        if cc$ = 140, n$, sccomp,e$
+        if cc$ = 140, n$, "G39", e$
+
+                old_x = x$             # Memo position
+                old_y = y$
+                old_u = u$
+                old_v = v$
+
+            debut = 0
+
+pedm$        # 4 Axis UV
+
+       gcode$ = 1
+
+         # !x,!y,!u,!v
+         # !old_x, !old_y, !old_u, !old_v
+
+         if x$ = old_x & y$ = old_y & u$ = old_u & v$ = old_v, ex$
+
+          if opcode$ <> old_opcode, ptypeusi          # Verif du type d'usinnage
+         # n, stypeusi, e
+          if typeusi = 0, ex$                         # si erreur de type quitter
+          flag_cut = thrd_cut$
+
+          # if opcode = 209 | opcode = 208 , p4axedc  # 4axes direct
+
+      # *cc, *ccomp,  *debut, e
+
+            if debut = 0,  n$, dofs$, e$           # afficher E si pas tout de suite apes CMD
+
+         #-------------------- Si prochain Mouvent en G40, preparer un G61 ------------------
+            !nextccomp$
+           if nextccomp$ = 4 & fastmode$ = 0, n$, "(PRochain mvt anullcc donc forcer G61)" , e$
+           if nextccomp$ = 4, reg1$ = 1
+
+        #-------------------- Si stop, preparer un G61 ------------------
+        !cstop$, !cgstop$, !flagstop
+       if cstop$ <> 0, reg1$ = 1
+       if cgstop$ <> 0, reg1$ = 1
+        if flagstop <> 0, reg1$ = 1
+
+
+
+           if reg1$ = 1,   n$, strategie, e$      # G60 en fontion de reg1
+
+            if reg1$ <> 0, water$ = 0          # arret arrosage pour passes de finition
+            #if reg1$ <> 0, n$, seau, e$
+
+
+
+
+                old_x = x$             # Memo position
+                old_y = y$
+                old_u = u$
+                old_v = v$
+
+
+
+
+        n$, lofs$, e$           # affichage de D
+
+    # G41 en etree
+  if debut = 1, [
+
+       if cc$ = 41 | cc$= 42 | cc$ = 40, n$, *sgcode, *x$, *y$, *u$, *v$, e$
+       if cc$ = 41 | cc$= 42 | cc$ = 40, n$, sccomp, e$
+
+                ]
+   # G41 en passe inversée
+  if debut = 0, [
+
+       if cc$ = 41 | cc$= 42 | cc$ = 40, n$, *sgcode, *x$, *y$, *u$, *v$, e$
+       if cc$ = 41 | cc$= 42 | cc$ = 40, n$, sccomp, e$
+                ]
+
+    # REste du coutour
+       if cc$ = 0, n$, *sgcode, *x$, *y$, *u$, *v$, lofs$, e$
+
+           if reg1$ = 0,   n$, strategie, e$      # G60 en fontion de reg1
+
+    # annulation g41
+
+       if cc$ = 140, n$, sccomp, e$
+       if cc$ = 140, n$, *sgcode, *x$, *y$, *u$, *v$, lofs$, e$
+       if cc$ = 140, n$, "G39", e$
+
+
+
+
+         #  if cstart = 1 , n, "(DEBUT CONTOUR)"
+         #  if cend = 1   , n, "(FIN CONTOUR)"
+
+            if cc$ = 140 &  flagstop = 1 , n$, "M00 (ENLEVER CHUTE)", e$
+            if cc$ = 140 &  flagstop = 2 , n$, "M01 (ENLEVER CHUTE)", e$
+            if cc$ = 140 , flagstop = 0
+
+         if cstop$  = 1,  n$, "M00 (STOP)", e$
+             if cgstop$ = 1,  n$, "M01 (STOP OPTIONNEL)", e$
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+
+           if debut = 1 & mi1$ >0,  n$, *sccomp, *lofs$ , e$    # pour D d'attaque
+
+            debut = 0
+
+       if cc$ = 140, lofs$ =  -1
+       if cc$ = 140, !lofs$
+#------------------------------------------------------------
+
+p4axedr      #  rapide 4 axes
+
+           n$, *sgcode, *x$, *y$, ":", *sgcode, *wx$, *wy$, e$
+          if cgstop$ = 1, "M01"
+          if cstop$ = 1, "M00"
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+          ex$
+
+
+p4axedlc      #   Lineaire et circulaire 4 axes
+
+             n$, *lasteg, *x$, *y$, ":", *sgcode, *wx$, *wy$, *wxcd, *wycd , e$
+             if cgstop$ = 1, "M01"
+             if cstop$ = 1, "M00"
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+             ex$
+
+
+p4axedcl      #  circulaire et Lineaire 4 axes
+              xcd = xc$ - prv_x$
+              ycd = yc$ - prv_y$
+
+           n$, *lasteg, *x$, *y$, *xcd, *ycd, ":", *sgcode, *wx$, *wy$, e$
+
+          if cgstop$ = 1, "M01"
+          if cstop$ = 1, "M00"
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+          ex$
+
+
+p4axedl      #  Lineaire 4 axes
+
+              lasteg = prv_gcode$
+              if lasteg > 1, p4axedcl
+
+
+
+          n$, scomp4ax, e$
+          if cc$ <> 140, n$, *sgcode, *x$, *y$, ":", *sgcode, *wx$, *wy$, e$
+          if cend$ = 1, n$, "(", *sgcode, *x$, *y$, ":", *sgcode, *x$, *y$, ")", e$
+          if cc$ = 140, n$, *sgcode, *x$, *y$, e$
+
+          if cgstop$ = 1, "M01"
+          if cstop$ = 1, "M00"
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+
+
+
+          old_x = x$
+          old_y = y$
+          ex$
+
+
+
+p4axedc      #  circulaire 4 axe
+
+              wxcd = wxc$ - prv_wx$
+              wycd = wyc$ - prv_wy$
+        #      wxcd = wx - wxc
+        #      wycd = wy - wyc
+
+              lasteg = prv_gcode$
+
+              if lasteg = 1, p4axedlc
+
+             n$, *sgcode, *x$, *y$, *i$, *j$, ":", *sgcode, *wx$, *wy$, *wxcd, *wycd , e$
+             if cgstop$ = 1, "M01"
+             if cstop$ = 1, "M00"
+
+         if cstop$  = 1,  flagstop = 1
+             if cgstop$ = 1,  flagstop = 2
+             ex$
+
+
+
+
+
+
+
+prapid$      # ECRITURE D UN PASSAGE EN RAPIDE sur un contour
+
+        #"-----------------", cc_pos$, *cc$, ccomp$, e
+
+          !x$,!y$,!u$,!v$
+          !old_x, !old_y, !old_u, !old_v
+
+         if x$ = old_x & y$ = old_y , ex$
+
+            flag_cut = thrd_cut$
+
+        n$, sccomp, *sgcode, *x$, *y$, e$
+            if sub = 0, n$, scoupure,e$
+
+                old_x = x$             # Memo position
+                old_y = y$
+                old_u = u$
+                old_v = v$
+
+ptooltbl$    # Tool table line format
+#CNC<<ECHEC>>ptooltbl$    # Tool table line format
+#CNC<<MSG-ERREUR(1721)>> La variable, bloc PP ou mot-clé n'est plus supporté
+#CNC<<ECHEC>>ptooltbl$    # Tool table line format
+#CNC<<MSG-ERREUR(1721)>> La variable, bloc PP ou mot clef n'est plus supporté
+
+
+pwrtt$       # tool table v7
+
+           # if t <> 0, ptypeusi
+
+           # if t <> 0, "MSG,", *t, *lofs, *dofs, *tldia, *stypeusi, e
+
+            # if thrd_cut <> 0, psisono
+            # if t <> 0, snamesub
+
+
+ptprchg     # Offset table input
+
+psetchg     # Setting change
+
+pconchg$     # Control Setting change                                 1010
+      #  if dofs > 0 , n, "G60"
+      #  if dofs = 0 , n, "G61"
+
+ptprlist$    # Taper table postline
+
+pradlist$    # Radius table postline
+
+pcancelcc$
+
+psubcall$
+
+
+
+
+
+# Numbered questions for Mastercam
+
+
+
+38. Rapid feedrate? 300.0
+1538. Rapid feedrate (metric)? 10000.0
+
+
+64. Lock UV height above XY height? y
+65. Maximum step size for 4 axes wirepath? 200.0
+
+67. Default z component that wire extends past UV? 0.0
+68. Maximum UV axes distence from XY? 50.0
+69. 4axes maximum taper angle? 30.0
+
+70. Chaining tolerance? 0.001
+
+
+74. Minimum arc length? 0.002
+
+
+
+80. Communcations port number for receive and transmit (1 or 2) ? 1
+81. Baud rate (110, 150, 300, 600, 1200, 2400, 4800, 9600)? 4800
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 8
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0.0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? N
+89. Strip carriage returns? N
+
+90. Drive and subdirectory for NC programs file?
+
+91. Name of executable post processor? mpwire
+92. Name of reverse post processor? rpwire
+
+93. Drive and subdirectory for tool files?
+94. Drive and subdirectory for GE3 files?
+
+97. Number of places after decimal for analyze (2-6)? 5
+98. Number of places after decimal for NCI files (3-7)? 7
+99. System tolerance? 0.005
+
+104. Default starting sequence number? 1
+105. Default sequence number increment? 1
+
+#110. Default library?
+111. Maximum number of tools? 100
+
+
+161. Enable Home Position button? y
+162. Enable Reference Point button? n
+163. Enable Misc. Values button? y
+164. Enable Rotary Axis button? n
+165. Enable Tool Plane button? n
+166. Enable Construction Plane button? n
+167. Enable Tool Display button? y
+
+168. Check tplane during automatic work origin creation? n
+
+170. Enable dual corner types and upper radius with arcs? y
+171. Enable fishtail display? y
+172. Flip taper on 2 line/arc lead in? n
+
+190. Display the tool? y
+191. Display the toolpath? y
+192. Default tool display: 1 = animated, 2 = static? 2
+193. Default tool display: 1 = interpolate, 2 = endpoints? 2
+194. Default tool display: 1 = run, 2 = step? 1
+195. Default tool display step size? 0.1
+196. Default tool display delay? 0.0
+197. Repaint the toolpath? Y
+198. Draw 4 axis sync lines? Y
+
+201. valeur d'offset pour 1er mouvement ? 0.004
+202. Valeur de la CLE ? 0.0
+203. Miscellaneous real variable 3(mr3)? 0.0
+204. Miscellaneous real variable 4(mr4)? 0.0
+205. Miscellaneous real variable 5(mr5)? 0.0
+206. Miscellaneous real variable 6(mr6)? 0.0
+207. Miscellaneous real variable 7(mr7)? 0.0
+208. Miscellaneous real variable 8(mr8)? 0.0
+209. Miscellaneous real variable 9(mr9)? 0.0
+210. Miscellaneous real variable 10(mr10)? 0.0
+
+# --------------------------------------------------------------------------
+# Valeurs réelles par défaut (METRIQUE)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables réelles
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? n
+1614. Enable miscellaneous real variable 4? n
+1615. Enable miscellaneous real variable 5? n
+1616. Enable miscellaneous real variable 6? n
+1617. Enable miscellaneous real variable 7? n
+1618. Enable miscellaneous real variable 8? n
+1619. Enable miscellaneous real variable 9? n
+1620. Enable miscellaneous real variable 10? n
+
+
+301. Regime pour 1er mouvement ? -1
+302. Miscellaneous integer variable 2 ? 0
+303. Miscellaneous integer variable 3 ? 0
+304. Miscellaneous integer variable 4 ? 0
+305. Miscellaneous integer variable 5 ? 0
+306. Miscellaneous integer variable 6 ? 0
+307. Miscellaneous integer variable 7 ? 0
+308. Miscellaneous integer variable 8 ? 0
+309. Miscellaneous integer variable 9 ? 0
+310. Miscellaneous integer variable 10 ? 0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables entières
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? n
+1623. Enable miscellaneous integer variable 3? n
+1624. Enable miscellaneous integer variable 4? n
+1625. Enable miscellaneous integer variable 5? n
+1626. Enable miscellaneous integer variable 6? n
+1627. Enable miscellaneous integer variable 7? n
+1628. Enable miscellaneous integer variable 8? n
+1629. Enable miscellaneous integer variable 9? n
+1630. Enable miscellaneous integer variable 10? n
+
+
+
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+
+#400. Nom du fichier CFG associé?
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? y
+414. Read START/EXIT section? y
+415. Read SCREEN section? y
+416. Read FILE NAMES section? y
+
+
+1023. Auto entry(L=line, Y=line+arc, A=2lines+arc)? L
+1024. Auto exit(L=line, R=arc, Y=line+arc, A=2lines+arc)? L
+
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? n
+1502. Write operation information to binary file (.ops)? n
+
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+# Do NOT manually change the answer for Q.1999 !
+1999. Product major version number that post supports? 9
+
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+
+# --------------------------------------------------------------------------
+# Option spéciale d'entrée 2 lignes/arc
+# --------------------------------------------------------------------------
+4001. Move to arc center in 2 line/radius lead in/out? y
+
+
+# --------------------------------------------------------------------------
+# Valeurs réelles de FIL par défaut (METRIQUE)
+# --------------------------------------------------------------------------
+4065. Maximum step size for 4 axis wirepaths (metric)? 10000.0
+4068. Maximum UV axis distance from XY (metric)? 500.0
+4074. Minimum arc length (metric)? 0.005
+4195. Tool motion step_size (metric)? 5.0
+
+# --------------------------------------------------------------------------
+# Association d'inversion de Changement en un Point (1=point, 2=déplacer, 3=avant point)
+# --------------------------------------------------------------------------
+4900. Reverse Skim Pass Position for Change Corner Type? 1
+4901. Reverse Skim Pass Position for Change UV Arc Type ? 2
+4902. Reverse Skim Pass Position for Change Rapid Move? 2
+4903. Reverse Skim Pass Position for Change FeedRate? 3
+4904. Reverse Skim Pass Position for Change Manual Entry? 1
+4907. Reverse Skim Pass Position for Change Canned Text? 1
+4910. Reverse Skim Pass Position for Change Wire Compensation? 1
+4911. Reverse Skim Pass Position for Change Condition Code? 2
+4912. Reverse Skim Pass Position for Change Wire Offset? 1
+4913. Reverse Skim Pass Position for Change Wire Diameter? 1
+4914. Reverse Skim Pass Position for Change Wire Overburn? 1
+4915. Reverse Skim Pass Position for Change Dwell? 1
+4920. Reverse Skim Pass Position for Change Auxiliary Register 1? 1
+4921. Reverse Skim Pass Position for Change Auxiliary Register 2? 1
+4922. Reverse Skim Pass Position for Change Auxiliary Register 3? 1
+4923. Reverse Skim Pass Position for Change Auxiliary Register 4? 1
+4924. Reverse Skim Pass Position for Change Auxiliary Register 5? 1
+4925. Reverse Skim Pass Position for Change Auxiliary Register 6? 1
+4926. Reverse Skim Pass Position for Change Auxiliary Register 7? 1
+4927. Reverse Skim Pass Position for Change Auxiliary Register 8? 1
+4928. Reverse Skim Pass Position for Change Auxiliary Register 9? 1
+4929. Reverse Skim Pass Position for Change Auxiliary Register 10? 1
+4930. Reverse Skim Pass Position for Change Contour flags? 1
+4931. Reverse Skim Pass Position for Change Stop flags? 1
+4932. Reverse Skim Pass Position for Change Thread/Cut flags? 1
+4933. Reverse Skim Pass Position for Change Power flags? 1
+4934. Reverse Skim Pass Position for Change Tank level? 1
+4935. Reverse Skim Pass Position for Change Flush flags? 1
+
+# --------------------------------------------------------------------------
+# Modalité de registre auxiliaire
+# --------------------------------------------------------------------------
+4940. Auxilary Register 1 (n = Non-Modal, y = Modal)? y
+4941. Auxilary Register 2 (n = Non-Modal, y = Modal)? y
+4942. Auxilary Register 3 (n = Non-Modal, y = Modal)? y
+4943. Auxilary Register 4 (n = Non-Modal, y = Modal)? y
+4944. Auxilary Register 5 (n = Non-Modal, y = Modal)? y
+4945. Auxilary Register 6 (n = Non-Modal, y = Modal)? y
+4946. Auxilary Register 7 (n = Non-Modal, y = Modal)? y
+4947. Auxilary Register 8 (n = Non-Modal, y = Modal)? y
+4948. Auxilary Register 9 (n = Non-Modal, y = Modal)? y
+4949. Auxilary Register 10 (n = Non-Modal, y = Modal)? y
+# --------------------------------------------------------------------------
+# TEXTES DU POST PRO
+# --------------------------------------------------------------------------
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_WIRE|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>Numéro du D d'attaque (si &lt;0 pas d'attaque) :</text>
+				<value>-1</value>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>Valeur du D d'attaque :</text>
+				<inch_value>0.5</inch_value>
+			</misc_1>
+			<misc_2>
+				<text>Valeur de Clé :</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Texte 1</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+	</control>
+<control>
+		<control_label>CTRL_WIRE|ROBOFIL</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>Numéro du D d'attaque (si &lt;0 pas d'attaque) :</text>
+				<value>-1</value>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>Valeur du D d'attaque :</text>
+				<inch_value>0.01</inch_value>
+				<metric_value>0.5</metric_value>
+			</misc_1>
+			<misc_2>
+				<text>Valeur de Clé :</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<canned_cycle_1>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_1>
+		<canned_cycle_2>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_2>
+		<canned_cycle_3>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_3>
+		<canned_cycle_4>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_4>
+		<canned_cycle_5>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_5>
+		<canned_cycle_6>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_6>
+		<canned_cycle_7>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_7>
+		<canned_cycle_8>
+			<canned_1>
+				<text>""</text>
+			</canned_1>
+			<canned_2>
+				<text>Canned1</text>
+			</canned_2>
+			<canned_3>
+				<text>Canned2</text>
+			</canned_3>
+			<canned_4>
+				<text>Canned3</text>
+			</canned_4>
+			<canned_5>
+				<text>Prof. Z</text>
+			</canned_5>
+			<canned_6>
+				<text>Canned4</text>
+			</canned_6>
+			<canned_7>
+				<text>Canned5</text>
+			</canned_7>
+			<z_depth>
+				<text>Canned6</text>
+			</z_depth>
+		</canned_cycle_8>
+		<wire_canned_text>
+			<canned_text_1>
+				<text>Texte 1</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</wire_canned_text>
+		<wire_path_parameters>
+			<condition_code>
+				<text>Régime</text>
+			</condition_code>
+		</wire_path_parameters>
+		<auxiliary_registers>
+			<register_1>
+				<text>0=G60  1=G61</text>
+			</register_1>
+			<register_2>
+				<text>Clé =</text>
+			</register_2>
+			<register_3>
+				<text>""</text>
+			</register_3>
+			<register_4>
+				<text>""</text>
+			</register_4>
+			<register_5>
+				<text>""</text>
+			</register_5>
+			<register_6>
+				<text>""</text>
+			</register_6>
+			<register_7>
+				<text>""</text>
+			</register_7>
+			<register_8>
+				<text>""</text>
+			</register_8>
+			<register_9>
+				<text>""</text>
+			</register_9>
+			<register_10>
+				<text>""</text>
+			</register_10>
+		</auxiliary_registers>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
