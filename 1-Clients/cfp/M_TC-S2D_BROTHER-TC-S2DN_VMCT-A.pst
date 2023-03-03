@@ -1,0 +1,6701 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V21.00 P0 E1 W21.00 T1553098260 M21.00 I0 O0
+# ---------------------------------------------
+# - Post pro fraisage 4 axes autour de X ou Y -
+# -   Version 4.0  avec SOUS PROG EN Z        -
+# -   en ABSOLUE et INCREMENTAL G90 G91       -
+# -     Arcs uniquement en R ou IJ            -
+# -   Affichage des Surep R et L et 3D        -
+# -   Affichage des type de corections        -
+#----------------------------------------------
+# - R�alis� le      : 31/09/06  Par : FS/FICAM      -
+# - Pour la soci�t� : CFP                   -
+# - Armoire CN      : TC-S2D                   -
+# - Nom MACHINE     : BROTHER-TC-S2DN_VMCT-A       -
+# ---------------------------------------------
+# - Variable mi1  origines Usinage            -
+# ---------------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS           -
+# remplacement de MI1 par mi1 (n�de D�calage) de 54 a 59 (Workof nest pas utilis� pour l'instant)
+# ecriture des parametres dans NCI et du fichier OPS (pour lire les infos de surep)
+# creation des bloc pour afficher les surep
+# creation de l'affichage des types de correction
+# gestion du pmx en 4 axes
+# ---------------------------------------------
+#0003 le 18 06 07 Pour afficher dans la liste "outil � fileter"
+#0025 le 18 06 07 - Affichage des commentaires de d�but d'OP en entete Prog. (Commentaire usinage dans de la BIBLI)
+#  "    "   " - variable "entetequestion" 0 = pas de questions PST (entete en fichier texte), 1 = questions PST
+#0026 le 18 06 07 - Pour afficher entete avec "OP de Modification" (pour morceau de programme)
+#0027 le 18 06 07 - Pour afficher dans la liste le texte des fraises de formes ex:"FR A GRAVER"
+#0030 le 18 06 07 - Pour Gerer les num. prog. ISO FORMAT: F=Fraisage ou T=Tournage, Num d'article,- Indice plan,-
+#           Num d'op,- Initiales Machine    ex: F016230-02-1-HE.H
+#           possibilit� de revenir � l'ancienne num�rotation "change_nom" = 0 ou 1
+#0039 le 18 06 07 - pour mise � niveau avec les Modifs F.S.
+#0040 le 18 06 07 - Modifs suite passage VX
+#0041 le 21 06 07 - Pour utiliser le 4x avec l'OP commentaire
+#0042 le 03 10 07 - Pour que les "tempo" soient compatibles
+#0043 le 24 09 07 - Ajout de l'affichage d'un incr�ment d'OP pour chaque outil
+#0044 Le 25 10 07 - Ajout pour poser la question 4x oui/non sur OP Modif.
+
+#0050 le 31-07-14 - Ajout pour afficher les outils en parametres avec option
+#                   Valider / d�valider les parametres
+#0051 le 31-07-14 - Modif pour d'esactiver l'affichage des outils en parametres
+#                   depuis MC - mi4 = 1, Valid� / mi4 = 0, d�valid�
+#0053 le 28-11-14 - Gestion de l'arret machine "M0" et rotation broche
+
+#0066 Le 03 02 09 - Ajout pour l'affichage des fonctions "M"
+#0067 Le 13 03 09 - force l'affichage de X et Y avec la correction de rayon
+#0068 Le 07 07 11 - NOM sous-prog.
+#0070 Le 17 11 09 - Ajout pour afficher le "commentaire" des d�callages d'origines.
+
+#0079 Le 03 10 13 - Ajout pour afficher un message si les plans n'ont pas l'origine de base
+#0080 Le 24 10 13 - Ajout pour afficher un message s'il y a diff�rents RUD
+
+#0085 Le 28 11 13 - Ajout pour afficher le MINI MAXI "Z" dans chaque outil
+
+#0090 Le 13-03-14 - Ajout pour ne pas faire d'erreur sur LE PAS DU FILETAGE � la fraise"
+#0091 Le 17-03-14 - Ajout pour les per�ages tr�s profond avec trous d'huile
+#0092 LE 19-03-14 - Ajout pour afficher la valeur du vrai filetage � la fraise
+#0093 le 21-03-14 - Ajout pour verifier si l'outil et l'op�ration ont le meme PAS
+#0096 le 31-07-14 - Ajout pour afficher un message si la ROTATION NE CORRESPOND PAS A LA POSSIBILITEE CN
+#0097 le 17-07-14 - Ajout pour afficher un message si le num. d'outil est different du num "H" ou "D"
+#0099 le 01-12-14 - Ajout pour v�rifier si l'avance de filetage � la fraise est TROP importante
+#0100 le 03-02-15 - Ajout pour gerer la rotation avec les cycles de per�age profond
+#0101 le 09-03-15 - Ajout pour afficher le nom du porte outil
+
+#0103 le 26-03-15 - Ajout pour pouvoir controler l'�tat des plaquettes/outil
+
+#0120 le 15-04-16 - modif pour supprimer la virgule pour les entetes
+
+#0199 Le 31-07-14 - Ajout pour activer ou non l utilisation des origines par rotation
+#0200 Le 05 03 08 - Ajout pour gerer les erreurs entre MC et le PST ex: G41 dans les cercles, taraudage sans le G84...
+#0300 le 13 01 08 - Ajout Pour Gerer les num. prog. ISO FORMAT: F=Fraisage ou T=Tournage, Num d'article,- Indice plan,-
+#           Num d'op,- Initiales Machine    ex: F016230-02-1-HE.H   **en commentaire** et le **PR0000---** en nom de fichier
+
+[STARTBIN]
+#---------------------------------------------------------------------
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MILL|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+<control>
+		<control_label>CTRL_MILL|FANUC</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|HASS</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage a l'alesoir</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>Percage tres profond</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+		<tool_parameters>
+			<head_number>
+				<text>""</text>
+			</head_number>
+			<feed_rate>
+				<text>F Travail  :</text>
+			</feed_rate>
+			<spindle_speed>
+				<text>S Broche   :</text>
+			</spindle_speed>
+			<plunge_rate>
+				<text>F Plong�e  :</text>
+			</plunge_rate>
+			<retract_rate>
+				<text>F R�tract  :</text>
+			</retract_rate>
+			<canned_text>
+				<text>""</text>
+			</canned_text>
+		</tool_parameters>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|MV</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|KITA</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|SV500</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|FANUC-4AXES</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|GENERIC HAAS 4X MILL</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>POSIT. AV. CHANG. OUTIL LONG, 1=oui 0=non</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+	<control>
+		<control_label>CTRL_MILL|NEW FANUC-4 AXES VMC</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>OUTILS PARAMETRES, 1=oui 0=non</text>
+				<value>1</value>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>G55... � activer/toutes les OPS 1=oui 0=nom"    #0045</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage Lamage G81 G82</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourrage G83</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Inc Q</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux G73</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Remont� D</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>Inc Q</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Taraudage G84</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alesage G85</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alesage indexe G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore2>
+		<misc1>
+			<description>
+				<text>Alesage G81-G86</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>Percage tres profond</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>Z HORS MAT.</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Debour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Deb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Parametres de cycle special 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81 G82</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Debourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux G73</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage G84</text>
+			</tapping>
+			<boring_1>
+				<text>Alesage G85</text>
+			</boring_1>
+			<boring_2>
+				<text>Alesage Indexe G76</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>Alesage G81-G86</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>M00</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Texte 2</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Texte 3</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Texte 4</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Texte 5</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
