@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="HAAS_UMC750_5X" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="B" type="rotation" x="0.00000000" y="-1.00000000" z="0.00000000" minvalue="-110.000000" maxvalue="35.000000" valuetype="cont" initial_value="-45.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+        <geometry name="B1" geo="b-axis.stl" clrr="0.65098041" clrg="0.79215688" clrb="0.94117647" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+        <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="-1.00000000" minvalue="-1000000.000000" maxvalue="1000000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+            <geometry name="C1" geo="c-axis_table.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+            <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="fixture" geo="fixture.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="TableReflection.bmp" objtype="fixture" />
+                <geometry name="initialstock" geo="initialstock.stl" clrr="1.00000000" clrg="0.91372550" clrb="0.91372550" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+                <geometry name="stock" geo="stock.stl" clrr="0.00000000" clrg="0.50196081" clrb="0.32156864" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="stock" />
+                <geometry name="toolpath" geo="toolpath.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+                <geometry name="workpiece" geo="workpiece.stl" clrr="0.27450982" clrg="0.50980395" clrb="0.70588237" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="workpiece" />
+            </transform>
+        </axis>
+    </axis>
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-533.000001" maxvalue="228.999999" valuetype="cont" initial_value="0.000000">
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-254.000000" maxvalue="254.000000" valuetype="cont" initial_value="-254.000000">
+            <geometry name="Y1" geo="xy-axis.stl" clrr="0.62745100" clrg="0.62745100" clrb="0.64313728" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="101.999999" maxvalue="609.999999" valuetype="cont" initial_value="508.000000">
+                <geometry name="Z1" geo="spindle logo1.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Z2" geo="spindle logo2.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Z3" geo="spindle logo3.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Z4" geo="spindle logo4.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Z5" geo="mc_z-axis.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+                <geometry name="Z6" geo="spindle.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+                <geometry name="ficam1" geo="ficam1.stl" clrr="0.00000000" clrg="0.32941177" clrb="0.50196081" alpha="0.00" reflectivity="0.47" reflectivityBitmapFileName="sky.bmp" objtype="geometry" />
+                <geometry name="ficam2." geo="ficam2..stl" clrr="0.19607843" clrg="0.80392158" clrb="0.19607843" alpha="0.00" reflectivity="0.30" reflectivityBitmapFileName="Metal_16.bmp" objtype="geometry" />
+                <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="1.00000000" cuttb="0.00000000" noncuttr="1.00000000" noncuttg="1.00000000" noncuttb="0.00000000" arborr="0.62745100" arborg="0.62745100" arborb="0.64313728" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+                </transform>
+            </axis>
+        </axis>
+    </axis>
+    <geometry name="mh_Base1" geo="mc_enclosure.stl" clrr="0.88235295" clrg="0.88235295" clrb="0.88235295" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="sky.bmp" objtype="geometry" />
+    <geometry name="mh_Base10" geo="control6.stl" clrr="0.00000000" clrg="0.50196081" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="sky.bmp" objtype="geometry" />
+    <geometry name="mh_Base11" geo="control7.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base12" geo="tool_setter.stl" clrr="0.65098041" clrg="0.79215688" clrb="0.94117647" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base13" geo="ts logo.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base14" geo="front logo1.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base15" geo="front logo2.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base16" geo="side logo.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base17" geo="front logo.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base18" geo="door logo.stl" clrr="0.75294119" clrg="0.86274511" clrb="0.75294119" alpha="1.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base2" geo="door.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="sky.bmp" objtype="geometry" />
+    <geometry name="mh_Base3" geo="door logo1.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+    <geometry name="mh_Base4" geo="door logo2.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="TableReflection.bmp" objtype="geometry" />
+    <geometry name="mh_Base5" geo="control1.stl" clrr="0.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base6" geo="control2.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base7" geo="control3.stl" clrr="1.00000000" clrg="0.98431373" clrb="0.94117647" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base8" geo="control4.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Base9" geo="control5.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="Z6,tool" group2="C1,B1" />
+    <collcheck id="cc2" name="cc2" group1="tool" group2="fixture" />
+</machine_definition>
