@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="ZAYER_TEBAS" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="X" type="translation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="-3000.000000" maxvalue="3000.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="axeX" geo="axex.stl" clrr="0.58039218" clrg="0.71764708" clrb="0.72156864" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+            <geometry name="Brut" geo="brut.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="Brut Initial" geo="brut initial.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+            <geometry name="Montage" geo="montage.stl" clrr="0.54117650" clrg="0.16862746" clrb="0.88627452" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+            <geometry name="Pièce" geo="pièce.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="workpiece" />
+            <geometry name="parcours d&apos;tool" geo="parcours d&apos;tool.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+        </transform>
+    </axis>
+    <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1877.605000" maxvalue="1874.395000" valuetype="cont" initial_value="0.000000">
+        <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="210.000000" maxvalue="1460.000000" valuetype="cont" initial_value="200.000000">
+            <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-180.100000" maxvalue="180.100000" valuetype="cont" initial_value="0.000000" rzx="275.26098633" rzy="0.00000000" rzz="0.00000000">
+                <axis id="A" type="rotation" x="0.70710683" y="0.00000000" z="0.70710683" minvalue="-181.000000" maxvalue="181.000000" valuetype="cont" initial_value="0.000000" rzx="183.38800049" rzy="0.00000000" rzz="238.59100342">
+                    <geometry name="axeA" geo="axea.stl" clrr="0.67843139" clrg="0.67843139" clrb="0.51372552" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                    <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                        <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="1.00000000" cuttb="0.00000000" noncuttr="1.00000000" noncuttg="0.84313726" noncuttb="0.00000000" arborr="1.00000000" arborg="0.64705884" arborb="0.00000000" holderr="0.82352942" holderg="0.70588237" holderb="0.54901963" />
+                    </transform>
+                </axis>
+                <geometry name="axeC" geo="axec.stl" clrr="0.67843139" clrg="0.67843139" clrb="0.51372552" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="axeZ" geo="axez.stl" clrr="0.42745098" clrg="0.42745098" clrb="0.42745098" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="axez 2" geo="axez 2.stl" clrr="0.30196080" clrg="0.30196080" clrb="0.30196080" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="axeY" geo="axey.stl" clrr="0.29019609" clrg="0.29019609" clrb="0.29019609" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <geometry name="mh_bati" geo="bati.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bati 2" geo="bati 2.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_batibas" geo="bati bas.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="Montage" group2="tool" />
+    <collcheck id="cc2" name="cc2" group1="axeA,axeC,axeZ,axeY" group2="Pièce,axeX" />
+</machine_definition>

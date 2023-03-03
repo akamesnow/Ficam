@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="Porte" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="A" type="rotation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.100000" maxvalue="120.100000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="70.00000000" rzz="70.00000000">
+        <geometry name="AxeA" geo="axe_b.stl" clrr="0.29411766" clrg="0.29411766" clrb="0.29411766" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="-1.00000000" minvalue="-36000.000000" maxvalue="36000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+            <geometry name="AxeC" geo="axe_c.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="Brut" geo="brut.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="stock" />
+                <geometry name="Brut Initial" geo="brut initial.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.80" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+                <geometry name="Montage" geo="montage.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                <geometry name="Pièce" geo="pièce.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="workpiece" />
+                <geometry name="parcours d&apos;outil" geo="parcours d&apos;outil.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+            </transform>
+        </axis>
+    </axis>
+    <axis id="PORTE" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="80.000000" valuetype="cont" initial_value="80.000000" rzx="26.50000000" rzy="420.00000000" rzz="0.00000000">
+        <geometry name="mh_Poignée" geo="poignée.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="mh_Porte" geo="porte.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="mh_base porte avant" geo="base porte avant.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-325.513000" maxvalue="325.487000" valuetype="cont" initial_value="0.000000">
+        <geometry name="Axe_Y" geo="axe_y.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-410.505000" maxvalue="340.495000" valuetype="cont" initial_value="0.000000">
+            <geometry name="Axe_X" geo="axe_x.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Carter_axe_Broche _1" geo="carter_axe_broche _1.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Carter_axe_broche_2_blanc" geo="carter_axe_broche_2_blanc.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="120.000000" maxvalue="685.000000" valuetype="cont" initial_value="560.000000">
+                <geometry name="Axe_Z" geo="axe_z.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="tablereflection.bmp" objtype="geometry" />
+                <geometry name="Buse_lub" geo="buse_lub.stl" clrr="1.00000000" clrg="0.54901963" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Nez_de_Broche" geo="nez_de_broche.stl" clrr="1.00000000" clrg="0.64705884" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Nez_de_broche_haut" geo="nez_de_broche_haut.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="bloc_Buse_lub" geo="bloc_buse_lub.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+                </transform>
+            </axis>
+        </axis>
+    </axis>
+    <axis id="ZT" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="500.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="mh_Trappe_changeur" geo="porte_changeur_inter.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <geometry name="mh_Carter_exter" geo="carter_exter.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="tablereflection.bmp" objtype="geometry" />
+    <geometry name="mh_Carter_inter_magasin" geo="carter_inter_magasin.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Trappe_cote_droit" geo="trappe_cote_droit.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_base batti" geo="base batti.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_carter" geo="carter_exter_blanc.stl" clrr="0.96078432" clrg="0.96078432" clrb="0.96078432" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_carter_inter_exter" geo="carter_inter_exter.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte_changeur" geo="porte_changeur.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="Pièce,Montage" group2="tool" />
+    <collcheck id="cc2" name="cc2" group1="AxeA,AxeC" group2="Axe_Z,Nez_de_Broche" />
+</machine_definition>
