@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="CMS_ANTARES_2615" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <geometry name="TABLE" geo="table.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="1500.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="2600.000000" valuetype="cont" initial_value="0.000000">
+            <geometry name="X(1)" geo="x.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="1200.000000" valuetype="cont" initial_value="0.000000">
+                <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.000000" maxvalue="270.000000" valuetype="cont" initial_value="0.000000" rzx="-60.00000000" rzy="0.00000000" rzz="526.20001221">
+                    <axis id="B" type="rotation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.000000" maxvalue="120.000000" valuetype="cont" initial_value="0.000000" rzx="-83.00000000" rzy="0.00000000" rzz="144.25000000">
+                        <geometry name="A-B" geo="a-b.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                        <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="tablereflection.bmp" objtype="tool" cuttr="1.00000000" cuttg="0.50196081" cuttb="0.00000000" noncuttr="0.75294119" noncuttg="0.75294119" noncuttb="0.75294119" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.00000000" holderg="0.50196081" holderb="1.00000000" />
+                        </transform>
+                    </axis>
+                    <geometry name="C(1)" geo="c.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                </axis>
+                <geometry name="LOGO FICAM V" geo="logo ficam v.stl" clrr="0.48627451" clrg="0.98823529" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="LOGO MASTERCAM B" geo="logo mastercam b.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="LOGO MASTERCAM N" geo="logo mastercam n.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="LOGO MASTERCAM R" geo="logo mastercam r.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="LOOGO FICAM B" geo="loogo ficam b.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Z(1)" geo="z.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+        </axis>
+        <geometry name="Y(1)" geo="y.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="_ZCHANGEUR" type="translation" x="0.00000000" y="-1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="268.000000" valuetype="cont" initial_value="0.000000">
+            <geometry name="ATC Z" geo="atc z.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="_CCHANGEUR" type="rotation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="90.000000" valuetype="cont" initial_value="0.000000" rzx="1578.00000000" rzy="404.29998779" rzz="1408.65002441" />
+        </axis>
+    </axis>
+    <geometry name="mh_CARTERS GRIS" geo="carters gris.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CARTERS NOIRS" geo="carters noirs.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CARTERS VERT" geo="carters vert.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+        <geometry name="fixture" geo="fixture.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+        <geometry name="initialstock" geo="stock.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.40" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+        <geometry name="stock" geo="stock.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="stock" />
+        <geometry name="toolpath" geo="toolpath.asc" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+        <geometry name="workpiece" geo="" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="tablereflection.bmp" objtype="workpiece" />
+    </transform>
+    <collcheck id="cc1" name="cc1" group1="tool" group2="workpiece,fixture" />
+    <collcheck id="cc2" name="cc2" group1="Z(1),Y(1),X(1),A-B,C(1)" group2="stock,fixture,workpiece,TABLE" />
+</machine_definition>
