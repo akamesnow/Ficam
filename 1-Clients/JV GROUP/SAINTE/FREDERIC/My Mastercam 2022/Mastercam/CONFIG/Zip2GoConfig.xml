@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="MRUStyle" value="2" />
+    <add key="ViewTypes" value="TXT, PST, NC, CONFIG" />
+    <add key="MRUFileNameLength" value="128" />
+    <add key="RecentFiles" value="4" />
+    <add key="DoNotPromptSaveOnDirty" value="0" />
+    <add key="OldStyleExtract" value="0" />
+    <add key="DefaultFolder" value="C:\Users\frederic.ratier\Desktop" />
+    <add key="Zip2GoFileExtension" value=".zip" />
+  </appSettings>
+</configuration>
