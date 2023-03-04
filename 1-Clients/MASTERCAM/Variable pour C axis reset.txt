@@ -1,0 +1,33 @@
+Api.ResetRotary(C)
+
+ PostBlock SpindleIndexCalc    
+        
+            // Calculate spindle index move to stay between 0 and 360
+            While ToolMove[C] > 360
+                ToolMove[C] = ToolMove[C] - 360
+            EndWhile
+            While ToolMove[C] < 0
+                ToolMove[C] = ToolMove[C] + 360
+            EndWhile
+            
+            // If index is 360 then we will output this as 0 instead
+            If ToolMove[C] = 360
+                ToolMove[C] = 0
+            EndIf
+        
+        End
+
+ PostBlock ResetCAxisForSignedContinuous
+        
+            If CAxisReset AND (ToolMove[C] > 360 OR ToolMove[C] < -360)
+                ReturnInt = Api.Net(Convert.ToInt32($ToolMove[C]$ / 360.0))
+                CAngleAfterReset = ToolMove[C] - ReturnInt * 360
+            
+                Api.ResetRotary(C)
+                Output GWorkOffsetReset, CAngleAfterReset.Force, \n
+                ToolMove[C] = CAngleAfterReset
+            EndIf
+        
+        End
+
+
