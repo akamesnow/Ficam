@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="C1 /  Z1" name="C1 /  Z1" group1="c1 axis,left chuck par défaut0,workpiece_adapter" group2="a axis,b axis shroud,b1 axis,tool spindle body,tool spindle0,x1 axis,y1 axis" />
+    <collcheck id="C1 /  Z2" name="C1 /  Z2" group1="c1 axis,left chuck par défaut0,workpiece_adapter" group2="c2 axis,right chuck par défaut0,right spindle base,support_mandrin,workpiece2_adapter,z2 axis" />
+    <collcheck id="Capot machine /  Z1" name="Capot machine /  Z1" group1="left spindle base,left wall of enclosure,pion" group2="a axis,b axis shroud,b1 axis,tool spindle body,tool spindle0,x1 axis,y1 axis" />
+    <collcheck id="Z1 /  Z2" name="Z1 /  Z2" group1="a axis,b axis shroud,b1 axis,tool spindle body,tool spindle0,x1 axis,y1 axis" group2="c2 axis,right chuck par défaut0,right spindle base,support_mandrin,workpiece2_adapter,z2 axis" />
+</machine_definition>

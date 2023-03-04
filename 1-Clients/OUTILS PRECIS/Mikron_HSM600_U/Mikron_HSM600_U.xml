@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="Mikron_HSM600_U" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-238.313000" maxvalue="561.787000" valuetype="cont" initial_value="0.000000">
+        <axis id="B" type="rotation" x="0.00000000" y="-1.00000000" z="0.00000000" minvalue="-110.000000" maxvalue="30.000000" valuetype="cont" initial_value="0.000000" rzx="80.00000000" rzy="382.50000000" rzz="-1.70000005">
+            <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="-1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                <geometry name="C(1)" geo="C.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <geometry name="Brut" geo="brut.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="stock" />
+                    <geometry name="Brut Initial" geo="brut initial.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.80" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+                    <geometry name="Montage" geo="montage.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                    <geometry name="Pièce" geo="pièce.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="workpiece" />
+                    <geometry name="parcours d&apos;outil" geo="parcours d&apos;outil.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+                </transform>
+            </axis>
+            <geometry name="axe_B" geo="B.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="axe_X" geo="X.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-204.176000" maxvalue="395.924000" valuetype="cont" initial_value="0.000000">
+        <geometry name="Axe_Y" geo="Y-GRIS.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="Y-GRIS-57" geo="Y-GRIS-57.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="439.860000" valuetype="cont" initial_value="0.000000">
+            <geometry name="Axe_Z" geo="Z-BLANC.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-FICAM-BLEU-Z" geo="LOGO-FICAM-BLEU-Z.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-FICAM-VERT-Z" geo="LOGO-FICAM-VERT-Z.stl" clrr="0.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-MASTERCAM-BLANC-Z" geo="LOGO-MASTERCAM-BLANC-Z.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-MASTERCAM-GRIS-Z" geo="LOGO-MASTERCAM-GRIS-Z.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-MASTERCAM-NOIR-Z" geo="LOGO-MASTERCAM-NOIR-Z.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="LOGO-MASTERCAM-ROUGE-Z" geo="LOGO-MASTERCAM-ROUGE-Z.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Nez_de_broche" geo="Z-GRIS.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="0.95294118" cuttb="0.85098040" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+            </transform>
+        </axis>
+    </axis>
+    <geometry name="mh_CAPOT-GRIS" geo="CAPOT-GRIS.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CAPOT-NOIR" geo="CAPOT-NOIR.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CAPOT-ORANGE" geo="CAPOT-ORANGE.stl" clrr="1.00000000" clrg="0.64705884" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CAPOT_BLANC" geo="CAPOT_BLANC.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-FICAM-BLEU" geo="LOGO-FICAM-BLEU.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-FICAM-VERT" geo="LOGO-FICAM-VERT.stl" clrr="0.48627451" clrg="0.98823529" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-MASTERCAM-BLANC-CAPOT" geo="LOGO-MASTERCAM-BLANC-CAPOT.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-MASTERCAM-GRIS-CAPOT" geo="LOGO-MASTERCAM-NOIR-GRIS.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-MASTERCAM-NOIR-CAPOT" geo="LOGO-MASTERCAM-NOIR-CAPOT.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_LOGO-MASTERCAM-ROUGE-CAPOT" geo="LOGO-MASTERCAM-ROUGE-CAPOT.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="Pièce,Montage" group2="tool,Nez_de_broche" />
+</machine_definition>

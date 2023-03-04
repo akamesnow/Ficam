@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MtMiscOpMgr>
+	<Version>4</Version>
+	<MtMiscOpList>
+		<MtTailstockArray>
+			<StrategyName>Load center, advance, and engage tailstock</StrategyName>
+			<StrategyComment>Load center and advance tailstock to engage part</StrategyComment>
+			<m_tpGroupName>Load Center - Advance and  Engage Tailstock</m_tpGroupName>
+			<MtTailstockPrm>
+				<m_comment>Load center</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>0</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.00254</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTurretParkPrm>
+				<m_comment>Upper reference return</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>1</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>E359D319-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTailstockPrm>
+				<m_comment>Move tailstock to stock clearance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>6</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Advance tailstock and engage part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>3</m_ActionType>
+				<m_IsMotionRapid>0</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>250</Metric>
+					<Inch>10</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+		<MtTailstockArray>
+			<StrategyName>Advance and engage tailstock</StrategyName>
+			<StrategyComment>Advance tailstock to engage part</StrategyComment>
+			<m_tpGroupName>Advance and Engage Tailstock</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Upper reference return</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>1</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>E359D319-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTailstockPrm>
+				<m_comment>Move tailstock to stock clearance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>6</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Advance tailstock and engage part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>3</m_ActionType>
+				<m_IsMotionRapid>0</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>250</Metric>
+					<Inch>10</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+		<MtTailstockArray>
+			<StrategyName>Retract tailstock to home</StrategyName>
+			<StrategyComment>Retract tailstock to home</StrategyComment>
+			<m_tpGroupName>Retract tailstock to home</m_tpGroupName>
+			<MtTailstockPrm>
+				<m_comment>Retract tailstock to home</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>2</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+	</MtMiscOpList>
+</MtMiscOpMgr>
