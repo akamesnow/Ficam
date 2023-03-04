@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="A vs C1" name="A vs C1" group1="a axis m1,default 6in_chuck_right0,right spindle base,right spindle c2 axis,workpiece2_adapter" group2="default 6in_chuck_left0,left spindle c1 axis,workpiece_adapter" />
+    <collcheck id="A vs Z1" name="A vs Z1" group1="a axis m1,default 6in_chuck_right0,right spindle base,right spindle c2 axis,workpiece2_adapter" group2="a axis,b axis,b axis m1,b axis m2,tool spindle0,x1 axis,y1 axis" />
+    <collcheck id="A vs Z2" name="A vs Z2" group1="a axis m1,default 6in_chuck_right0,right spindle base,right spindle c2 axis,workpiece2_adapter" group2="lower turret m2,lower turret0,x2 axis,z2 axis" />
+    <collcheck id="C1 vs Z1" name="C1 vs Z1" group1="default 6in_chuck_left0,left spindle c1 axis,workpiece_adapter" group2="a axis,b axis,b axis m1,b axis m2,tool spindle0,x1 axis,y1 axis" />
+    <collcheck id="C1 vs Z2" name="C1 vs Z2" group1="default 6in_chuck_left0,left spindle c1 axis,workpiece_adapter" group2="lower turret m2,lower turret0,x2 axis,z2 axis" />
+    <collcheck id="Machine housing vs Z1" name="Machine housing vs Z1" group1="left spindle base,mandrin bg,mandrin gauche" group2="a axis,b axis,b axis m1,b axis m2,tool spindle0,x1 axis,y1 axis" />
+    <collcheck id="Machine housing vs Z2" name="Machine housing vs Z2" group1="left spindle base,mandrin bg,mandrin gauche" group2="lower turret m2,lower turret0,x2 axis,z2 axis" />
+    <collcheck id="Z1 vs Z2" name="Z1 vs Z2" group1="a axis,b axis,b axis m1,b axis m2,tool spindle0,x1 axis,y1 axis" group2="lower turret m2,lower turret0,x2 axis,z2 axis" />
+</machine_definition>

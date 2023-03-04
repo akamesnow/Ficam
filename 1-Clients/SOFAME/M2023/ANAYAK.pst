@@ -1,0 +1,889 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V25.00 P0 E1 W25.00 T1662967909 M25.00 I0 O0
+# ----------------------------------------
+# -   Post pro fraisage 3 axes standard  -
+# -   Version 3.0 SOUS PROG EN Z         -
+# ----------------------------------------
+#        MASTERCAM BY FICAM
+# ----------------------------------------
+# - Pour la société : SOFAME              -
+# - Armoire CN      : HEIDENHAIN 426-430 -
+# - Nom MACHINE     : AMAYAK                  -
+# ----------------------------------------
+[STARTBIN]
+
+# ==========================================================================
+# Numbered post questions for Mastercam --  Used by Mill v9
+# ==========================================================================
+
+# --------------------------------------------------------------------------
+# Rapid Traverse Feedrates  (1538. is NEW for v9)
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 15000.0
+1538. Rapid feedrate (metric)? 15000.0
+
+# --------------------------------------------------------------------------
+# Communications settings (if "Read from Q.80" = 'Y' in product CFG file)
+# --------------------------------------------------------------------------
+80. Communications port number for receive and transmit (1 or 2) ? 1
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 4800
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+
+90. Drive and subdirectory for NC files?
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name?
+
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+
+103. Maximum spindle speed? 15000
+107. Average time for tool change (seconds)? 10.0
+
+
+# --------------------------------------------------------------------------
+# Enable/Disable setting for Toolpath Paramter dialog screen buttons
+# --------------------------------------------------------------------------
+161. Enable Home Position button? N
+162. Enable Reference Point button? N
+163. Enable Misc. Values button? Y
+164. Enable Rotary Axis button? N
+165. Enable Tool Plane button? Y
+166. Enable Construction Plane button? Y
+167. Enable Tool Display button? y
+168. Check tplane during automatic work origin creation? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. Default miscellaneous real variable 1 (mr1)? 0.0
+202. Default miscellaneous real variable 2 (mr2)? 0.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. Default miscellaneous real variable 8 (mr8)? 0.0
+209. Default miscellaneous real variable 9 (mr9)? 0.0
+210. Default miscellaneous real variable 10 (mr10)? 0.0
+
+# Metric Misc. Reals (1601. - 1610.) are NEW for v9
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values (METRIC)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. Miscellaneous integer variable 4 (mi1)? 0
+302. Miscellaneous integer variable 4 (mi2)? 0
+303. Miscellaneous integer variable 4 (mi3)? 0
+304. Miscellaneous integer variable 4 (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. Miscellaneous integer variable 8 (mi8)? 0
+309. Miscellaneous integer variable 9 (mi9)? 0
+310. Miscellaneous integer variable 10 (mi10)? 0
+
+#
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file?
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? Y
+414. Read START/EXIT section? Y
+415. Read SCREEN section? Y
+416. Read FILE NAMES section? Y
+
+# --------------------------------------------------------------------------
+1500. Chook to execute from 'Misc. values' button?
+
+# --------------------------------------------------------------------------
+# Parameter information output configuration switches
+# --------------------------------------------------------------------------
+1501. Insert parameter information in the ascii NCI? y
+1502. Write operation information to binary file (.ops)? n
+
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+
+# These switches (1611. - 1620.) for Misc. Reals are NEW for v9
+# --------------------------------------------------------------------------
+# Enable/Disable Misc. Real entry field switches (v9+)
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+# These switches (1621. - 1630.) for Misc. Integers are NEW for v9
+# --------------------------------------------------------------------------
+# Enable/Disable Misc. Integer entry field switches (v9+)
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+# Post question 1999. is NEW for v9
+# --------------------------------------------------------------------------
+# Do NOT manually change the 'answer' to 1999 !
+1999. Product major version number that post supports? 9
+
+[CTRL_TEXT_XML_BEGIN]  # All post text edits must be made through Control Definition Manager
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MILL|ANAYAK</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>""</text>
+			</misc_1>
+			<misc_2>
+				<text>""</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+		<simple_drill>
+			<description>
+				<text>Percage</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<clearance>
+				<text>Plan de sécurité</text>
+			</clearance>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Percage Profond</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<clearance>
+				<text>Plan de sécurité</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Passe</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<clearance>
+				<text>Plan de sécurité</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>Alésage Indéxé</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de sécurité</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc1>
+		<misc2>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc2>
+		<drill_cycle_9>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>Tempo.</text>
+			</dwell>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>1er Débour.</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>Déb. suivant</text>
+			</subsequent_peck>
+		</drill_cycle_20>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 1</text>
+			</description>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 2</text>
+			</description>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 3</text>
+			</description>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 4</text>
+			</description>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 5</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 6</text>
+			</description>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 7</text>
+			</description>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 8</text>
+			</description>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 9</text>
+			</description>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 10</text>
+			</description>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 11</text>
+			</description>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 12</text>
+			</description>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 13</text>
+			</description>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 14</text>
+			</description>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 15</text>
+			</description>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 16</text>
+			</description>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 17</text>
+			</description>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 18</text>
+			</description>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 19</text>
+			</description>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>Paramètres de cycle spécial 20</text>
+			</description>
+		</drill_cycle_20_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Perçage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Percage Profond</text>
+			</peck_drill>
+			<chip_break>
+				<text>""</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>""</text>
+			</boring_1>
+			<boring_2>
+				<text>Alésage Indéxé</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>canned #8</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>canned #9</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>canned #10</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>canned #11</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>canned #12</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>canned #13</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>canned #14</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>Cycle #16</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>Cycle #17</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>Cycle #18</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>Cycle #19</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>Cycle #20</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+		<canned_text>
+			<canned_text_1>
+				<text>EBAUCHE</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>FINITION</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>REPRISE</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>ZONE 1</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>ZONE 2</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Texte 6</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Texte 7</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Texte 8</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Texte 9</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Texte 10</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
