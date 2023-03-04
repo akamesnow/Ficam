@@ -1,0 +1,1867 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V21.00 P0 E1 W21.00 T1542640787 M21.00 I0 O0
+# ----------------------------------------
+# -   Post pro fraisage 5 axes           -
+# -   Version 9.0                        -
+# ----------------------------------------
+# -     MASTERCAM V9.0 SP1 908  F.I.CAM         -
+# ----------------------------------------
+# - commance le : 15/04/03  Par : Eric Dauvilliers-
+# - Pour la societe : Valantin-
+# - Armoire CN      : ecs           -
+# - Nom MACHINE     : CMS            -
+# - Fichier associe :              -
+# ----------------------------------------
+# - Variable mi2    : sens d'attaque A+ ou A-
+# - Variable mi3    : retournement de tete a plan secu mi2 ou sur place 0 ou 1
+# - Variable mi1    :
+# - Variable mr1    : valeur de recul suivent axes outil pour degagement
+# - Variable mi2    : Coordone Z de retournement
+# - VARIABLE MI10   : flag pour arret programme avant OP
+# - modif le 8 janv 2004 modif pour a toujour negatif et pas d'infersion si sommet pmxsens
+#============================================================================
+# DEV ERIC DAUVILLIERS Ste FICAM 01.64.46.52.41
+#                              |
+# axe C               90       |  axe B                  x
+# vu de dessus                 |  vu de cote             |
+#                180       0   |                  90     |    -90
+#                              |
+#                     270      |                         0
+#============================================================================
+# VARIABLES ANGULAIRE MINI  ET MAXI DES AXES DE ROTATIONs
+#axe A
+mini_a =  44.9
+maxi_a = -224.9
+#axe C
+mini_c = 260.9
+maxi_c = -380.9
+nbt = 1             # nombre de tour possible pour retournement
+zsecu =  800
+valdefmr1 = 20    # valeur de recule quand retournement
+
+#--------------------------------- FORMATS ----------------------------------
+fs  1  1.3
+fs  2  1.3n
+fs  3  1 0n
+fs  4  1 0
+fs  5  1.0n
+fs  6  5 0
+fs  7  1.3n
+fs  8  1.3
+fs  9  1 3t
+fs 10  1.2
+fs 11  1.9
+fs 12  1.2   # format de sorti pour les angles
+
+
+#--------------------------- AFFECTATIONS FORMATS ---------------------------
+fmt  "X" 2 xr$
+fmt  "Y" 2 yr$
+fmt  "Z" 2 zr$
+fmt  "ZR" 2 oldzr
+fmt    2 mr3$
+
+
+fmt  "X" 2 xdep
+fmt  "Y" 2 ydep
+fmt  "Z" 2 zdep
+
+fmt  "X" 1 x$
+fmt  "Y" 1 y$
+fmt  "Z" 1 z$
+
+fmt  "EU" 2 tox$
+fmt  "EV" 2 toy$
+fmt  "EW" 2 toz$
+
+fmt    2 tox4$
+fmt    2 toy4$
+fmt    2 toz4$
+
+fmt  "EU" 2 old_tox4
+fmt  "EV" 2 old_toy4
+fmt  "EW" 2 old_toz4
+
+fmt "<ELT=" 2 elt_outil ">"
+
+
+fmt      12 axeCpos
+fmt      12 axeApos
+fmt      12 difaxecpos
+fmt  "difc" 8 difanglec
+fmt  "difa" 8 difanglea
+fmt      12 naxecpos
+fmt      12 oldreel_axeCpos
+fmt      12 reel_axeCpos
+fmt      12 reel_axea
+fmt      7 mini_a
+fmt      7 maxi_a
+fmt      7 mini_c
+fmt      7 maxi_c
+fmt      7 new_m7
+fmt  "nm8" 7 new_m8
+fmt "m1" 11 m1$
+fmt "m2" 11 m2$
+fmt "m3" 11 m3$
+fmt "m4" 11 m4$
+fmt "m5" 11 m5$
+fmt "m6" 11 m6$
+fmt "m7" 11 m7$
+fmt "m8" 11 m8$
+fmt "m9" 11 m9$
+fmt  "C" 12 axeCpos1
+fmt  "B" 12 axeApos1
+fmt      12 mini_a_reel
+fmt      7 sortie
+fmt  "I" 7 invers    # flag pour memoriser sens de a
+
+
+fmt  "C" 12 axeC
+fmt  "C" 12 axecratrap
+fmt  "B" 12 axeA
+fmt  "C" 12 axeC1
+fmt  "B" 12 axeA1
+
+fmt  "C" 8 minC
+fmt  "C" 8 maxC
+fmt  "NB" 8 nbt
+fmt  "C" 4 cont_axe_c    #compte tour axe c
+fmt  "DC" 8 dep_axe_c     #angle de depart axe c
+fmt  "C" 8 prvaxec
+fmt  "B" 8 prvaxea
+fmt  "DAC" 8 dif_axe_c
+fmt  "ABSD" 8 absdif
+fmt  "DEB" 4 debut
+fmt  "X" 8 old_x
+fmt  "Y" 8 old_y
+fmt  "Z" 8 old_z
+fmt  "VX" 8 old_vx
+fmt  "VY" 8 old_vy
+fmt  "VZ" 8 old_vz
+fmt  "X" 8 xdeg
+fmt  "Y" 8 ydeg
+fmt  "Z" 8 zdeg
+fmt  "OLV" 8 old_longvec
+fmt  "Z" 1 lastz
+
+
+fmt  "X" 2 u$
+fmt  "X" 2 v$
+fmt  "Z" 2 w$
+
+fmt  "U" 2 old_u
+fmt  "V" 2 old_v
+fmt  "W" 2 old_w
+
+fmt  2 Du
+fmt  2 Dv
+fmt  2 Dw
+fmt "D" 2 deltaUVW
+fmt  2 Dx
+fmt  2 Dy
+fmt  2 Dz
+fmt "D" 2 deltaXYZ
+fmt "LV" 2 longvec
+fmt "DT" 1 debutool
+fmt  "Vx" 2 Vx
+fmt  "Vy" 2 Vy
+fmt  "Vz" 2 Vz
+
+fmt  "X" 1 xcor
+fmt  "Y" 1 ycor
+fmt  "Z" 1 zcor
+
+fmt  "EC" 7 old_axeCpos
+fmt  "EA" 7 old_axeApos
+fmt      7 comptour
+fmt  "D" 1 deja
+
+fmt  "I" 2 i$
+fmt  "J" 2 j$
+fmt  "K" 2 k$
+fmt  "R" 2 arcrad$
+fmt  "F" 4 fr$
+fmt  "F" 10 fr5axe
+fmt  "F" 10 frbase
+fmt  "K" 2 pas
+fmt  "S" 3 ss$
+fmt  "S" 3 old_ss
+fmt  "L" 2 lubrif
+fmt  "L" 2 coolant$
+fmt  "N" 4 n$
+fmt     3 opcode$
+fmt  "G" 4 gcode$
+fmt  "%N"  5 progno$
+# fmt     3 spdlon
+fmt  "T" 3 t$
+fmt  "T" 3 next_tool$
+fmt  "D" 3 tloffno$
+fmt  "h" 4 tlngno$
+fmt  "G" 3 cc$
+fmt  "DIAM:"   2 tldia$
+fmt  "RAYON COIN:" 2 tcr$
+fmt  "OP" 3 op_id$
+fmt  "LOP" 3 lastopid
+fmt  "M" 3 lstation$
+fmt  "M" 3 oldstation
+fmt  "N" 2 nplus
+
+fmt  "Z" 1 depth$
+fmt  "R" 1 refht$
+fmt  "R" 1 initht$
+fmt  "Z" 1 zinitht
+fmt  "EF" 2 dwell$
+fmt  "J" 2 peckclr$
+fmt  "K" 2 peck1$
+fmt  "I" 2 peck2$
+fmt  "DR" 3 drill5axes
+fmt  "F" 3 frplunge$
+fmt     2 typcycle
+fmt     3 mi1$
+fmt     3 mi4$
+fmt     3 old_mi1
+fmt  "G" 3 mi2$
+fmt  "P" 2 passe
+fmt  "LT" 1 station_tool
+fmt  "Z" 2 mr1$
+fmt  "Z" 2 mr2$
+fmt     9 mr4$
+fmt  "Z" 2 prvmr2
+fmt     9 mr8$
+fmt     9 mr9$
+fmt     9 mr10$
+fmt  "OP" 3 operation
+fmt  "Z" 8 zdeg2
+fmt  "TR" 4 trplus
+fmt  "LUB" 1 lub
+fmt  "PPR" 1 ppr
+fmt  "X" 1 x1
+fmt  "Y" 1 y1
+fmt  "Y" 1 y2
+fmt  "Z" 1 z1
+fmt  "aCAl" 1 axeacal
+fmt  "CCAl" 1 axeccal
+fmt  "Pl" 2 plinc5a
+fmt  "XV" 2 vieuxx
+fmt  "YV" 2 vieuxy
+fmt  "ZV" 2 vieuxz
+fmt  "dx" 2 deltax
+fmt  "dy" 2 deltay
+fmt  "dz" 2 deltaz
+fmt  "E" 3 e53
+fmt     3 e40
+fmt     1 vale53
+fmt  "P" 2 pasmi7
+fmt  "P" 2 pasn
+fmt  "op" 1 prvop_id
+fmt  "ANG" 2 move_ang3$
+fmt  "Table" 3 table
+fmt  "OPERATION " 1 contop
+fmt  "Z" 1 dectcp
+fmt  "G" 6 grtcp
+fmt  "M" 6 mrtcp
+fmt  "S" 6 prvss
+fmt  "Z" 2 zsecu
+fmt  "" 2 elt
+fmt  "vecteur" 2 droit
+fmt  "oldvecteur" 2 olddroit
+fmt "" 5 nbpiece
+
+
+fmt   5 paramH1   # info sur geometrie outil 
+fmt   5 paramH2 
+fmt   5 paramH3   # sortie outil dans porte outil 
+fmt   5 paramH4 
+fmt   5 paramH5 
+fmt   5 paramH6 
+fmt   5 paramH7 
+fmt   5 paramH8 
+fmt   5 paramH9 
+fmt   5 paramH10 
+fmt   5 paramH11 
+fmt   5 paramH12 
+fmt   5 paramH13
+#---------------------------------------------------------------------------
+
+fq 10 axeApos "ATTENTION ANGLE SUR AXE A HORS COURSE (mini //mini_a//  maxi //maxi_a// ) ANGLE DEMANDE //axeApos// MODIFIER ?"
+
+fq 11 axeCpos "ATTENTION ANGLE SUR AXE C HORS COURSE OPERATION //op_id$// ENLEVER UN TOUR SUR C"
+
+fmt  8 vectdeg
+fq   2 vectdeg "limite angle atteind! Longeur du vecteur de recul"
+
+snomprog : ""
+fq 3 snomprog "Nom de programmeur ?"
+
+fq 4 trplus "Ajout d'un tour au demarrage sur C ? +1 = +1 tour- -1 = -1 tour"
+
+fmt "hops" 4 HOPS
+fq 5 axeC "L'angle sort des limites machine! verifiez +1 pour -1 ou -1 pour +1"
+
+smesage : ""
+fq 15 smesage "Commentaire operateur pour arret machine programe?"
+
+
+fq 6 zsecu "Plan de securité pour deplacement entre usinage"
+
+snamepiece : ""
+fq 7 snamepiece "NOM DE LA PIECE"
+
+fq 8 elt "USINAGE AVEC FRAISE SCIE! ENTREZ VALEUR DE SORTIE ELT"
+
+
+fq 1 nbpiece "NOMBRE DE PIECE PAR CYCLE"
+
+#---------------------------------------------------------------------------
+omitround : 1
+subprg$    : yes$
+mergesub$  : 0
+getnextop$ : 1
+mill      : 1
+spaces$    : 1
+# no$        : 0
+progno$    : 100
+seqmax$    : 32000
+omitseq$   : no$
+frrapid   : 300
+frmax     : 300
+ssmax     : 34000
+breakarcs$ : 2      #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+linarc$    : 1
+vtol$      = 0.05
+arctype$   : 1      # Arc center 1=abs, 2=inc, 3=st-cen, 4=unsigned inc.
+do_full_arc$ : 0     #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 2     #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+ncldr$     : 20     # No. of leader characters
+ldrcode$   : 65     # Leader character dec. equiv.
+bldnxtool$ : yes$     # Build next tool table
+tooltable$ : yes$
+opcode$    : 1
+nobrk$     : yes$     # Omit breakup of rapid linear motion? yes/no(xy,z or z,xy)
+x$         : 9999
+y$         : 9999
+z$         : 9999
+i$         : 0
+j$         : 0
+k$         : 0
+gcode$     :  -1
+strtool_v7$ : 1
+rotaxtyp$   : 4
+nbr_cht    : 0
+gfr        : 1
+sextnc$      : ""
+drill5axes  : 0
+operation   : 0
+planinc     : 0
+dessus      : 0
+contop      : 0
+elt         : 46
+soldcomm    : ""
+sblanck     : ""
+
+#---------------------------------------------------------------------
+usecandrill$ : yes$
+usecanpeck$  : yes$
+usecanchip$  : yes$
+usecantap$   : no$
+usecanbore1$ : yes$
+usecanbore2$ : no$
+usecanmisc1$ : yes$
+usecanmisc2$ : no$
+#----------------------------------------------------------------------
+fastmode$  : 1
+
+bug1$   : 5         # 1 = Output post to screen - 2 = output leader to screen
+bug2$   : 40        # Add postline label to each line at column 'bug2'
+
+bug4$   : 60        # Add nci no
+whatno$ : yes$       # Ignore whatline branches to plin1 etc.?
+linktolvar$ : 1  #Associer les variables de tolerance X aux variables V9-
+linkplnvar$ : 1  #Associer les variables specifiques plan X aux variables V9-?
+linklvar$  : 1  #Associer les variables specifiques X Tournage aux variables V9-
+cant_tlchng$ : 1  #Ignorer entree de texte programme au changement avec tlchng_aft?
+newglobal$  : 0  #Activer la verification d'erreur pour les variables globales?
+#----------------------------------------------------------------------------
+
+sm93    : "G93"
+sm94 : ""
+sgfr : ""
+
+fstrsel  sm93 gfr sgfr 2 -1
+
+sg00    : "G0"
+sg01    : "G1"
+sg02    : "G2"
+sg03    : "G3"
+sg04    : "G1"
+sgcode : ""
+
+fstrsel  sg00 gcode$ sgcode 5 -1
+
+
+spl00    : "G17"
+spl01    : "G19"
+spl02    : "G18"
+spl03 : ""
+splcode : ""
+
+fstrsel  spl00 plane$ splcode 4 -1
+
+
+
+sm04          : "M04"  # Spindle reverse - no coolant       "M04"
+sm05          : "M05"  # Spindle off     - no coolant       "M05"
+sm03          : "M24"  # Spindle forward - no coolant       "M03"
+sm14          : "M14"
+sm15          : "M15"
+sm16          : "M24"
+sm17          : "M14"
+sm18          : "M15"
+sm19          : "M24"
+
+spdlon : ""          # Target Spindle-on M-string
+
+spdlsel   =  fsg3(ss$) + coolant$ * 3
+fstrsel  sm04 spdlsel spdlon 9 -1
+
+
+sop00   : "NUL"
+sop01   : "CONTOUR"  #2D
+sop02   : "CONTOUR"  #3D
+sop03   : "PERCAGE"
+sop04   : "POCHE"
+sop05   : "REVOLUTION"
+sop06   : "COURBE"  #2D
+sop07   : "COURBE"  #3D
+sop08   : "REVOLUTION"
+sop09   : "DEPOUILLE"
+sop10   : "FORME"
+sop11   : "FORME"
+sop12   : "FORME"
+sop13   : "FINITION"  #3D
+sop14   : "EBAUCHE"  #3D
+sop15   : "POINT"
+sop16   : "PERCAGE"  #5 AXES
+sop17   : "COURBE"  #5 AXES
+sop18   : "REGLE"  #5 AXES
+sop19   : "FACE"
+sopcode : ""
+
+fstrsel  sop00 opcode$ sopcode 20 -1
+
+#----------- ZONE D'ecriture du 5 axes positionner------------
+
+prot1      # Calcul des angles pour plan incline
+        @mini_a, @maxi_a, @mini_c, @maxi_c, @nbt     # mise a jour des butees machine ecrit au debut pst
+
+                axeCpos = (atan2(m1$,-m2$))* -1
+
+            #CALCUL AXE C
+                reel_axeCpos = axeCpos
+            new_m8 = m8$ * cos(axeCpos) - m7$ * sin(axeCpos)   #l'axe C tourne entrainant l'axe a donc calcule du nouveau m8
+            axeApos= acos(m9$) *  -1                  #calcul axe A
+            if axeApos > 270, axeApos = axeApos - 360        #ajustement sur quadran 270 - 0 pour ligne suivante
+            #axeApos = (axeApos - 90)                        #retire 90 deg car 0 pour cette machine = - 90
+
+        !axeApos, !new_m8, !axeCpos          #actualise les variable
+        #if axeApos > maxi_a | axeApos < mini_a, q10 # verif si plan possible
+
+
+                axeCpos1 = axeCpos
+                axeApos1 = axeApos
+
+            !axeApos1,!axeCpos1
+        if axeCpos = 0 & axeApos = 0, dessus = 1 # flag d'usinage plan dessus ou 3d
+        else, dessus = 0
+        #"voir",*dessus,e
+        if t$ = 3, axeApos1 = axeApos -90
+            if t$ = 1, axeApos1 = axeApos-270
+            if t$ = 2, axeApos1 = axeApos-180
+
+            #*axeApos1, e
+
+
+planincon   # activation plan incline
+
+        spaces$ = 0
+
+
+        spaces$ = 1
+        planinc = 1
+
+planincval   # ecriture des mouvements xyzCB
+        #n, *sgcode, *x1,*y2,axeCpos1, axeApos1, e
+
+
+planincoff  # desactivation plan incline
+
+        planinc = 0
+
+
+
+
+#------------------ 5 axex continue-------------------
+pfr3t     # fraise 3 taille
+          q8
+          n$, "<ELT=",*elt, ">", e$
+
+prtcpon    # activation  du RTCP
+
+prtcpoff    # annulation du RTCP
+
+        if axeC <> 0 | axeA <> 0 | axeCpos1 <> 1 | axeApos1 <> 0,
+             [
+             n$,"G700",e$
+             cont_axe_c = 0
+            ]
+
+pmxinvd   # calcul des axes C et A a droite
+           Vx = u$ - x$
+           Vy = y$ - v$
+           Vz = w$ - z$
+           #"voirvxvyvz",vx,vy,vz
+       @Vx,@Vy,@Vz
+       longvec=sqrt(Vx * Vx + Vy * Vy + Vz * Vz)
+       if Vx = 0 & Vy = 0, axeC = prvaxec
+       else, axeC = atan2(Vx,Vy)
+           if Vx = 0 & Vy = 0, droit = 1
+       else, droit = 0
+
+       #"voir C=",*axec
+
+           if abs(axeC) > 359.999, axeC = 0
+
+           reel_axeCpos = axeC
+           axeA = acos(Vz / longvec)
+       reel_axea = axeC
+           invers = 0
+           deja = 1
+              if t$ = 3, axeA = axeA - 90
+          if t$ = 1, axeA = axeA - 270
+          if t$ = 2, axeA = axeA - 180
+        #"voir",*axea
+
+pmxinvg   # calcul des axes C et A a gauche
+           Vx = x$ - u$
+           Vy = v$ - y$
+           Vz = w$ - z$
+          # "voirvxvyvz",vx,vy,vz
+           @Vx,@Vy,@Vz
+       longvec=sqrt(Vx * Vx + Vy * Vy + Vz * Vz)
+       if Vx = 0 & Vy = 0, axeC = prvaxec
+       else, axeC = atan2(Vx,Vy)
+       if Vx = 0 & Vy = 0, droit = 1
+       else, droit = 0
+
+       #       "voir C=",*axec
+           if abs(axeC) > 359.999, axeC = 0
+
+       reel_axeCpos = axeC
+           axeA = acos(Vz / longvec) *  -1
+       reel_axea = axeC
+           invers = 1
+           deja = 1
+              if t$ = 3, axeA = axeA - 90
+          if t$ = 1, axeA = axeA - 270
+          if t$ = 2, axeA = axeA - 180
+          #"voir",*axea
+
+
+#----------------------------- POSTLINES -----------------------------------
+
+
+savcom : ""
+
+
+pcomment$
+           scomm$ = ucase (scomm$)
+           soldcomm = scomm$
+           #if debut = 0, ex$
+           # n$,"{ DEBUT DE DETOURAGE ", scomm$,"}",e$
+
+
+
+pfr        # avance
+           if fr$ >= 0, fr$
+
+
+pfr5axe  # avance en G93
+           if fr5axe >= 0, *fr5axe
+
+
+
+pdmodalxyz   # demodalise temporairement xyz
+            vieuxx = x$
+        vieuxy = y$
+        vieuxz = z$
+        @vieuxx, @vieuxy, @vieuxz
+        x$ = 999999
+        y$ = 999999
+        z$ = 999999
+        !x$,!y$,!z$
+        x$ = vieuxx
+        y$ = vieuxy
+        z$ = vieuxz
+         @x$,@y$,@z$
+pessaicompteur
+
+            difaxecpos = axeCpos - oldreel_axeCpos
+
+
+
+        if difaxecpos <  -180,comptour = comptour + 360
+        if difaxecpos > 180,  comptour = comptour - 360
+
+        naxecpos = axeCpos + comptour
+
+        @maxi_c,@mini_c
+        if naxecpos < mini_c, comptour = comptour + 360
+        if naxecpos > maxi_c, comptour = comptour - 360
+
+        axeCpos = axeCpos + comptour
+
+
+
+
+prot0$
+prot$
+
+
+
+pmiscparam$
+           !tox$, !toy$, !toz$
+
+
+
+pcalxyz3d       #calcul de x y z dans la repere origine piece 3 d
+        # "xryrzr",*xr,*yr,*zr, e
+        axeacal = (90 - axeApos)
+        axeccal = axeCpos + 270
+        y1 =   zr$ * cos(axeacal) - yr$ * sin(axeacal)
+        z1 =   zr$ * sin(axeacal) + yr$ * cos(axeacal)
+
+        x1 =  y1 * cos(axeccal) - xr$ * sin(axeccal)
+        y2 =  y1 * sin(axeccal) + xr$ * cos(axeccal )
+
+
+
+        #"X1",*x1,"Y1",*y1,"Y2",y2,"Z1",*z1,e
+
+        x1 = x1 + tox4$
+        y2 = y2 + toy4$
+        z1 = z1 + toz4$
+
+
+prot2      # Affichage des angles pour changement d'outil
+        gcode$ = 0
+       if axeCpos1 <> 0 | axeApos1 <> 0,
+    [
+       n$,"G90",*gcode$,xr$,yr$,*axeCpos1,*axeApos1,e$
+       n$," ",e$
+	   elt_outil = paramH3 
+       if tool_typ$ <> 14, n$, elt_outil,e$
+       if tool_typ$ = 14, pfr3t
+       n$," ",e$
+           n$,zsecu,e$
+       n$," ",e$
+    ]
+            if axeCpos1 <> 0 | axeApos1 <> 0,plinc5a = 1 # Flag pour plan incline actif
+            else, plinc5a = 0
+           if z$ = 9999, z$ = zr$
+           old_tox4 = tox4$    #memorisation pour affichage si changement dans ptlchg ou ptlchg 0
+           old_toy4 = toy4$
+           old_toz4 = toz4$
+       old_axeCpos = axeCpos1
+           old_axeApos = axeApos1
+           oldreel_axeCpos = reel_axeCpos
+
+prot32      # Affichage des angles pour changement d'outil nul
+            gcode$ = 0
+            if axeCpos1 <> 0 | axeApos1 <> 0,
+                                            [
+                                            n$,zsecu,e$
+                                            n$," ",e$
+                                            n$,*gcode$,xr$,yr$,*axeCpos1,*axeApos1,e$
+                                            n$," ",e$
+                                            ]
+            if axeCpos1 <> 0 | axeApos1 <> 0,plinc5a = 1 # Flag pour plan incline actif
+            else, plinc5a = 0
+            if z$ = 9999, z$ = zr$
+            old_tox4 = tox4$    #memorisation pour affichage si changement dans ptlchg ou ptlchg 0
+            old_toy4 = toy4$
+            old_toz4 = toz4$
+            old_axeCpos = axeCpos1
+            old_axeApos = axeApos1
+            oldreel_axeCpos = reel_axeCpos
+
+prot3  # test si biento 5 axes cont
+        if nextop$ <> 11,prot32
+
+premx     # remonte pour transition entre usinage 5 axes continue
+         gcode$ = 0
+         if mr2$ = 0, mr2$ = zsecu
+
+         if mr2$ <>  -1,n$, *sgcode, mr2$,e$
+
+         axeCpos = 0
+         axeApos = 0
+         
+         #if zr > mr2, n, *sgcode, *zr,e #, n, *xr, *yr
+         #     else,  n, *sgcode, *xr, *yr,e
+             #n, zr
+
+
+            old_x=xr$
+            old_y=yr$
+            old_z=zr$
+
+
+
+pcord      # Compensation rayon outil
+           if cc$ = 41, cc$
+           if cc$ = 42, cc$
+           if cc$ = 140, "G40"
+
+plubrifon
+           lubrif = coolant$
+
+
+
+
+plubrifoff
+
+
+#---------------------------------------------------------------------------
+
+
+pheader$     # Entete
+        if progno$ = 0, progno$ = 8999
+        ppr = mi5$
+        !ppr
+            table = mi1$
+               @gfr
+        @zsecu
+        @valdefmr1
+
+
+
+
+psof0$       # Debut si pas d'outil
+            psof$
+
+psof$        # Debut si outil
+               contop = 0
+               gcode$ = 0
+
+               rd_tlpathgrp$ # Lecture des param dans pmachineinfo$
+
+                q6,
+                q3
+               # q7,
+               # q1
+               sgroupusinage = ucase (sgroupusinage)
+               snamepiece = ucase (snamepiece)
+               sgroupmachine = ucase (sgroupmachine)
+               snomprog = ucase (snomprog)
+
+               spaces$ = 0
+                  n$," { ", sgroupusinage," }",e$
+                      n$," ",e$
+                      n$," { ",sgroupmachine," }",e$
+                      n$," ",e$
+                      n$, " ( TPS DE CYCLE 1 PCE = /100eme)", e$
+
+                      # if nbpiece = 1, n$, " ( TPS DE CYCLE ", nbpiece, " PCE = /100eme)", e$
+                      # else, n$, " ( TPS DE CYCLE ",nbpiece," PCES = /100eme)", e$
+
+                      n$," ",e$
+                      n$," { DERNIERE REVISION LE : ","}", e$
+               spaces$ = 1
+               n$," ",e$
+               if snomprog = sblanck, n$,"{ PROG DU ",date$," a ", time$,"}",e$
+               else, n$,"{",snomprog," LE ",date$," a ", time$,"}",e$
+               n$," ",e$
+               n$, "G53 G0 Z0",e$
+               n$," ",e$
+
+               if ss$ = 0 , ss$ = 23000
+               n$, t$ , "M06", 
+			   n$,  ss$,e$
+               n$," ",e$
+               n$, "M52",e$
+               n$," ",e$
+               n$, "M50",e$
+                prvss = ss$
+               prvop_id = op_id$
+               n$," ",e$
+               old_ss = ss$
+               plubrifon
+               if mi2$ >= 0, invers = 1
+               if mi2$ < 0, invers = 0
+
+               if opcode$ = 16, drill5axes = 1
+               if opcode$ = 16, ex$
+               prot1
+
+               if mr2$ = 0, mr2$ = zsecu
+               prvmr2 = mr2$
+               if nextop$ <> 11,prot2
+       old_x=xr$
+           old_y=yr$
+           old_z=zr$
+       frbase = fr$
+       if mr5$ <= 0, mr5$ = 0.001
+
+pdebutool   # enclenchement rtcp on vient de pmx
+          n$, "G90",*sgcode, *x$, *y$, *axeC, *axeA,e$
+          n$," ",e$
+          elt_outil = paramH3 
+          if tool_typ$ <> 14, n$, elt_outil,e$
+          if tool_typ$ = 14, pfr3t
+          n$," ",e$
+          n$, *x$, *y$, *zsecu, *axeC, *axeA,e$
+          debutool = 1
+
+plansecu3     # retour en z si changement d'op
+       		if mr2$ < zr$, mr2$ = zr$
+       if mi3$ = 0 & mr2$ <>  -1,n$, *sgcode, *mr2$ ,e$
+           if mi3$ <> 0 & mr2$ <>  -1,n$, sgcode,zr$
+
+
+plansecu2    # retour au plan de retournement
+       if op_id$ <> prvop_id, plansecu3
+
+
+
+
+
+plansecu    # voir si pas deja passer dans premx
+            pcalxyz3d
+
+    #   if operation = 0 | mr2 > zr,  plansecu2 #  MODIFIER LE 30 SEP 02 POUR PP 37
+        if (operation = 0 &  plinc5a = 1) | prvop_id <> op_id$,  plansecu3
+
+ptlchg0$     # Changement outil nul
+              !mi1$
+          # if op_id$ = prvop_id, mi1$ = 0
+              n$,"{FIN DE DETOURAGE",soldcomm,"}",e$
+              n$," ",e$
+              gcode$ = 0
+              if op_id$ <> prvop_id, n$, sgcode, *zsecu, e$
+              frbase = fr$
+              fr$ = 0
+              !fr$
+              pdmodalxyz
+              if mr2$ = 0, mr2$ = zsecu
+              gcode$ = 0
+              if lubrif <> coolant$,plubrifon
+              if drill5axes = 1,planincoff
+              if ((drill5axes = 1)|(opcode$ = 3)) & mr2$ <>  -1,n$ , *sgcode, mr2$,e$ # modif du 30/9/02 pour pp37
+        # if (drill5axes = 1)|(opcode = 3),n , *sgcode, mr2
+        drill5axes = 0
+        typcycle = 0
+        if ss$ = 0 , ss$ = 23000
+        if ss$ <> old_ss, n$, ss$, e$,n$," ",e$
+          
+          prvss = ss$
+          prvop_id = op_id$
+          old_ss = ss$
+          plubrifon
+          prvmr2 = mr2$
+        xcor = 0
+        ycor = 0
+        zcor = 0
+        pasn = 0
+        pasmi7 = 0
+        if mi2$ >= 0, invers = 1
+        if mi2$ < 0, invers = 0
+
+        if operation = 11 & nextop$ = 11 & mr2$ <> zsecu , premx
+
+
+       # if ss <> old_ss , n, *spdlon, *ss
+        old_ss = ss$
+        if  lubrif <> coolant$,plubrifon
+        if opcode$ = 16, drill5axes = 1
+        if opcode$ = 16, ex$
+        prot1
+
+       # *old_axeCpos, *axeCpos, *old_axeApos, *axeApos, *old_tox4,*tox4, *old_toy4,toy4, *old_toz4, *toz4
+        !old_axeCpos, !axeCpos, !old_axeApos, !axeApos, !old_tox4, !old_toy4, !old_toz4, !tox4$, !toy4$, !toz4$
+        if (old_axeCpos <> axeCpos) | (old_axeApos <> axeApos) | (old_tox4 <> tox4$) | (old_toy4 <> toy4$) | (old_toz4 <> toz4$), prot3
+
+            # else ,
+            #      [
+            #      plansecu
+            #      if axec <> 0 | axea <> 0, n,"G0 B0 F9000",e,#n,*cont_axe_c ,e,n,"G92 C0",e
+            #      if axec <> 0 | axea <> 0, cont_axe_c = 0
+            #      if dessus = 1, n,*axeCpos1,*axeApos1,e
+            #      ]
+
+        prvop_id = op_id$
+        # comment
+        debut = 0
+        operation = 0
+        if mr5$ <= 0, mr5$ = 0.001
+        axeC = 0, axeA = 0
+
+
+ptlchg$      # Changement outil
+              # "opcode",*opcode
+              mi1$ = 0
+              n$,"{ FIN DE DETOURAGE ",soldcomm,"}",e$
+              n$, " ",e$
+              gcode$ = 0
+              n$,sgcode, *zsecu,e$
+              n$, " ",e$
+              pdmodalxyz
+              drill5axes = 0
+              debutool = 0
+              gcode$ = 0
+              planincoff
+              #if  mr2 <> -1 & prvmr2 <> -1, n, *sgcode, *prvmr2
+              prtcpoff
+              n$," ",e$
+
+
+
+
+        xcor = 0
+        ycor = 0
+        zcor = 0
+        pasmi7 = 0
+        pasn = 0
+        
+        if ss$ = 0 , ss$ = 23000
+               n$, t$ , "M06", 
+			   n$,  ss$,e$
+          prvss = ss$
+                  prvop_id = op_id$
+            n$," ",e$
+                  old_ss = ss$
+
+            frbase = fr$
+            old_ss = ss$
+        plubrifon
+            if mr2$ = 0, mr2$ = zsecu
+            debut = 0
+        comment$
+            prvop_id = op_id$
+            if mi2$ >= 0, invers = 1
+        if mi2$ < 0, invers = 0
+            if opcode$ = 16, drill5axes = 1
+            if opcode$ = 16, ex$
+            prot1
+            gcode$ = 0
+
+
+        prvmr2 = mr2$
+        pcalxyz3d
+           # if mi3 = 0 & mr2 <> -1, n, *sgcode, *mr2 ,e
+           # else, n, *sgcode,*z1
+            #if xr <> 0 | yr <> 0
+            if nextop$ <> 11, prot2
+
+
+
+            old_x=xr$
+            old_y=yr$
+            old_z=zr$
+
+                operation = 0
+
+
+               if mr5$ <= 0, mr5$ = 0.001
+        debutool = 0
+
+peof0$       # Fin outil nul
+            peof$
+
+
+
+
+
+
+
+peof$        # Fin
+
+        n$,"{ FIN DE DETOURAGE ",soldcomm,"}",e$
+        n$, " ",e$
+            if typcycle = 1, n$, "G80", initht$,e$
+            typcycle = 0
+#           if operation = 11, n,"G94 F9000"
+
+
+        planincoff
+
+        #if prvmr2 <> -1 & mr2 <> -1, n, "G0", *prvmr2
+
+
+        prtcpoff
+        n$, " ",e$
+        n$, "G53 G0 Z0",e$
+        n$, " ",e$
+        n$, "C0 A0",e$
+        n$, " ",e$
+            n$, "M5",e$
+            n$, " ",e$
+            n$, "M51",e$
+        n$, " ",e$
+
+        n$, "<RET>",e$
+
+
+
+
+#----------------------------------------------------------------------------
+prapid$     # Ligne rapide
+           n$, sgcode, x$, y$ , z$,e$
+
+
+pzrapid$    # Ligne Z rapide
+           n$, sgcode, z$,e$
+
+
+plin$       # Ligne travail
+         gfr = 1
+         n$, sgfr,e$
+         if debut = 0,
+         [
+         n$, " " , e$
+             n$,"{ DEBUT DE ", soldcomm,"}", e$
+             ]
+             debut = 1
+           n$, sgcode, pcord, x$, y$, z$, pfr,e$
+
+pz$         # z en avance rapide
+           n$, sgcode, z$,e$
+
+pcir$       # Circulaire
+         gfr = 1
+         n$, sgfr,e$
+         n$, splcode,e$
+            if plane$ = 0, n$, *sgcode, *x$, *y$, z$, arcrad$, pfr,e$
+            if plane$ = 2, n$, *sgcode, *x$, *z$, y$, arcrad$, pfr,e$
+            if plane$ = 1, n$, *sgcode, *y$, *z$, x$, arcrad$, pfr,e$
+
+
+
+
+#-------------------5 axes continue---------------------------------------------------------
+
+pcont     # ajout de plus ou moin 360 sur C
+    #   "cont_axe_c",*cont_axe_c,e
+    #    "dif_axe-c",*dif_axe_c,e
+         if dif_axe_c > 0, cont_axe_c = cont_axe_c - 360    # ajout de 360 deg
+         if dif_axe_c < 0, cont_axe_c = cont_axe_c + 360    # retrait de 360 deg
+         axeC = atan2(Vx,Vy)
+     #    "voir axec pur de pcont",*axec,e
+      #   "voir reel axecpos",*reel_axecpos,e
+         axeC = cont_axe_c + reel_axeCpos               # actualisation de l'angle
+       #  "vour avec ajout cont_axe_c + axeC",*axec,e
+
+pderoul    # retrait de 360 deg sur axeC
+            cont_axe_c = cont_axe_c - (360 * nbt)  # retrait de 360 deg
+            prvaxec = prvaxec - (360 * nbt)        # retrait de 360 deg
+            axeC = atan2(Vx,Vy)
+            # "axec  =", axec, e
+            # "cont_axe_c=", cont_axe_c, e
+            axeC = cont_axe_c + axeC
+            axecratrap = axeC
+            # q2
+            # q3
+            if mr1$ <=0, mr1$ = valdefmr1
+            vectdeg = mr1$
+            zdeg2 = zsecu
+            deltax = u$ - x$
+            deltay = v$ - y$
+            deltaz = w$ - z$
+            #"voir",*deltax,*deltay,*deltaz,*old_longvec , e
+
+            xdeg = (deltax / old_longvec) * vectdeg
+            ydeg = (deltay / old_longvec) * vectdeg
+            zdeg = (deltaz / old_longvec) * vectdeg
+            xdeg = xdeg + old_x
+            ydeg = ydeg + old_y
+            zdeg = zdeg + old_z
+            gcode$ = 0
+            reel_axea = abs( reel_axea )
+            if reel_axea > 0.1 & reel_axea < 359.9,
+                                                  [
+                                                  gfr = 1
+                                                  q11
+                                                  n$,sgcode, *xdeg, *ydeg, *zdeg, e$
+                                                  n$, "{RATRAPAGE D ANGLE}", e$
+                                                  n$," ",e$
+                                                   n$, sgcode, *zdeg2, e$, n$, " ", e$
+                                                  # "voir", *axecratrap, e$
+                                                  # n$,sgcode, *prvaxec ,e$
+                                                  n$,sgcode, *axecratrap, e$
+                                                  n$," ",e$
+                                                  n$,sgcode, *zdeg,e$
+                                                  n$," ",e$
+                                                  gcode$ = 1
+                                                  n$, "{REPRISE DETOURAGE}",e$
+                                                  n$,sgcode,*old_x, *old_y, *old_z, *frbase, e$
+                                                  gfr = 0
+                                                  ]
+            else, n$, *prvaxec, e$
+            gcode$ = 1
+
+penroul    # retrait de 360 deg sur axeC
+            # "voir",*axec,e
+            cont_axe_c = cont_axe_c + (360 * nbt)  # retrait de 360 deg
+            prvaxec = prvaxec + (360 * nbt)    # retrait de 360 deg
+            axeC = atan2(Vx,Vy)
+            axeC = cont_axe_c + axeC
+            axecratrap = axeC
+            # q2
+            # q3
+            if mr1$ <=0, mr1$ = valdefmr1
+            vectdeg = mr1$
+            zdeg2 = mr2$
+            deltax = u$ - x$
+            deltay = v$ - y$
+            deltaz = w$ - z$
+            #"voir",*deltax,*deltay,*deltaz,*old_longvec , e
+
+            xdeg = (deltax / old_longvec) * vectdeg
+            ydeg = (deltay / old_longvec) * vectdeg
+            zdeg = (deltaz / old_longvec) * vectdeg
+            xdeg = xdeg + old_x
+            ydeg = ydeg + old_y
+            zdeg = zdeg + old_z
+            gcode$ = 0
+            gfr = 1
+            reel_axea = abs( reel_axea )
+            if reel_axea > 0.1 & reel_axea < 359.9,
+                                                  [
+                                                  q11
+                                                  n$,sgcode, *xdeg, *ydeg, *zdeg, e$
+                                                  n$, "{RATRAPAGE D ANGLE}", e$
+                                                  n$," ", e$
+                                                  n$,sgcode, *zdeg2, e$, n$, " ", e$
+                                                  # n$,sgcode, *prvaxec , e$
+                                                  n$,sgcode, *axecratrap, e$
+                                                  n$," ", e$
+                                                  n$,sgcode, *zdeg, e$
+                                                  n$," ", e$
+                                                  gcode$ = 1
+                                                  n$, "{REPRISE DETOURAGE}",e$
+                                                  n$,sgcode,*old_x, *old_y, *old_z, *frbase, e$
+                                                  gfr = 0
+                                                  ]
+            else, n$,*prvaxec, e$
+            gcode$ = 1
+
+pdebut2    # retour car angle trop grand ou trop petit
+         q5
+         q4
+          cont_axe_c = 360 * trplus
+                axeC = atan2(Vx,Vy)
+                if abs(axeC) > 359.998, axeC = 0
+        axeC = cont_axe_c + axeC
+
+
+pdebut     # choix pour ajout de + ou - 1 tour au debut
+            #Q4
+            trplus = mi1$
+            !trplus
+            cont_axe_c = 360 * trplus
+            if Vx = 0 & Vy = 0, axeC = prvaxec
+            else, axeC = atan2(Vx,Vy)
+            if abs(axeC) > 359.998, axeC = 0
+            reel_axeCpos = axeC
+
+            # "voir", *cont_axe_c, *axeC, e$
+
+            axeC = cont_axe_c + axeC
+
+            # "voir", *axeC, e$
+
+            @maxi_c,@mini_c
+
+            if axeC > maxi_c, axeC = axeC - 360
+            if axeC < mini_c, axeC = axeC + 360
+
+
+
+
+
+
+
+
+pmxinvgd   # droite ou gauche
+        #"voir",*invers ,e
+        if invers = 0, pmxinvg
+        else, pmxinvd
+
+
+pmxsens    # maintien de axes c quand a passe en negatif
+        #"--------",*old_vx,*vx," et ",*old_vy,*vy  ,e
+        if Vx >=  -0.002& Vx <= 0.002, Vx = 0
+        if Vy >=  -0.002& Vy <= 0.002, Vy = 0
+
+        deja = 0
+        if deja = 0 & old_vx <= 0 & Vx > 0 & old_vy = 0 & Vy = 0 , pmxinvgd
+        if deja = 0 & old_vx >= 0 & Vx < 0 & old_vy = 0 & Vy = 0 , pmxinvgd
+        if deja = 0 & old_vx = 0 & Vx = 0 & old_vy >= 0 & Vy < 0 , pmxinvgd
+        if deja = 0 & old_vx = 0 & Vx = 0 & old_vy <= 0 & Vy > 0 , pmxinvgd
+
+        if deja = 0 & old_vx < 0 & Vx > 0 & old_vy < 0 & Vy > 0 , pmxinvgd
+        if deja = 0 & old_vx > 0 & Vx < 0 & old_vy > 0 & Vy < 0 , pmxinvgd
+        #if deja = 0 & old_vx <= 0 & vx >= 0 & old_vy >= 0 & vy <= 0 , pmxinvgd
+        #if deja = 0 & old_vx >= 0 & vx <= 0 & old_vy <= 0 & vy >= 0 , pmxinvgd
+        deja = 0
+
+
+pvariok   #  ecriture de E5300xx
+
+
+         deltax = u$ - x$
+         deltay = v$ - y$
+             deltaz = w$ - z$
+         #"voir",*deltax,*deltay,*deltaz,*old_longvec , e
+
+         xcor = (deltax / old_longvec) * vale53
+         ycor = (deltay / old_longvec) * vale53
+         zcor = (deltaz / old_longvec) * vale53
+
+
+
+
+
+pvarioutil   # application d'une correction de longeur
+        if mi7$ = 0 | mr6$ = 0, mi6$ = 0
+
+          #"voir","pasmi7=",*pasmi7,"pasn=",*pasn,"val53=",*vale53,e
+
+         if mi7$ = 1,vale53 = (1-cos((2*3.14159)*(pasn/mi6$)*(180/3.14159)))*abs(mr6$)* -0.5
+        # if mi7 = 2,vale53 = COS((INT((SIN((2*3.14159*pasn/mi6)*(180/3.14159))-0,000001)*0,9+1))*3.14159)*(180/3.14159)*((2*mr6*pasn)/(mi6)-2*mr6*iNT((pasn*2/mi6+1)/2)))
+         pvariok
+             pasn = 1 + pasn
+
+
+
+
+
+pmx$        # 5 axes
+
+        #*x$, *y$,*z$,e$
+        if mr5$ <= 0, mr5$ = 0.02
+             if opcode$ = 16, ex$
+         operation = 11
+
+         if fr$ =  -2,gcode$ = 0
+                     else, gcode$ = 1
+
+         gfr = 0
+         if invers = 0, pmxinvd
+         if invers = 1, pmxinvg
+         #"voir dans pmx",*axec,e
+
+            # if debut = 1, pmxsens
+         !maxi_c, !mini_c
+
+
+    # calcul des longeur des vecteurs
+
+           Du = u$ - old_u
+           Dv = v$ - old_v
+           Dw = w$ - old_w
+           deltaUVW = sqrt(Du * Du + Dv * Dv + Dw * Dw)
+
+       Dx = x$ - old_x
+           Dy = y$ - old_y
+           Dz = z$ - old_z
+           deltaXYZ = sqrt(Dx * Dx + Dy * Dy + Dz * Dz)
+
+             if fr$ <= 0, fr$ = frbase
+         if fr$ > 0, frbase = fr$
+         if deltaXYZ < mr5$, deltaXYZ = mr5$
+
+         if deltaXYZ < mr5$ & debut = 1, ex$   # modif du 30/10/02
+
+
+         fr5axe = fr$ / deltaXYZ
+
+
+
+
+            if debut = 0, cont_axe_c = 0
+            if debut = 0, cont_axe_c = 0
+            if debut = 0, prvaxec = axeC
+
+
+
+         axeC = cont_axe_c + axeC       # cumul du compteur avec c
+         dif_axe_c = axeC - prvaxec     # difference entre ancient angle et nouveau
+         absdif = abs(dif_axe_c)
+        # "absdif",*absdif,e
+         if absdif > 180, pcont         # ajout + - 360
+
+
+
+        if axeC > maxi_c & debut = 1, pderoul
+        if axeC < mini_c & debut = 1, penroul
+        if debut = 0,
+                    [
+                    if axeC >= (360 + mini_c), pdebut
+                    if axeC <= (maxi_c - 360), pdebut
+                    gcode$ = 0
+                    if debutool =  0, pdebutool
+                    else, n$, *sgcode, *x$, *y$, *axeC, *axeA,e$
+                    n$, *z$,e$
+                    pasmi7 = 0
+                    pasn = 0
+                    n$, " " , e$
+                    n$,"{ DEBUT DE ", soldcomm,"}",e$
+                    ]
+
+        if deltaXYZ < mr5$ | gcode$ = 0, gfr = 1
+        if deltaXYZ < mr5$ , fr5axe = fr$
+        spaces$ = 0
+
+              if gcode$ = 0 , xcor = 0
+              if gcode$ = 0 , ycor = 0
+              if gcode$ = 0 , zcor = 0
+              if gcode$ = 0 , pasn = 0
+              if gcode$ = 0 , pasmi7 = 0
+        spaces$ = 1
+        if gcode$ = 1 & debut <> 0 & mr6$ <> 0 & mi7$ <> 0, pvarioutil
+          old_x = x$
+          old_y = y$
+          old_z = z$
+         x$ = xcor + x$
+         y$ = ycor + y$
+         z$ = zcor + z$
+        if deltaXYZ = mr5$ & debut = 1, ex$
+
+
+
+      #    memmoriser les valeurs uvwxyzvxvyvzlongvec
+           old_u = u$
+           old_v = v$
+           old_w = w$
+
+           old_vx = Vx
+           old_vy = Vy
+           old_vz = Vz
+       old_longvec = longvec
+       prvaxec = axeC
+       prvaxea = axeA
+        @fr$
+       if fr$ = 0, fr$ = frbase
+        @fr$
+        if debut = 0,
+        [
+        debut = 1
+        #"je me casse", e$
+       #  ex$
+                 ]
+
+        if gcode$ = 1 ,
+        [
+        if droit = 0 & olddroit = 1, n$,sgcode, *axeC,e$
+        n$, sgcode,  x$, y$, z$, axeC, axeA, pfr,e$
+            ]
+        if gcode$ = 0, n$, sgcode, x$, y$, z$, axeC, axeA,e$
+        olddroit = droit
+
+pmx0$    # premier mouv se base
+
+
+
+
+pmx2$     # 1 er mouv 5 axes
+#CNC<<ECHEC>>pmx2$     # 1 er mouv 5 axes
+#CNC<<MSG-ERREUR(1366)>> La variable, bloc PP ou mot clef n'est plus supporte
+           if opcode$ = 16, ex$
+       pmx$
+
+
+
+
+pdrl5   # ecriture 1 er percage en 5 axes
+       gcode$ = 0
+        if invers = 0, pmxinvd
+        if invers = 1, pmxinvg
+        pdebut
+           Vx = u$ - x$
+           Vy = v$ - y$
+
+
+       axeCpos = axeC
+           axeApos = axeA
+           if mi1$ <> 1 & mi1$ <>  -1,pessaicompteur
+
+       axeCpos1 = axeCpos
+           axeApos1 = axeApos
+       !axeApos1,!axeCpos
+       if mr2$ = 0, mr2$ = zsecu
+       prvmr2 = mr2$
+       if mr2$ <>  -1,n$, zsecu ,e$
+
+       gcode$ = 0
+
+       tox4$ = (((Vx/longvec) * abs(depth$)) + x$)
+       toy4$ = (((Vy/longvec) * abs(depth$)) + y$)
+       toz4$ = (((Vz/longvec) * abs(depth$)) + z$)
+
+           x$ = 0
+       y$ = 0
+       zinitht = initht$
+       @initht$
+       @zinitht
+       z$ = refht$
+       planincoff
+           n$, *sgcode, *xr$, *yr$, axeCpos1, axeApos1, e$     #orientationtete
+           planincon
+           n$, *sgcode, *x$, *y$, *zinitht,e$                         # dep au plan garde
+          # n, *z, e
+
+
+           old_tox4 = tox4$    #memorisation pour affichage si changement dans ptlchg ou ptlchg 0
+           old_toy4 = toy4$
+           old_toz4 = toz4$
+       old_axeCpos = axeCpos
+           old_axeApos = axeApos
+           oldreel_axeCpos = reel_axeCpos
+
+            old_x=xr$
+            old_y=yr$
+            old_z=zr$
+         x$ = 0
+         y$ = 0
+
+        oldstation = mi4$
+        frbase = fr$
+
+pdrl5_2   # ecriture percage suivant en 5 axes
+       gcode$ = 0
+             if invers = 0, pmxinvg
+         if invers = 1, pmxinvd
+       pdebut
+          Vx = u$ - x$
+          Vy = v$ - y$
+
+       axeCpos = axeC
+           axeApos = axeA
+
+
+           if mi1$ <> 1 & mi1$ <>  -1,pessaicompteur
+       axeCpos1 = axeCpos
+           axeApos1 = axeApos
+       !axeApos1,!axeCpos
+
+
+           if mr2$ = 0, mr2$ = zsecu
+           prvmr2 = mr2$
+           if mi3$ = 0 & mr2$ <>  -1,
+        [
+                pcalxyz3d
+            planincoff
+            n$, zsecu ,e$
+            n$,*sgcode, *x1,*y2,axeCpos1, axeApos1, e$
+          ]
+       gcode$ = 0
+       tox4$ = ((Vx/longvec) * abs(depth$)) + x$
+       toy4$ = ((Vy/longvec) * abs(depth$)) + y$
+       toz4$ = ((Vz/longvec) * abs(depth$)) + z$
+
+           planincon
+           x$ = 0
+       y$ = 0
+       zinitht = initht$
+       z$ = refht$
+          # n, *sgcode, axeCpos1, axeApos1, e                    #orientation tete
+          # n, *sgcode, *x, *y, *zinitht,e          # dep au plan garde
+           n$, *sgcode, *x$, *y$, *zinitht, axeCpos1, axeApos1, e$                    #orientation tete+ garde
+           #n, *sgcode, *x, *y, *z, e
+
+
+
+           old_tox4 = tox4$    #memorisation pour affichage si changement dans ptlchg ou ptlchg 0
+           old_toy4 = toy4$
+           old_toz4 = toz4$
+       old_axeCpos = axeCpos
+           old_axeApos = axeApos
+           oldreel_axeCpos = reel_axeCpos
+
+            old_x=xr$
+            old_y=yr$
+            old_z=zr$
+
+
+        oldstation = mi4$
+        frbase = fr$
+
+
+
+#----------------------------cycle fixes----------------------------------------------
+pdrill$      # Cycle de percage G81
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G81", *initht$, *refht$, *depth$,   frplunge$,e$
+        n$, *x$, *y$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+ppeck$    # Cycle de debourrage G82
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G82", *initht$, *refht$, *depth$,   frplunge$,e$
+        n$, *x$, *y$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+
+pchpbrk$     # Cycle de brise copeaux G83
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G83", *initht$, *refht$,*depth$, peck2$, peckclr$, peck1$, frplunge$,e$
+        n$, *x$, *y$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+ptap$        # Cycle de taraudage G84
+            typcycle = 1
+
+            if tldia$ = 3, pas = 0.5
+            if tldia$ = 4, pas = 0.7
+            if tldia$ = 5, pas = 0.8
+            if tldia$ = 6, pas = 1
+            if tldia$ = 8, pas = 1.25
+            if tldia$ = 10, pas = 1.5
+            if tldia$ = 12, pas = 1.75
+            if tldia$ = 14, pas = 2
+            if tldia$ = 16, pas = 2
+            if retr$ <> 0, pas = retr$
+
+            n$, "G84", x$, y$, *depth$, *refht$, *initht$, pas,e$
+
+pbore1$      # Cycle d'alesage G85
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G85", *initht$, *refht$, *depth$,   frplunge$,e$
+        n$, *x$, *y$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pbore2$      # alesage indexe G86
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G86", *initht$, *refht$, *depth$,   frplunge$,e$
+        n$, *x$, *y$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pmisc1$      # Cycle d'alesage par points
+            typcycle = 1
+            if drill5axes = 1, pdrl5
+            n$, "G82", x$, y$, *depth$, *refht$, *initht$, frplunge$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pmisc2$      # Canned Misc #2 Cycle
+
+pdrill_2$    # Canned Drill Cycle
+            if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$, "G81", *initht$, *refht$, *depth$,frplunge$,e$,n$, *x$, *y$,e$
+        else, n$, x$, y$, depth$, refht$, initht$,e$
+        if drill5axes = 1, n$, "G80", *zinitht,e$
+
+ppeck_2$     # Canned Peck Drill Cycle
+            if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$, "G82", *initht$, *refht$, *depth$,frplunge$,e$,n$, *x$, *y$,e$
+                          else, n$, x$, y$, depth$, refht$, initht$,e$
+        if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pchpbrk_2$   # Canned Chip Break Cycle
+        if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$, "G83", *initht$, *refht$,*depth$, peck2$, peckclr$, peck1$, frplunge$,e$,n$, *x$, *y$,e$
+                         else, n$, x$, y$, depth$, refht$, initht$,e$
+        if drill5axes = 1, n$, "G80", *zinitht,e$
+
+ptap_2$      # Canned Tap Cycle
+            n$, x$, y$, depth$, refht$, initht$,e$
+
+pbore1_2$    # Canned Bore #1 Cycle
+            if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$,"G85", *initht$, *refht$, *depth$,frplunge$,e$,n$, *x$, *y$,e$
+                         else, n$, x$, y$, depth$, refht$, initht$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pbore2_2$    # Canned Bore #2 Cycle
+        if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$,"G86", *initht$, *refht$, *depth$,frplunge$,e$,n$, *x$, *y$,e$
+                         else, n$, x$, y$, depth$, refht$, initht$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pmisc1_2$    # Canned Misc #1 Cycle
+        if drill5axes = 1, pdrl5_2
+        if drill5axes = 1, n$, "G82", x$, y$, *depth$, *refht$, *initht$, frplunge$,e$
+                         else, n$, x$, y$, depth$, refht$, initht$,e$
+            if drill5axes = 1, n$, "G80", *zinitht,e$
+
+pmisc2_2$    # Canned Misc #2 Cycle
+
+
+pcanceldc$   # Cancel canned drill cycle
+          if typcycle = 1, n$, "G80",e$
+          typcycle = 0
+          pdmodalxyz
+
+pcancelcc$   # Cancel canned drill cycle
+          if typcycle = 1, n$, "G80",e$
+              typcycle = 0
+
+
+
+
+              # Define string variables to hold 'sparameter' string data
+stl_mfg_com : ""       # 'tool mfg comment' from tool
+stl_chuck_com : ""     # 'tool chuck comment' from tool
+sgroupusinage : ""
+sgroupmachine : ""
+
+
+
+pparameter$   # Read in the 20000 series 'additional parameters' from OPS file
+
+             # 20002 = tool definition - 'manufacturer' data
+            if (prmcode$ = 20002), stl_mfg_com = sparameter$ #Save string for output later
+			if prmcode$ = 20007, paramH1 = rpar(sparameter$, 13)
+
+             # 20003 = tool definition - 'chuck name' data
+          if (prmcode$ = 20003),
+            stl_chuck_com = sparameter$ #Save string for output later
+
+          if prmcode$ = 20018, sgroupusinage = sparameter$ #Capture DU PN
+		  
+pwrttparam$  # lecture des parametres d'outils
+
+
+				if prmcode$ = 20007, paramH1 = rpar(sparameter$, 13)		  
+
+pwrtt$       #
+
+            #strtool = ucase(strtool)
+            #if t > 0,";(DIS,",34,*t,*tlngno,tldia,tcr,34,")",e
+            #if t > 0, lastopid = op_id
+
+# --------------------------------------------------------------------------
+# Machine definition and control definition parameter capture:
+# --------------------------------------------------------------------------
+pmachineinfo$   # Machine information parameters postblock
+                 if prmcode$ = 19248, sgroupmachine = sparameter$
+
+
+
+# --------------------------------------------------------------------------
+# Numbered questions for Mastercam --  Used by Mill 7
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 20000.0
+76. Nom du fichier CFG associe? T
+400. Nom du fichier CFG associe? T
+1538. Rapid feedrate (metric)? 10000.0
+
+80. Communications port number for receive and transmit (1 or 2) ? 2
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 9600
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+90. Drive and subdirectory for NC files?
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name?
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+103. Maximum spindle speed? 5000
+107. Average time for tool change (seconds)? 2.0
+
+161. Enable Home Position button? y
+162. Enable Reference Point button? N
+163. Enable Misc. Values button? Y
+164. Enable Rotary Axis button? N
+165. Enable Tool Plane button? N
+166. Enable Construction Plane button? Y
+167. Enable Tool Display button? N
+168. Check tplane during automatic work origin creation? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. valeur de recul en 5 axes cont (mr1)? 20.0
+202. plan de retournement en 5 axes cont (mr2)? 800.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. DECALAGE X                            (mr8)? 0.0
+209. DECALAGE Y                            (mr9)? 0.0
+210. DECALAGE Z                            (mr10)? 0.0
+
+# --------------------------------------------------------------------------
+# Valeurs reelles par defaut (METRIQUE)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Activer/desactiver les commutateurs de variables reelles
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. tour de plus en 5 axes continue 1 ou -1 (mi1)? 0
+302. commance en A- en 5 axes continue (mi2)? 0
+303. Miscellaneous integer variable 4 (mi3)? 0
+304. Miscellaneous integer variable 4 (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. decalage en x (mi8)? 0
+309. decalage en y (mi9)? 0
+310. decalage en z (mi10)? 0
+
+# --------------------------------------------------------------------------
+# Activer/desactiver les commutateurs de variables entiÃ¨res
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file?
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? Y
+414. Read START/EXIT section? Y
+415. Read SCREEN section? Y
+416. Read FILE NAMES section? Y
+
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? n
+1502. Write operation information to binary file (.ops)? n
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+# Do NOT manually change the answer for Q.1999 !
+1999. Product major version number that post supports? 9
+
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MILL|BELLOTTI</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>ajout d'un tour sur C (+1=+360 -1=-360) </text>
+			</misc_1>
+			<misc_2>
+				<text>ommencer avec A pos (-1)</text>
+			</misc_2>
+			<misc_3>
+				<text>Perc. 5X avec retour Ã  Alt (0) sans (1)</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_integers>
+		<misc_reals>
+			<misc_1>
+				<text>Valeur de recul en butte 20mm si 0</text>
+			</misc_1>
+			<misc_2>
+				<text>Alt de retournement (-1 sans)</text>
+			</misc_2>
+			<misc_3>
+				<text>""</text>
+			</misc_3>
+			<misc_4>
+				<text>""</text>
+			</misc_4>
+			<misc_5>
+				<text>""</text>
+			</misc_5>
+			<misc_6>
+				<text>""</text>
+			</misc_6>
+			<misc_7>
+				<text>""</text>
+			</misc_7>
+			<misc_8>
+				<text>""</text>
+			</misc_8>
+			<misc_9>
+				<text>""</text>
+			</misc_9>
+			<misc_10>
+				<text>""</text>
+			</misc_10>
+		</misc_reals>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
