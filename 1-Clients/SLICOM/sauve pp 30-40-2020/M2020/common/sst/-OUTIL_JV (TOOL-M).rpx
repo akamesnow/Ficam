@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ActiveReportsLayout Version="3.2" PrintWidth="16837.8" DocumentName="ActiveReports Document" ScriptLang="C#" MasterReport="0">
+  <StyleSheet>
+    <Style Name="Normal" Value="font-family: Arial; font-style: normal; font-variant: inherit; font-weight: normal; font-size: 10pt; font-size-adjust: inherit; font-stretch: inherit; color: rgb(0,0,0); background-repeat: inherit; background-attachment: inherit; opacity: inherit; word-spacing: inherit; letter-spacing: inherit; text-decoration: none; vertical-align: inherit; text-transform: inherit; text-align: inherit; text-indent: inherit; unicode-bidi: inherit; line-height: inherit; white-space: inherit; ddo-char-set: 0" />
+    <Style Name="Heading1" Value="font-family: inherit; font-style: inherit; font-variant: inherit; font-weight: bold; font-size: 16pt; font-size-adjust: inherit; font-stretch: inherit" />
+    <Style Name="Heading2" Value="font-family: Times New Roman; font-style: italic; font-variant: inherit; font-weight: bold; font-size: 14pt; font-size-adjust: inherit; font-stretch: inherit" />
+    <Style Name="Heading3" Value="font-family: inherit; font-style: inherit; font-variant: inherit; font-weight: bold; font-size: 13pt; font-size-adjust: inherit; font-stretch: inherit" />
+  </StyleSheet>
+  <Sections>
+    <Section Type="Detail" Name="Detail" Height="282.0474" BackColor="16777215" KeepTogether="1">
+      <Control Type="AR.Field" Name="TextBox1" DataField="NUMBER" Left="884.9762" Top="0.0003433228" Width="1020.473" Height="566.9291" Text="NUMBER" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox3" DataField="DIAMETER" Left="8850.331" Top="0.0003433228" Width="1133.858" Height="566.9291" Text="DIAMETER" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox11" DataField="CORNER-RADIUS" Left="9984.189" Top="0.0003433228" Width="1133.858" Height="566.9291" Text="CORNER-RADIUS" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox13" DataField="LENGTH-OFFSET" Left="11146.39" Top="0.0002574921" Width="1133.858" Height="566.9291" Text="LENGTH-OFFSET" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox" DataField="TYPE" Left="1905.449" Top="0.0003433228" Width="1247.244" Height="566.9291" Text="TYPE" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox15" DataField="HOLDER-NAME" Left="6582.614" Top="0" Width="2267.717" Height="566.9294" Text="HOLDER-NAME" CanGrow="0" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox7" DataField="MIN-Z" Left="15114.9" Top="0" Width="850.394" Height="566.9291" Text="MIN-Z" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox4" DataField="FLUTE-LENGTH" Left="13981.04" Top="0.0002574921" Width="1133.859" Height="566.9291" Text="FLUTE-LENGTH" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox5" DataField="OVERALL-LENGTH" Left="12251.91" Top="0.0003004074" Width="1700.787" Height="566.9291" Text="OVERALL-LENGTH" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Shape" Name="Shape1" Left="850.3937" Top="0" Width="15307.09" Height="566.9291" BackColor="16777215" LineWeight="2" RoundingRadius="10" />
+      <Control Type="AR.Line" Name="Line1" X1="1905.448" Y1="0.0002145767" X2="1905.448" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line2" X1="3152.693" Y1="0.0002145767" X2="3152.693" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line3" X1="6582.614" Y1="0" X2="6582.614" Y2="566.929" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line4" X1="8850.332" Y1="0.0002145767" X2="8850.332" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line5" X1="9984.189" Y1="0.0002145767" X2="9984.189" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line6" X1="11118.04" Y1="0.0002145767" X2="11118.04" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line7" X1="12251.9" Y1="0.0002145767" X2="12251.9" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line8" X1="13952.69" Y1="0.0002145767" X2="13952.69" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Line" Name="Line9" X1="15086.55" Y1="0.0002145767" X2="15086.55" Y2="566.9292" LineWeight="2" />
+      <Control Type="AR.Field" Name="TextBox8" DataField="NAME" Left="3152.693" Top="0.0003004074" Width="3429.921" Height="566.9288" Text="NAME" Style="font-family: Arial Narrow; font-size: 9.75pt; font-weight: bold; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Line" Name="Line10" X1="16192.06" Y1="566.9291" X2="16192.06" Y2="566.9291" LineWeight="2" />
+    </Section>
+  </Sections>
+  <ReportComponentTray />
+  <DataSources>
+    <XmlDataSource FileURL="C:\Users\Public\Documents\Shared Mastercam 2020\common\reports\SST\Samples\Mill\SSM-MT.xml" Pattern="//TOOL-M" />
+  </DataSources>
+  <PageSettings LeftMargin="0" RightMargin="0" TopMargin="567" BottomMargin="567" PaperSize="9" PaperWidth="11906" PaperHeight="16838" PaperName="" Orientation="2" />
+  <Parameters />
+</ActiveReportsLayout>

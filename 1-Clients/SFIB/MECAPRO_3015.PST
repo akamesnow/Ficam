@@ -1,0 +1,5912 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V22.00 P0 E1 W22.00 T1562227927 M22.00 I0 O0
+# ---------------------------------------------
+# - Post pro fraisage 4 axes autour de X ou Y -
+# -   Version 4.0  avec SOUS PROG EN Z        -
+# -   en ABSOLUE et INCREMENTAL G90 G91       -
+# -     Arcs uniquement en R ou IJ            -
+# -   Affichage des Surep R et L et 3D        -
+# -   Affichage des type de corections        -
+#----------------------------------------------
+# -       MASTERCAM V9.1 SP2   F.I.CAM          -
+#----------------------------------------------
+# - RÃ©alisÃ© le      : 09/09/16  Par : JV      -
+# - Pour la sociÃ©tÃ© : DAHER SOCATA     -
+# - Armoire CN      : MECANUMERIC      -
+# - Nom MACHINE     : cn 7000 -
+# ---------------------------------------------
+# - Variable mi1  origines Usinage            -
+# ---------------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS           -
+# remplacement de MI1 par mi1 (nÂ°de DÃ©calage) de 54 a 59 (Workof nest pas utilisÃ© pour l'instant)
+# ecriture des parametres dans NCI et du fichier OPS (pour lire les infos de surep)
+# creation des bloc pour afficher les surep
+# creation de l'affichage des types de correction
+# gestion du pmx en 4 axes
+# ---------------------------------------------
+#---------------------------------------------------------------------------------------------------------
+#            REGLAGES DU PST
+#
+
+sextnc$      : "prg"   # extension des fichier nc
+inc_degage  : 0     # degagement machine  1 en INCREMENTAL (G91) ou 0 en ABSOLUE (G90)
+sdegageZ    : ""      # Degagement en Z pour appel outil et changement de position 4eme axe
+sdegageY    : ""      # Degagement en Y pour appel outil
+sdegageX    : ""  # Degagement en X pour appel outil et changement de position 4eme axe
+
+
+info_corr   : 0     # afficher le type de correction
+info_surep  : 0     # afficher les surepaisseurs xy et z
+info_outil  : 1     # afficher les info sur l'outil
+
+use_progno  : 0     # Ecrire le NC sous forme O0123.nc  = 1 ou TOTO.NC = 0
+entete      : 1     # Poser les question pour l'entete
+tooltable$  : 1     # creation liste outil en entete
+useaxe      : 0     # utiliser l'axe A 1=oui 0=non
+sens        : 1     # pour inverser les calcul de laxe A -1
+diviseur    : 1     # diviseur tourne autour de X=1 autour de Y=2
+bloque      : 0     # :0 pour ecrire M10 M11 (blocage diviseur)    =0 pour ne pas ecrire M10 M11
+
+breakarcs$  : 2      #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+arctype$     : 2 # 1 pour absolu  2 delta du point de dÃ©part(incremental) 3  delta du centre(incremental inverse)
+do_full_arc$ : 0 #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 2     #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+arcoutput$  : 4
+
+seqno$      : 1
+seqinc$     : 1
+texteonof  : 1
+
+
+#------------------------------------------------------------------------------------------------------------------
+#   UTILISER LES CYCLES MACHINE ou DECOMPOSITION en G1 G0
+#
+usecandrill$ = no$   # utiliser cycle percage lamage
+usecanpeck$  = no$   # utiliser cycle debourrage
+usecanchip$  = no$   # utiliser cycle brise copeaux
+usecantap$   = yes$   # utiliser cycle taraudage
+usecanbore1$ = no$   # utiliser cycle alesage a l'alesoir
+usecanbore2$ = no$   # utiliser cycle alesage a la barre
+usecanmisc1$ = no$    # utiliser cycle divers 1
+usecanmisc2$ = no$    # utiliser cycle divers 2
+
+#--------------------------------------------------------------------------------------------------------
+#   DEBUG POST PRO
+fastmode$ : 1
+bug1$     : 2        # 0 = pas voir le NC  1 = Visu du NC en lecture - 2 = visu du NC en edit
+bug2$     : 60       # numÃ©ro de colonne pour l'affichage du bloc en cour de traitement
+#CNC<<ECHEC>>bug3$     : 0        # whatline 01234 etat de l'usinage0 debut prog 1 prapid 2 pzrapid 3 mouvement frplung 4 fin
+#CNC<<MSG -ERREUR(81)>> The variable, postblock, or other keyword is no longer supported
+bug4$     : 1        # numero de ligne du nci traitÃ©
+whatno$   : yes$  # Ignore whatline branches to plin1 etc.?
+
+#--------------------------------------------------------------------------------------------------------
+#   TOLERANCES POST PRO
+linktolvar$    : 1   #Associer les variables de tolÃ©rance X
+linkplnvar$    : 1   #Associer les variables spÃ©cifiques plan X
+linklvar$      : 1   #Associer les variables spÃ©cifiques X Tournage
+cant_tlchng$   : 1   #Ignorer entrÃ©e de texte programmÃ© au changement avec tlchng_aft?
+newglobal$     : 1   #Activer la vÃ©rification d'erreur pour les variables globales?
+
+#------------------------------------------------------------------------------------------------------------------
+#   FORMATS DES VARIABLES
+#
+fs  1  1.9lt        # Format avec toute la precision pour les variable internes de mp
+fs  2  1.3      # frormat d'affichage a 3 chifres max pour les variables affichÃ©es
+fs  3  1.3n     # idem mais non modale
+fs  4  1 0      # 1 chiffre mini avant virgule  pas de virgule pas de chiffre apres
+fs  5  1 0n     # idem mais non modale
+fs  6  4 0ln        # 4 chiffres avant pas de virgule pas de chiffre apres non modal force 0 de tete
+fs  7  1 4t     # 1 chiffre mini avant virgule  pas de virgule 3 apres force 0 de queue non modal.
+fs  8  1.4ln        # 1 chiffre avant la vigule met . 3 chiffres apres virgule non modal force 0 de tete
+fs  9  1 0n     # pour liste outil
+fs  10 1.4n     # pour liste outil
+fs  11 1.4i     # force 1 chiffre avant virgule met . 3 chiffres apres virgule en incremental
+fs  12 1 1t
+fs  13 3 0ln
+fs  14 1.0
+
+
+#------------------------------------------------------------------------------------------------------------------
+#   AFFECTATION DES VARIABLES
+#
+
+fmt     1 texteonof     # flag pour textes
+fmt     1 nbr_car   # nombre de carracteres maxi dans les connemtaires
+fmt     1 info_corr # flag pour correction outil
+fmt     1 info_outil    # flag pour info outil
+fmt     1 info_surep    # flag pour surep
+fmt     1 old_spaces    # memo de spaces
+fmt     1 old_omitseq   # memo de omiseq
+fmt     4 entete    # Variable utilisÃ©e pour gÃ©nÃ©rer l'entete
+fmt     4 numerote  # Variable numerote utilisÃ©e pour numÃ©roter ou non les lignes
+
+#------------- Variables MP -------------------------
+fmt     1 gcode$         # Gcode pst
+fmt     1 x$     # XYZ pst
+fmt     1 y$
+fmt     1 z$
+fmt     1 xr$        # XYZ rapide pst
+fmt     1 yr$
+fmt     1 zr$
+fmt     1 i$     # IJK centre des arcs pst
+fmt     1 j$
+fmt     1 k$
+fmt     1 arcrad$    # Valeur du rayon pst
+fmt     1 t$     # numÃ©ro d'outil pst
+fmt     1 next_tool$ # numÃ©ro suivant pst
+fmt     1 first_tool$   # numÃ©ro du premier outil pst
+fmt     1 tloffno$   # Correcteur de Diamentre pst
+fmt     1 tlngno$    # Correcteur de Longueur pst
+fmt     1 tldia$ # diamÃ©tre outil pst
+fmt     1 fr$        # avance pst
+fmt     1 fr_pos$    # AVANCE TRAVAIL au point pst
+fmt     1 ss$        # vitesse de broche pst
+fmt  "N" 4 n$    # numÃ©rotetion des blocs a chaque ligne
+fmt  "P" 6 progno$   # NumÃ©ro de programe pst
+fmt  "G" 4 cc$       # valeur de la correction dans NCI
+fmt     1 coolant$   # Lubrification 0 1 2 3 arret axe buse les deux
+fmt     1 mi1$       # mi1 utilise pour origine d'usinage G54 a G59
+fmt     1 op_id$ # Numero de l'operation du gestionaire PST
+fmt     1 onoff #question aspiration oui ou non
+
+#------------------- PERCAGES ------------------------------------------
+fmt    1 depth$      # profondeur percage pst
+fmt    1 refht$      # Garde pour percage pst
+fmt    1 initht$ # Plan de sÃ©cu percage pst
+fmt  "F" 14 frplunge$ # Avance percage pst
+fmt    1 dwell$      # Tempo pour percage pst
+
+#------------- Variable pour NC -----------------------
+fmt  "X" 2 xabs     # XYZ en Absolue pour NC
+fmt  "Y" 2 yabs
+fmt  "Z" 2 zabs
+
+fmt  "X" 11 xinc    # XYZ en incremental pour NC
+fmt  "Y" 11 yinc
+fmt  "Z" 11 zinc
+xinc = xabs
+yinc = yabs
+zinc = zabs
+
+fmt "px" 2 old_x    # ancien XYZ du NC
+fmt "py" 2 old_y
+fmt "pz" 2 old_z
+
+fmt  "I" 2 iabs     # IJK centre des arcs pour NC en G90
+fmt  "J" 2 jabs
+fmt  "K" 2 kabs
+
+fmt  "I" 2 iinc     # ijk centre des arcs pour NC en G91
+fmt  "J" 2 jinc
+fmt  "K" 2 kinc
+
+
+
+fmt  "R" 3 rayon    # valeur de rayon de l'arc pour NC
+
+fmt  "T" 5 outil        # numÃ©ro d'outil appele pour NC
+fmt  "T" 5 outil_suivant# numÃ©ro de l'outil suivant pour NC
+fmt  "D" 4 correcteur_D # Correcteur de Diamentre pour NC
+fmt  "H" 4 correcteur_H # Correcteur de Longueur pour NC
+fmt  "H" 4 old_correcteur_H
+correcteur_D = tloffno$
+correcteur_H = tlngno$
+
+fmt  "DIAM " 2 diam_outil   # diamÃ©tre outil pour NC
+
+fmt  "F" 14 avance       # avance pour NC
+avance = fr_pos$
+
+fmt  "S" 4 ssa      # Vitesse de broche affichÃ©
+ssa = abs(ss$)       # vitesse de broche en valeur absolue
+fmt  "S" 4 old_ss   # memo de la vitesse de broche prÃ©cÃ©dente
+
+fmt     5 prognosav # MÃ©mo du NumÃ©ro de programe
+fmt     1 debut     # flag pour debut de programme
+
+fmt  "N" 3 num      # numero de bloc sur ligne appel outil si pas de numerotation des lignes
+num : 0
+num = num + 1
+
+fmt "inc" 1 incremental     # mode incremental ou Absolue
+incremental : 0         # init en Absolue
+fmt     1 memo_incremental  # memeo du mode incremental ou Absolue
+fmt     1 inc_degage        # degagement machine en INCREMENTAL ou en ABSOLUE
+
+fmt     4 lubrif        # gestion de la lubrification pour NC
+
+fmt  "G" 4 origine      # origine d'usinage G54 a G59 pour NC
+fmt  "G" 4 old_origine      # Stocage de la valeur precedente de origine d'usinage
+
+
+fmt    1 old_op_id      # Memo de l'operation
+fmt    1 last_op_id     # Derniere operation
+old_op_id :  -99999
+
+
+#---------------------- Sous prog en Z ------------------------------------
+
+fmt  "O" 6 sub_prg_no$       # NumÃ©ro de sous-programe interne pst
+fmt  "O" 6 main_prg_no$
+fmt  "O" 6 debsousprog      # NumÃ©ro du premier sous programe
+fmt  "N" 4 nprincipal# memo du numero de ligne du prog principal
+
+fmt  "H" 5 subprognum       # numero du sous-programe pour l'appel
+fmt  "N" 5 numsubprog       # NumÃ©ro entete de sous-programe
+fmt     5 nomsubprog        # NumÃ©ro n'entete de sous-programe
+
+scomentsprog : ""            # string du commentaire pour le titre du sous prog
+
+
+fmt  "X" 2 sub_trnsx$# decalage en X pour G52 en usinage transformer translation
+fmt  "Y" 2 sub_trnsy$# decalage en Y pour G52 en usinage transformer translation
+fmt  "Z" 2 sub_trnsz$# decalage en Z pour G52 en usinage transformer translation
+fmt  "DEC" 2 decalage# flag pour savoir si on a ecrit un G52
+decalage : 0
+sub_trnsx$   :   -99999
+sub_trnsy$   :   -99999
+sub_trnsz$   :   -99999
+fmt     1 sous_prog     # flag pour forcer le premier xyz du sous prog
+#--------------------------------------------------------------------------
+
+
+
+#------------------- PERCAGES ------------------------------------------
+fmt  "Z" 2 profabs  # profondeur de percage en ABS
+fmt  "Z" 2 profi    # profondeur de percage en INC
+fmt  "R" 2 gardeabs # Garde pour percage en ABS
+fmt  "R" 2 gardei   # Garde pour percage en INC
+fmt  "Z" 2 garde_tap # Garde pour percage en INC
+fmt  "D" 3 peckclr$  # garde d'approche rapide dans les dÃ©bourrage pst
+fmt  "Q" 3 peck1$    # Pas Z du premier dÃ©bourrage pst
+fmt  "Q" 3 peck2$    # Pas Z des dÃ©bourrages suivants
+fmt  "Q" 3 shftdrl$  # valeur de retrait du grain de la barre d'allsage
+fmt  "Q" 3 retr$     # valeur de remontÃ© relative en rapide dans les debourages en G1 G0
+
+fmt  "K" 3 pas      # valeur calculÃ© du pas pour taraudage rigide
+fmt     2 typcycle  # variable mise a 1 lors des percage pour afficher l'intitulÃ© du cycle
+fmt     2 cycle_tap
+cycle_tap : 0
+fmt     3 tempo
+
+
+
+#-------------------- Axe A --------------------------
+fmt  "S" 2 sens     # pour inverser le sens de l'axe
+fmt  "A" 2 axeA     # POSITION pour rotation plateau en ABS
+fmt  "A" 11 axeAi   # POSITION pour rotation plateau en INCREMENTAL
+fmt  "D" 2 rotdia$  # diam de sbstitution
+fmt  "A" 2 A_pos    # rotation pour continue substitutuion en ABS
+fmt  "A" 11 A_posi  # rotation pour continue substitutuion en INCREMENTAL
+A_posi = A_pos      # A incremental
+fmt     1 bloque    # pour gestion M10 M11
+
+m7$        : 999
+m8$        : 999
+
+fmt  "Z" 2 zdev     # Z pour continue substitutuion
+fmt  "Z" 11 zdevi
+zdev  = z$ +(rotdia$ /2)
+zdevi = zdev
+
+fmt  "R" 2 rotaxis$
+fmt     2 old_rotaxis
+
+
+old_axeA : 0
+
+fmt  "A" 2 old_axeA         # memo de l ancien A
+fmt  "memo_old_axeA" 2 memo_old_axeA# memo du memo de l ancien A
+fmt  "Sens" 2 sensA
+
+fmt  "A" 2 epsi
+fmt  "Ntour" 2 nbrtour  # nombre de tour realise
+nbrtour : 0
+
+fmt     3 tolquestion    # flag utilisÃ© pour poser la question de tolÃ©rance de developpÃ© q'une fois
+tolquestion : 0
+
+vtol$      : 0.01
+axeA      : 999
+
+
+fmt  "v" 1 v$
+fmt  "w" 1 w$
+fmt  "vx" 1 vx
+fmt  "vy" 1 vy
+fmt  "vz" 1 vz
+fmt  "A" 1 axeA_cont
+fmt  "A" 1 axeA1
+fmt  "A" 1 axeA2
+fmt  "X" 1 new_x
+fmt  "Y" 1 new_y
+fmt  "Z" 1 new_z
+fmt  "A" 1 delta_axeA1
+fmt  "A" 1 axeA1_dep
+fmt  "A" 11 axeA1_depi
+axeA1_dep :   -999999
+axeA1_depi = axeA1_dep
+fmt  "A" 1 old_axeA1
+
+fmt     1 debutpmx  # flag debut prog pmx
+#-----------------------------------------------------
+#   ZONE de FORMULES  si : uniquement au dÃ©dut si = mise a jour systÃ©matique
+#
+
+sub_level$  : 1          #Enable automatic subprogram support
+subprg$     : yes$
+extprg$     : yes$
+sextext$  : "toolMZK"
+mergesub$   : no$
+
+
+get_1004$   : 1      #Find gcode 1004 with getnextop?
+rpd_typ_v7$ : 0      #Use Version 7 style contour flags?
+getnextop$  : 1      # autorise la commant nextop nextccomp etc
+mill        : 1      # wire lathe ou mill pour dire le type de pst
+spaces$     : 1      # nbr d'espace entre les trucs
+strtool_v7$ : 2      # autorise la lecture des commentaires de la bibiotheque outil
+
+no$          = 0
+progno$      : 100    #
+seqmax$     : 99999   # numÃ©ro de bloc maxi
+omitseq$    : 0    # ne pas numÃ©roter les blocs
+
+frrapid    : 300
+frmax      : 300
+ssmax      : 10000    # vitesse de broche maxi
+
+
+skp_lead_flgs$   : 1  #Do NOT use v9 style contour flags
+ncldr$      : 20      # nbr de zero de queue utilisÃ©s pour la fonction "fleader"
+ldrcode$    : 65
+nobrk$      : no$     # ne pas dÃ©composer en xy pui z les mouvements en rapid
+
+opcode$     : 1
+gcode$      :  -1
+progname$   : 1       # force le nom du nci en majuscule
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--------- DEFINITION DES STRING -----------------------
+
+svide : ""           # string Vide utilisÃ©e pour faire des comparaisons
+space : " "       # String pour forcer un espace
+sdcom   : " ("        # string de debut de commentaire
+sfcom   : ")"     # string de fin de commentaire
+sg43 : "G43"      # string de prise de correction en Z
+snomgroupe_op : ""       # string du nom du groupe d'opÃ©ration
+snomgroupe_op_old : ""   # string de l'nacien nom du groupe d'opÃ©ration
+#   Mode Absolue ou incremental
+sinc00  : "G90"
+sinc01  : "G91"
+sinc02 : ""
+sinc_abs : ""
+fstrsel sinc00 incremental sinc_abs 3 -1
+
+#   Affectation de G0 Ã  G3 dans sgcode en fonction du GCODE
+sg00    : "G0"       # Rapide
+sg01    : "G1"       # travail
+sg02    : "G2"       # arc horaire
+sg03    : "G3"       # arc trigo
+sq04    : "G4"       # tempo
+sg05    : "G80"              # annulation Cycle Fixes
+sgcode : ""
+
+fstrsel  sg00 gcode$ sgcode 6 -1
+
+#   Affectation des plans d'usinage pour
+spl00    : "G17"     # plan XY
+spl01    : "G19"     # plan YZ
+spl02    : "G18"     # plan XZ
+spl03 : ""
+splcode : ""
+
+fstrsel  spl00 plane$ splcode 4 -1
+
+#   Blocage dÃ©blocage 4ieme Axe
+sblo0 : ""           # pour pas de blocage ni deblocage
+sblo1   : "M10"   # blocage axe A
+sblo2   : "M11"   # dÃ©blocage axe A
+sblo3 : ""           # pour Frein axe A
+sbloque : ""
+
+fstrsel sblo0 bloque sbloque 4 -1
+
+sm00    : "M4"
+sm01    : "M5"
+sm02    : "M3"
+sm03    : "M14"
+sm04    : "M15"
+sm05    : "M13"
+sm06    : "M24"
+sm07    : "M25"
+sm08    : "M23"
+sm09    : "M34"
+sm10    : "M35"
+sm11    : "M33"
+spdlon : ""
+
+spdlsel = fsg3(ss$)
+#spdlsel = fsg3(ss)+(coolant*3)
+
+fstrsel  sm00 spdlsel spdlon 12 -1
+
+
+
+#------------- Bloc de dÃ©finition des Questions du post pro -----------------
+#   Question 1
+#
+
+fq 1 entete "CREER L'ENTETE DU PROGRAMME //progno$//      0 pour NON - 1 pour OUI"
+
+#   Question 2
+#
+sclient : ""
+fq 2 sclient "CLIENT"
+
+#   Question 3
+#
+srepere : ""
+fq 3 srepere "COMMENTAIRE"
+
+#   Question 4
+#
+sindice : ""
+fq 4 sindice "PHASE"
+
+#   Question 5
+#
+numerote : 1
+fq 5 numerote "NUMEROTER LES LIGNES DU PROGRAMME ?            0 pour NON - 1 pour OUI"
+
+#   Question 6
+#
+fq 6 progno$ "Numero de Prog SVP ?"
+
+#   Question 7
+#
+fmt  3 useaxe
+
+fq 7 useaxe "UTILISER L'AXE A ?  0 pour NON 1 pour OUI"
+
+#   Question 8
+#
+fq 8 vtol$    "TOLERANCE CORDALE POUR DEVELOPPE"
+
+#   Question 9
+onoff   : 1
+fq 9 onoff "ARRET ASPIRATION EN FIN DU PROGRAMME ? 0 pour NON  1 pour OUI"
+#
+
+#   Question 10
+#
+fq 10 progno$ "NumÃ©ro de programme //progno$// existant, ENTREZ UN NOUVEAU NUMERO"
+
+#   Question 11
+#
+fmt 2 remplace
+remplace : 2
+
+fq 11 remplace "NumÃ©ro de programme //progno$// existant, LE REMPLACER ?      0 pour NON - 1 pour OUI"
+
+
+#---------------- BLOCS DE TRAITEMENT DES SOUS PROG EN Z ---------------------------------
+
+psub_call_s$       # appel sous prog en Z
+
+        !sub_prg_no$             # mise a jour du numero interne de sous prog en Z
+        subprognum = debsousprog + sub_prg_no$   # affectation du numero de sous prog en Z
+        nprincipal = n$  + seqinc$        # memo du numero de ligne pour le rappel dans le sous-programme
+
+        #*nprincipal, e         # affecation du parametre CN pour memo du numÃ©ro de ligne
+        n$, "M98", subprognum, e$     # appel du sous prog
+
+        nprincipal = n$              # memo du numero de ligne pour le prog principal
+
+
+
+psub_st_s$    #ecriture de l'entete de sous prog en Z
+
+
+        !sub_prg_no$             # mise a jour du numero interne de sous prog en Z
+        numsubprog = debsousprog + sub_prg_no$   # affectation du numero de sous prog en Z
+        nomsubprog = numsubprog                 # affectation du nom de sous prog en Z
+        memo_incremental = incremental          # memorisation du mode ABS INC Actuel
+        incremental = sub_inc$           # Sous prog en incremental ou absolue
+
+        #n = 10                 # numero de ligne de sous prog
+        #"%", e
+
+        omitseq$ = 1             # pas du numero de ligne pour les sous prog
+        if texteonof = 1,   [           # entete avec commentaires
+                old_spaces = spaces$
+                spaces$ = 0
+                if scomentsprog <> svide, *numsubprog, space, sdcom, scomentsprog, sfcom, e$
+                 else, *numsubprog, e$
+                spaces$ = old_spaces
+                ]
+
+
+        else,       [               # entete sans commentaires
+                *numsubprog,  e$
+                    ]
+
+        n$, *sinc_abs, e$                 # ecrire si sous prog en ABS ou INC
+    gcode$ = 5       # pour forcer l'ecriture de code G du premier bloc du sous prog
+        !gcode$
+        sous_prog = 1       # pour forcer l'eciture du premier xyz du sous prog
+
+psub_end_s$    # fin sous prog en Z
+
+
+        incremental = memo_incremental      # rappel du mode INC ABS precedent
+        n$, *sinc_abs, e$
+
+        #n, "M99", "P#100", e           # fermeture de sous prog
+        n$, "M99", e$             # fermeture de sous prog
+
+        #space, e
+        #space, e
+        omitseq$ = old_omitseq
+        n$ = nprincipal              # recuperation du numero de ligne pour prog principal
+
+#-------------------------BLOCS DE TRAITEMENT DES SOUS PROG EN TRANSFORMER ---------------------------
+
+ptranslation    # pour usinage transformer en translation
+
+        #sub_trnstyp, sub_trnmthd, sub_trnsx, sub_trnsy, sub_trnsz, sub_nxt_t, sub_nxt_h, sub_nxt_tid, sub_mny_t, e
+        #wdum2, wdum3 , "----", rcc_flg, sub_prg_no, subout, sub_level, absinc, e
+
+        if sub_trnsx$ = 0 & sub_trnsy$ = 0 & sub_trnsz$ = 0,   [   # si pas de decalage, ne rien faire
+
+                                    ]
+
+
+        else, [                         # si decalage, ecriture du G52
+
+
+        memo_incremental = incremental
+        incremental = 0
+
+            #n, "(FAIRE UN DECALGE G52)", e
+            n$, sinc_abs, "G52", *sub_trnsx$, *sub_trnsy$, *sub_trnsz$, e$   # ecriture des valeur de decalage d'origine
+            decalage = 1                            # memo de mise en place de decalage pour l'annuler
+
+        incremental= memo_incremental
+            n$, sinc_abs, e$
+                    ]
+
+
+
+psub_call_mm$     # appel sous prog en transformation pour outils multiples
+
+
+        #"appel sous prog en transformation pour outils multiples", e
+
+
+        !main_prg_no$                    # mise a jour du numero interne de sous prog en transformation pour outils multiples
+        subprognum = debsousprog + main_prg_no$ +100   # affectation du numero de sous prog
+
+
+        if sub_trnstyp$ = 3 , ptranslation       # si on fait de la translation aller avant dans bloc ecriture decalage orignie
+
+        nprincipal = n$  + seqinc$        # memo du numero de ligne pour le rappel dans le sous-programme
+
+        #*nprincipal, e         # affecation du parametre CN pour memo du numÃ©ro de ligne
+        n$, "M98", subprognum, e$     # appel du sous prog
+
+        nprincipal = n$              # memo du numero de ligne pour le prog principal
+
+
+      # n, "(PASSE ", sub_sec_no, "SUR ", sub_totl_no, ")", e
+
+
+          #  "Subprogram number ", sub_op_id, e
+          #  "Actual operation ID", sub_grp_id, e
+          #  "Transform/non-transform indicator", sub_ref_id, e
+          #  "Iteration counter", sub_sec_no, e
+          #  "Total number of instances", sub_totl_no, e
+
+
+
+
+
+
+psub_call_m$   # appel sous prog en transformation pour outil unique
+
+        #"appel sous prog en transformation", e
+
+        #main_prg_no, sub_prg_no, sub_ref_id, sub_op_id, sub_grp_id, sub_trns_id, sub_sec_no, sub_totl_no, sub_chn_no, sub_inc, e
+        #*main_prg_no, e
+
+
+        !main_prg_no$                # mise a jour du numero interne de sous prog en transformation pour outils multiples
+        subprognum = debsousprog + main_prg_no$ +100   # affectation du numero de sous prog
+
+
+        if sub_trnstyp$ = 3 , ptranslation   # si on fait de la translation aller avant dans bloc ecriture decalage orignie
+
+        nprincipal = n$  + seqinc$        # memo du numero de ligne pour le rappel dans le sous-programme
+
+        #*nprincipal, e         # affecation du parametre CN pour memo du numÃ©ro de ligne
+        n$, "M98", subprognum, e$     # appel du sous prog
+
+        nprincipal = n$              # memo du numero de ligne pour le prog principal
+
+
+      # n, "(PASSE ", sub_sec_no, "SUR ", sub_totl_no, ")", e
+
+
+          #  "Subprogram number ", sub_op_id, e
+          #  "Actual operation ID", sub_grp_id, e
+          #  "Transform/non-transform indicator", sub_ref_id, e
+          #  "Iteration counter", sub_sec_no, e
+          #  "Total number of instances", sub_totl_no, e
+
+
+psub_end_m_r$    # bloc system non explique dans doc des PST (a voir)
+
+
+
+
+
+
+psub_st_m$    # entete sous prog en transformation
+
+
+        !main_prg_no$                    # mise a jour du numero interne de sous prog en transformation pour outils multiples
+        numsubprog = debsousprog + main_prg_no$ +100 # affectation du numero de sous prog
+        nomsubprog = numsubprog                 # affectation du nom de sous prog en Z
+        memo_incremental = incremental          # memorisation du mode ABS INC Actuel
+        incremental = sub_inc$           # Sous prog en incremental ou absolue
+
+        #n = 10                 # numero de ligne de sous prog
+        #"%", e
+
+        omitseq$ = 1             # pas du numero de ligne pour les sous prog
+        if texteonof = 1,   [           # entete avec commentaires
+                old_spaces = spaces$
+                spaces$ = 0
+                if scomentsprog <> svide, *numsubprog, space, sdcom, scomentsprog, sfcom, e$
+                 else, *numsubprog, e$
+                spaces$ = old_spaces
+                ]
+
+
+        else,       [               # entete sans commentaires
+                *numsubprog,  e$
+                    ]
+
+        n$, *sinc_abs, e$                 # ecrire si sous prog en ABS ou INC
+    gcode$ = 5       # pour forcer l'ecriture de code G du premier bloc du sous prog
+        !gcode$
+        sous_prog = 1       # pour forcer l'eciture du premier xyz du sous prog
+
+             #sub_op_id, sub_prg_no, e
+
+
+psub_end_m$   # fin sous prog en transformation
+
+
+        incremental = memo_incremental      # rappel du mode INC ABS precedent
+        n$, *sinc_abs, e$
+
+        #n, "M99", "P#100", e           # fermeture de sous prog
+        n$, "M99", e$             # fermeture de sous prog
+
+        #space, e
+        #space, e
+        omitseq$ = old_omitseq
+        n$ = nprincipal              # recuperation du numero de ligne pour prog principal
+
+
+
+
+#-------------------BLOC DIVERS DE GESTION ---------------------------------------
+#   Affichage des commentaire des usinages
+#
+
+
+pcomment$   # Gestion des commentaires
+
+        pcomment2,e$
+
+pcomment2       #Output Comment from manual entry
+
+           scomm$ = ucase (scomm$)                  #focer en majuscules
+
+         if texteonof = 1, [
+        old_spaces = spaces$
+        spaces$ = 0
+      if gcode$ = 1005, n$,sdcom, scomm$, sfcom, e$  #Usinage commentaire - en commentaire
+      if gcode$ = 1007, n$,sdcom, scomm$, sfcom      #Entree Manuelle - en commentaire avec le mouvement sans e
+      if gcode$ = 1008, n$,sdcom, scomm$, sfcom, e$  #Commentaire d'operation
+      if gcode$ = 1008, scomentsprog = scomm$
+
+            if debut = 1, [
+      if gcode$ = 1051, n$,sdcom, scomm$, sfcom, e$  #Nom Machine
+      if gcode$ = 1053, n$,sdcom, scomm$, sfcom, e$  #Nom du Groupe Machine
+      if gcode$ = 1052, n$,sdcom, scomm$, sfcom, e$  #Commentaire de groupe Machine
+      if gcode$ = 1054, n$,sdcom, scomm$, sfcom, e$  #Descripteur de fichier
+              spaces$ = old_spaces
+                    ]
+
+        spaces$ = old_spaces
+            ]
+
+
+
+      if gcode$ = 1006, n$, scomm$, e$                         #Usinage commentaire - en code
+      if gcode$ = 1026, scomm$                             #Entree Manuelle - en code avec le mouvement sans e
+
+
+pnomgroupe  # nom du groupe d'operation
+
+    if snomgroupe_op <> svide & texteonof = 1 & snomgroupe_op <> snomgroupe_op_old, [
+                old_spaces = spaces$
+                spaces$ = 0
+            n$,sdcom, snomgroupe_op, sfcom, e$
+            #space, e
+                spaces$ = old_spaces
+                snomgroupe_op_old = snomgroupe_op
+                        ]
+
+#   Tool plan view matrix du gcode 1014
+prot0$
+
+
+prot$
+
+paxeA
+        #*old_axeA1, *axeA1
+
+           delta_axeA1 = axeA1 - old_axeA1
+           if delta_axeA1 >  180, delta_axeA1 = delta_axeA1 - 360
+           if delta_axeA1 <   -180,delta_axeA1= delta_axeA1 + 360
+           axeA1_dep = axeA1_dep + delta_axeA1
+           old_axeA1 = axeA1
+
+
+        axeA = axeA1_dep
+        old_axeA = axeA1_dep
+        nbrtour = int (axeA / 360) * sens
+
+           if incremental = 0, axeA, !axeAi
+           if incremental = 1, !axeA, axeAi
+
+
+
+
+
+pcalculpmx
+    #*x, *y, *z, *u, *v, *w,
+
+
+    vx = u$ - x$
+    vy = v$ - y$
+    vz = w$ - z$
+
+    if diviseur = 1, axeA1 = atan2(vy,vz) # on tourne autour de x
+    if diviseur = 2, axeA1 = atan2(vx,vz) # on tourne autour de Y
+
+
+    if axeA1 >  180, axeA2 = 360 - axeA1
+    if axeA1 <= 180, axeA2 = axeA1 *    -1
+
+    if diviseur = 1, [          # on tourne autour de x
+    new_x = x$
+    new_y = z$*sin(axeA2) + y$*cos(axeA2)
+    new_z = z$*cos(axeA2) - y$*sin(axeA2)
+            ]
+    if diviseur = 2, [          # on tourne autour de Y
+    new_x = z$*sin(axeA2) + x$*cos(axeA2)
+    new_y = y$
+    new_z = z$*cos(axeA2) - x$*sin(axeA2)
+            ]
+
+
+        xabs = new_x
+        yabs = new_y
+        zabs = new_z
+
+pmx$
+
+    if debutpmx = 0, [
+        pcalculpmx
+        if fr$ =   -2,gcode$ = 0
+        else, gcode$ = 1
+            if gcode$ = 1,   [
+            @new_x, @new_y, @new_z, @old_x, @old_y, @old_z
+            if new_x <> old_x | new_y <> old_y, n$, sinc_abs, pcord, sgcode, pxyz , paxeA, pfr,e$
+                else, n$, sinc_abs, sgcode, pxyz , paxeA, pfr,e$
+                        ]
+
+            else,   n$, sinc_abs, sgcode, pxyz , paxeA,e$
+
+            ]
+    if debutpmx = 1,    pmx_end$
+
+
+pmx_end$
+
+    if debutpmx = 1, [
+            pcalculpmx
+            bloque = 2
+            n$, sbloque, e$
+            gcode$ = 0
+
+        n$, sinc_abs, *sgcode, poriusi, *xabs, *yabs , paxeA, ssa, *spdlon, e$
+        n$, sinc_abs, sgcode, pcorh, *zabs, plubrifon, e$
+
+        old_x = xabs
+        old_y = yabs
+        old_z = zabs
+            ]
+
+    debutpmx = 0
+
+
+p_Apos  # calcul de l'axe A en en substitution
+        @x$, @y$
+
+        if diviseur = 1, A_pos = (y$ * 360 / (pi$ * rotdia$)) * sens   # pour 4eme axe autour de X (substituer Y)
+        if diviseur = 2, A_pos = (x$ * 360 / (pi$ * rotdia$)) * sens   # pour 4eme axe autour de Y (substituer X)
+
+
+prot1      # calcul rotation plateau
+
+        @old_axeA, @nbrtour
+
+
+        if diviseur = 1, axeA = atan2(m8$,m9$) + (360 * nbrtour)  # pour diviseur tourne autour de X
+        if diviseur = 2, axeA = atan2(m7$,m9$) + (360 * nbrtour)  # pour diviseur tourne autour de Y
+
+        axeA = axeA * sens
+
+                epsi = axeA - old_axeA
+
+
+
+            sensA = 0
+                if epsi > 0, sensA = 1
+                if epsi < 0, sensA =   -1
+
+
+             epsi = abs(epsi)
+
+        # "----prot1----valeur calclee-------", *old_axeA, *axeA,*epsi,*sensA,  e
+
+            @epsi, @sensA
+
+            if epsi > 180, [
+
+                axeA = axeA - (360 * sensA)
+                    epsi = axeA - old_axeA
+
+                sensA = 0
+                    if epsi > 0, sensA = 1
+                    if epsi < 0, sensA =  -1
+                ]
+
+
+        nbrtour = int (axeA / 360)
+
+        # "----prot1-----valeur corigee------", *old_axeA, *axeA,*epsi,*sensA,*nbrtour,  e
+
+
+prot2      # affichage de l'angle au chg outil
+
+    if subout$ = 0, [                # afficher les angles que dans le prog principal
+
+           if useaxe <> 0, [
+
+            @old_axeA, @axeA
+
+                epsi = old_axeA - axeA
+            epsi = abs(epsi)
+            #"---------prot2-------",epsi, e
+
+           if epsi <> 0,    [
+                    bloque = 2
+            n$, sbloque, e$
+            bloque = 1
+            n$, sgcode, sinc_abs, poriusi, *axeA, !axeAi, e$, n$, sbloque, e$
+                ]
+            bloque = 1
+            ]
+
+        old_axeA = axeA
+
+                ]
+
+
+
+prot3      # affichage de l'angle au chg outil nul pour positionnÃ©
+
+    if subout$ = 0, [                # afficher les angles que dans le prog principal
+
+
+           if useaxe <> 0, [
+
+            @old_axeA, @axeA
+            epsi = old_axeA - axeA
+            epsi = abs(epsi)
+                #"---------prot3-------",epsi,  e
+
+           if epsi <> 0,    [
+
+            pdegage4axes
+                    bloque = 2
+            n$, sbloque, e$
+            bloque = 1
+            xabs = x$
+            yabs = y$
+            zabs = z$
+            n$, sgcode, sinc_abs, *axeA, !axeAi, e$, n$, sbloque, e$
+            n$, sgcode, sinc_abs, *xabs, *yabs, e$
+            n$, sgcode, *zabs, e$
+                ]
+            ]
+
+        old_axeA = axeA
+
+                ]
+
+
+prot4      # affichage de l'angle au chg outil nul pour continue
+
+
+    if subout$ = 0, [                # afficher les angles que dans le prog principal
+
+
+
+           if useaxe <> 0, [
+
+            @old_axeA, @axeA
+            epsi = old_axeA - axeA
+            epsi = abs(epsi)
+                #"---------prot4-------", e,
+
+           if epsi <> 0,    [
+            pdegage4axes, e$
+                    bloque = 2
+            n$, sbloque, e$
+            bloque = 1
+            n$, sgcode, sinc_abs, *axeA, !axeAi, n$, sbloque, e$
+                ]
+            ]
+
+        old_axeA = axeA
+
+                ]
+
+# Convertir les arcs en lignes si travail en developpe
+#
+plinarc
+
+        linarc$ = 1
+        if tolquestion <> 1, q8
+        tolquestion = 1
+
+
+#   Gestion de la valeur de fr pour l'afficher
+#
+pfr
+
+        `avance
+
+#   Gestion de la correction outil et du numÃ©ro de corecteur
+#
+pcorh
+        #if correcteur_H <> old_correcteur_H, sg43, *correcteur_H
+        #old_correcteur_H = correcteur_H
+
+#   Gestion de la correction outil et du numÃ©ro de corecteur
+#
+pcord
+           if cc$ = 41, cc$, correcteur_D
+           if cc$ = 42, cc$, correcteur_D
+           if cc$ = 140, "G40"
+           if cc$ = 140, cc$ =  -1
+         !cc$
+           if cc$ = 140, tloffno$ =  -1
+        !correcteur_D
+
+        if nextop$ = 11, cc$ = 0
+
+#   Gestion lubrif -0 arret -1 axe outil -2 buse -3 les deux separÃ© du M3 M4
+#
+plubrifon
+           lubrif = coolant$
+
+
+           if lubrif = 1, "M51", e$
+           if lubrif = 2, "M8", e$
+           if lubrif = 3, "M8",e$
+
+plubrifoff
+           if lubrif > 0, n$, "M9"
+
+
+
+
+
+#   Gestion du dÃ©gagement de la machine avant appel outil
+#
+pdegage
+
+        @incremental
+        memo_incremental = incremental          # memo du mode actuel G90 G91
+        incremental = inc_degage            # passage en mode 90 ou 90 pour degagement
+
+        gcode$ = 0                   # Degagement en Rapide
+
+
+    if sdegageZ <> svide, n$, *sgcode, *sinc_abs, sdegageZ, e$        # degager en Z
+    if sdegageY <> svide, n$, *sgcode, *sinc_abs, sdegageY, e$        # degager en Y
+    if useaxe <> 0 & sdegageX <> svide, n$, *sgcode, *sinc_abs, sdegageX, e$  # degager en X pour le 4 AXES
+
+
+        incremental = memo_incremental          # Rappel du mode actuel G90 G91
+
+        @incremental, e$
+        #n, sinc_abs, e
+
+#   Gestion du dÃ©gagement de la machine fin de prog
+#
+pdegage_fin
+
+        @incremental
+        memo_incremental = incremental          # memo du mode actuel G90 G91
+        incremental = inc_degage            # passage en mode 90 ou 90 pour degagement
+
+        gcode$ = 0                   # Degagement en Rapide
+
+
+    if sdegageZ <> svide, n$, *sgcode, *sinc_abs, sdegageZ, e$        # degager en Z
+    if sdegageY <> svide, n$, *sgcode, *sinc_abs, sdegageY, e$        # degager en Y
+    if sdegageX <> svide, n$, *sgcode, *sinc_abs, sdegageX, e$        # degager en X pour le 4 AXES
+
+
+        incremental = memo_incremental          # Rappel du mode actuel G90 G91
+
+        @incremental, e$
+        #n, sinc_abs, e
+
+
+
+#   Gestion du dÃ©gagement de la machine avant appel outil
+#
+pdegage4axes
+
+
+
+        @incremental
+        memo_incremental = incremental      # memo du mode actuel G90 G91
+        incremental = inc_degage        # passage en mode 90 ou 90 pour degagement
+
+        gcode$ = 0               # Degagement en Rapide
+
+
+    if sdegageZ <> svide, n$, *sgcode, *sinc_abs, sdegageZ, e$        # degager en Z
+    #if sdegageY <> svide, n, *sgcode, *sinc_abs, sdegageY, e       # degager en Y
+    #if useaxe <> 0 & sdegagex <> svide, n, *sgcode, *sinc_abs, sdegagex, e     # degager en X pour le 4 AXES
+
+
+        incremental = memo_incremental      # Rappel du mode actuel G90 G91
+        @incremental, e$
+        n$, sinc_abs, e$
+
+
+
+#   Gestion des Origine d'usinages G54 a G59
+#
+poriusi
+
+
+
+     if mi1$ <54, mi1$ = 54
+     if mi1$ >59, mi1$ = 59
+
+        #origine = 54 + workofs
+        origine = mi1$
+
+        origine
+        old_origine = origine
+
+#   Gestion des G54 a 59 pour changement outil mul
+#
+poriusinul
+
+
+     if mi1$ <54, mi1$ = 54
+     if mi1$ >59, mi1$ = 59
+
+        #origine = 54 + workofs
+        origine = mi1$
+
+        if origine <> old_origine, *origine
+        old_origine = origine
+
+
+pgamme
+
+        @ssa
+        if ssa < 1500, "M38"
+            else, "M39"
+
+
+#----------------- BLOCS D'AFFICHAGES DES ENTETES ET APPEL OUTLIS -----------------
+
+pprep$       # affectation des variables avant debut traitememt post pro
+
+	#seqmax$ = seqmax$ - 200       #  se reserver les 200 dernier numero de ligne pour faire les sous prog
+        debsousprog = seqmax$        # memo du num de premier sous prog
+
+
+pentete     # QUESTION POUR L'ENTETE
+
+           #q2, q3, q4
+
+
+        #q3
+        sclient = ucase (sclient)
+        srepere = ucase (srepere)
+        sindice = ucase (sindice)
+
+
+           if sclient <> svide, n$, sdcom, "CLIENT-", sclient, sfcom, e$
+           if srepere <> svide, n$, sdcom, "COMMENTAIRE :", srepere, sfcom, e$
+           if sindice <> svide, n$, sdcom, "PHASE-", sindice, sfcom, e$
+
+            n$,sdcom, "PROG-CN DU ", date$, " A ", time$, sfcom, e$
+
+
+
+
+pheader$     # ENTETE DE PROGRAMME
+
+	seqinc$ = 1
+    seqno$ = 1
+    progno$ = 1
+
+    #rd_cd      # lecture de la def armoire
+    debut = 1   # flag pour debut de prog
+
+    # convertir en MAJUSCULES
+        smcpath$ = ucase (smcpath$)
+        smcname$ = ucase (smcname$)
+        smcext$ = ucase(smcext$)
+        snamepst$ = ucase (snamepst$)
+
+        while progno$ = 0,q6     # verifier le numÃ©ro de prog
+
+        if use_progno = 1, [    # si on sauve sous la forme 00123.NC
+        pnom_nc     # GÃ©nÃ©ration des noms du fichier NC
+        ptest_nom   # Tester si prog O0123.NC existe
+                ]
+        prognosav = progno$  # memo du num de prog
+
+        if useaxe <> 0, q7  # utiliser axe A
+
+        #q5             # numeroter les lignes du prog ?
+        if numerote=0, omitseq$ = 1
+
+        old_omitseq = omitseq$   # memo du mode de numerotation de prog
+        old_spaces = spaces$ # memo du nombre d'espaces
+
+
+        "%", e$
+        progno$, e$
+
+        if texteonof = 1, [     # Si la machine accepte les commentaires
+        spaces$ = 0
+        n$, sdcom,  sprogname$, sfcom, e$
+        n$, sdcom, "DESSIN MASTERCAM - ", smcname$, sfcom, e$
+        if entete = 1, pentete
+        #space, e
+        if tooltable$ <> 0, n$, sdcom, "LISTE DES OUTILS UTILISES", sfcom, e$
+        spaces$ = old_spaces
+                ]
+
+
+psof0$       # DEBUT DE PROGRAMME pour T=0
+           psof$
+
+
+pappel_outil    # ecriture de l'appel outil pour psof et ptlchg
+
+        strtool$ = ucase (strtool$)
+        old_spaces = spaces$
+        spaces$ = 0
+        if texteonof = 1 & info_outil = 1,  [
+            if strtool$ <> svide,    n$,sdcom, paramT1, space, strtool$, space, stypeT, space ,paramT5, space, paramT16, ptypeBoutT, pangleT, space, smatT, sfcom ,e$
+            else,           n$,sdcom, paramT1, space, stypeT, space ,paramT5, space, paramT16, ptypeBoutT, pangleT, space, smatT, sfcom ,e$
+                                        ]
+        spaces$ = old_spaces
+        if texteonof = 1, paramcomp
+        if texteonof = 1, paramsurep
+        spaces$ = old_spaces
+
+        if bldnxtool$ = 1,   [
+
+                if op_id$ <> last_op_id & t$ <> next_tool$, poutil_suivant # appel outil avec outil suivant
+                if op_id$ <> last_op_id & t$ = next_tool$, poutil          # appel outil sans outil suivant
+                if op_id$ = last_op_id & t$ <> first_tool$, poutil_suivant # appel outil avec outil suivant
+                if op_id$ = last_op_id & t$ = first_tool$, poutil          # appel outil sans outil suivant
+
+                    ]
+
+        if bldnxtool$ = 0,   poutil          # appel outil sans outil suivant
+
+
+        #n, "M1", e
+        #space, e
+        debut = 0
+        gcode$ = 5
+        !gcode$
+
+poutil  # appel outil sans outil suivant
+
+    outil = t$
+
+    if omitseq$ = 1, num, *outil, e$, n$, "M6", e$, n$, "G10", e$
+    if omitseq$ = 0, n$,  *outil, e$, n$, "M6", e$, n$, "G10", e$
+
+poutil_suivant  # appel outil avec outil suivant
+
+    outil = t$
+    outil_suivant = next_tool$
+
+    if omitseq$ = 1, num, *outil, e$, n$, "M6", e$, n$, "G10", e$, n$, *outil_suivant, e$
+    if omitseq$ = 0, n$,  *outil, e$, n$, "M6", e$, n$, "G10", e$, n$, *outil_suivant, e$
+
+
+
+psof$        # DEBUT DE PROGRAMME
+        #paxe_mini_maxi_1
+
+        if tooltable$ <> 0 & texteonof = 1, [
+                old_spaces = spaces$
+                spaces$ = 0
+            n$,sdcom, "FIN DE LISTE DES OUTILS", sfcom, e$
+            #space, e
+                spaces$ = old_spaces
+                        ]
+
+
+        subout$ = 0
+        @rotaxis$
+
+        incremental = 0
+
+
+
+        gcode$ = 0                   # Force le gcode a 0 pour faire un G0 apres
+    old_correcteur_H =  -99999      # Force l appel du g43
+
+        pdegage                         # DÃ©gagement de la Machine
+
+        incremental = 2
+        !incremental
+        incremental = 0
+
+       # n, "G40", "G80", "G98", e          # init CN
+        #space, e
+        n$, "(",sprogname$,")",e$
+        #pcalcul_brut
+        #pactivation_zone_aspiration
+    pnomgroupe              # Nom du groupe d'operation
+        comment$             # commentaires d'operation
+        n$, "M200", e$
+        pappel_outil                    # APPEL OUTIL
+    #n$, "G186", "E2", "K0.05", e$, n$, "G75, e$  #MODIF GB
+    #n$, "G75", e$
+        if nextop$ = 11, [               # si  5 axes
+        x$ = xr$
+        y$ = yr$
+        z$ = zr$
+
+        axeA = 0
+        axeA1_dep = 0
+        old_axeA1 = 0
+        debutpmx = 1
+
+            ]
+
+    if nextop$ <> 11, [                  # Si pas en 5 axes
+
+        gcode$ = 0       # Force le gcode a 0 pour faire un G0 apres
+
+        x$ = xr$
+        y$ = yr$
+        z$ = zr$
+        xabs = x$
+        yabs = y$
+        zabs = z$
+
+        !x$, !y$, !z$, !xabs, !yabs, !zabs, !xinc, !yinc, !zinc, e$       # mise a jour des position
+
+    if rotaxis$ = 0 ,    [           # 3 axes + diviser en positionne
+
+        prot1
+        old_axeA =   -99999
+
+        prot2
+            if useaxe <> 0, n$, sbloque, e$
+        n$, "G71",e$
+    n$, poriusi, e$
+    n$, sinc_abs, e$
+        n$, *sgcode,*xabs, *yabs, ssa, *spdlon, e$
+        n$, pcorh, *zabs, plubrifon, e$
+
+
+            ]
+
+
+
+
+    if rotaxis$ = 1,  [          # diviseur tourne autour de Y (X sbstitue)
+
+
+                plinarc
+                p_Apos
+                bloque = 2
+                n$, "G70",e$
+    n$, poriusi, e$
+    n$, sinc_abs, e$
+        n$, *sgcode, *A_pos, !A_posi, sbloque, e$
+        n$, sgcode, sinc_abs, "X0.", *yabs,  !xabs, ssa, *spdlon, e$
+
+            ]
+
+
+    if rotaxis$ = 2,  [          # diviseur tourne autour de X (Y sbstitue)
+
+
+                plinarc
+                p_Apos
+                bloque = 2
+                n$, "G70",e$
+    n$, poriusi, e$
+    n$, sinc_abs, e$
+        n$, *sgcode, *A_pos, !A_posi, sbloque, e$
+        n$, sgcode, sinc_abs, *xabs, "Y0.", !yabs, ssa, *spdlon, e$
+
+            ]
+
+    if rotaxis$ <> 0, [          # 4 axe continue en substitution (mouvement en Z)
+
+        n$, pcorh, *zdev, plubrifon, e$
+        !zdevi, !zabs
+            ]
+
+                ]
+
+
+
+
+
+
+
+        old_ss = ss$
+        old_op_id = op_id$
+        old_rotaxis = rotaxis$
+
+        old_x = xabs
+        old_y = yabs
+        old_z = zabs
+
+
+           c_mmlt$      # truc qui doit servire pour usinage transformÃ©
+           c_msng$
+
+
+ptlchg0$     # CHANGEMENT D'OUTIL NUL
+		cycle_tap = 0
+        #if op_id$ <> old_op_id, paxe_mini_maxi_1
+
+        memo_incremental = incremental          # memo du mode ABS INC actuel
+        incremental = 0
+
+        @rotaxis$, @old_rotaxis, e$
+
+
+        gcode$ = 0
+        linarc$ = 0
+
+
+
+    pnomgroupe              # Nom du groupe d'operation
+        comment$
+
+        if texteonof = 1, paramcomp
+        if texteonof = 1, paramsurep
+
+
+        poriusinul,e$
+        if ss$ <> old_ss, n$, ssa, *spdlon, e$
+
+
+    if nextop$ <> 11, [      # Si pas en 5 axes
+        x$ = xr$
+        y$ = yr$
+        z$ = zr$
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+
+        if rotaxis$ = 0, prot1
+        if rotaxis$ = 0, prot3
+
+        if rotaxis$ <>0, plinarc
+
+        if rotaxis$ = 1 & old_rotaxis <> 1,  [
+
+            !y$
+            !z$
+            p_Apos
+            axeA = A_pos
+            bloque = 2
+            n$, sbloque, e$
+            prot4
+
+            !A_pos
+            !A_posi
+            n$, sinc_abs,e$
+            n$, sgcode,  "X0.", *yabs, !yinc, e$
+            n$, sgcode, pcorh, zdev, !zdevi, !z$, !zinc, e$
+
+                            ]
+
+        if rotaxis$ = 2 & old_rotaxis <> 2,  [
+
+            !y$
+            !z$
+            p_Apos
+            axeA = A_pos
+            bloque = 2
+            n$, sbloque, e$
+            prot4
+            !A_pos
+            !A_posi
+            n$, sgcode, sinc_abs, *xabs, "Y0.", !xinc, e$
+            n$, sgcode, sinc_abs, pcorh, zdev, !zdevi, !z$, !zinc, e$
+
+                            ]
+
+
+                ]
+
+        if nextop$ = 11, [   # si 5 axes
+            if op_id$ <> old_op_id, [
+        old_axeA1 = 0
+        axeA1_dep = 0
+        debut = 0
+                        ]
+
+                ]
+        old_ss = ss$
+        old_op_id = op_id$
+        old_rotaxis = rotaxis$
+
+           typcycle = 0
+
+        incremental = memo_incremental
+
+           c_mmlt$      # truc qui doit servire pour usunage transformÃ©
+           c_msng$
+
+
+
+panulldecalageg52
+
+        memo_incremental = incremental
+        incremental = 0
+
+        sub_trnsx$ = 0
+        sub_trnsy$ = 0
+        sub_trnsz$ =0
+
+            n$, sinc_abs, "G52", *sub_trnsx$, *sub_trnsy$, *sub_trnsz$, e$
+
+        decalage = 0
+        incremental = memo_incremental
+
+ptlchg$      # CHANGEMENT D'OUTIL
+        cycle_tap = 0
+		#paxe_mini_maxi_1
+            fr_pos$ =   -1
+            !fr_pos$
+
+        memo_incremental = incremental
+        if subout$ = 0, incremental = 0      # forcer le passage en ABSOLUE pour CHANGEMENT outil si prog principal
+        linarc$ = 0
+        gcode$ = 0                   # Force le gcode a 0 pour faire un G0 apres
+        old_correcteur_H =  -99999  # Force l appel du g43
+        origine = 0                 # casser la modalite du G54 a 59 pour le rapeler
+        !origine
+        plubrifoff,e$                # arret lubriff
+        n$, "M5", e$              # arret broche
+
+        pdegage                     # DÃ©gagement de la Machine
+
+        if decalage = 1 , panulldecalageg52 # annuler les decalage d'origine
+
+
+        @rotaxis$
+
+        incremental = 2
+        !incremental
+        incremental = 0
+
+        memo_old_axeA = old_axeA
+
+        if nbrtour <> 0 , [         # pour remise a zero du diviseur
+
+            old_axeA = 0
+            axeA = 0
+            nbrtour = 0
+                ]
+
+        typcycle = 0
+
+        #space, e
+    pnomgroupe              # Nom du groupe d'operation
+        comment$
+
+        pappel_outil
+    #n$, "G186", "E2", "K0.05", e$, n$, "G75, e$   #MODIF GB
+    #n$, "G75", e$
+        if nextop$ = 11, [   # si  5 axes
+        x$ = xr$
+        y$ = yr$
+        z$ = zr$
+
+        axeA = 0
+        axeA1_dep = 0
+        old_axeA1 = 0
+        debutpmx = 1
+
+            ]
+
+    if nextop$ <> 11, [      # Si pas en 5 axes
+
+        gcode$ = 0       # Force le gcode a 0 pour faire un G0 apres
+
+        x$ = xr$
+        y$ = yr$
+        z$ = zr$
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+
+        !x$, !y$, !z$, !xabs, !yabs, !zabs, !xinc, !yinc, !zinc, e$       # mise a jour des position
+
+
+    if rotaxis$ = 0, [       # 4 axes position
+
+        prot1
+
+        old_axeA = memo_old_axeA
+
+        prot2
+        if useaxe <> 0,  n$, sbloque, e$
+        n$, sinc_abs, e$
+    n$, poriusi, e$
+        n$, *sgcode, *xabs, *yabs, ssa, *spdlon, e$
+        n$, pcorh, *zabs, plubrifon, e$
+
+            ]
+
+
+    if rotaxis$ = 1, [       # 4 axe continue en substitution diviseur tourne autour de Y (X sbstitue)
+
+                plinarc
+                p_Apos
+                bloque = 2
+        n$, *sgcode, sinc_abs, poriusi, *A_pos, !A_posi, sbloque, e$
+        n$, sgcode, sinc_abs, "X0.", *yabs,  !xr$, ssa, *spdlon, e$
+            ]
+
+
+    if rotaxis$ = 2, [       # 4 axe continue en substitution diviseur tourne autour de X (Y sbstitue)
+
+                plinarc
+                p_Apos
+                bloque = 2
+        n$, *sgcode, sinc_abs, poriusi, *A_pos, !A_posi, sbloque, e$
+        n$, sgcode, sinc_abs, *xabs, "Y0.", !yr$, ssa, *spdlon, e$
+            ]
+
+
+    if rotaxis$ <> 0, [      # 4 axe continue en substitution (mouvement en Z)
+            !zdev, !zdevi
+            zabs = zdev
+        n$, pcorh, *zabs, plubrifon, !zr$, e$
+
+            ]
+
+            ]
+
+        old_ss = ss$
+        old_op_id = op_id$
+        old_rotaxis = rotaxis$
+
+        old_x = xabs
+        old_y = yabs
+        old_z = zabs
+
+        incremental = memo_incremental      # pour revenir au mode precedent
+        @incremental
+
+           c_mmlt$      # truc qui doit servire pour usunage transformÃ©
+           c_msng$
+
+peof0$
+           peof$
+
+peof$
+
+        n$, "M5",e$
+        if decalage = 1 , panulldecalageg52
+
+        gcode$ = 0
+        incremental = 0
+
+        pdegage_fin
+
+
+        if useaxe <> 0 & old_axeA <> 0,  [
+            bloque = 2
+            n$, sbloque, e$
+            bloque = 1
+            n$, sgcode, "A0.", sbloque, e$
+                ]
+
+
+        n$, "G17", e$
+        comment$
+    n$, "M203", e$
+
+           #q9
+           #if onoff = 1,
+           n$, "M201",e$
+    #pdesactivation_zone_aspiration
+        n$, "M2", e$
+
+        space,e$
+        space,e$
+
+           subout$ = 0   #JPH
+           #mergeext     #JPH
+           #mergesub$
+           mergeaux$
+
+
+           #clearext     #JPH
+           #clearsub$
+           clearaux$
+
+         #"M30", e
+
+          # "%"
+
+
+#----------------CORPS DU CODE ISO G1 G2 G3 G0 -------------------------
+fmt  "X" 2 xmin     # XYZ en Absolue pour NC
+fmt  "Y" 2 ymin
+fmt  "Z" 2 zmin
+fmt  "X" 2 xmax     # XYZ en Absolue pour NC
+fmt  "Y" 2 ymax
+fmt  "Z" 2 zmax
+xmin : 999999999.998999953
+ymin : 999999999.998999953
+zmin : 999999999.998999953
+xmax : 999999999.998999953
+ymax : 999999999.998999953
+zmax : 999999999.998999953
+serreur_brut : "Attention il n'y a aucun brut de définit, les codes M des zones de dépression ne seront pas générés!!"
+fmt 1 erreur_brut
+erreur_brut : 0
+pcalcul_brut
+    if stck_crnr$ = 0,  [
+                        xmin = stck_x$ - (stck_ht$ / 2)
+                        ymin = stck_y$ - (stck_wdth$ / 2)
+                        xmax = stck_x$ + (stck_ht$ / 2)
+                        ymax = stck_y$ + (stck_wdth$ / 2)
+                        ]
+    if stck_crnr$ = 1 | stck_crnr$ = 5, [
+                                        xmin = stck_x$
+                                        ymin = stck_y$ - stck_wdth$
+                                        xmax = stck_x$ + stck_ht$
+                                        ymax = stck_y$
+                                        ]
+    if stck_crnr$ = 2 | stck_crnr$ = 6, [
+                                        xmin = stck_x$ - stck_ht$
+                                        ymin = stck_y$ - stck_wdth$
+                                        xmax = stck_x$
+                                        ymax = stck_y$
+                                        ]
+    if stck_crnr$ = 3 | stck_crnr$ = 7, [
+                                        xmin = stck_x$ - stck_ht$
+                                        ymin = stck_y$
+                                        xmax = stck_x$
+                                        ymax = stck_y$ + stck_wdth$
+                                        ]
+    if stck_crnr$ = 4 | stck_crnr$ = 8, [
+                                        xmin = stck_x$
+                                        ymin = stck_y$
+                                        xmax = stck_x$ + stck_ht$
+                                        ymax = stck_y$ + stck_wdth$
+                                        ]
+    if stck_crnr$ < 5,  [
+                        zmin = stck_z$ - stck_thck$
+                        zmax = stck_z$
+                        ]
+    else,   [
+            zmin = stck_z$
+            zmax = stck_z$ + stck_thck$
+            ]
+            #"voir xmin", *xmin, e$
+    if xmin = 0 & xmax = 0 & ymin = 0 & ymax = 0, result = mprint(serreur_brut), erreur_brut = 1
+
+    #n$, "BLK FORM 0.1 Z", *xmin, *ymin, *zmin, e$
+    #n$, "BLK FORM 0.2", *xmax, *ymax, *zmax, e$
+
+paxe_mini_maxi_1
+
+        if xmin <> 999999999.998999953,[
+        subout$ = 0
+        #pactivation_zone_aspiration
+        mergesub$
+        ]
+        xmin = 999999999.998999953
+        ymin = 999999999.998999953
+        zmin = 999999999.998999953
+        xmax = 999999999.998999953
+        ymax = 999999999.998999953
+        zmax = 999999999.998999953
+        #"coucou", e$
+        #"voir XYZ MINI MAXI départ", *xmini, *xmaxi, *ymini, *ymaxi, *zmini, *zmaxi, e$
+        subout$ = 1
+paxe_mini_maxi_2
+        if xmin = 999999999.998999953,xmin=xabs
+        if xmax = 999999999.998999953,xmax=xabs
+        if ymin = 999999999.998999953,ymin=yabs
+        if ymax = 999999999.998999953,ymax=yabs
+        if zmin = 999999999.998999953,zmin=zabs
+        if zmax = 999999999.998999953,zmax=zabs
+        if xabs < xmin, xmin = xabs
+        if xabs > xmax, xmax = xabs
+        if yabs < ymin, ymin = yabs
+        if yabs > ymax, ymax = yabs
+        if zabs < zmin, zmin = zabs
+        if zabs > zmax, zmax = zabs
+        #"voir XYZ MINI MAXI fin", *xmini, *xmaxi, *ymini, *ymaxi, *zmini, *zmaxi, e$
+flktbl 1 3
+    1  2017
+    2  4034
+    3  6051
+
+
+flktbl 2 4
+    1  636
+    2  1266
+    3  1896
+    4  2532
+
+fmt 1 x_zone_0
+x_zone_0 = 0
+fmt 1 x_zone_1
+x_zone_1 = 2017
+fmt 1 x_zone_2
+x_zone_2 = 4034
+fmt 1 x_zone_3
+x_zone_3 = 6051
+
+fmt 1 y_zone_0
+y_zone_0 = 0
+fmt 1 y_zone_1
+y_zone_1 = 636
+fmt 1 y_zone_2
+y_zone_2 = 1266
+fmt 1 y_zone_3
+y_zone_3 = 1896
+fmt 1 y_zone_4
+y_zone_4 = 2532
+
+fmt 1 actmini
+fmt 1 actmaxi
+actmini    : 0
+actmaxi    : 0
+
+string_zone_totale : "M170"
+string_zone_1 : "M171"
+string_zone_2 : "M172"
+string_zone_3 : "M173"
+string_zone_4 : "M174"
+string_zone_5 : "M175"
+string_zone_6 : "M176"
+string_zone_7 : "M177"
+string_zone_8 : "M178"
+string_zone_9 : "M179"
+string_zone_10 : "M180"
+string_zone_11 : "M181"
+string_zone_12 : "M182"
+
+string_annul_zone_totale : "M270"
+string_annul_zone_1 : "M271"
+string_annul_zone_2 : "M272"
+string_annul_zone_3 : "M273"
+string_annul_zone_4 : "M274"
+string_annul_zone_5 : "M275"
+string_annul_zone_6 : "M276"
+string_annul_zone_7 : "M277"
+string_annul_zone_8 : "M278"
+string_annul_zone_9 : "M279"
+string_annul_zone_10 : "M280"
+string_annul_zone_11 : "M281"
+string_annul_zone_12 : "M282"
+
+fmt 1 zone_1
+zone_1 : 0
+fmt 1 zone_2
+zone_2 : 0
+fmt 1 zone_3
+zone_3 : 0
+fmt 1 zone_4
+zone_4 : 0
+fmt 1 zone_5
+zone_5 : 0
+fmt 1 zone_6
+zone_6 : 0
+fmt 1 zone_7
+zone_7 : 0
+fmt 1 zone_8
+zone_8 : 0
+fmt 1 zone_9
+zone_9 : 0
+fmt 1 zone_10
+zone_10 : 0
+fmt 1 zone_11
+zone_11 : 0
+fmt 1 zone_12
+zone_12 : 0
+fmt 1 zone_totale
+zone_totale : 0
+
+pactivation_zone_aspiration
+    if xmin < x_zone_0, xmin = x_zone_1
+    if xmin > x_zone_0 & xmin < x_zone_1, xmin = x_zone_1
+    if xmin > x_zone_1 & xmin < x_zone_2, xmin = x_zone_2
+    if xmin > x_zone_2 & xmin < x_zone_3, xmin = x_zone_3
+    if xmin > x_zone_3, xmin = x_zone_3
+
+    if xmax > x_zone_3, xmax = x_zone_3
+    if xmax > x_zone_2 & xmax < x_zone_3, xmax = x_zone_3
+    if xmax > x_zone_1 & xmax < x_zone_2, xmax = x_zone_2
+    if xmax > x_zone_0 & xmax < x_zone_1, xmax = x_zone_1
+    if xmax < x_zone_0, xmax = x_zone_1
+
+    if ymin < y_zone_0, ymin = y_zone_1
+    if ymin > y_zone_0 & ymin < y_zone_1, ymin = y_zone_1
+    if ymin > y_zone_1 & ymin < y_zone_2, ymin = y_zone_2
+    if ymin > y_zone_2 & ymin < y_zone_3, ymin = y_zone_3
+    if ymin > y_zone_3 & ymin < y_zone_4, ymin = y_zone_4
+    if ymin > y_zone_4, ymin = y_zone_4
+
+    if ymax > y_zone_4, ymax = y_zone_4
+    if ymax > y_zone_3 & ymax < y_zone_4, ymax = y_zone_4
+    if ymax > y_zone_2 & ymax < y_zone_3, ymax = y_zone_3
+    if ymax > y_zone_1 & ymax < y_zone_2, ymax = y_zone_2
+    if ymax > y_zone_0 & ymax < y_zone_1, ymax = y_zone_1
+    if ymax < y_zone_0, ymax = y_zone_1
+
+    xmin = flook(1,abs(xmin))
+    xmax = flook(1,abs(xmax))
+    ymin = flook(2,abs(ymin))
+    ymax = flook(2,abs(ymax))
+
+    if xmin = 1,    [
+                    if ymin = 1, actmini = 1
+                     if ymin = 2, actmini = 2
+                    if ymin = 3, actmini = 3
+                    if ymin = 4, actmini = 4
+                    ]
+    if xmin = 2,     [
+                    if ymin = 1, actmini = 5
+                     if ymin = 2, actmini = 6
+                    if ymin = 3, actmini = 7
+                    if ymin = 4, actmini = 8
+                    ]
+    if xmin = 3,     [
+                    if ymin = 1, actmini = 9
+                     if ymin = 2, actmini = 10
+                    if ymin = 3, actmini = 11
+                    if ymin = 4, actmini = 12
+                    ]
+
+    if xmax = 1,    [
+                    if ymax = 1, actmaxi = 1
+                     if ymax = 2, actmaxi = 2
+                    if ymax = 3, actmaxi = 3
+                     if ymax = 4, actmaxi = 4
+                    ]
+    if xmax = 2,     [
+                    if ymax = 1, actmaxi = 5
+                     if ymax = 2, actmaxi = 6
+                    if ymax = 3, actmaxi = 7
+                     if ymax = 4, actmaxi = 8
+                    ]
+    if xmax = 3,     [
+                    if ymax = 1, actmaxi = 9
+                     if ymax = 2, actmaxi = 10
+                    if ymax = 3, actmaxi = 11
+                     if ymax = 4, actmaxi = 12
+                    ]
+
+    #"voir retours ",*actmini, *actmaxi, *xmin, *xmax, *ymin, *ymax, e$
+    if actmini = 1,    [
+                    if actmaxi = 1, zone_1 = 1
+                    if actmaxi = 2, zone_1 = 1, zone_2 = 1
+                    if actmaxi = 3, zone_1 = 1, zone_2 = 1, zone_3 = 1
+                    if actmaxi = 4, zone_1 = 1, zone_2 = 1, zone_3 = 1, zone_4 = 1
+                    if actmaxi = 5, zone_1 = 1, zone_5 = 1
+                    if actmaxi = 6, zone_1 = 1, zone_2 = 1, zone_5 = 1, zone_6 = 1
+                    if actmaxi = 7, zone_1 = 1, zone_2 = 1, zone_3 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_1 = 1, zone_2 = 1, zone_3 = 1, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 9, zone_1 = 1, zone_5 = 1, zone_9 = 1
+                    if actmaxi = 10, zone_1 = 1, zone_2 = 1, zone_5 = 1, zone_6 = 1, zone_9 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_1 = 1, zone_2 = 1, zone_3 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_9 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_totale = 1
+                    ]
+    if actmini = 2,    [
+                    if actmaxi = 2, zone_2 = 1
+                    if actmaxi = 3, zone_2 = 1, zone_3 = 1
+                    if actmaxi = 4, zone_2 = 1, zone_3 = 1, zone_4 = 1
+                    if actmaxi = 6, zone_2 = 1, zone_6 = 1
+                    if actmaxi = 7, zone_2 = 1, zone_3 = 1, zone_6 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_2 = 1, zone_3 = 1, zone_4 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 10, zone_2 = 1, zone_6 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_2 = 1, zone_3 = 1, zone_6 = 1, zone_7 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_2 = 1, zone_3 = 1, zone_4 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 3,    [
+                    if actmaxi = 3, zone_3 = 1
+                    if actmaxi = 4, zone_3 = 1, zone_4 = 1
+                    if actmaxi = 7, zone_3 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_3 = 1, zone_4 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 11, zone_3 = 1, zone_7 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_3 = 1, zone_4 = 1, zone_7 = 1, zone_8 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 4,    [
+                    if actmaxi = 4, zone_4 = 1
+                    if actmaxi = 5, zone_4 = 1, zone_5 = 1
+                    if actmaxi = 6, zone_4 = 1, zone_5 = 1, zone_6 = 1
+                    if actmaxi = 7, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 9, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_9 = 1
+                    if actmaxi = 10, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_9 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_9 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_4 = 1, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_9 = 1, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 4,    [
+                    if actmaxi = 4, zone_4 = 1
+                    if actmaxi = 8, zone_4 = 1, zone_8 = 1
+                    if actmaxi = 12, zone_4 = 1, zone_8 = 1, zone_12 = 1
+                    ]
+    if actmini = 5,    [
+                    if actmaxi = 5, zone_5 = 1
+                    if actmaxi = 6, zone_5 = 1, zone_6 = 1
+                    if actmaxi = 7, zone_5 = 1, zone_6 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 9, zone_5 = 1, zone_9 = 1
+                    if actmaxi = 10, zone_5 = 1, zone_6 = 1, zone_9 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_9 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_5 = 1, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_9 = 1, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 6,    [
+                    if actmaxi = 6, zone_6 = 1
+                    if actmaxi = 7, zone_6 = 1, zone_7 = 1
+                    if actmaxi = 8, zone_6 = 1, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 10, zone_6 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_6 = 1, zone_7 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_6 = 1, zone_7 = 1, zone_8 = 1, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 7,    [
+                    if actmaxi = 7, zone_7 = 1
+                    if actmaxi = 8, zone_7 = 1, zone_8 = 1
+                    if actmaxi = 11, zone_7 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_7 = 1, zone_8 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 8,    [
+                    if actmaxi = 8, zone_8 = 1
+                    if actmaxi = 12, zone_8 = 1, zone_12 = 1
+                    ]
+    if actmini = 9,    [
+                    if actmaxi = 9, zone_9 = 1
+                    if actmaxi = 10, zone_9 = 1, zone_10 = 1
+                    if actmaxi = 11, zone_9 = 1, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_9 = 1, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 10,    [
+                    if actmaxi = 10, zone_10 = 1
+                    if actmaxi = 11, zone_10 = 1, zone_11 = 1
+                    if actmaxi = 12, zone_10 = 1, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 11,    [
+                    if actmaxi = 11, zone_11 = 1
+                    if actmaxi = 12, zone_11 = 1, zone_12 = 1
+                    ]
+    if actmini = 12,    [
+                    if actmaxi = 12, zone_12 = 1
+                    ]
+    if erreur_brut <> 1,    [
+    n$,sdcom, "ACTIVATION ZONES DEPRESSION", sfcom, e$
+    if zone_totale = 1, n$, string_zone_totale, e$
+    if zone_1 = 1, n$, string_zone_1, e$
+    if zone_2 = 1, n$, string_zone_2, e$
+    if zone_3 = 1, n$, string_zone_3, e$
+    if zone_4 = 1, n$, string_zone_4, e$
+    if zone_5 = 1, n$, string_zone_5, e$
+    if zone_6 = 1, n$, string_zone_6, e$
+    if zone_7 = 1, n$, string_zone_7, e$
+    if zone_8 = 1, n$, string_zone_8, e$
+    if zone_9 = 1, n$, string_zone_9, e$
+    if zone_10 = 1, n$, string_zone_10, e$
+    if zone_11 = 1, n$, string_zone_11, e$
+    if zone_12 = 1, n$, string_zone_12, e$
+    n$,sdcom, "FIN ACTIVATION ZONES DEPRESSION", sfcom, e$
+                        ]
+
+pdesactivation_zone_aspiration
+    if erreur_brut <> 1,    [
+    n$,sdcom, "DESACTIVATION ZONES DEPRESSION", sfcom, e$
+    if zone_totale = 1, n$, string_annul_zone_totale, e$
+    if zone_1 = 1, n$, string_annul_zone_1, e$
+    if zone_2 = 1, n$, string_annul_zone_2, e$
+    if zone_3 = 1, n$, string_annul_zone_3, e$
+    if zone_4 = 1, n$, string_annul_zone_4, e$
+    if zone_5 = 1, n$, string_annul_zone_5, e$
+    if zone_6 = 1, n$, string_annul_zone_6, e$
+    if zone_7 = 1, n$, string_annul_zone_7, e$
+    if zone_8 = 1, n$, string_annul_zone_8, e$
+    if zone_9 = 1, n$, string_annul_zone_9, e$
+    if zone_10 = 1, n$, string_annul_zone_10, e$
+    if zone_11 = 1, n$, string_annul_zone_11, e$
+    if zone_12 = 1, n$, string_annul_zone_12, e$
+    n$,sdcom, "FIN DESACTIVATION ZONES DEPRESSION", sfcom, e$
+                            ]
+
+prapid$      # Ligne en rapide
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+        n$, sgcode, sinc_abs, pxyz,e$
+
+pzrapid$     # Ligne Z en rapide
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+        n$, sgcode, sinc_abs, pcorh, pxyz, e$
+
+plin$        # Ligne travail
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+           n$, pcord, e$
+        n$, `sgcode, sinc_abs, pxyz , pfr,e$
+
+pz$      # z en avance TRAVAIL
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+        n$, sgcode, sinc_abs, pcorh, pxyz, pfr,e$
+
+pcir$        # Circulaire
+
+        if arctype$ >= 5, pcir_r, e$    # en R
+        else, pcir_ij, e$   # en IJ
+
+p_casse_modalite_X  # pour casser la modalitÃ© de Xabs et Xinc
+
+            xabs =  -9999
+            !xabs
+
+
+
+p_casse_modalite_Y  # pour casser la modalitÃ© de Yabs et Yinc
+
+            yabs =  -9999
+            !yabs
+
+pcir_r      # Circulaire G2 G3 G17 G18 G19 en R
+
+    p_casse_modalite_X  # pour casser la modalitÃ© de Xabs et Xinc
+    p_casse_modalite_Y  # pour casser la modalitÃ© de Yabs et Yinc
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+            if arctype$ = 5 , rayon = arcrad$
+            if arctype$ = 6 & sweep$ <= 180 , rayon = arcrad$
+            if arctype$ = 6 & sweep$ > 180 , rayon = -arcrad$
+
+            n$, splcode, e$
+           if plane$ = 0, n$, splcode, sinc_abs, *sgcode, pxyz, rayon, pfr   # plan XY
+           if plane$ = 2, n$, splcode, sinc_abs, *sgcode, pxyz, rayon, pfr   # plan XZ
+           if plane$ = 1, n$, splcode, sinc_abs, *sgcode, pxyz, rayon, pfr   # plan YZ
+
+pcir_ij     # Circulaire G2 G3 G17 G18 G19 en IJ
+
+        xabs = x$
+        yabs = y$
+        zabs = z$
+        #paxe_mini_maxi_2
+        n$, splcode, e$
+           if plane$ = 0, n$, splcode, sinc_abs, *sgcode, pxyz, pijk, pfr
+           if plane$ = 2, n$, splcode, sinc_abs, *sgcode, pxyz, pijk, pfr
+           if plane$ = 1, n$, splcode, sinc_abs, *sgcode, pxyz, pijk, pfr
+
+
+
+pxyz        # ecriture des x, y, z en abs ou incremental pour corp ISO
+
+
+    if sous_prog = 0, pxyz_normal   # si pas premier Mouvement du sous prog
+    if sous_prog = 1, pxyz_sousprog # si c'est le premier Mouvement du sous prog
+
+        sous_prog = 0
+
+        !x$, !y$, !z$  # mise a jour xyz
+
+        old_x = xabs
+        old_y = yabs
+        old_z = zabs
+
+pxyz_normal # si pas premier Mouvement du sous prog
+
+           if rotaxis$ = 0, [    # XYZ CLASIQUE
+
+        if incremental = 0, xabs, yabs, zabs, !xinc, !yinc, !zinc
+        else,  !xabs, !yabs, !zabs, xinc, yinc, zinc
+
+                ]
+
+           if rotaxis$ = 2, [    # SUBSTITUTION Y par A (diviseur tourne autour de X)
+        p_Apos
+        if incremental = 0, xabs, A_pos, zdev, !yabs, !zabs, !xinc, !yinc, !zinc, !A_posi, !zdevi
+        else, !xabs, !yabs, !zabs, !zdev, !A_pos,  xinc, A_posi, zdevi, !yinc, !zinc
+
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+
+           if rotaxis$ = 1, [    # SUBSTITUTION X par A (diviseur tourne autour de Y)
+        p_Apos
+        if incremental = 0, yabs, A_pos, zdev, !xabs, !zabs, !xinc, !yinc, !zinc, !A_posi, !zdevi
+        else, !xabs, !yabs, !zabs, !zdev, !A_pos,  yinc, A_posi, zdevi, !xinc, !zinc
+
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+pxyz_sousprog   # si c'est le premier Mouvement du sous prog il faut forcer xinc yinc zinc
+
+           if rotaxis$ = 0, [    # XYZ CLASIQUE
+
+        if incremental = 0, xabs, yabs, zabs, !xinc, !yinc, !zinc
+        else,  !xabs, !yabs, !zabs, *xinc, *yinc, *zinc
+                ]
+
+           if rotaxis$ = 2, [    # SUBSTITUTION Y par A (diviseur tourne autour de X)
+        p_Apos
+        if incremental = 0, xabs, A_pos, zdev, !yabs, !zabs, !xinc, !yinc, !zinc, !A_posi, !zdevi
+        else,           !xabs, !yabs, !zabs, !zdev, !A_pos,  *xinc, *A_posi, *zdevi, !yinc, !zinc
+
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+
+           if rotaxis$ = 1, [    # SUBSTITUTION X par A (diviseur tourne autour de Y)
+        p_Apos
+        if incremental = 0, yabs, A_pos, zdev, !xabs, !zabs, !xinc, !yinc, !zinc, !A_posi, !zdevi
+        else,           !xabs, !yabs, !zabs, !zdev, !A_pos, *yinc,  *A_posi, *zdevi, !xinc, !zinc
+
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+
+
+pijk        # ecriture des IJK pour G90 G91
+
+    iabs = i$
+    jabs = j$
+    kabs = k$
+
+    iinc = i$
+    jinc = j$
+    kinc = k$
+
+        if arctype$ = 1, [   # pour centre en absolue
+
+        if incremental = 0 & plane$ = 0 , *iabs, *jabs, !iinc, !jinc, !kinc
+        if incremental = 0 & plane$ = 2 , *iabs, *kabs, !iinc, !jinc, !kinc
+        if incremental = 0 & plane$ = 1 , *jabs, *kabs, !iinc, !jinc, !kinc
+
+        if incremental = 1 & plane$ = 0 , !iabs, !jabs, *iinc, *jinc, !kinc
+        if incremental = 1 & plane$ = 2 , !iabs, !kabs, *iinc, !jinc, *kinc
+        if incremental = 1 & plane$ = 1 , !jabs, !kabs, !iinc, *jinc, *kinc
+                ]
+
+        else, [     # pour centre en relatif
+
+        if plane$ = 0 , *iabs, *jabs, !iinc, !jinc, !kinc
+        if plane$ = 2 , *iabs, *kabs, !iinc, !jinc, !kinc
+        if plane$ = 1 , *jabs, *kabs, !iinc, !jinc, !kinc
+            ]
+
+        !i$, !j$, !k$
+
+#-------------------------------------------------------------------------
+
+pxy     # ecriture des x, y en abs ou incremental
+
+        xabs = x$
+        yabs = y$
+
+           if rotaxis$ = 0,  [   # XY CLASIQUE
+        @depth$
+        @refht$
+        profabs = depth$
+        profi = depth$ - refht$
+        gardeabs = refht$
+        gardei = refht$ - initht$
+        !depth$
+        !refht$
+
+
+        if sous_prog = 0,   [
+            if incremental = 0,  xabs, yabs, profabs, gardeabs, !xinc, !yinc, !profi, !gardei
+            else,           !xabs, !yabs, !profabs, !gardeabs, xinc, yinc, profi, gardei
+                    ]
+
+        if sous_prog = 1,   [
+            if incremental = 0,  *xabs, *yabs, profabs, gardeabs, !xinc, !yinc, !profi, !gardei
+            else,           !xabs, !yabs, !profabs, !gardeabs, *xinc, *yinc, *profi, *gardei
+                    ]
+
+                ]
+
+           if rotaxis$ = 2, [    # SUBSTITUTION Y par A (diviseur tourne autour de X)
+        p_Apos
+
+        @depth$
+        @refht$
+        profabs = depth$ + (rotdia$/2)
+        profi = depth$ - refht$
+        gardeabs = refht$ + (rotdia$/2)
+        gardei = refht$-initht$
+        !depth$
+        !refht$
+
+
+        if sous_prog = 1,   [
+        if incremental = 0, *xabs, *A_pos, *profabs, *gardeabs, !yabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        else, !xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, *xinc, *A_posi, *profi, *gardei, !zdevi, !yinc, !zinc
+                    ]
+
+        if sous_prog = 0,   [
+        if incremental = 0, xabs, A_pos, profabs, gardeabs, !yabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        else, !xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, xinc, A_posi, profi, gardei, !zdevi, !yinc, !zinc
+                    ]
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+
+           if rotaxis$ = 1, [    # SUBSTITUTION X par A (diviseur tourne autour de Y)
+        p_Apos
+
+        @depth$
+        @refht$
+        profabs = depth$ + (rotdia$/2)
+        profi = depth$ - refht$
+        gardeabs = refht$ + (rotdia$/2)
+        gardei = refht$-initht$
+        !depth$
+        !refht$
+
+        if sous_prog = 1,   [
+        if incremental = 0, *yabs, *A_pos, *profabs, *gardeabs, !xabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        else, !xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, *yinc, *A_posi, *profi, *gardei, !zdevi, !xinc, !zinc
+                    ]
+
+        if sous_prog = 0,   [
+        if incremental = 0, yabs, A_pos, profabs, gardeabs, !xabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        else, !xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, yinc, A_posi, profi, gardei, !zdevi, !xinc, !zinc
+                    ]
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+        sous_prog = 0
+        !x$, !y$      # mise a jour XY
+
+        old_x = xabs
+        old_y = yabs
+
+
+pxyforcer       # ecriture des *x, *y en abs ou incremental
+
+        xabs = x$
+        yabs = y$
+
+
+
+           if rotaxis$ = 0,  [   # XYZ CLASIQUE
+
+        @depth$
+        @refht$
+        profabs = depth$
+        profi = depth$ - refht$
+        gardeabs = refht$
+        gardei = refht$-initht$
+        !depth$
+        !refht$
+
+        if incremental = 0, 	[
+								*xabs, *yabs
+								if cycle_tap <> 2, *profabs
+								if cycle_tap = 0, *gardeabs
+								else, garde_tap = gardeabs
+								if cycle_tap = 2, *garde_tap
+								!xinc, !yinc, !profi, !gardei
+								
+								]
+        else,	[
+				!xabs, !yabs, !profabs, !gardeabs
+				*xinc, *yinc
+				if cycle_tap <> 2, *profi
+				if cycle_tap = 0, *gardei
+				else, garde_tap = gardei
+				if cycle_tap = 2, *garde_tap
+				]
+                ]
+
+
+
+
+           if rotaxis$ = 2, [    # SUBSTITUTION Y par A (diviseur tourne autour de X)
+        p_Apos
+
+        @depth$
+        @refht$
+        profabs = depth$ + (rotdia$/2)
+        profi = depth$ - refht$
+        gardeabs = refht$ + (rotdia$/2)
+        gardei = refht$-initht$
+        !depth$
+        !refht$
+
+
+
+        if incremental = 0,	[
+							*xabs, *A_pos
+							if cycle_tap <> 2, *profabs
+							if cycle_tap = 0, *gardeabs
+							else, garde_tap = gardeabs
+							if cycle_tap = 2, *garde_tap
+							!yabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        					]
+		
+		
+		else,	[
+				!xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, *xinc, *A_posi
+				if cycle_tap <> 2, *profi
+				if cycle_tap = 0, *gardei
+				else, garde_tap = gardei
+				if cycle_tap = 2, *garde_tap
+				!zdevi, !yinc, !zinc
+				]
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+
+           if rotaxis$ = 1, [    # SUBSTITUTION X par A (diviseur tourne autour de Y)
+        p_Apos
+
+        @depth$
+        @refht$
+        profabs = depth$ + (rotdia$/2)
+        profi = depth$ - refht$
+        gardeabs = refht$ + (rotdia$/2)
+        gardei = refht$-initht$
+        !depth$
+        !refht$
+
+
+        if incremental = 0,	[
+							*yabs, *A_pos
+							if cycle_tap <> 2, *profabs
+							if cycle_tap = 0, *gardeabs
+							else, garde_tap = gardeabs
+							if cycle_tap = 2, *garde_tap
+							!xabs, !zabs, !profi, !gardei, !xinc, !yinc, !zinc, !A_posi
+        					]
+		else,	[
+				!xabs, !yabs, !zabs, !profabs, !gardeabs, !zdev, !A_pos, *yinc, *A_posi
+				if cycle_tap <> 2, *profi
+				if cycle_tap = 0, *gardei
+				else, garde_tap = gardei
+				if cycle_tap = 2, *garde_tap
+				!zdevi, !xinc, !zinc
+				]
+	
+        axeA  = A_pos
+        old_axeA  = A_pos
+        nbrtour = int (axeA / 360)
+                ]
+
+        !x$, !y$      # mise a jour XY
+        old_x = xabs
+        old_y = yabs
+
+
+pavanceperce
+
+        #if fr_pos >=1 , avance = abs(fr_pos) / abs(ss)
+        #else, avance = fr_pos
+
+        #avance = fr_pos
+        #*avance
+        frplunge$
+
+phole       # trous suivants
+
+
+        n$, sinc_abs, pxy
+
+
+pdrill$      # Cycle de percage G81 G82
+
+        if texteonof = 1, [
+          # if typcycle = 0 & dwell$ = 0,  "(POINTAGE-PERCAGE)", e$
+          # if typcycle = 0 & dwell$ <> 0, "(POINTAGE-PERCAGE-TEMPO)", e$
+            ]
+           typcycle = 1
+
+
+
+
+        if dwell$ = 0, n$, sinc_abs, "G81", pxyforcer, pavanceperce, e$
+        else, n$, sinc_abs, "G82", pxyforcer, pavanceperce, *tempo, e$
+
+
+ppeck$      # Cycle de dÃ©bourrage G83
+
+
+        if texteonof = 1, [
+          # if typcycle = 0, "(DEBOURRAGE)", e
+            ]
+           typcycle = 1
+
+           n$, sinc_abs, "G83", pxyforcer, peck1$, pavanceperce, e$
+
+
+pchpbrk$    # Cycle de brise copeaux G73
+
+        if texteonof = 1, [
+           #if typcycle = 0,  "(BRISE COPEAUX)", e
+            ]
+           typcycle = 1
+
+           n$, sinc_abs, "G73", pxyforcer, retr$, peckclr$, pavanceperce, *tempo, e$
+
+
+
+ptap$       # Cycle de taraudage G84
+
+        if texteonof = 1, [
+           #if typcycle = 0,  "(TARAUDAGE)", e
+            ]
+           typcycle = 1
+		   cycle_tap = 1
+           if tldia$ = 3, pas = 0.5
+           if tldia$ = 4, pas = 0.7
+           if tldia$ = 5, pas = 0.8
+           if tldia$ = 6, pas = 1
+           if tldia$ = 8, pas = 1.25
+           if tldia$ = 10, pas = 1.5
+           if tldia$ = 12, pas = 1.75
+           if tldia$ = 14, pas = 2
+           if tldia$ = 16, pas = 2
+
+             if n_tap_thds$ <> 0, pas = n_tap_thds$
+
+           #pas = pas * ss
+        #n, "M29", *ssa, e
+        #n$, sinc_abs, "G84", pxyforcer, pas, !tempo, e$
+		
+		n$, sinc_abs, "G33", pxyforcer, pavanceperce, pas, !tempo, *spdlon, e$
+		ss$ = ss$ * -1
+		cycle_tap = 2
+		n$, sinc_abs, pxyforcer, pavanceperce, pas, !tempo, *spdlon, e$
+		ss$ = ss$ * -1
+		n$, "G0", e$
+		n$, "G134", e$
+
+pbore1$     # Cycle d'alÃ©sage G85
+
+        if texteonof = 1, [
+           #if typcycle = 0, "(ALESAGE)", e
+                ]
+           typcycle = 1
+
+           n$, sinc_abs, "G85", pxyforcer, pavanceperce, !tempo, e$
+
+
+p_bore2     # Cycle d'alÃ©sage G86
+
+        if texteonof = 1, [
+          # if typcycle = 0, "(ALESAGE BARE)", e
+            ]
+           typcycle = 1
+
+           n$, sinc_abs, "G86", pxyforcer, pavanceperce, !tempo, e$
+
+
+
+pbore2$     # Cycle d'alÃ©sage indexÃ© G75
+
+        if texteonof = 1, [
+          # if typcycle = 0, "(ALESAGE INDEXE)", e
+            ]
+           typcycle = 1
+
+       if shftdrl$ = 0, shftdrl$ = 0.1
+       if shftdrl$ <0, shftdrl$ = shftdrl$ *   -1
+
+           n$, sinc_abs, "G75", pxyforcer, *shftdrl$, "P0.", pavanceperce, !tempo, e$
+
+
+pmisc1$     # Cycle G81 puis G75
+
+
+pmisc2$     # Cycle
+
+pdrill_2$   # Percage suivant
+
+           phole,e$
+ppeck_2$    # Canned Peck Drill Cycle
+
+           phole,e$
+pchpbrk_2$  # Canned Chip Break Cycle
+
+           phole,e$
+ptap_2$     # Canned Tap Cycle
+			gcode$ = 0
+			cycle_tap = 2
+          	n$, *sgcode, sinc_abs, pxyforcer,e$
+			ptap$
+pbore1_2$   # Canned Bore #1 Cycle
+
+        phole,e$
+
+pbore2_2$   # Canned Bore #2 Cycle
+
+        phole,e$
+
+pmisc1_2$   # Canned Misc #1 Cycle
+
+        phole,e$
+
+pmisc2_2$   # Canned Misc #2 Cycle
+
+        phole,e$
+
+pcanceldc$  # Cancel canned drill cycle
+
+
+    z$ = initht$      # z au plan de secu
+    profabs=   -99999   # raz des prof garde tempo
+    gardeabs=   -99999
+    tempo = 0
+    !profabs
+    !gardeabs
+    !tempo
+
+
+           if rotaxis$ = 0,  [   # XYZ CLASIQUE
+
+        zabs = z$
+
+                                ]
+        else, [
+
+        zabs = z$ + (rotdia$/2)
+            ]
+
+        gcode$ =5    # choix du gcode pour ecrire G80
+		if cycle_tap = 2, gcode$ = 0
+             if incremental = 0, n$, sinc_abs, *sgcode, *zabs, !zinc, e$
+             if incremental = 1, n$, sinc_abs, *sgcode, !zabs, zinc, e$
+
+
+
+
+        !z$      # Raz de Z
+        old_z = zabs
+
+
+
+pcancelcc$  # Cancel canned drill cycle
+
+#------------------Liste des OUTILS---------------------------------------------------
+
+
+
+
+fmt "T" 5 paramT1       # NÂ° outil
+fmt   5 paramT2         # Type d'outil
+fmt   5 paramT3         # Matiere de l'outil 1=Rapide 2=carbure 3=carbure revetu 4=cermet 5=borzon
+fmt   5 paramT4         # Type de rayon de bout 0=aucun 1=torique 2=spherique
+fmt "DIAM=" 3 paramT5   # Diametre
+fmt "R=" 3 paramT6      # Rayon de bout
+fmt   3 paramT7         # Nombre de filet par mm
+fmt "A=" 3 paramT8  # Angle de bout
+fmt   5 paramT9         # NÂ° de correcteur de rayon
+fmt   5 paramT10    # NÂ° de correcteur de longeur
+fmt   3 paramT11    # Avance travail
+fmt   3 paramT12    # Avance plongee
+fmt   3 paramT13    # Avance retraction
+fmt   5 paramT14    # Vitesse de broche
+fmt   5 paramT15    # Type de lubrification 0=arret 1=eau 2=air 3=broche 4=les 2
+fmt   5 paramT16    " DENTS" # Nombre de dents
+
+stypT00 : "RIEN"
+stypT01 : "FORET A CENTRER"
+stypT02 : "FORET A NOYER"
+stypT03 : "FORET"
+stypT04 : "TARAUD A DROITE"
+stypT05 : "TARAUD A GAUCHE"
+stypT06 : "ALESOIR"
+stypT07 : "BARRE D'ALESAGE"
+stypT08 : "FRAISE A LAMER"
+stypT09 : "FRAISE A EBAVURER"
+stypT10 : "FRAISE 2 TAILLES"
+stypT11 : "FRAISE BOULE"
+stypT12 : "FRAISE A CHANFREINER"
+stypT13 : "TOURTEAU"
+stypT14 : "FRAISE 3 TAILLES"
+stypT15 : "FRAISE A RAYON"
+stypT16 : "FRAISE QUEUE D'ARONDE"
+stypT17 : "FRAISE CONIQUE"
+stypT18 : "FRAISE SPHERIQUE"
+stypT19 : "FRAISE TORIQUE"
+stypT20 : "SPECIAL"
+stypT21 : "FRAISE A GRAVER"
+stypT22 : "FORET BRAD"
+
+stypeT : ""
+fstrsel stypT00 paramT2 stypeT 23 -1
+
+
+smatT0  : "ARS"
+smatT1  : "ARS"
+smatT2  : "CARBURE"
+smatT3  : "CARBURE PLAQUETTES"
+smatT4  : "CERAMIQUE"
+smatT5  : "BORZON"
+smatT6  : "BORZON"
+smatT7  : "BORZON"
+smatT8  : "BORZON"
+smatT9  : "BORZON"
+smatT10 : "INCONNU"
+smatT : ""
+fstrsel smatT0 paramT3 smatT 11 -1
+
+
+
+ptypeBoutT # afficher on non le rayon de bout
+           if paramT4 <> 0, space, paramT6
+
+pangleT    # afficher on non l'angle de l'outil
+           if paramT2 = 3 | paramT2 = 12 | paramT2 = 2 | paramT2 = 17 | paramT2 = 9 | paramT2 = 4 | paramT2 = 5, space, paramT8
+
+pwrttparam$
+           if prmcode$ = 20004, paramT1 = rpar(sparameter$, 16)
+
+pwrtt$      # Lite des outil
+
+            strtool$ = ucase(strtool$)
+
+        if texteonof = 1 & t$ > 0, [
+
+            old_spaces = spaces$
+            spaces$ = 0
+            if strtool$ <> svide, n$,sdcom, paramT1, space, strtool$, space, stypeT, space, paramT5, space, paramT16, ptypeBoutT, pangleT, space, smatT, sfcom ,e$
+            else, n$,sdcom, paramT1, space, stypeT, space, paramT5, space, paramT16, ptypeBoutT, pangleT, space, smatT, sfcom ,e$
+            spaces$ = old_spaces
+                ]
+
+    last_op_id = op_id$
+
+
+
+# -------------------------LECTURE DES PARAMETRES DE SUREP ET DE TYPE DE CORRECTION--------------------------------------------
+fmt "SUREP R " 8 surep          # Surep au rayon
+fmt "SUREP Z " 8 surepl         # Surep en Z
+fmt "SUREP 3D " 8 surep3d       # Surep en usinage 3D
+surep3d = surep
+
+sfileops : ""                # string du nom du fichier OPS
+sops : ".ops"             # extention des fichier OPS
+fmt "R" 2 result
+
+fmt "C_ORDI" 3 cc_computer$      # correction ordinateur
+fmt "C_ARMO" 3 cc_pos$           # correction Armoire
+fmt          3 type_comp        # type de correction
+cc_1013$ : 1             # pour connaitre cc dans appel outil
+
+
+
+# Table de l'affichage du type de corection
+
+stc0   : "CORRECTION AUCUNE"
+stc1   : "CORRECTION ARMOIRE DROITE"
+stc2   : "CORRECTION ARMOIRE GAUCHE"
+stc3   : "CORRECTION ORDINATEUR DROITE"
+stc4   : "CORRECTION ORDINATEUR GAUCHE"
+stc5   : "CORRECTION USURE DROITE"
+stc6   : "CORRECTION USURE GAUCHE"
+stc7   : "CORRECTION USURE INVERSE DROITE"
+stc8   : "CORRECTION USURE INVERSE GAUCHE"
+
+stype_comp : ""
+
+fstrsel  stc0 type_comp stype_comp 9 -1
+
+
+
+fprmtbl 1    2  # lecture des parametre de surep pour contour et 3D
+        10010    surep
+            10068    surepl
+
+fprmtbl 2    1 # lecture des parametre de surep pour surfacage
+        10117  surepl
+
+
+
+
+pparameter$  # lecture des parametres de surep
+
+    if opcode$ <> 19, result = fprm (1)  # pour surfacage
+    if opcode$ = 19, result = fprm (2)   # pour 2D 3D
+
+    if prmcode$ = 20004, paramT1 = rpar(sparameter$, 16)  # lecture des parametres d'outil
+    if prmcode$ = 20018, snomgroupe_op = ucase (sparameter$)
+
+pmachineinfo$    # lecture des parametre de def armoire et def machine
+
+#   if prmcode = 18458, [       # si le nombre de caracteres de commentaire =0 pas de texte dans le pst
+#           nbr_car = rpar(sparameter, 1)   # nombre de caracteres de commentaire
+#           if nbr_car = 0, texteonof = 0
+#           else, texteonof = 1
+#           ]
+
+
+paramcomp   # Type de correction d'outil
+
+
+    if info_corr = 1, [
+
+    if op_id$ <> old_op_id, [
+
+        #cc_comp 41 42 0
+        #cc_pos   1  2 0
+
+        @cc_computer$, @cc_pos$
+
+
+
+    if cc_pos$ = 0  & cc_computer$ = 0,   type_comp = 0   #AUCUNE
+    if cc_pos$ = 2  & cc_computer$ = 0,   type_comp = 1   #ARMOIRE DROITE
+    if cc_pos$ = 1  & cc_computer$ = 0,   type_comp = 2   #ARMOIRE GAUCHE
+
+    if cc_pos$ = 0  & cc_computer$ = 42,  type_comp = 3   #ORDINATEUR DROITE
+    if cc_pos$ = 0  & cc_computer$ = 41,  type_comp = 4   #ORDINATEUR GAUCHE
+
+    if cc_pos$ = 2  & cc_computer$ = 42,  type_comp = 5   #USURE DROITE
+    if cc_pos$ = 1  & cc_computer$ = 41,  type_comp = 6   #USURE GAUCHE
+
+    if cc_pos$ = 1  & cc_computer$ = 42,  type_comp = 7   #USURE INVERSE DROITE
+    if cc_pos$ = 2  & cc_computer$ = 41,  type_comp = 8   #USURE INVERSE GAUCHE
+
+
+        if opcode$ = 19, type_comp = 0           # mis sur aucune a la place d'ordinateur
+
+        old_spaces = spaces$
+        spaces$ = 0
+        if opcode$ <> 3, n$,sdcom, stype_comp, sfcom, e$       # pour ne pas affichier si percage
+        spaces$ = old_spaces
+                ]
+                ]
+
+
+paramsurep  # Affichage des surep au changement d'opÃ©ration
+
+        if info_surep = 1, [
+
+    if op_id$ <> old_op_id, [
+        old_spaces = spaces$
+        spaces$ = 0
+        if opcode$ <> 3 & opcode$ < 5  & opcode$ <> 19,      n$,sdcom, *surep, sfcom, e$, sdcom, *surepl, sfcom, e$     # surep 2d
+
+        if opcode$ <> 3 & opcode$ >= 5 & opcode$ <> 19,      n$,sdcom, *surep3d, sfcom, e$             # surep 3d
+
+        if opcode$ = 19,                       n$,sdcom, *surepl, sfcom, e$                  # surep surfacage
+        spaces$ = old_spaces
+                ]
+
+
+        surep = 0   # remis a Zero
+        surepl = 0
+
+                ]
+
+#-------------------------- RENOMMER LE FICHIER NC EN FONCTION DU NUMERO DE PROGRAMME -------------------------
+
+snom_nc : ""             # STRING de stockage du non du NC complet avec chemin et extesion style c:\cfao\prog-cn\TOTO.NC
+snom_numero : ""         # STRING de stockage du non du NC sous forme O0123.nc avec chemin et extesion style c:\cfao\prog-cn\ous forme O0123.NC
+spoint : "."          # STRING du POINT pour l'extesion (.NC)
+stringo : ""             # STRING du O pour le non (O0123) en nom du Numero PRG
+seditor : "notepad.exe"       # non de l'editeur pour les prog en nom du Numero PRG (avec chemenin complet si pas dans Windows)
+
+
+pnom_nc     # GÃ©nÃ©ration des noms du fichier NC
+
+        snom_nc = spathnc$+snamenc$+spoint+sextnc$             # Fichier NC en cours de creation sous forme toto.nc
+        snom_numero = no2str (progno$)
+        snom_numero = spathnc$+stringo+snom_numero+spoint+sextnc$     # nouveau non de fichier NC sous forme O0015.nc
+
+
+ptest_nom   # test du non du fichier NC si O0123.NC
+
+        if fexist (snom_numero), q11
+
+        if remplace = 0, pchange_nom
+        if remplace = 1, result = remove (snom_numero)
+
+pchange_nom     # changer le numÃ©ro de prog si fichier exite dÃ©ja
+
+
+        while fexist (snom_numero), [
+            q10
+            snom_numero = no2str (progno$)
+            snom_numero = spathnc$+stringo+snom_numero+spoint+sextnc$
+                        ]
+
+
+
+ppost$       # traitement apres post pro pour effacer le fichier OPS et renommer le fichier NC
+
+        sfileops= spathnci$ + snamenci$ + sops    # non du fichier ops
+        result = remove (sfileops)      # effacer le fichier ops
+
+
+        if use_progno = 1, result = remove (snom_numero)        #efface fichier en nom numero
+        if use_progno = 1, result = rename (snom_nc, snom_numero)   #renomer fichier NC en nom numero
+        if use_progno = 1, result = launch (seditor, snom_numero)   #lancer le blocnote
+
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MILL|3-AXES-CN7000</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Percage</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Garde approche</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>RemontÃ©</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_20>
+		<auto_drill_cycles>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</auto_drill_cycles>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_20_custom_parameters>
+		<auto_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</auto_drill_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage Lamage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>DÃ©bourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux</text>
+			</chip_break>
+			<tapping>
+				<text>""</text>
+			</tapping>
+			<boring_1>
+				<text>""</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+<control>
+		<control_label>CTRL_MILL|MECAPRO_3015</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Percage</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise copeaux</text>
+			</description>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<retract>
+				<text>Garde</text>
+			</retract>
+			<first_peck>
+				<text>Increment</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>Garde approche</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>RemontÃ©</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<feed_rate>
+				<text>Avance</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>Plan de SÃ©cutitÃ©</text>
+			</clearance>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<bore2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc1>
+		<misc2>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</misc2>
+		<drill_cycle_9>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</drill_cycle_20>
+		<auto_drill_cycles>
+			<description>
+				<text>""</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<dwell>
+				<text>""</text>
+			</dwell>
+			<clearance>
+				<text>""</text>
+			</clearance>
+			<retract>
+				<text>""</text>
+			</retract>
+			<depth>
+				<text>""</text>
+			</depth>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</auto_drill_cycles>
+		<simple_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</simple_drill_custom_parameters>
+		<peck_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</peck_drill_custom_parameters>
+		<chip_break_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</chip_break_drill_custom_parameters>
+		<tap_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</tap_custom_parameters>
+		<bore1_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+		</bore1_custom_parameters>
+		<bore2_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</bore2_custom_parameters>
+		<misc1_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</misc1_custom_parameters>
+		<misc2_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</misc2_custom_parameters>
+		<drill_cycle_9_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_9_custom_parameters>
+		<drill_cycle_10_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_10_custom_parameters>
+		<drill_cycle_11_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_11_custom_parameters>
+		<drill_cycle_12_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_12_custom_parameters>
+		<drill_cycle_13_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_13_custom_parameters>
+		<drill_cycle_14_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_14_custom_parameters>
+		<drill_cycle_15_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_15_custom_parameters>
+		<drill_cycle_16_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_16_custom_parameters>
+		<drill_cycle_17_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_17_custom_parameters>
+		<drill_cycle_18_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_18_custom_parameters>
+		<drill_cycle_19_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_19_custom_parameters>
+		<drill_cycle_20_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</drill_cycle_20_custom_parameters>
+		<auto_drill_custom_parameters>
+			<description>
+				<text>""</text>
+			</description>
+			<parameter_1>
+				<text>""</text>
+			</parameter_1>
+			<parameter_2>
+				<text>""</text>
+			</parameter_2>
+			<parameter_3>
+				<text>""</text>
+			</parameter_3>
+			<parameter_4>
+				<text>""</text>
+			</parameter_4>
+			<parameter_5>
+				<text>""</text>
+			</parameter_5>
+			<parameter_6>
+				<text>""</text>
+			</parameter_6>
+			<parameter_7>
+				<text>""</text>
+			</parameter_7>
+			<parameter_8>
+				<text>""</text>
+			</parameter_8>
+			<parameter_9>
+				<text>""</text>
+			</parameter_9>
+			<parameter_10>
+				<text>""</text>
+			</parameter_10>
+		</auto_drill_custom_parameters>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage Lamage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>DÃ©bourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise copeaux</text>
+			</chip_break>
+			<tapping>
+				<text>""</text>
+			</tapping>
+			<boring_1>
+				<text>""</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]

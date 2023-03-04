@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ActiveReportsLayout Version="3.2" PrintWidth="11908.8" DocumentName="ARNet Document" ScriptLang="C#" MasterReport="0">
+  <StyleSheet>
+    <Style Name="Normal" Value="font-family: Arial; font-style: normal; text-decoration: none; font-weight: normal; font-size: 10pt; color: Black; ddo-char-set: 204" />
+    <Style Name="Heading1" Value="font-size: 16pt; font-weight: bold" />
+    <Style Name="Heading2" Value="font-family: Times New Roman; font-size: 14pt; font-weight: bold; font-style: italic" />
+    <Style Name="Heading3" Value="font-size: 13pt; font-weight: bold" />
+  </StyleSheet>
+  <Sections>
+    <Section Type="Detail" Name="Detail" Height="230.1971" BackColor="16777215">
+      <Control Type="AR.Field" Name="txtNUMBER1" DataField="NUMBER" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="432" Top="0" Width="576.0001" Height="424.8" Text="txtNUMBER1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtCOMMENT1" DataField="COMMENT" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="1008" Top="0" Width="2160" Height="424.8" Text="txtCOMMENT1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtHOLDER_NAME1" DataField="HOLDER-NAME" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="3168" Top="0" Width="1440" Height="424.8" Text="txtHOLDER_NAME1" Style="font-size: 6.75pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtSHOULDER_LENGTH1" DataField="SHOULDER-LENGTH" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="5328" Top="0" Width="720" Height="424.8" Text="txtSHOULDER_LENGTH1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtOVERALL_LENGTH1" DataField="OVERALL-LENGTH" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6048" Top="0" Width="720" Height="424.8" Text="txtOVERALL_LENGTH1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtFLUTE_LENGTH1" DataField="FLUTE-LENGTH" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="4608" Top="0" Width="720" Height="424.8" Text="txtFLUTE_LENGTH1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label1" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="0" Top="0" Width="432" Height="424.8" Caption="" />
+      <Control Type="AR.Field" Name="txtCODE1" DataField="CODE" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6768" Top="0" Width="2160" Height="424.8" Text="txtCODE1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox1" DataField="OPERATION/COMMENT" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8928" Top="0" Width="2980.8" Height="424.8" Text="OPERATION/COMMENT" Style="text-align: center; vertical-align: middle" />
+    </Section>
+  </Sections>
+  <ReportComponentTray />
+  <DataSources>
+    <XmlDataSource FileURL="Y:\MASTERCAM X7\shared mcamx7\common\reports\XML\SSM1.xml" Pattern="//SETUPSHEET/NCFILE/TOOLS/TOOL" />
+  </DataSources>
+  <Script><![CDATA[public void Detail_Format()
+{
+	
+}
+
+
+public void PageHeader1_Format()
+{
+	
+}
+
+
+]]></Script>
+  <PageSettings LeftMargin="720" RightMargin="720" TopMargin="36000" BottomMargin="56693" PaperSize="9" PaperWidth="11906" PaperHeight="16838" PaperName="" Orientation="2" />
+  <Parameters />
+</ActiveReportsLayout>

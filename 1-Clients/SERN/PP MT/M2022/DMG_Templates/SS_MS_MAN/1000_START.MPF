@@ -1,0 +1,39 @@
+; --------- CHANNEL: 1 --------------
+;MACHINE      : CTX_GAMMA_2000 
+;WORKPIECE    : <WORKPIECE>
+;DRAWING      : 
+;MATERIAL     : <MATERIAL>
+;MASTERCAMFILE: <MCXFileFullPath>
+;PROGRAMMER   : <PROGRAMMER>
+;DATE         : <DATE>  TIME: <TIME>
+; -----------------------------------
+;************************************
+; SIEMENS 840D -- CTX GAMMA 2000 ---- 
+; MACHINE AS SINGLE STREAM STYLE
+; TEMPLATE METRIC, CHUCKING PART, LOAD AND UNLOAD BY HAND
+; LOAD SP3, UNLOAD SP4
+;************************************ 
+ EXTERN DUMMY (INT)
+ N10 L1000             ;LOADING VARIABLES
+NN8010:
+ N60 L1001             ;START-UP
+ N65 STOPRE
+ N70 SETMS(3)
+ N71 G26 S3=<PART_MAX_SS>       ;RPM-LIMIT FOR G95
+ N72 LIMS=<PART_MAX_SS>         ;RPM-LIMIT FOR G95/G96
+ N73 STOPRE
+ N75 SETMS(4)
+ N76 G26 S4=<PART_MAX_SS>       ;RPM-LIMIT FOR G95
+ N77 LIMS=<PART_MAX_SS>         ;RPM-LIMIT FOR G95/G96
+ N80 L711(1)           ;TOOL CHANGE POSITION
+NN8015:
+;******************************
+NN8020:
+ N150 M1 M99           ;OPTIONAL STOP
+ N155 CHECK_MAG        ;CHECK FOR DISENGAGED TOOLS
+NN8025:
+; ******************************************* 
+; **** PART SPECIFIC PROGRAMMING ************ 
+; *BEGIN* *********************************** 
+; *-----*
+EndOfFile

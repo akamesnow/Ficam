@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ActiveReportsLayout Version="3.2" PrintWidth="11908.8" DocumentName="ARNet Document" ScriptLang="C#" MasterReport="0">
+  <StyleSheet>
+    <Style Name="Normal" Value="font-family: Arial; font-style: normal; text-decoration: none; font-weight: normal; font-size: 10pt; color: Black; ddo-char-set: 204" />
+    <Style Name="Heading1" Value="font-size: 16pt; font-weight: bold" />
+    <Style Name="Heading2" Value="font-family: Times New Roman; font-size: 14pt; font-weight: bold; font-style: italic" />
+    <Style Name="Heading3" Value="font-size: 13pt; font-weight: bold" />
+  </StyleSheet>
+  <Sections>
+    <Section Type="Detail" Name="Detail" Height="10617.12" BackColor="16777215">
+      <Control Type="AR.Image" Name="IMAGE_HOLDER_1" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2886.746" Top="3506.4" Width="5947.2" Height="4410.72" LineWeight="0" SizeMode="2" />
+      <Control Type="AR.Field" Name="IMAGE_FILENAME_1" DataField="IMAGE" Left="3708" Top="4455.36" Width="4304.693" Height="2342.551" Text="IMAGE_FILENAME_1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label1" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="0.3967953" Width="6375.118" Height="513.0709" Caption="FICHE TECHNIQUE" Style="font-size: 26.25pt; font-weight: bold; text-align: center; text-decoration: none; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label2" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="512.3338" Width="1965.543" Height="391.1811" Caption="N° DE PROGRAMME" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label3" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="906.3496" Width="1965.543" Height="391.1811" Caption="CLIENT" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label4" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="1295.83" Width="1965.543" Height="391.1811" Caption="N° PLAN ET INDICE" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label5" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="1687.011" Width="1965.543" Height="391.1811" Caption="DESIGNATION" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label6" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="197.3371" Top="2077.058" Width="1965.543" Height="391.1811" Caption="PROGRAMMEUR" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox1" DataField="DESCRIPTION" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2162.88" Top="511.2" Width="4409.575" Height="392.3149" Text="DESCRIPTION" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: justify; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox2" DataField="CUSTOMER" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2162.88" Top="902.9479" Width="4409.575" Height="392.8819" Text="CUSTOMER" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: justify; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox5" DataField="PROGRAMMER" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2162.88" Top="1297.531" Width="4409.575" Height="391.1811" Text="PROGRAMMER" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: justify; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox3" DataField="DRAWING-NUMBER" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2162.88" Top="1688.145" Width="4409.575" Height="390.0473" Text="DRAWING-NUMBER" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: justify; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox4" DataField="DRAWING-REVISION" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2162.88" Top="2077.058" Width="4409.575" Height="391.1811" Text="DRAWING-REVISION" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: justify; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label8" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6572.461" Top="513.4677" Width="1440" Height="678.6141" Caption="PRISE DE PIECE" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; text-justify: auto; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label7" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6572.461" Top="0.3967953" Width="1440.001" Height="513.0709" Caption="MACHINE" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle; ddo-char-set: 0; ddo-font-vertical: none" />
+      <Control Type="AR.Field" Name="TextBox6" DataField="NOTE1" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8012.45" Top="0.3967953" Width="3661.229" Height="513.0709" Text="NOTE1" Style="text-align: justify; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox7" DataField="NOTE2" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8012.45" Top="505.5307" Width="3661.229" Height="678.6141" Text="NOTE2" Style="text-align: justify; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label9" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6572.461" Top="1192.082" Width="1440.001" Height="587.9055" Caption="N° OUTILLIAGE" Style="font-family: Times New Roman; font-size: 9pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Label" Name="Label11" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8012.45" Top="1184.145" Width="3661.229" Height="587.9055" Caption="-" Style="vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label10" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6572.461" Top="1772.05" Width="1440" Height="696.189" Caption="VALIDER PAR" Style="font-family: Times New Roman; font-size: 9.75pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label12" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8012.45" Top="1772.05" Width="3661.227" Height="696.189" Caption="" />
+      <Control Type="AR.Label" Name="IMAGE_NOT_FOUND_1" Left="4255.37" Top="5385.601" Width="3209.953" Height="408.1888" Caption="IMAGE NOT FOUND 1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox8" BorderLeftStyle="13" BorderTopStyle="13" BorderRightStyle="13" BorderBottomStyle="13" Left="1.072884E-05" Top="8847.281" Width="11908.8" Height="678.24" Text="LISTE DES  OUTILS" Style="font-family: Times New Roman; font-size: 24pt; text-align: center; vertical-align: middle; ddo-char-set: 0" />
+      <Control Type="AR.Field" Name="TextBox11" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="1008" Top="9635.041" Width="2160" Height="555.84" Text="NOM" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox9" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="432" Top="9633.601" Width="576" Height="557.28" Text="N° OUTIL" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox13" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="4608" Top="9633.601" Width="720" Height="557.28" Text="Lg DE COUPE" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox14" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="5328" Top="9633.601" Width="720" Height="557.28" Text="Lg UTILE" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox16" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="8928" Top="9633.601" Width="2980.8" Height="557.28" Text="COMMENTAIRE" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox15" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6048" Top="9633.601" Width="720" Height="557.28" Text="Lg SORTIE" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox12" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="3168" Top="9633.601" Width="1440" Height="557.28" Text="TYPE                                                    D'ATTACHEMENT" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Subreport" Name="SubReport1" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="0" Top="10190.88" Width="11908.61" Height="185.7602" ReportName="-LISTE D OUTIL-2" />
+      <Control Type="AR.Field" Name="txtNOTE31" DataField="NOTE3" Left="12918.51" Top="7917.021" Width="1455.308" Height="287.9997" Text="txtNOTE31" />
+      <Control Type="AR.Field" Name="TextBox18" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="1.072884E-05" Top="8356.32" Width="2115.36" Height="400.3203" Text="N° DE PROGRAMME" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label19" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="5020.033" Top="8356.561" Width="1552.32" Height="400.3201" Caption="N° D'ORIGINE" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Label" Name="Label20" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6572.352" Top="8363.761" Width="1740.96" Height="393.1213" Caption="" />
+      <Control Type="AR.Label" Name="Label21" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="0.1927972" Top="9633.841" Width="432" Height="568.8" Caption="T" Style="font-size: 8.25pt; text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="txtDESCRIPTION1" DataField="DESCRIPTION" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="2115.213" Top="8356.32" Width="1994.4" Height="400.3198" Text="txtDESCRIPTION1" Style="text-align: center; vertical-align: middle" />
+      <Control Type="AR.Field" Name="TextBox19" BorderLeftStyle="1" BorderTopStyle="1" BorderRightStyle="1" BorderBottomStyle="1" Left="6768" Top="9633.601" Width="2160" Height="557.28" Text="REF OUTIL" Style="font-size: 8.25pt; text-align: center; vertical-align: middle; ddo-font-vertical: none" />
+      <Control Type="AR.Label" Name="Label13" BorderBottomStyle="1" Left="332.64" Top="2468.16" Width="11174.4" Height="900.0002" Caption="DEFINITION DE L ORIGINE" Style="font-family: Times New Roman; font-size: 18pt; text-align: center; text-decoration: underline; vertical-align: middle; ddo-char-set: 1" />
+    </Section>
+  </Sections>
+  <ReportComponentTray />
+  <DataSources>
+    <XmlDataSource FileURL="Y:\MASTERCAM X7\shared mcamx7\common\reports\SST\Samples\Mill\SSM.xml" Pattern="//SETUPSHEET" />
+  </DataSources>
+  <Script><![CDATA[public void Detail_Format()
+{
+	
+}
+
+
+]]></Script>
+  <PageSettings LeftMargin="360" RightMargin="360" TopMargin="922" BottomMargin="922" PaperSize="9" PaperWidth="11906" PaperHeight="16838" PaperName="" Orientation="1" />
+  <Parameters />
+</ActiveReportsLayout>

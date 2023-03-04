@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="C1 /  Capot machine" name="C1 /  Capot machine" group1="c1 axis,default 10in_chuck_left0,workpiece_adapter" group2="machine base" />
+    <collcheck id="C1 /  W" name="C1 /  W" group1="c1 axis,default 10in_chuck_left0,workpiece_adapter" group2="c2 axis,default 8in_chuck_right0,workpiece2_adapter" />
+    <collcheck id="C1 /  Z1" name="C1 /  Z1" group1="c1 axis,default 10in_chuck_left0,workpiece_adapter" group2="upper turret base,upper turret0" />
+    <collcheck id="Capot machine /  W" name="Capot machine /  W" group1="machine base" group2="c2 axis,default 8in_chuck_right0,workpiece2_adapter" />
+    <collcheck id="Capot machine /  Z1" name="Capot machine /  Z1" group1="machine base" group2="upper turret base,upper turret0" />
+    <collcheck id="W /  Z1" name="W /  Z1" group1="c2 axis,default 8in_chuck_right0,workpiece2_adapter" group2="upper turret base,upper turret0" />
+</machine_definition>

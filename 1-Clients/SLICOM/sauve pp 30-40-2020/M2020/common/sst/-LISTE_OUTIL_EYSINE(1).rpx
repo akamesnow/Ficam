@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ActiveReportsLayout Version="3.2" PrintWidth="9360" DocumentName="ActiveReports Document" ScriptLang="C#" MasterReport="0">
+  <StyleSheet>
+    <Style Name="Normal" Value="font-family: Arial; font-style: normal; text-decoration: none; font-weight: normal; font-size: 10pt; color: Black; text-align: left; vertical-align: top; ddo-char-set: 1" />
+    <Style Name="Heading1" Value="font-family: Arial; font-size: 16pt; font-style: normal; font-weight: bold" />
+    <Style Name="Heading2" Value="font-family: Times New Roman; font-size: 14pt; font-style: italic; font-weight: bold" />
+    <Style Name="Heading3" Value="font-family: Arial; font-size: 13pt; font-style: normal; font-weight: bold" />
+  </StyleSheet>
+  <Sections>
+    <Section Type="Detail" Name="Detail" Height="2880" BackColor="16777215">
+      <Control Type="AR.Field" Name="TextBox1" DataField="NCFILE/OPERATION/OPERATION-M/COMMENT" Left="3974.74" Top="569.7639" Width="1440" Height="288" Text="NCFILE/OPERATION/OPERATION-M/COMMENT" />
+      <Control Type="AR.Label" Name="Label1" Left="2534.74" Top="720.0001" Width="1440" Height="288" Caption="test&#xD;&#xA;" />
+    </Section>
+  </Sections>
+  <ReportComponentTray />
+  <DataSources>
+    <XmlDataSource FileURL="C:\Users\Public\Documents\Shared Mastercam 2020\common\reports\SST\Samples\Mill\SSM-MT.xml" Pattern="//SETUPSHEET" />
+  </DataSources>
+  <PageSettings />
+  <Parameters />
+</ActiveReportsLayout>

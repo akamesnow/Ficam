@@ -1,0 +1,17 @@
+; *END*   *********************************** 
+; **** PART SPECIFIC PROGRAMMING ************ 
+; ******************************************* 
+NN8080:
+/N800 SETPIECE(1,1)
+NN8090:
+NN8100:
+ N1000 L1055            ;UNLOAD AND LOAD SP3 BY HAND
+NN8190:
+ N1900 STOPRE
+ N1910 IF RG703<>0 GOTOB NN8020 ;SUBSPINDLE
+ N1930 GOTOF NN8300
+NN8200:
+NN8300:
+ N3000                 ;SHIFT END
+NN9999: M30
+____
