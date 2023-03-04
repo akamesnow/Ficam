@@ -1,0 +1,1116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MT Post Text Customization File -->
+<!-- Blank entries = Use default text -->
+<!-- Double quotes = Lock field (displays default text -->
+<!-- Any text = Output as label -->
+<PostText>
+	<Version>1.</Version>
+	<!-- Lathe -->
+	<Lathe>
+		<SimpleDrill>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</SimpleDrill>
+		<PeckDrill>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7></n7>
+			<!-- "1st peck" -->
+			<n8 resId="CTX_PostText_Lathe_PeckDrill_n8">Deggression</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</PeckDrill>
+		<ChipBreak>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7></n7>
+			<!-- "1st peck" -->
+			<n8 resId="CTX_PostText_Lathe_ChipBreak_n8">Deggression</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</ChipBreak>
+		<Tap>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3>""</n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Tap>
+		<Bore1>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Bore1>
+		<Bore2>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Bore2>
+		<Misc1>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Misc1>
+		<Misc2>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Misc2>
+		<DrillCycle9>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle9>
+		<DrillCycle10>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle10>
+		<DrillCycle11>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle11>
+		<DrillCycle12>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle12>
+		<DrillCycle13>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle13>
+		<DrillCycle14>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle14>
+		<DrillCycle15>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle15>
+		<DrillCycle16>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle16>
+		<DrillCycle17>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle17>
+		<DrillCycle18>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle18>
+		<DrillCycle19>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle19>
+		<DrillCycle20>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle20>
+		<LatheToolParameters>
+			<n1></n1>
+			<!-- "Misc values..." -->
+			<n2></n2>
+			<!-- "Tool number:" -->
+			<n3></n3>
+			<!-- "Offset Number:" -->
+			<n4></n4>
+			<!-- "Station Number:" -->
+			<n5></n5>
+			<!-- "Tool back offset number:" -->
+			<n6></n6>
+			<!-- "Coolant" -->
+			<n7></n7>
+			<!-- "Feed rate:" -->
+			<n8></n8>
+			<!-- "Spindle speed:" -->
+			<n9></n9>
+			<!-- "Plunge Feed rate:" -->
+			<n10></n10>
+			<!-- "Home Position" -->
+			<n11></n11>
+			<!-- "Ref point..." -->
+			<n12></n12>
+			<!-- "Coordinates..." -->
+			<n13></n13>
+			<!-- "Canned Text" -->
+		</LatheToolParameters>
+		<DrillCycleDescriptions>
+			<!-- (Tab label when cycle is selected in dropdown) -->
+			<n1></n1>
+			<!-- "Simple drill - no peck" -->
+			<n2></n2>
+			<!-- "Peck drill - full retract" -->
+			<n3></n3>
+			<!-- "Chip break - incremental retract" -->
+			<n4></n4>
+			<!-- "Tapping - feed in, reverse spindle - feed out" -->
+			<n5></n5>
+			<!-- "Boring #1 - feed out" -->
+			<n6></n6>
+			<!-- "Boring #2 - stop spindle - rapid out" -->
+			<n7>""</n7>
+			<!-- "Misc #1 Drill" -->
+			<n8>""</n8>
+			<!-- "Misc #2 Drill" -->
+			<n9>""</n9>
+			<!-- "Custom drill cycle #9" -->
+			<n10>""</n10>
+			<!-- "Custom drill cycle #10" -->
+			<n11>""</n11>
+			<!-- "Custom drill cycle #11" -->
+			<n12>""</n12>
+			<!-- "Custom drill cycle #12" -->
+			<n13>""</n13>
+			<!-- "Custom drill cycle #13" -->
+			<n14>""</n14>
+			<!-- "Custom drill cycle #14" -->
+			<n15>""</n15>
+			<!-- "Custom drill cycle #15" -->
+			<n16>""</n16>
+			<!-- "Custom drill cycle #16" -->
+			<n17>""</n17>
+			<!-- "Custom drill cycle #17" -->
+			<n18>""</n18>
+			<!-- "Custom drill cycle #18" -->
+			<n19>""</n19>
+			<!-- "Custom drill cycle #19" -->
+			<n20>""</n20>
+			<!-- "Custom drill cycle #20" -->
+		</DrillCycleDescriptions>
+	</Lathe>
+	<!-- Mill -->
+	<Mill>
+		<SimpleDrill>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</SimpleDrill>
+		<PeckDrill>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7></n7>
+			<!-- "1st peck" -->
+			<n8 resId="CTX_PostText_Mill_PeckDrill_n8">Deggression</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</PeckDrill>
+		<ChipBreak>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7></n7>
+			<!-- "1st peck" -->
+			<n8 resId="CTX_PostText_Mill_ChipBreak_n8">Deggression</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</ChipBreak>
+		<Tap>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3>""</n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Tap>
+		<Bore1>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Bore1>
+		<Bore2>
+			<n1></n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Bore2>
+		<Misc1>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Misc1>
+		<Misc2>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</Misc2>
+		<DrillCycle9>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle9>
+		<DrillCycle10>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle10>
+		<DrillCycle11>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle11>
+		<DrillCycle12>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle12>
+		<DrillCycle13>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle13>
+		<DrillCycle14>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle14>
+		<DrillCycle15>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle15>
+		<DrillCycle16>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle16>
+		<DrillCycle17>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle17>
+		<DrillCycle18>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle18>
+		<DrillCycle19>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle19>
+		<DrillCycle20>
+			<n1>""</n1>
+			<!-- "Drill/Cbore" (Dropdown label)-->
+			<n2></n2>
+			<!-- "Feed rate" -->
+			<n3></n3>
+			<!-- "Dwell" -->
+			<n4></n4>
+			<!-- "Clearance..." -->
+			<n5></n5>
+			<!-- "Retract..." -->
+			<n6></n6>
+			<!-- "Depth..." -->
+			<n7>""</n7>
+			<!-- "1st peck" -->
+			<n8>""</n8>
+			<!-- "Subsequent peck" -->
+			<n9>""</n9>
+			<!-- "Peck clearance" -->
+			<n10>""</n10>
+			<!-- "Retract amount" -->
+			<n11>""</n11>
+			<!-- "Shift" -->
+		</DrillCycle20>
+		<MillToolParameters>
+			<n1></n1>
+			<!-- "Misc values..." -->
+			<n2></n2>
+			<!-- "Tool number:" -->
+			<n3></n3>
+			<!-- "Offset Number:" -->
+			<n4></n4>
+			<!-- "Station Number:" -->
+			<n5></n5>
+			<!-- "Tool back offset number:" -->
+			<n6></n6>
+			<!-- "Coolant" -->
+			<n7></n7>
+			<!-- "Feed rate:" -->
+			<n8></n8>
+			<!-- "Spindle speed:" -->
+			<n9></n9>
+			<!-- "Plunge Feed rate:" -->
+			<n10></n10>
+			<!-- "Home Position" -->
+			<n11></n11>
+			<!-- "Ref point..." -->
+			<n12></n12>
+			<!-- "Coordinates..." -->
+			<n13></n13>
+			<!-- "Canned Text" -->
+		</MillToolParameters>
+		<DrillCycleDescriptions>
+			<!-- (Tab label when cycle is selected in dropdown) -->
+			<n1></n1>
+			<!-- "Simple drill - no peck" -->
+			<n2></n2>
+			<!-- "Peck drill - full retract" -->
+			<n3></n3>
+			<!-- "Chip break - incremental retract" -->
+			<n4></n4>
+			<!-- "Tapping - feed in, reverse spindle - feed out" -->
+			<n5></n5>
+			<!-- "Boring #1 - feed out" -->
+			<n6></n6>
+			<!-- "Boring #2 - stop spindle - rapid out" -->
+			<n7>""</n7>
+			<!-- "Misc #1 Drill" -->
+			<n8>""</n8>
+			<!-- "Misc #2 Drill" -->
+			<n9>""</n9>
+			<!-- "Custom drill cycle #9" -->
+			<n10>""</n10>
+			<!-- "Custom drill cycle #10" -->
+			<n11>""</n11>
+			<!-- "Custom drill cycle #11" -->
+			<n12>""</n12>
+			<!-- "Custom drill cycle #12" -->
+			<n13>""</n13>
+			<!-- "Custom drill cycle #13" -->
+			<n14>""</n14>
+			<!-- "Custom drill cycle #14" -->
+			<n15>""</n15>
+			<!-- "Custom drill cycle #15" -->
+			<n16>""</n16>
+			<!-- "Custom drill cycle #16" -->
+			<n17>""</n17>
+			<!-- "Custom drill cycle #17" -->
+			<n18>""</n18>
+			<!-- "Custom drill cycle #18" -->
+			<n19>""</n19>
+			<!-- "Custom drill cycle #19" -->
+			<n20>""</n20>
+			<!-- "Custom drill cycle #20" -->
+		</DrillCycleDescriptions>
+	</Mill>
+</PostText>

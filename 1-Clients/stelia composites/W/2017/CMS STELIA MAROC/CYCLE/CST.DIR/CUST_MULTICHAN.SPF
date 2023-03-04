@@ -1,0 +1,19 @@
+PROC CUST_MULTICHAN(INT _S_NR,VAR INT _RET) SBLOF DISPLOF
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 02.06.42.00 ;DATE: 2010-01-15
+; Machine Manufacturer Cycle for Multi Channel
+;----------------------------------------------------------------
+; PARAMETER:
+;
+; _S_NR    :   spindel number
+;                 0 = no spindle
+; _RET     :   return value:
+;                 1 = jump to the end of the whole block
+;----------------------------------------------------------------
+IF(_S_NR>0)   ; if spindle
+  SETMS(_S_NR) ; set master spindle
+ENDIF
+;
+_RET=0        ; normal block work
+;----------------------------------------------------------------
+RET

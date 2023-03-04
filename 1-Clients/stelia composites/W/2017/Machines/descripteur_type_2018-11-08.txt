@@ -1,0 +1,119 @@
+*****************************************************
+STELIA COMPOSITES
+POST-PROCESSEUR MULTI-MACHINE
+*****************************************************
+*****************************************************
+DECLARATION DE MACHINES
+*****************************************************
+STC9101
+STC9103
+STC9110
+STEMA01
+*****************************************************
+UTILISATION DES MACHINES
+*****************************************************
+PROGRAMMES COMPLETS :
+STC9101 : OUI
+STC9103 : OUI
+STC9110 : OUI
+STEMA01 : OUI
+
+PROGRAMMES À CONCATENER
+STC9101 : OUI
+STC9103 : OUI
+STC9110 : OUI
+STEMA01 : OUI
+*****************************************************
+VARIABLES COMMUNES
+*****************************************************
+
+*****************************************************
+MACHINE STELIA COMPOSITES - CN 5X 9101
+*****************************************************
+DEC X
+*****
+0 mm
+
+DEC Y
+*****
+0 mm
+
+DEC Z
+*****
+0 mm
+
+Autre Info n°  1 :
+Autre Info n°  2 :
+Autre Info n°  3 :
+Autre Info n°  4 :
+Autre Info n°  5 :
+*****************************************************
+MACHINE STELIA COMPOSITES - CN 5X 9103
+*****************************************************
+DEC X
+*****
+0 mm
+
+DEC Y 
+*****
+0 mm
+
+DEC Z
+*****
+0 mm
+
+Autre Info n°  1 : prg jauge outil OUI
+Autre Info n°  2 :
+Autre Info n°  3 :
+Autre Info n°  4 :
+Autre Info n°  5 :
+*****************************************************
+MACHINE STELIA COMPOSITES - CN 5X 9110
+*****************************************************
+DEC X
+*****
+0 mm
+
+DEC Y 
+*****
+0 mm
+
+DEC Z
+*****
+0 mm
+
+Autre Info n°  1 : avance 120%
+Autre Info n°  2 : cloche montée OUI  
+Autre Info n°  3 :
+Autre Info n°  4 :
+Autre Info n°  5 :
+*****************************************************
+MACHINE STELIA COMPOSITES - CN 5X STEMA 01
+*****************************************************
+DEC X
+*****
+0 mm
+
+DEC Y 
+*****
+0 mm
+
+DEC Z
+*****
+0 mm
+
+Autre Info n°  1 : avance 120%
+Autre Info n°  2 : cloche montée OUI  
+Autre Info n°  3 :
+Autre Info n°  4 :
+Autre Info n°  5 :
+*****************************************************
+DIMENSIONS OUTILLAGE
+*****************************************************
+1000*1500*250
+*****************************************************
+USURES OUTILS
+*****************************************************
+Code Article : 123456   -  Valeur Usure : 215.325
+Code Article : 98765    -  Valeur Usure : 325.2
+Code Article : 2554     -  Valeur Usure : 14.25

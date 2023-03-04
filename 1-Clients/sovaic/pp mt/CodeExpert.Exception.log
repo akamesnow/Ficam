@@ -1,0 +1,1956 @@
+----------------------------------------
+Timestamp: 10/01/2022 19:14:23
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3376
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2088
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:14:36
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3376
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2088
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:20:32
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2021\Mill Turn\machines\CTX beta 800 TC.machine
+La valeur ne peut pas être null.
+Nom du paramètre : filePath ---> System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : filePath
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3376
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2088
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:20:45
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2021\Mill Turn\machines\CTX beta 800 TC.machine
+La valeur ne peut pas être null.
+Nom du paramètre : filePath ---> System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : filePath
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3376
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2088
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:21:21
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 7624
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 4048
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:22:05
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2021\Mill Turn\machines\CTX beta 800 TC.machine
+La valeur ne peut pas être null.
+Nom du paramètre : filePath ---> System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : filePath
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 7624
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 4048
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:22:38
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 1848
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17828
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:22:46
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 1848
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17828
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:23:14
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2021\Mill Turn\machines\CTX beta 800 TC.machine
+La valeur ne peut pas être null.
+Nom du paramètre : filePath ---> System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : filePath
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 1848
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17828
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:24:08
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13888
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 18216
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:27:33
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13152
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 7232
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/01/2022 19:28:42
+Message: Exception in Application.GetMastercamFilePath()
+
+System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path1
+   à System.IO.Path.Combine(String path1, String path2)
+   à CodeExpert.Interprocess.Application.GetMastercamFilePathFromActiveMachine(MastercamFileType fileType)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 19260
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1496
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/01/2022 12:57:17
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 14648
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 14008
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/01/2022 12:59:40
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 14648
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1216
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/01/2022 13:00:00
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 14648
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2820
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/01/2022 15:53:06
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 11372
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12232
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/01/2022 11:54:50
+Message: System.ServiceModel.CommunicationObjectAbortedException: Exécution de l'opération 'OnMachineSaved' impossible car le délai du canal de session a expiré en attendant la réception d'un message. Pour augmenter le délai d'attente, définissez la propriété receiveTimeout sur la liaison de votre fichier de configuration ou directement sur Binding.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.ServiceChannel.ThrowIfIdleAborted(ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.OnMachineSaved()
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnActiveMachineManagerMachineSaved(Object sender, EventArgs e)
+   à System.EventHandler.Invoke(Object sender, EventArgs e)
+   à Machine.Services.MachineManagement.ActiveMachineManager.()
+   à Machine.Services.MachineManagement.ActiveMachineManager.(Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.(IActiveMachineContent , Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.SaveIntoMachine(IActiveMachineContent content)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.SaveContent(MachineControlViewModel content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.(T , Boolean )
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save(IDocumentContent content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save()
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.Execute()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.(Object )
+   à MastercamExtensions.Infrastructure.Commands.CustomerFeedbackCommand.Execute(Object parameter)
+   à ActiproSoftware.Windows.Controls.Ribbon.Input.RibbonCommand.#8wb(ICommandSource #ZIf)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ButtonBase.OnClick(ExecuteRoutedEventArgs e)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ControlBase.<>c__DisplayClass112_0.<RaiseClickEvent>b__0(Object <p0>)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13932
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 5776
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/01/2022 11:55:03
+Message: System.Reflection.TargetInvocationException: Une exception a été levée par la cible d'un appel. ---> System.ServiceModel.CommunicationObjectAbortedException: Exécution de l'opération 'OnMachineSaved' impossible car le délai du canal de session a expiré en attendant la réception d'un message. Pour augmenter le délai d'attente, définissez la propriété receiveTimeout sur la liaison de votre fichier de configuration ou directement sur Binding.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.ServiceChannel.ThrowIfIdleAborted(ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.OnMachineSaved()
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnActiveMachineManagerMachineSaved(Object sender, EventArgs e)
+   à System.EventHandler.Invoke(Object sender, EventArgs e)
+   à Machine.Services.MachineManagement.ActiveMachineManager.()
+   à Machine.Services.MachineManagement.ActiveMachineManager.(Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.(IActiveMachineContent , Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.SaveIntoMachine(IActiveMachineContent content)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.SaveContent(MachineControlViewModel content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.OnClosing(DocumentClosingEventArgs e)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.(DocumentClosingEventArgs )
+   à MastercamExtensions.Infrastructure.Services.ActiproDocumentWorkspaceManager.(Object , DockingWindowsEventArgs )
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   à System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   à System.Delegate.DynamicInvokeImpl(Object[] args)
+   à System.Windows.RoutedEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   à System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   à System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   à System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   à System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   à ActiproSoftware.Windows.Controls.Docking.DockSite.RaiseWindowsClosingEvent(IEnumerable`1 windows)
+   à ActiproSoftware.Windows.Controls.Docking.Logic.LayoutChangeProcessor.#L0e(IEnumerable`1 #JSd, #z5i #Kl, Boolean #BCf, Boolean #H8i)
+   à ActiproSoftware.Windows.Controls.Docking.Logic.LayoutChangeProcessor.Close(DockingWindow #sb, #z5i #Kl, Boolean #BCf, Boolean #H8i)
+   à ActiproSoftware.Windows.Controls.Docking.DockingWindow.Close()
+   à MastercamExtensions.Infrastructure.Services.ActiproDocumentWorkspaceManager.(ApplicationClosingEventArgs )
+   à Prism.Events.EventSubscription`1.<>c__DisplayClass11_0.<GetExecutionStrategy>b__0(Object[] arguments)
+   à Prism.Events.EventBase.InternalPublish(Object[] arguments)
+   à MastercamExtensions.Shell.MastercamExtensionsApplication.OnMainWindowClosingEvent(Object sender, CancelEventArgs e)
+   à System.ComponentModel.CancelEventHandler.Invoke(Object sender, CancelEventArgs e)
+   à System.Windows.Window.OnClosing(CancelEventArgs e)
+   à System.Windows.Window.WmClose()
+   à System.Windows.Window.WindowFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   à System.Windows.Interop.HwndSource.PublicHooksFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   à MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   à MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13932
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 5776
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 08:20:10
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16804
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2868
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 11:03:38
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 17236
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12764
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 12:39:32
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 20636
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23644
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 14:33:43
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 8676
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 24100
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:20:54
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 18856
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 15268
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:29:46
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 8048
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 15704
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:32:42
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 24248
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2312
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:40:27
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 1628
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 21088
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:46:55
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 8656
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 8516
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/02/2022 15:51:55
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 12568
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 18168
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 11:47:10
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 20332
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 3524
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 12:28:26
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 19836
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9464
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 12:50:04
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 11456
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 20324
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 12:52:01
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 20476
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 8316
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 12:52:36
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 12472
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23072
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 12:53:38
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 22176
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23596
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 13:02:43
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 20412
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 3884
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 14:12:07
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 9464
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23248
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/02/2022 23:23:51
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 19048
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 18592
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 09/02/2022 14:03:27
+Message: System.ServiceModel.CommunicationObjectAbortedException: L'objet de communication System.ServiceModel.Channels.ServiceChannel ne peut pas être utilisé pour la communication car il a été annulé.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.CommunicationObject.ThrowIfDisposedOrNotOpen()
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.RunSimulation(RunSimulationCommandArgs args)
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnRunSimulationCommand(RunSimulationCommandArgs args)
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand`1.Execute(T parameter)
+   à SyncManager.ViewModels.SyncManagerDocument.SyncManagerDocumentViewModel..()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.Execute()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.(Object )
+   à MastercamExtensions.Infrastructure.Commands.CustomerFeedbackCommand.Execute(Object parameter)
+   à ActiproSoftware.Windows.Controls.Ribbon.Input.RibbonCommand.#8wb(ICommandSource #ZIf)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ButtonBase.OnClick(ExecuteRoutedEventArgs e)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ControlBase.<>c__DisplayClass112_0.<RaiseClickEvent>b__0(Object <p0>)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 21676
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17704
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/02/2022 17:28:49
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3616
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 25504
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/02/2022 19:56:34
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 4672
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 5100
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/02/2022 07:08:28
+Message: La référence d'objet n'est pas définie à une instance d'un objet.
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 2188
+Process Name: C:\Program Files\Mastercam 2020\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23952
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 11/02/2022 16:30:59
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23852
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 13828
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 15/03/2022 11:41:28
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16160
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 3480
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 15/03/2022 11:41:57
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16160
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 3480
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 15/03/2022 11:43:45
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16160
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12348
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 15/03/2022 11:54:22
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 7944
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9308
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 17/03/2022 11:03:12
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier texte :
+D:\O0016.PJC
+Le fichier ou le répertoire est endommagé et illisible.
+ ---> System.IO.IOException: Le fichier ou le répertoire est endommagé et illisible.
+
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.ReadCore(Byte[] buffer, Int32 offset, Int32 count)
+   à System.IO.FileStream.Read(Byte[] array, Int32 offset, Int32 count)
+   à System.IO.StreamReader.ReadBuffer()
+   à System.IO.StreamReader.ReadToEnd()
+   à Editor.ImportExport.CodeFileImporterBase.ReadStreamToEnd(Stream inputStream, Encoding encoding)
+   à Editor.ImportExport.CodeFileImporterBase.SetTextAndEncoding(CodeDocument codeDocument, Stream inputStream, Encoding defaultEncoding)
+   à Editor.ImportExport.CodeFileImporterBase.Import(Stream inputStream, IImportExportOptionProvider optionProvider)
+   à Editor.ImportExport.CodeFileImporterBase.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 9636
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 7524
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 17/03/2022 11:03:17
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier texte :
+D:\O0016.PJC
+Le fichier ou le répertoire est endommagé et illisible.
+ ---> System.IO.IOException: Le fichier ou le répertoire est endommagé et illisible.
+
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.ReadCore(Byte[] buffer, Int32 offset, Int32 count)
+   à System.IO.FileStream.Read(Byte[] array, Int32 offset, Int32 count)
+   à System.IO.StreamReader.ReadBuffer()
+   à System.IO.StreamReader.ReadToEnd()
+   à Editor.ImportExport.CodeFileImporterBase.ReadStreamToEnd(Stream inputStream, Encoding encoding)
+   à Editor.ImportExport.CodeFileImporterBase.SetTextAndEncoding(CodeDocument codeDocument, Stream inputStream, Encoding defaultEncoding)
+   à Editor.ImportExport.CodeFileImporterBase.Import(Stream inputStream, IImportExportOptionProvider optionProvider)
+   à Editor.ImportExport.CodeFileImporterBase.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 9636
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 7524
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 30/03/2022 09:10:13
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+C:\Users\Folliot Valentin\Desktop\MIYANO ABX-64SYY2.machine
+Version de fichier non supportée par cette version de Mastercam. ---> Machine.Serialization.MachineSerializationException: Version de fichier non supportée par cette version de Mastercam.
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 19732
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 576
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 3/30/2022 9:10:26 AM
+Message: MastercamExtensions.Infrastructure.RegistryKeyMissingException: Unable to run the selected Mastercam application because a critical Registry key is missing.
+
+Please run the main Mastercam application at least once before running Code Expert or Tool Manager as separate applications. If doing this does not fix the problem, contact your local Mastercam Reseller for assistance.
+
+Registry Key information:
+Hive: CurrentUser
+SubKey: Software\CNC Software, Inc.\Mastercam 2023
+View: Default
+   at MastercamExtensions.Infrastructure.MastercamSettings.[](RegistryHive , String , String ,  )
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigExtensionsFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigCodeExpertFolder()
+   at CodeExpert.Shell.CodeExpertBootstrapper.CreateLicenseManager()
+   at MastercamExtensions.Shell.Bootstrapper.CreateLogger()
+   at Prism.Unity.UnityBootstrapper.Run(Boolean runWithDefaultConfiguration)
+   at MastercamExtensions.Shell.MastercamExtensionsApplication.OnStartup(StartupEventArgs e)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 6044
+Process Name: C:\Program Files\Mastercam 2023\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 14344
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 3/30/2022 9:46:38 AM
+Message: MastercamExtensions.Infrastructure.RegistryKeyMissingException: Unable to run the selected Mastercam application because a critical Registry key is missing.
+
+Please run the main Mastercam application at least once before running Code Expert or Tool Manager as separate applications. If doing this does not fix the problem, contact your local Mastercam Reseller for assistance.
+
+Registry Key information:
+Hive: CurrentUser
+SubKey: Software\CNC Software, Inc.\Mastercam 2023
+View: Default
+   at MastercamExtensions.Infrastructure.MastercamSettings.[](RegistryHive , String , String ,  )
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigExtensionsFolder()
+   at MastercamExtensions.Infrastructure.MastercamSettings.get_UserConfigCodeExpertFolder()
+   at CodeExpert.Shell.CodeExpertBootstrapper.CreateLicenseManager()
+   at MastercamExtensions.Shell.Bootstrapper.CreateLogger()
+   at Prism.Unity.UnityBootstrapper.Run(Boolean runWithDefaultConfiguration)
+   at MastercamExtensions.Shell.MastercamExtensionsApplication.OnStartup(StartupEventArgs e)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 9832
+Process Name: C:\Program Files\Mastercam 2023\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 968
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 21/04/2022 07:38:33
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3796
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17972
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 25/04/2022 06:55:34
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+C:\Users\Folliot Valentin\AppData\Local\Temp\GitLabRepositories_Mill-Turn_Citizen_Myiano_ABX_Series_Machines_Citizen Myiano ABX_ABX Series_ABX-64SYY2_Generic Fanuc Mill-Turn TT_After_84e5662ade04920f96684bce84215530ecbc6ccb.machine
+Impossible de trouver une partie du chemin d'accès 'C:\Users\Folliot Valentin\AppData\Local\Temp\GitLabRepositories_Mill-Turn_Citizen_Myiano_ABX_Series_Machines_Citizen Myiano ABX_ABX Series_ABX-64SYY2_Generic Fanuc Mill-Turn TT_After_84e5662ade04920f96684bce84215530ecbc6ccb\Mill-Turn_UT_LT_Inch.mcam-operations'. ---> System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'C:\Users\Folliot Valentin\AppData\Local\Temp\GitLabRepositories_Mill-Turn_Citizen_Myiano_ABX_Series_Machines_Citizen Myiano ABX_ABX Series_ABX-64SYY2_Generic Fanuc Mill-Turn TT_After_84e5662ade04920f96684bce84215530ecbc6ccb\Mill-Turn_UT_LT_Inch.mcam-operations'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   à MastercamExtensions.ImportExport.Serialization.ExternalFileDataChunkSerialization.ExternalFileDataChunkDeserializer.UnpackDataChunk(DataChunk chunk, String targetExportPath)
+   à Machine.Serialization.ExternalFileSerializer.ࠁ(BaseFormatSerializer , MachineSolution , String )
+   à Machine.Serialization.ExternalFileSerializer.DeserializeFiles(BaseFormatSerializer serializer, MachineSolution machine, String filePath)
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 1596
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 14888
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 12:27:53
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd. ---> Machine.Serialization.MachineSerializationException: Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd.
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23144
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2020
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 12:28:23
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd. ---> Machine.Serialization.MachineSerializationException: Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd.
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23144
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2020
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 12:30:32
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series-Eppinger BMT55_INCH.mcam-gmd. ---> Machine.Serialization.MachineSerializationException: Le fichier machine ne peut pas être enregistré à cause d'un fichier incorrect Mastercam CMZ-TTL-Series-Eppinger BMT55_INCH.mcam-gmd.
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 4044
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 16144
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 12:34:21
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ TTL 52_52_T1Y_T2Y.mcam-lmd' est introuvable. ---> System.IO.FileNotFoundException: Le fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ TTL 52_52_T1Y_T2Y.mcam-lmd' est introuvable.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 4044
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 16144
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 13:01:10
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le processus ne peut pas accéder au fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd', car il est en cours d'utilisation par un autre processus. ---> System.IO.IOException: Le processus ne peut pas accéder au fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd', car il est en cours d'utilisation par un autre processus.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 10528
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1476
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 26/04/2022 13:03:46
+Message: MastercamExtensions.ImportExport.FileExportException: Échec d'enregistrement sous Fichier Machine :
+C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y.machine
+Le processus ne peut pas accéder au fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd', car il est en cours d'utilisation par un autre processus. ---> System.IO.IOException: Le processus ne peut pas accéder au fichier 'C:\Users\Public\Documents\Shared Mastercam 2022\Mill Turn\machines\CMZ TTL 52_52_T1Y_T2Y\CMZ-TTL-Series - Eppinger BMT55_INCH.mcam-gmd', car il est en cours d'utilisation par un autre processus.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   à MastercamExtensions.ImportExport.OsFileSystem.OpenFileStream(String filePath, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+   à Machine.Serialization.Services.ExternalFileVersionChecker.Check(MastercamFile mastercamFile, String filePath)
+   à Machine.Serialization.ExternalFileSerializer.SerializeExternalFiles(BaseFormatSerializer serializer, MachineSolution machine, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.MachineSerializer.Serialize(MachineSolution machine, Stream stream, String filePath, IExternalFileVersionChecker externalFileVersionChecker)
+   à Machine.Serialization.ImportExport.MachineFileExporter.Export(Object model, String filePath)
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Export(Object model, String filePath, IFileExporter exporter)
+   à MastercamExtensions.Infrastructure.Services.DocumentManagement.DocumentFileSerializer.(IDocumentFileContent , String , IFileExporter )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23296
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 19872
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 03/05/2022 06:20:56
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 680
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 18388
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 03/05/2022 06:21:09
+Message: System.ServiceModel.CommunicationObjectAbortedException: Exécution de l'opération 'OnMachineSaved' impossible car le délai du canal de session a expiré en attendant la réception d'un message. Pour augmenter le délai d'attente, définissez la propriété receiveTimeout sur la liaison de votre fichier de configuration ou directement sur Binding.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.ServiceChannel.ThrowIfIdleAborted(ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.OnMachineSaved()
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnActiveMachineManagerMachineSaved(Object sender, EventArgs e)
+   à System.EventHandler.Invoke(Object sender, EventArgs e)
+   à Machine.Services.MachineManagement.ActiveMachineManager.()
+   à Machine.Services.MachineManagement.ActiveMachineManager.(Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.(IActiveMachineContent , Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.SaveIntoMachine(IActiveMachineContent content)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.SaveContent(MachineControlViewModel content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.(T , Boolean )
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save(IDocumentContent content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save()
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.Execute()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.(Object )
+   à MastercamExtensions.Infrastructure.Commands.CustomerFeedbackCommand.Execute(Object parameter)
+   à ActiproSoftware.Windows.Controls.Ribbon.Input.RibbonCommand.#8wb(ICommandSource #ZIf)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ButtonBase.OnClick(ExecuteRoutedEventArgs e)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ControlBase.<>c__DisplayClass112_0.<RaiseClickEvent>b__0(Object <p0>)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 680
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 8556
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 03/05/2022 06:21:16
+Message: System.ServiceModel.CommunicationObjectAbortedException: Exécution de l'opération 'OnMachineSaved' impossible car le délai du canal de session a expiré en attendant la réception d'un message. Pour augmenter le délai d'attente, définissez la propriété receiveTimeout sur la liaison de votre fichier de configuration ou directement sur Binding.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.ServiceChannel.ThrowIfIdleAborted(ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.OnMachineSaved()
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnActiveMachineManagerMachineSaved(Object sender, EventArgs e)
+   à System.EventHandler.Invoke(Object sender, EventArgs e)
+   à Machine.Services.MachineManagement.ActiveMachineManager.()
+   à Machine.Services.MachineManagement.ActiveMachineManager.(Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.(IActiveMachineContent , Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.SaveIntoMachine(IActiveMachineContent content)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.SaveContent(MachineControlViewModel content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.(T , Boolean )
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save(IDocumentContent content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save()
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.Execute()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.(Object )
+   à MastercamExtensions.Infrastructure.Commands.CustomerFeedbackCommand.Execute(Object parameter)
+   à ActiproSoftware.Windows.Controls.Ribbon.Input.RibbonCommand.#8wb(ICommandSource #ZIf)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ButtonBase.OnClick(ExecuteRoutedEventArgs e)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ControlBase.<>c__DisplayClass112_0.<RaiseClickEvent>b__0(Object <p0>)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 680
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 8556
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/05/2022 10:08:29
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 18364
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 10468
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/05/2022 11:06:47
+Message: System.ServiceModel.CommunicationObjectAbortedException: Exécution de l'opération 'OnMachineSaved' impossible car le délai du canal de session a expiré en attendant la réception d'un message. Pour augmenter le délai d'attente, définissez la propriété receiveTimeout sur la liaison de votre fichier de configuration ou directement sur Binding.
+
+Server stack trace: 
+   à System.ServiceModel.Channels.ServiceChannel.ThrowIfIdleAborted(ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   à System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   à System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   à System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   à System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   à CodeExpert.Interprocess.IApplicationCallback.OnMachineSaved()
+   à CodeExpert.Interprocess.ModuleCodeExpertInterprocess.OnActiveMachineManagerMachineSaved(Object sender, EventArgs e)
+   à System.EventHandler.Invoke(Object sender, EventArgs e)
+   à Machine.Services.MachineManagement.ActiveMachineManager.()
+   à Machine.Services.MachineManagement.ActiveMachineManager.(Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.(IActiveMachineContent , Boolean )
+   à Machine.Services.MachineManagement.ActiveMachineManager.SaveIntoMachine(IActiveMachineContent content)
+   à Machine.ViewModels.MachineControlDocument.MachineControlDocumentViewModel.SaveContent(MachineControlViewModel content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.(T , Boolean )
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save(IDocumentContent content)
+   à MastercamExtensions.Infrastructure.ViewModels.Document.SerializableDocumentViewModel`1.Save()
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.Execute()
+   à MastercamExtensions.Infrastructure.Commands.DelegateCommand.(Object )
+   à MastercamExtensions.Infrastructure.Commands.CustomerFeedbackCommand.Execute(Object parameter)
+   à ActiproSoftware.Windows.Controls.Ribbon.Input.RibbonCommand.#8wb(ICommandSource #ZIf)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ButtonBase.OnClick(ExecuteRoutedEventArgs e)
+   à ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives.ControlBase.<>c__DisplayClass112_0.<RaiseClickEvent>b__0(Object <p0>)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 18364
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9108
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/05/2022 11:07:57
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 18364
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1960
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/05/2022 11:11:10
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13316
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17612
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 09/05/2022 07:11:51
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 21980
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1472
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 09/05/2022 16:06:36
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 27304
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 24236
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 08:33:38
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 22660
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 3716
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 08:36:30
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 22660
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 13696
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 08:38:03
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 22660
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 21628
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:04:06
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 20660
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9392
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:18:41
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23532
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 13412
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:26:12
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 23532
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 20648
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:28:49
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 8148
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23844
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:30:33
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 8208
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 23960
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:32:08
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 10896
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2956
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 09:39:26
+Message: System.ArgumentNullException: La valeur ne peut pas être null.
+Nom du paramètre : path2
+   à System.IO.Path.Combine(String path1, String path2)
+   à PostEngine.PostController.(& , String , IList`1 )
+   à PostEngine.PostController.( )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 3124
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 16616
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 02/06/2022 11:14:58
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier texte :
+C:\Users\Folliot Valentin\Documents\My Mastercam 2021\Mastercam\Lathe\NCI\Phase 2.nci
+File does not exist. ---> System.IO.FileNotFoundException: File does not exist.
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 21680
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 7268
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 08:37:37
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+C:\Users\Folliot Valentin\AppData\Local\Temp\Machines_CMZ_TTL Series_Common Control Layers_Consumer_Before_8ea5d8f9000403d63f7f38614738dec927b9516f.controlLayer
+La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct. ---> Machine.Serialization.MachineSerializationException: La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct.
+   à Machine.Serialization.ࠁ.ࠁ[T](Stream , IEnumerable`1 )
+   à Machine.Serialization.ࠋ.ࠁ(BaseFormatSerializer )
+   à Machine.Serialization.ControlLayerSerializer.Deserialize(Stream stream)
+   à Machine.Serialization.ImportExport.ControlLayerFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 10696
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 17264
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 08:37:50
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+C:\GitLabRepositories\CMZ TTL\Machines\CMZ\TTL Series\Common Control Layers\Consumer.controlLayer
+La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct. ---> Machine.Serialization.MachineSerializationException: La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct.
+   à Machine.Serialization.ࠁ.ࠁ[T](Stream , IEnumerable`1 )
+   à Machine.Serialization.ࠋ.ࠁ(BaseFormatSerializer )
+   à Machine.Serialization.ControlLayerSerializer.Deserialize(Stream stream)
+   à Machine.Serialization.ImportExport.ControlLayerFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 4196
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12308
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 08:40:01
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+C:\Users\FOLLIO~1\AppData\Local\Temp/bt6vL3_Consumer.controlLayer
+File does not exist. ---> System.IO.FileNotFoundException: File does not exist.
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16484
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9096
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 08:42:07
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+Machines/CMZ/TTL Series/Common Control Layers/Consumer.controlLayer
+Directory does not exist. ---> System.IO.DirectoryNotFoundException: Directory does not exist.
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 16484
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9096
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 09:05:57
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+C:\Users\Folliot Valentin\AppData\Local\Temp\Machines_CMZ_TTL Series_Common Control Layers_Consumer_Before_8ea5d8f9000403d63f7f38614738dec927b9516f.controlLayer
+La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct. ---> Machine.Serialization.MachineSerializationException: La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct.
+   à Machine.Serialization.ࠁ.ࠁ[T](Stream , IEnumerable`1 )
+   à Machine.Serialization.ࠋ.ࠁ(BaseFormatSerializer )
+   à Machine.Serialization.ControlLayerSerializer.Deserialize(Stream stream)
+   à Machine.Serialization.ImportExport.ControlLayerFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 21904
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 19180
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 14/06/2022 09:06:27
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier de niveau d'armoire :
+C:\GitLabRepositories\CMZ TTL\Machines\CMZ\TTL Series\Common Control Layers\Mapping.controlLayer
+La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct. ---> Machine.Serialization.MachineSerializationException: La Machine ne peut pas être lue car son contenu est endommagé. Utilisez une version précédente du fichier ou contactez votre revendeur Mastercam pour obtenir un fichier correct.
+   à Machine.Serialization.ࠁ.ࠁ[T](Stream , IEnumerable`1 )
+   à Machine.Serialization.ࠋ.ࠁ(BaseFormatSerializer )
+   à Machine.Serialization.ControlLayerSerializer.Deserialize(Stream stream)
+   à Machine.Serialization.ImportExport.ControlLayerFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: DESKTOP-01CRVTM
+Application Domain: CodeExpert.exe
+Process Id: 13592
+Process Name: C:\Program Files\Mastercam 2021\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 20980
+Thread Name: 
+Extended Properties: 
+----------------------------------------

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="C1 vs W" name="C1 vs W" group1="left chuck0,left spindle c1 axis,workpiece_adapter" group2="right chuck0,right spindle base,right spindle c2 axis,right spindle w axis,workpiece2_adapter" />
+    <collcheck id="C1 vs Z1" name="C1 vs Z1" group1="left chuck0,left spindle c1 axis,workpiece_adapter" group2="a axis,b axis,b axis nose,tool spindle0,x1 axis" />
+    <collcheck id="Machine housing vs Z1" name="Machine housing vs Z1" group1="left spindle base,left interior wall of enclosure" group2="a axis,b axis,b axis nose,tool spindle0,x1 axis" />
+    <collcheck id="W vs Z1" name="W vs Z1" group1="right chuck0,right spindle base,right spindle c2 axis,right spindle w axis,workpiece2_adapter" group2="a axis,b axis,b axis nose,tool spindle0,x1 axis" />
+</machine_definition>

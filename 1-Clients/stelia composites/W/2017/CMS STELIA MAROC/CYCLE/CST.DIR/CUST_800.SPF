@@ -1,0 +1,634 @@
+N800 PROC CUST_800(INT _MODE,INT _TC1,REAL _A1,REAL _A2,INT _TC2,REAL _T_POS) SBLOF DISPLOF
+;customer cycle to cycle800
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.05.52.00 ;DATE: 2013-10-10
+;-----------------------------------------------------------
+; Inclinable head/table cycle for machine manufacturer
+;
+; PARAMETERS:
+;
+; _MODE    :   Mode:
+;    ShopMill   2 = Change magazine tool
+;    ShopMill   3 = Change hand tool
+;    ShopMill   4 = Change new swivel head automatically
+;    ShopMill   5 = Change new swivel head manually
+;    ShopMill   6 = Change old swivel head automatically
+;    ShopMill   7 = Change old swivel head manually
+;    ShopMill   8 = Change swivel heads automatically
+;    ShopMill   9 = Change swivel heads manually
+;    ShopMill  10 = Angle adapted to angle grid
+;    ShopMill  11 = Initialize angles at program start
+;    ShopMill  12 = Swivel after tool change (AUTO)
+;    ShopMill  13 = Swivel after tool change (JOG)
+;    ShopMill  14 = Retract after swivel
+;    ShopMill  15 = Retract after block search
+;              16 = Change old swivel in JOG
+;              20 = Swivel Round axes 1,2 automatic. Tracking with TRAORI(1)
+;              21 = Swivel Round axis 1 manual, Round axis 2 automatic swivel. Tracking with TRAORI(1)
+;              22 = Swivel Round axis 1 automatic. Tracking with TRAORI(1)
+;              23 = Swivel Round axis 1 manual 
+;              30 = Swivel Round axis 1 automatic, Round axis 2 manual . Tracking with TRAORI(1) 
+;              31 = Swivel Round axes 1,2 manual
+;              35 = Block search Round axis 1 and/or Round axis 2 manual 
+;              40 = User Init
+;              41 = axis Z MCS-Fixpoint
+;              42 = axis Z and after axes XY MCS-Fixpoint 
+;              44 = Tool direction retract maximal
+;              45 = Tool direction retract incrementel
+;    ShopMill  46 = Tool retract modal after block search
+;              57,58,59 = JOG Swivel + TRAORI (Area G17,G18,G19)
+;              70 = Align tool: Initialization
+;              71 = Align tool: Swivel round axis
+;              72 = Align tool: End
+; re. 40 --> User Init
+;  1. Before 1st calculation of the frame, the user can incorporate his own initialization in the CUST_800 
+;  2. In CUST_800 the user can interrogate the variables _TC_N_WZ and _TC_A_WZ and switch on e.g. TRAORI.
+; re. 41,42
+;  The user can modify as appropriate the NC blocks for tool retraction before swivelling
+;  This means that the tool retraction positions (see IBN screen SWIVEL) can be traversed absolutely or incrementally.
+;
+; _TC1     :   Number of the swivel head / swivel bench 
+; _A1      :   Angle of the 1st turning axis 
+; _A2      :   Angle of the 2st turning axis
+; _TC2     :   Feed overide % for JOG swivel, only for ShopMill: Number of new swivel head/table when changing
+; _T_POS   :   incremental position for incremental retraction in tool direction (MODE 44,45)
+;
+; Global Data:
+; _TC_FR   : ones' place:
+;              0 = No tool retraction
+;              1 = Tool retraction axis Z MCS-Fixpoint
+;              2 = Tool retraction axis Z and after axes XY MCS-Fixpoint
+;              3 = reserved
+;              4 = Tool direction retract maximal
+;              5 = Tool direction retract incrementel
+;            thousands' place:
+;              0 = Swivel in AUTO
+;              1 = Swivel in JOG
+; _TC_N_WZ : Tracking tool
+; _TC_A_WZ : Align tool
+;----------------------------------------------------------
+DEF INT _M345=5,_SPINU=1,_DD,_UI_ACT,_TCRD,_MD21104
+DEF INT S_G_1,S_G_10,S_G_25,S_G_51,S_G_14
+DEF REAL _A1_DIFF,_A2_DIFF,_FAK1,_TOOLL[3]
+DEF AXIS _AX1,_AX2
+DEF STRING[60] _SERR       
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF (($P_PATH[$P_STACK]=="/_N_CST_DIR/") AND ($P_SUBPAR[1]==0))
+  _MODE=_SC_CUST_MODE[0]
+  _TC1=_SC_CUST_MODE[1]
+  _A1=_SC_CUST_MODE[2]
+  _A2=_SC_CUST_MODE[3]
+  _TC2=_SC_CUST_MODE[4]
+  _T_POS=_SC_CUST_MODE[5]
+ENDIF
+;END_DO_UPGRADE
+IF ((_MODE>=21)AND(_MODE<=31))
+  IF _TC2                                   
+    _SPINU=$AC_MSNUM _M345=$AC_SDIR[_SPINU] 
+  ELSE                                      
+    _SPINU=$P_MSNUM _M345=$P_SDIR[_SPINU]   
+  ENDIF
+ENDIF
+IF ((_MODE>=20)AND(_MODE<=31))
+  IF ISVAR("$MC_ORI_IPO_WITH_G_CODE") 
+    _MD21104=$MC_ORI_IPO_WITH_G_CODE  
+  ELSE
+    _MD21104=0
+  ENDIF
+ENDIF
+; Factor for Inch/Metric-conversion of system variables:
+IF($P_GG[13]<3)                     
+  _FAK1=1
+  IF($MN_SCALING_SYSTEM_IS_METRIC)  
+    IF($P_GG[13]==1)                
+     _FAK1=1/$MN_SCALING_VALUE_INCH 
+    ENDIF
+  ELSE                              
+    IF($P_GG[13]==2)                
+      _FAK1=$MN_SCALING_VALUE_INCH  
+    ENDIF
+  ENDIF
+ELSE                                
+  _FAK1=1
+ENDIF
+; Save particular G groups:
+S_G_1=$P_GG[1]   ; G0, ...
+S_G_10=$P_GG[10] ; G60, ...
+S_G_14=$P_GG[14] ; G90, ..
+S_G_25=$P_GG[25] ; ORIMKS, ...
+IF(_MD21104==1) 
+  S_G_51=$P_GG[51] ; ORIAXES, ...
+ENDIF
+;
+N800 CASE _MODE OF 2 GOTOF _M2 3 GOTOF _M3 4 GOTOF _M4 5 GOTOF _M5 6 GOTOF _M6 7 GOTOF _M7 8 GOTOF _M8 9 GOTOF _M9 10 GOTOF _M10 11 GOTOF _M11 12 GOTOF _M12 13 GOTOF _M13 14 GOTOF _M14 15 GOTOF _M15 16 GOTOF _M16 20 GOTOF _M20 21 GOTOF _M21 22 GOTOF _M22 23 GOTOF _M23 30 GOTOF _M30 31 GOTOF _M31 35 GOTOF _M35 40 GOTOF _M40 41 GOTOF _M41 42 GOTOF _M42 44 GOTOF _M44 45 GOTOF _M45 46 GOTOF _M46 57 GOTOF _M57 58 GOTOF _M58 59 GOTOF _M59 
+N809 CASE _MODE OF 70 GOTOF _M70 71 GOTOF _M71 72 GOTOF _M72 
+;
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF ($P_PATH[$P_STACK]<>"/_N_CST_DIR/")
+  _SC_CUST_MODE[0]=REP(0)
+  _SC_CUST_MODE[0]=SET(_MODE,_TC1,_A1,_A2,_TC2,_T_POS)
+  N990 CALL "/_N_CST_DIR/_N_CUST_800_SPF"
+  GOTOF _MEND
+ELSE
+   SETAL(61019,"_MODE="<<_MODE<<" (CUST_800)" );    Parameter _MODE=n incorrectly defined
+ENDIF
+;END_DO_UPGRADE
+;
+_M2: ; Change magazine tool
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80020 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80021 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  GOTOF _MEND
+  ;
+_M3: ; Change hand tool
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80030 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80031 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  GOTOF _MEND
+  ;
+_M4: ; Change new swivel head automatically
+  ; STORE_TOOL               
+  GOTOF _MEND
+  ;
+_M5: ; Change new swivel head manually
+  ; STORE_TOOL               
+  N80050 M0                     
+  GOTOF _MEND
+  ;
+_M6: ; Change old swivel head automatically
+  ; STORE_TOOL               
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80060 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80061 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  GOTOF _MEND
+  ;
+_M7: ; Change old swivel head manually
+  ; STORE_TOOL               
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80070 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80071 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  N80072 M0                     
+  GOTOF _MEND
+  ;
+_M8: ; Change swivel heads automatically
+  ; STORE_TOOL               
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80080 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80081 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  GOTOF _MEND
+  ;
+_M9: ; Change swivel heads manually
+  ; STORE_TOOL               
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N80090 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N80091 F_SWIV_H(_TC1,0,0)   
+  ENDIF
+  N80092 M0                     
+  GOTOF _MEND
+  ;
+_M10: ; Angle adapted to angle grid
+  _A1_DIFF=ROUND(1000*$P_TCDIFF[1])/1000
+  IF $TC_CARR36[_TC1]==""    
+    _SERR=<<$TC_CARR34[_TC1]<<"  "<<$TC_CARR35[_TC1]<<": "<<_A1_DIFF
+  ELSE
+    _A2_DIFF=ROUND(1000*$P_TCDIFF[2])/1000
+    _SERR=<<$TC_CARR34[_TC1]<<"  "<<$TC_CARR35[_TC1]<<": "<<_A1_DIFF<<"  "<<$TC_CARR36[_TC1]<<": "<<_A2_DIFF
+  ENDIF
+  SETAL(62185,_SERR)         
+  M0                         
+  STOPRE
+  GOTOF _MEND
+  ;
+_M11: ; Initialize angles at program start
+  IF(TRUNC($TC_CARR37[_TC1]/10) MOD 10 == 0)AND($TC_CARR35[_TC1]<>"")
+    _AX1=AXNAME($TC_CARR35[_TC1]) 
+    _TC_A1=$P_EP[_AX1]       
+  ELSE                       
+    _TC_A1=_SC_A_NO_VAL      
+  ENDIF
+  IF(TRUNC($TC_CARR37[_TC1]/100) MOD 10 == 0)AND($TC_CARR36[_TC1]<>"")
+    _AX2=AXNAME($TC_CARR36[_TC1]) 
+    _TC_A2=$P_EP[_AX2]       
+  ELSE                       
+    _TC_A2=_SC_A_NO_VAL      
+  ENDIF
+  GOTOF _MEND
+  ;
+_M12: ; Swivel after tool change (AUTO)
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    N800120 E_SWIV_H(_TC1,_A1,_A2)
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+       ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N800121 F_SWIV_H(_TC1,_A1,_A2)
+  ENDIF
+  GOTOF _MEND
+  ;
+_M13: ; Swivel after tool change (JOG)
+  IF($MCS_TECHNOLOGY==2)     
+    CUST_800(41,_TC1) 
+    N800130 E_SWIV_H(_TC1,_A1,_A2)
+  ENDIF
+  IF($MCS_TECHNOLOGY==1)     
+    ;CUST_800(41,_TC1) 
+    ;N800131 F_SWIV_H(_TC1,_A1,_A2)
+  ENDIF
+  GOTOF _MEND
+  ;
+_M14: ; Retract after swivel
+  IF($MCS_TECHNOLOGY==2)     
+    N800140 E_SP_RP(30)
+  ENDIF
+  GOTOF _MEND
+  ;
+_M15: ; Retract after block search
+  IF($MCS_TECHNOLOGY==2)     
+    N800150 E_SP_RP(30)
+  ENDIF
+  GOTOF _MEND
+  ;
+_M16: ; Change old swivel data in JOG
+  ; STORE_TOOL               
+  
+  IF($MCS_TECHNOLOGY==2)     
+    IF((_TC_FR MOD 10)AND(_TC1))
+      ;CUST_800(40+(_TC_FR MOD 10),_TC1) 
+    ENDIF
+    ;N8006 E_SWIV_H(_TC1,0,0)   
+  ENDIF
+  GOTOF _MEND
+;-----------------------------------------------------
+_M20: ; Swivel Round axes 1 and 2 automatic. Tracking with TRAORI(1)
+  _UI_ACT=$P_GG[8] 
+  IF ((_TC_N_WZ==1) AND (NOT $P_SEARCH) AND (NOT $P_ISTEST))
+    TCARR=0 PAROTOF
+    ORIMKS
+    IF _MD21104==1 
+      ORIAXES
+    ENDIF        
+    TRAORI(1)          
+    G[8]=_UI_ACT 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800200 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1 AX[AXNAME($TC_CARR36[ _TC1])]=_A2
+    SBLOF
+    TRAFOOF
+    G[8]=_UI_ACT 
+    TCARR=_TC1
+    PAROT
+  ELSE 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800201 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1 AX[AXNAME($TC_CARR36[ _TC1])]=_A2
+    SBLOF
+  ENDIF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M21: ; Swivel Round axis 2 automatic, Round axis 1 manual or semi automatic. Tracking with TRAORI(1)
+  _UI_ACT=$P_GG[8] 
+  IF ((_TC_N_WZ==1) AND (NOT $P_SEARCH) AND (NOT $P_ISTEST)) 
+    TCARR=0 PAROTOF
+    ORIMKS
+    IF _MD21104==1 
+      ORIAXES
+    ENDIF        
+    TRAORI(1)          
+    G[8]=_UI_ACT 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800210 G0 G90 AX[AXNAME($TC_CARR36[_TC1])]=_A2
+    SBLOF
+    TRAFOOF
+    G[8]=_UI_ACT 
+    TCARR=_TC1
+    PAROT
+  ELSE 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800211 G0 G90 AX[AXNAME($TC_CARR36[_TC1])]=_A2
+    SBLOF
+  ENDIF
+  IF ((_M345==3) OR (_M345==4)) 
+    M[_SPINU]=5 
+    M0
+    M[_SPINU]=_M345 
+  ELSE
+    M0
+  ENDIF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M22: ; Swivel Round axis 1 automatic. Tracking with TRAORI(1)
+  _UI_ACT=$P_GG[8] 
+  IF ((_TC_N_WZ==1) AND (NOT $P_SEARCH) AND (NOT $P_ISTEST)) 
+    TCARR=0 PAROTOF
+    ORIMKS
+    IF _MD21104==1 
+      ORIAXES
+    ENDIF        
+    TRAORI(1)          
+    G[8]=_UI_ACT 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800220 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1
+    SBLOF
+    TRAFOOF
+    G[8]=_UI_ACT 
+    TCARR=_TC1
+    PAROT
+  ELSE 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800221 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1
+    SBLOF
+  ENDIF
+  ;STOPRE     
+  GOTOF _MEND
+  ;
+_M23: ; Swivel Round axis 1 manual or semi automatic
+  GOTOF _M31
+_M30: ; Swivel Round axis 1 automatic swivel, Round axis 2 manual or semi automatic. Tracking with TRAORI(1) 
+  _UI_ACT=$P_GG[8] 
+  IF ((_TC_N_WZ==1) AND (NOT $P_SEARCH) AND (NOT $P_ISTEST)) 
+    TCARR=0 PAROTOF
+    ORIMKS
+    IF _MD21104==1 
+      ORIAXES
+    ENDIF        
+    TRAORI(1)          
+    G[8]=_UI_ACT 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800300 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1
+    SBLOF
+    TRAFOOF
+    G[8]=_UI_ACT 
+    TCARR=_TC1
+    PAROT
+  ELSE 
+    IF _TC2>0
+      DO $AC_OVR=_TC2 
+    ENDIF
+    SBLON
+    N800301 G0 G90 AX[AXNAME($TC_CARR35[_TC1])]=_A1
+    SBLOF
+  ENDIF
+  IF ((_M345==3) OR (_M345==4)) 
+    M[_SPINU]=5 
+    M0
+    M[_SPINU]=_M345 
+  ELSE
+    M0
+  ENDIF
+  ;STOPRE     
+  GOTOF _MEND
+  ;
+_M31: ; Swivel Round axis 1 and 2 manual or semi automatic
+  IF ((_M345==3) OR (_M345==4)) 
+    M[_SPINU]=5 
+    M0
+    M[_SPINU]=_M345 
+  ELSE
+    M0
+  ENDIF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M35: ;   Block Search Round axis manual
+  _TCRD=0 _SERR=<<"" 
+  IF (($TC_CARR37[_TC1] _DEC2)==1) 
+    _SERR=<<(SUBSTR($TC_CARR35[_TC1],0,5))<<": "<<_TC_A1
+    _TCRD=1
+  ENDIF
+  IF ((($TC_CARR37[_TC1] _DEC3)==1)AND($TC_CARR36[_TC1]<>"")) 
+    IF _SERR=="" 
+      _SERR=<<(SUBSTR($TC_CARR36[_TC1],0,5))<<": "<<_TC_A2
+      _TCRD=1
+    ELSE  
+      _SERR=<<(SUBSTR($TC_CARR35[_TC1],0,5))<<": "<<_TC_A1<<"  "<<(SUBSTR($TC_CARR36[_TC1],0,5))<<": "<<_TC_A2
+      _TCRD=_TCRD+1
+    ENDIF
+  ENDIF    
+  STOPRE 
+  IF (_TCRD==2)
+    N800350 SETAL(62180,_SERR) 
+  ENDIF
+  IF (_TCRD==1)
+    N800351 SETAL(62181,_SERR)  
+  ENDIF
+  GOTOF _MEND
+  ;
+_M40: ; User Init
+  ;N800400 SETMS(1)                 ; set tool spindle as master spindle
+  ;N800401 DIAMOF                   ; no plane axis as diameter for milling
+  ;N800402 G17                      ; plane G17 (X, Y, Z)
+STOPRE
+  GOTOF _MEND
+  ;
+_M41: ; Axis Z MCS-Fixpoint
+  _DD=$P_TOOL             
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  SBLON
+  N800410 SUPA D0 G0 G40 G60 G90 Z=$TC_CARR40[_TC1] 
+  D=_DD                   
+  SBLOF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M42: ; Axis Z and after axes XY MCS-Fixpoint 
+  _DD=$P_TOOL             
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  SBLON
+  N800420 SUPA D0 G0 G40 G60 G90 Z=$TC_CARR40[_TC1] 
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  N800421 SUPA X=$TC_CARR38[_TC1] Y=$TC_CARR39[_TC1] 
+  
+  D=_DD                   
+  SBLOF
+  ;STOPRE
+  GOTOF _MEND
+_M44:  ; Tool direction retract maximal
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  IF($P_SUBPAR[6]==0)
+    CYCLE202(2,_T_POS)
+  ENDIF
+  SBLON
+  N800440 G0 G60 G90 AX[$P_AXN3]=_T_POS 
+  SBLOF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M45:  ; Tool direction retract incremental
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  IF($P_SUBPAR[6]==0)
+    CYCLE202(2,_T_POS)
+  ENDIF
+  SBLON
+  N800450 G0 G60 G90 AX[$P_AXN3]=_T_POS 
+  SBLOF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M46: ; Tool retract modal after block search
+  
+  
+  
+  IF((_TC_FR MOD 10)AND(_TC1))
+    N800460 CUST_800(40+(_TC_FR MOD 10),_TC1)
+  ENDIF
+  ;STOPRE
+  GOTOF _MEND
+  ;
+_M57: ; JOG Swivel + TRAORI (Area G17)
+  IF $P_TC<>0 GOTOF _MEND
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  SBLON
+  ORIWKS ORIVECT 
+  N800570 G0 G40 G60 A3=0 B3=0 C3=1 
+  SBLOF
+  GOTOF _MEND
+  ;
+_M58: ; JOG Swivel + TRAORI (Area G18)
+  IF $P_TC<>0 GOTOF _MEND
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  SBLON
+  ORIWKS ORIVECT 
+  N800580 G0 G40 G60 A3=0 B3=1 C3=0 
+  SBLOF
+  GOTOF _MEND
+  ;
+_M59: ; JOG Swivel + TRAORI (Area G19)
+  IF $P_TC<>0 GOTOF _MEND
+  IF _TC2>0
+    DO $AC_OVR=_TC2 
+  ENDIF
+  SBLON
+  ORIWKS ORIVECT 
+  N800590 G0 G40 G60 A3=1 B3=0 C3=0 
+  SBLOF
+  GOTOF _MEND
+  ;
+_M70: ; Align tool: Intitialize
+  IF($P_SMODE[1]==1)               ; Tool spindle is in spindle mode
+    N800700 SPOS[1]=0              ; Tool spindle in C axis mode
+  ENDIF
+  N800701 SETMS(2)                 ; set table as master spindle
+  N800702 DIAMON                   ; plane axis as diameter for turning
+  GOTOF _MEND
+  ;
+_M71: ; Align tool: Swivel round axis
+  _AX1=$PC_TRAFO_ROT_CHAN_AX_IN[1] ; B axis
+  _AX2=$PC_TRAFO_ROT_CHAN_AX_IN[2] ; tool spindle
+  IF(_TC_N_WZ==0)                  ; no tooltip tracking 
+    N800710 TRAFOOF
+  ENDIF
+  SBLON
+  N800711 G0 G40 G60 G90 AX[_AX1]=_A1 AX[_AX2]=_A2
+  SBLOF
+  GOTOF _MEND
+  ;
+_M72: ; Align tool: End
+  GOTOF _MEND
+  ;
+_MEND:
+; Restore particular G groups:
+G[1]=S_G_1   ; G0, ...
+G[10]=S_G_10 ; G60, ...
+G[14]=S_G_14 ; G90, ...
+G[25]=S_G_25 ; ORIMKS, ...
+IF(_MD21104==1) 
+  G[51]=S_G_51 ; ORIAXES, ...
+ENDIF
+;
+N800990 RET

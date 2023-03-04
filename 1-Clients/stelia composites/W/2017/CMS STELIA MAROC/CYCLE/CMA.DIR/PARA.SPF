@@ -1,0 +1,132 @@
+PROC PARA DISPLOF SBLOF
+;----------------------------------------------------------
+;-------------- PROGRAMMA DI CAMBIO ZONA   ----------------
+;----------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 06-12-2010
+QUOTEPARA
+;-----------------------------------------
+;CONTROLLO SIMULAZIONE TEST PROGRAMMA
+IF (($P_SIM==1) OR ($P_ISTEST==1) OR ($P_SEARCH==1))
+ RET
+ M17
+ENDIF
+M95  ;TEST PORTE CHIUSE
+CONTCP=$P_TRAFO_PARSET
+CONTD=$P_TOOL
+STOPRE
+TRAFOOF
+D0
+M5 S0 
+M170 ; Abilita accesso costruttore
+IF $A_IN[13] == 1 GOTOF CZ_INTERROTTO
+M164 
+STOPRE
+CZ_STATUS=1
+IF $A_IN[10] == 1 GOTOF CZ_LOGICA
+IF $A_IN[11] == 1 GOTOF CZ_LOGICA
+GOTOF SET_LIMITI
+;-----------------------------------------
+;---- CAMBIO ZONA INTERROTTO   -----------
+;-----------------------------------------
+CZ_INTERROTTO:
+M164
+; Apertura Limiti MAX
+$MA_POS_LIMIT_PLUS[X1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[X1] = LIM_INF
+$MA_POS_LIMIT_PLUS[U1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[U1] = LIM_INF
+NEWCONF
+IF CZ_STATUS == 1 GOTOF SET_LIMITI ;CONDIZ. CHE NON RICHIEDONO MOV. ASSI
+; Posizione di svincolo
+SUPA G0 G90 Z=CZ_SVINCOLO_Z
+;
+;----MODIF ANTB SUITE DEMANDE CLIENT
+;ORIENTATION AXE B POUR PASSAGE DE ZONE 1 A ZONE 2
+IF $A_IN[10] == 1 ;MACHINE EN ZONE 1
+SUPA G0 G90 AX[_AXN4]=90 AX[_AXN5]=CZ_SVINCOLO_5 Y=CZ_SVINCOLO_Y
+ENDIF
+;ORIENTATION AXE B POUR PASSAGE DE ZONE 2 A ZONE 1
+IF $A_IN[11] == 1 ;MACHINE EN ZONE 2
+SUPA G0 G90 AX[_AXN4]=-90 AX[_AXN5]=CZ_SVINCOLO_5 Y=CZ_SVINCOLO_Y
+ENDIF
+;-----FIN MODIF ANTB
+;
+IF $A_IN[10] == 1 GOTOF CZ_INT_ZONA2   ;RICHIESTA ZONA 1 --> TORNO INDIETRO
+IF $A_IN[11] == 1 GOTOF CZ_INT_ZONA1   ;RICHIESTA ZONA 2 --> TORNO INDIETRO
+GOTOF CZ_INT_ZONA1
+;---- CAMBIO ZONA 1 
+CZ_INT_ZONA1: 
+M82
+SUPA G0 G90 X=QUOT_Z1
+SUPA G0 G90 B0  ;modif ANTB suite demande client
+GOTOF SET_LIMITI
+;---- CAMBIO ZONA 2
+CZ_INT_ZONA2:
+M83
+SUPA G0 G90 X=QUOT_Z2
+SUPA G0 G90 B0  ;modif ANTB suite demande client
+GOTOF SET_LIMITI
+;-----------------------------------------
+;---- ESECUZIONE CAMBIO ZONA   -----------
+;-----------------------------------------
+CZ_LOGICA:
+;M95            ;TEST PORTE CHIUSE
+; Apertura Limiti MAX
+$MA_POS_LIMIT_PLUS[X1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[X1] = LIM_INF
+$MA_POS_LIMIT_PLUS[U1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[U1] = LIM_INF
+NEWCONF
+; Posizione di svincolo
+SUPA G0 G90 Z=CZ_SVINCOLO_Z
+;
+;----MODIF ANTB SUITE DEMANDE CLIENT
+;ORIENTATION AXE B POUR PASSAGE DE ZONE 1 A ZONE 2
+IF $A_IN[10] == 1 ;MACHINE EN ZONE 1
+SUPA G0 G90 AX[_AXN4]=90 AX[_AXN5]=CZ_SVINCOLO_5 Y=CZ_SVINCOLO_Y
+ENDIF
+;ORIENTATION AXE B POUR PASSAGE DE ZONE 2 A ZONE 1
+IF $A_IN[11] == 1 ;MACHINE EN ZONE 2
+SUPA G0 G90 AX[_AXN4]=-90 AX[_AXN5]=CZ_SVINCOLO_5 Y=CZ_SVINCOLO_Y
+ENDIF
+;-----FIN MODIF ANTB
+;
+STOPRE
+CZ_STATUS=0
+; Logica Spostamenti
+IF $A_IN[12] == 1 GOTOF CZ_ZONA2
+GOTOF CZ_ZONA1
+;---- CAMBIO ZONA 1 
+CZ_ZONA1: 
+M82
+SUPA G0 G90 X=QUOT_Z1
+SUPA G0 G90 B0  ;modif ANTB suite demande client
+GOTOF SET_LIMITI
+;---- CAMBIO ZONA 2
+CZ_ZONA2:
+M83
+SUPA G0 G90 X=QUOT_Z2
+SUPA G0 G90 B0  ;modif ANTB suite demande client
+GOTOF SET_LIMITI
+;-----------------------------------------
+;----      SETTAGGIO LIMITI    -----------
+;-----------------------------------------
+SET_LIMITI:
+SETLIMITI
+;-----------------------------------------
+;----      FINE CAMBIO ZONA    -----------
+;-----------------------------------------
+FINE:
+IF CONTCP == 1
+  TRAORI
+ENDIF
+D=CONTD
+STOPRE
+CZ_STATUS=0
+M163
+M172        ;Ripristina accesso utente
+STOPRE
+M17
+RET
+

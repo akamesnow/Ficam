@@ -1,0 +1,42 @@
+PROC ZERO DISPLOF SBLOF
+;Autore  : CMS AUTOMAZIONE
+;data     : 17-06-2011
+;REVISIONE: 14/02/2014
+;***************************************
+G4F1
+M170     ;Abilita accesso costruttore
+$P_UIFR[0]=CTRANS():CFINE():CROT():CSCALE():CMIRROR()
+STOPRE
+IF $A_IN[22] == 1
+;APERTURA LIMITI (se opzione presente)
+IF (($MN_USER_DATA_HEX[6] B_AND 1) == 1)
+    ; Apertura Limiti MAX
+    $MA_POS_LIMIT_PLUS[X1]  = LIM_SUP
+    $MA_POS_LIMIT_MINUS[X1] = LIM_INF
+    $MA_POS_LIMIT_PLUS[U1]  = LIM_SUP
+    $MA_POS_LIMIT_MINUS[U1] = LIM_INF
+    NEWCONF
+ENDIF
+;MOVIMENTO A ZERO
+SUPA G0 G90 D0 Z=0 B=90 C=0
+SUPA G0 G90 D0 Y=0
+SUPA G0 G90 D0 X=0
+M69
+STOPRE
+; **** Impostazione Limiti per PARATIA (se opzione presente)
+IF (($MN_USER_DATA_HEX[6] B_AND 1) == 1)
+  QUOTEPARA
+  SETLIMITI 
+  M163
+  STOPRE
+ENDIF
+IF $A_IN[12] == 1 ;Verifica zona macchina --> Anticipo posizionamento disco mobile
+  M82          ;COMANDO POSIZ. DISCO DX
+ELSE
+  M83          ;COMANDO POSIZ. DISCO SX
+ENDIF
+M197
+ENDIF
+STOPRE
+M17
+RET

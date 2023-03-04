@@ -1,0 +1,1327 @@
+SINUMERIK 840D sl - 840DSL-72                     
+Systemsoftware NCU                                V04.05 + SP 04 + HF 02	
+  SINUMERIK CNC-SW 31-3                           
+  Version:                                        V04.05 + SP 04 + HF 02
+  InternalVersion:                                04.05.04.02.001
+  PLC                                             04.05.04.03	04.05.04.03
+    PLC                                           
+    Version:                                      04.05.04.03
+    InternalVersion:                              04.05.04.03
+    317-3PN/DP                                    32.81.34	32.81.34
+      Source                                      cpu317.bin
+      VersionString                               32.81.34 04/11/14 15:00:00$
+
+    317-3PN/DP                                    00.02.03	00.02.03
+      Source                                      BootCode-SOC1-023.bin
+      VersionString                               00.02.03 10/04/12 11:00:00$
+
+    PLC317_3-FB15                                 04.05.20	04.05.20
+      Source                                      fb15_317_3.plc
+      VersionString                               04.05.20*14/09/03
+
+    PLC317_3-FB15-SI                              04.05.18	04.05.18
+      Source                                      fb15_317_3.plc
+      VersionString                               04.05.18*14/05/12
+
+    PLC extensions                                	
+      PLC_Application                             
+      PLC-Basicprogram-800Dsl                     04.05.07	04.05.07
+        Date                                      12/04/23
+
+
+
+  CYCLES                                          04.05.65.00	04.05.65.00
+    CYCLES                                        
+    Version:                                      04.05.65.00
+    InternalVersion:                              04.05.65.00
+    Machine-data for cycles                       04.05.65.00	04.05.65.00
+    Adapting cycles                               04.05.65.00	04.05.65.00
+      Adapting cycles                             
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      CUST_M6.SPF                                 04.05.65.00	04.05.65.00	CST
+      CUST_T.SPF                                  04.05.65.00	04.05.65.00	CST
+      CYCLE700.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE701.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE702.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE703.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE704.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE705.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE706.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE707.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE708.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE709.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE710.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE711.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE712.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE713.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE714.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE715.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE716.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE717.SPF                                04.05.65.00	04.05.65.00	CST
+
+    Technology cycles                             04.05.65.00	04.05.65.00
+      Technology cycles                           
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      CUST_832.SPF                                04.05.30.00	04.05.65.00	CMA
+      CUST_800.SPF                                04.05.65.00	04.05.65.00	CST
+      CUST_832.SPF                                04.05.65.00	04.05.65.00	CST
+      CUST_CLAMP.SPF                              04.05.65.00	04.05.65.00	CST
+      CUST_MULTICHAN.SPF                          04.05.65.00	04.05.65.00	CST
+      CUST_TECHCYC.SPF                            04.05.65.00	04.05.65.00	CST
+      CYCLE202.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE203.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE204.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE206.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE207.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE208.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE209.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE210.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE211.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE212.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE60.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE61.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE62.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE63.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE64.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE70.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE71.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE72.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE76.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE77.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE78.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE79.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE800.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE801.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE802.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE809.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE81.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE82.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE832.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE83.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE840.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE84.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE85.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE86.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE87.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE88.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE89.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE90.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE92.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE930.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE93.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE940.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE94.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE950.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE951.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE952.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE95.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE96.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE97.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE98.SPF                                 04.05.65.00	04.05.65.00	CST
+      CYCLE99.SPF                                 04.05.65.00	04.05.65.00	CST
+      GROUP_ADDEND.SPF                            04.05.65.00	04.05.65.00	CST
+      GROUP_BEGIN.SPF                             04.05.65.00	04.05.65.00	CST
+      GROUP_END.SPF                               04.05.65.00	04.05.65.00	CST
+      HOLES1.SPF                                  04.05.65.00	04.05.65.00	CST
+      HOLES2.SPF                                  04.05.65.00	04.05.65.00	CST
+      LONGHOLE.SPF                                04.05.65.00	04.05.65.00	CST
+      POCKET3.SPF                                 04.05.65.00	04.05.65.00	CST
+      POCKET4.SPF                                 04.05.65.00	04.05.65.00	CST
+      PROG_EVENT.SPF                              04.05.65.00	04.05.65.00	CST
+      SLOT1.SPF                                   04.05.65.00	04.05.65.00	CST
+      SLOT2.SPF                                   04.05.65.00	04.05.65.00	CST
+
+    Measuring cycles                              04.05.65.00	04.05.65.00
+      Measuring cycles                            
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      CUST_MEACYC.SPF                             04.05.30.00	04.05.65.00	CMA
+      CUST_MEACYC.SPF                             04.05.65.00	04.05.65.00	CST
+      CYCLE102.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE109.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE111.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE112.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE114.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE115.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE116.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE117.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE119.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE131.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE132.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE140.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE141.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE961.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE971.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE973.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE974.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE976.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE977.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE978.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE979.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE982.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE994.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE996.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE997.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE998.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_CAL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_CAN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_HOL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_PIN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_POC.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MS_SPI.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MT_CAL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MT_LEN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MT_RAD.SPF                                04.05.65.00	04.05.65.00	CST
+
+    ISO cycles                                    04.05.65.00	04.05.65.00
+      ISO cycles                                  
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      CYCLE301.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE305.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE308.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE3106.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE322.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE323.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE328.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE330.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE3512.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE370T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE371T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE3721.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE372T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE373T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE374T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE375T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE376T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE381M.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE383M.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE383T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE3841.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE384M.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE384T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE385T.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE387M.SPF                               04.05.65.00	04.05.65.00	CST
+      CYCLE395.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE396.SPF                                04.05.65.00	04.05.65.00	CST
+      CYCLE398.SPF                                04.05.65.00	04.05.65.00	CST
+
+    ShopMill cycles                               04.05.65.00	04.05.65.00
+      ShopMill cycles                             
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      E_CI_CO.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_CI_RE.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_CONFIG.SPF                                04.05.65.00	04.05.65.00	CST
+      E_CON.SPF                                   04.05.65.00	04.05.65.00	CST
+      E_CP_CE.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_CP_CO.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_CP_DR.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_CP_RE.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_DR_BGF.SPF                                04.05.65.00	04.05.65.00	CST
+      E_DR_BOR.SPF                                04.05.65.00	04.05.65.00	CST
+      E_DR_PEC.SPF                                04.05.65.00	04.05.65.00	CST
+      E_DR_REA.SPF                                04.05.65.00	04.05.65.00	CST
+      E_DR_SIN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_DR.SPF                                    04.05.65.00	04.05.65.00	CST
+      E_DR_TAP.SPF                                04.05.65.00	04.05.65.00	CST
+      E_END.SPF                                   04.05.65.00	04.05.65.00	CST
+      E_HEAD.SPF                                  04.05.65.00	04.05.65.00	CST
+      E_MANAGE.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MI_CON.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MI_EDG.SPF                                04.05.65.00	04.05.65.00	CST
+      E_MI_PL.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_MI_TR.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_MI_TXT.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PI_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PI_REC.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PO_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PO_REC.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_FRA.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_HIN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_MRX.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_POL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_ROW.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_SEQ.SPF                                04.05.65.00	04.05.65.00	CST
+      E_PS_XYA.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SIM.SPF                                   04.05.65.00	04.05.65.00	CST
+      E_SL_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SL_LON.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SL_OPN.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SP_CHA.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SP_INI.SPF                                04.05.65.00	04.05.65.00	CST
+      E_SP_RP.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_SWIV_H.SPF                                04.05.65.00	04.05.65.00	CST
+      E_S_ASUP.SPF                                04.05.65.00	04.05.65.00	CST
+      E_TCARR.SPF                                 04.05.65.00	04.05.65.00	CST
+      E_TCTOOL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_TFS.SPF                                   04.05.65.00	04.05.65.00	CST
+      E_TRACYL.SPF                                04.05.65.00	04.05.65.00	CST
+      E_TS.SPF                                    04.05.65.00	04.05.65.00	CST
+
+    ShopTurn cycles                               04.05.65.00	04.05.65.00
+      ShopTurn cycles                             
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      F_BARLO.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CI_CO.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CI_RE.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CONFIG.SPF                                04.05.65.00	04.05.65.00	CST
+      F_CON.SPF                                   04.05.65.00	04.05.65.00	CST
+      F_CP_CE.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CP_CO.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CP_DR.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_CP_RE.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_DRILL.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_DR_BGF.SPF                                04.05.65.00	04.05.65.00	CST
+      F_DR_BOR.SPF                                04.05.65.00	04.05.65.00	CST
+      F_DR_PEC.SPF                                04.05.65.00	04.05.65.00	CST
+      F_DR_REA.SPF                                04.05.65.00	04.05.65.00	CST
+      F_DR_SIN.SPF                                04.05.65.00	04.05.65.00	CST
+      F_DR.SPF                                    04.05.65.00	04.05.65.00	CST
+      F_DR_TAP.SPF                                04.05.65.00	04.05.65.00	CST
+      F_END.SPF                                   04.05.65.00	04.05.65.00	CST
+      F_GROOV.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_HEAD.SPF                                  04.05.65.00	04.05.65.00	CST
+      F_HOME.SPF                                  04.05.65.00	04.05.65.00	CST
+      F_MANAGE.SPF                                04.05.65.00	04.05.65.00	CST
+      F_MC_LP.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_MC_RC.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_MI_CON.SPF                                04.05.65.00	04.05.65.00	CST
+      F_MI_EDG.SPF                                04.05.65.00	04.05.65.00	CST
+      F_MI_PL.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_MI_TR.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_MI_TXT.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PARTOF.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PI_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PI_REC.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PO_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PO_REC.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PS_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PS_FRA.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PS_MRX.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PS_ROW.SPF                                04.05.65.00	04.05.65.00	CST
+      F_PS_SEQ.SPF                                04.05.65.00	04.05.65.00	CST
+      F_RELEAS.SPF                                04.05.65.00	04.05.65.00	CST
+      F_REL_BC.SPF                                04.05.65.00	04.05.65.00	CST
+      F_ROT_C.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_ROUGH.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_ROU_Z.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_SIM.SPF                                   04.05.65.00	04.05.65.00	CST
+      F_SL_CIR.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SL_LON.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SL_OPN.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_BC.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_SP_CHA.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_EF.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_SP_INI.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_IS.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_SP_RP2.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_RPB.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_RPF.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_RPT.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SP_RP.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_SP_TRA.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SUB_SP.SPF                                04.05.65.00	04.05.65.00	CST
+      F_SWIV_H.SPF                                04.05.65.00	04.05.65.00	CST
+      F_S_ASUP.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TAP.SPF                                   04.05.65.00	04.05.65.00	CST
+      F_TCARR.SPF                                 04.05.65.00	04.05.65.00	CST
+      F_TCTOOL.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TFS.SPF                                   04.05.65.00	04.05.65.00	CST
+      F_TR_CHN.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TR_CON.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TR_LON.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TR_PLA.SPF                                04.05.65.00	04.05.65.00	CST
+      F_TS.SPF                                    04.05.65.00	04.05.65.00	CST
+      F_UCUT_D.SPF                                04.05.65.00	04.05.65.00	CST
+      F_UCUT_E.SPF                                04.05.65.00	04.05.65.00	CST
+      F_UCUT_F.SPF                                04.05.65.00	04.05.65.00	CST
+      F_UCUT_T.SPF                                04.05.65.00	04.05.65.00	CST
+
+    Advanced contour cycle                        04.05.60.00	04.05.60.00
+    Definitions                                   04.05.65.00	04.05.65.00
+      Definitions                                 
+      Version:                                    04.05.65.00
+      InternalVersion:                            04.05.65.00
+      PGUD.DEF                                    04.05.65.00	04.05.65.00	DEF
+
+
+  NCK                                             87.11.04	87.11.04
+    NCK                                           
+    Version:                                      87.11.04
+    InternalVersion:                              87.11.04
+    Numeric Control                               87.11.04	87.11.04
+      Source                                      nckncusl
+      VersionString                               87.11.04 30/10/14 16:15:55$
+
+    NCK-SI                                        87.11.00	87.11.00
+      Source                                      nckncusl
+      VersionString                               87.11.00 23/07/14
+
+    NCKS840dsl-71                                 87.11.04	87.11.04
+      Source                                      840dsl-71.syf
+      VersionString                               87.11.04 10/30/14 16:16:07
+
+    NCKS840dsl-71                                 87.11.04	87.11.04
+      Source                                      840dsl-71.syf
+      VersionString                               87.11.04 10/30/14 16:16:07
+
+    NCKS840dsl-72                                 87.11.04	87.11.04
+      Source                                      840dsl-72.syf
+      VersionString                               87.11.04 10/30/14 16:16:07
+
+    NCKS840dsl-73                                 87.11.04	87.11.04
+      Source                                      840dsl-73.syf
+      VersionString                               87.11.04 10/30/14 16:16:08
+
+    License                                       87.11.04	87.11.04
+      Source                                      lic_840dsl-73.syf
+      VersionString                               87.11.04 10/30/14 16:12:01
+
+    Joblist for IBN                               02.04.00	02.04.00
+      Source                                      ibn.syf
+      VersionString                               02.04.00 05/08/06 12:00:30
+
+    Joblist for IBN/COMP                          02.04.00	02.04.00
+      Source                                      ibn.syf
+      VersionString                               02.04.00 05/08/06 12:00:30
+
+    Base System                                   87.11.0A	87.11.0A
+      Source                                      nrk710.abb
+      VersionString                               87.11.0A 03/07/14 13:13:47$
+
+    COS_SW                                        01.20.19	01.20.19
+      Source                                      nrk710.abb
+      VersionString                               01.20.19   2012/12/19  11:05:00 $
+
+    CDA                                           01.20.00	01.20.00
+      Source                                      nrk710.abb
+      VersionString                               01.20.00 2011/06/08$
+
+    memcpy_t                                      87.09.00	87.09.00
+      VersionString                               87.09.00 21/03/13 20:14:29$
+
+    RtExt-process                                 11.00.00.26	11.00.00.26
+      Source                                      loadnck
+      VersionString                               11.00.00.26 10/10/14 13:44:02$
+
+    RtExt-module                                  11.00.00.26	11.00.00.26
+      Source                                      rtdriver.ko
+      VersionString                               11.00.00.26 10/10/14 13:43:48$
+
+
+  SNCK                                            02.06.02.00	02.06.02.00
+    SNCK                                          
+    Version:                                      02.06.02.00
+    InternalVersion:                              02.06.02.00.002
+    startstop_snck                                01.00.00.00	01.00.00.00
+      Source                                      startstop.sh
+      VersionString                               01.00.00.00 2014/05/26$
+
+    Numeric Control                               87.11.04	87.11.04
+      Source                                      sncklinuxsl
+      VersionString                               87.11.04 30/10/14 16:19:01$
+
+    NCK-SI                                        87.11.00	87.11.00
+      Source                                      sncklinuxsl
+      VersionString                               87.11.00 23/07/14
+
+    COS_SW                                        01.20.19	01.20.19
+      Source                                      sncklinuxsl
+      VersionString                               01.20.19   2012/12/19  11:05:00 $
+
+    NCKSsim-nck                                   87.11.04	87.11.04
+      Source                                      sim-nck.syf
+      VersionString                               87.11.04 10/30/14 16:19:09
+
+    NCKSsim-nck-hmi-sl                            87.11.04	87.11.04
+      Source                                      sim-nck-hmi-sl.syf
+      VersionString                               87.11.04 10/30/14 16:19:09
+
+    CCSim Compile Cycle                           87.11.04	87.11.04
+      Source                                      libccsim.so.1.0
+      VersionString                               87.11.04 30/10/14 16:18:01$
+
+    libtheVComsl.so                               02.06.02.00	02.06.02.00
+      VersionString                               02.06.02.00 2013/07/19$
+
+    thevcomsl.dll                                 02.06.02.00	02.06.02.00
+      VersionString                               02.06.02.00 2013/07/19$
+
+    Numeric Control                               87.11.04	87.11.04
+      Source                                      sncksl.exe
+      VersionString                               87.11.04 30/10/14 16:17:01$
+
+    NCK-SI                                        87.11.00	87.11.00
+      Source                                      sncksl.exe
+      VersionString                               87.11.00 23/07/14
+
+    COS_SW                                        01.20.19	01.20.19
+      Source                                      sncksl.exe
+      VersionString                               01.20.19   2012/12/19  11:05:00 $
+
+    NCKSsim-nck                                   87.11.04	87.11.04
+      Source                                      sim-nck.syf
+      VersionString                               87.11.04 10/30/14 16:19:09
+
+    NCKSsim-nck-hmi-sl                            87.11.04	87.11.04
+      Source                                      sim-nck-hmi-sl.syf
+      VersionString                               87.11.04 10/30/14 16:19:09
+
+    CCSim Compile Cycle                           87.11.04	87.11.04
+      Source                                      ccsim.dll
+      VersionString                               87.11.04 30/10/14 16:16:28$
+
+
+  HMIARC-Tool                                     04.05.02.00	04.05.02.00
+    HMIARC-Tool                                   
+    Version:                                      04.05.02.00
+    InternalVersion:                              04.05.02.00.003
+    arctool                                       04.05.02.00	04.05.02.00
+      VersionString                               HMIARC_04.05.02.00.003
+
+
+  CP                                              02.28.00	02.28.00
+    CP                                            
+    Version:                                      02.28.00
+    InternalVersion:                              02.28.00
+    cp_710                                        02.28.00	02.28.00
+      VersionString                               02.28.00 2014/06/04
+
+
+  MCP_CLIENT                                      01.06.01	01.06.01
+    MCP_CLIENT                                    
+    Version:                                      01.06.01
+    InternalVersion:                              01.06.01
+    MCPDriver                                     01.06.01	01.06.01
+      Source                                      mcpdrv
+      VersionString                               01.06.01   2012/12/05    09:50:00$
+
+    MCP Info                                      	
+      MCP Info                                    
+      HT_2                                        SmaRT V11.00.02.04_01.03m	SmaRT V11.00.02.04_01.03m
+        MLFB                                      6FC5303-0AA00-2AA0
+        SerialNo                                  16178546
+
+
+
+  SDB                                             03.00.00	03.00.00
+  SNC                                             01.05.00.00	01.05.00.00
+    SNC                                           
+    Version:                                      01.05.00.00
+    InternalVersion:                              01.05.00.00
+    System Network Center                         01.05.00.00	01.05.00.00
+      Source                                      snc
+      VersionString                               01.05.00.00 21-02-2012 13:24:52$
+
+    run_snc                                       01.00.00.03	01.00.00.03
+      VersionString                               01.00.00.03 2014/05/22$
+
+
+  NCKFSDRV                                        04.04.00.00	04.04.00.00
+    NCKFSDRV                                      
+    Version:                                      04.04.00.00
+    InternalVersion:                              04.04.00.00.007
+    nckfsdrv                                      04.04.00.00	04.04.00.00
+      VersionString                               NCKFSDRV_04.04.00.00.007
+
+
+  PROFINET                                        14.01.06.02	14.01.06.02
+  Sinamics (NCU7XXI)                              04.50.30.35	04.50.30.35
+    Sinamics (NCU7XXI)                            
+    Version:                                      04.50.30.35
+    Unit Description                              04.50.30.35	04.50.30.35
+    UFTAB LV                                      04.50.30.35	04.50.30.35
+    Firmware CU320/2-S120I (Release)              04.50.30.35	04.50.30.35
+    Firmware CU320/2-S120I (Release) SI           04.50.30.34	04.50.30.34
+    Firmware CU320/2-S120I (Release) MM SI        04.50.30.34	04.50.30.34
+    Text Description                              04.50.30.35	04.50.30.35
+    SYSTEM Description CU320/2                    04.50.30.35	04.50.30.35
+    Realtime measurement CU320/2                  04.50.30.35	04.50.30.35
+    PERFORMANCE                                   04.50.30.35	04.50.30.35
+    Miscellaneous Text description                04.50.30.35	04.50.30.35
+    Miscellaneous Repository English              04.50.30.35	04.50.30.35
+    Miscellaneous Repository German               04.50.30.35	04.50.30.35
+    Motordaten                                    04.50.30.35	04.50.30.35
+    Memory allocation CU320/2                     04.50.30.35	04.50.30.35
+    Dummy MD5                                     04.50.30.35	04.50.30.35
+    Repository English                            04.50.30.35	04.50.30.35
+    Encoderdaten                                  04.50.30.35	04.50.30.35
+    Repository German                             04.50.30.35	04.50.30.35
+    Firmware CX32_2-S120 (Release)                04.50.30.35	04.50.30.35
+    BICO                                          04.50.30.35	04.50.30.35
+    Lagerdaten                                    04.50.30.35	04.50.30.35
+    Delta PD                                      04.50.30.35	04.50.30.35
+    FW Voltage Sensing Module VSM10 (vsm.ufw)     04.50.30.31	04.50.30.31
+    FW Terminal Module TM17 (tm17.ufw)            04.50.30.31	04.50.30.31
+    FW Terminal Module TM15 (tm15.ufw)            04.50.30.31	04.50.30.31
+    FW Sensor Module SMI20/SMExx, 6SL..0 (smi20x.u04.50.30.31	04.50.30.31
+    FW Sensor Module SMI20/SMExx, 6SL..0 (smi20x.u02.40.06.00	02.40.06.00
+    FW Sensor Module SMI10, 6SL..0 (smi10x.ufw)   04.50.30.31	04.50.30.31
+    FW Sensor Module SMC20, 6SL..1 (smc20x.ufw)   04.50.30.31	04.50.30.31
+    FW Sensor Module SMC20, 6SL..1 (smc20x.ufw) MM02.40.06.00	02.40.06.00
+    FW Sensor Module SMC10, 6SL..0 (smc10x.ufw)   04.50.30.31	04.50.30.31
+    FW Sensor Module SMC10/SMI10, 6SL..3 (smx10d.u04.50.30.35	04.50.30.35
+    FW Sensor Module SMI24, 6SL..3 (smi24d.ufw)   04.50.30.35	04.50.30.35
+    FW Sensor Module SMI24, 6SL..3 (smi24d.ufw) MM04.50.19.00	04.50.19.00
+    FW Sensor Module SMI20/SMExx, 6SL..3 (smi20f.u04.70.35.08	04.70.35.08
+    FW Sensor Module SMI20/SMExx, 6SL..3 (smi20f.u04.70.02.00	04.70.02.00
+    FW Sensor Module SME12x, 6SL..3 (sme12f.ufw)  04.70.35.08	04.70.35.08
+    FW Sensor Module SME12x, 6SL..3 (sme12f.ufw) M04.70.02.00	04.70.02.00
+    FW Sensor Module SMC20, 6SL..3 (smc20f.ufw)   04.70.35.08	04.70.35.08
+    FW Sensor Module SMC20, 6SL..3 (smc20f.ufw) MM04.70.02.00	04.70.02.00
+    FW Decentral MM with TM function, S120M (s120m04.50.30.35	04.50.30.35
+    FW Hub Module DME20 (dme20.ufw)               04.50.30.35	04.50.30.35
+    FW PM340-Adapter D410 / CU310-2 (cu31x2.ufw)  04.50.30.35	04.50.30.35
+    FW PM340-Adapter D410 / CU310-2 (cu31x2.ufw) S04.50.30.05	04.50.30.05
+    FW PM340-Adapter D410 / CU310-2 (cu31x2.ufw) M04.50.30.30	04.50.30.30
+    FW Combi (combi.ufw)                          04.50.30.35	04.50.30.35
+    FW Combi (combi.ufw) SI                       04.50.30.05	04.50.30.05
+    FW Combi (combi.ufw) MM SI                    04.50.30.30	04.50.30.30
+    FW Voltage Sensing Module VSM10 (vsm10d.ufw)  04.50.30.35	04.50.30.35
+    FW Terminal Module TM54F (tm54f.ufw)          04.50.30.35	04.50.30.35
+    FW Terminal Module TM54F (tm54f.ufw) MM SI    04.50.22.00	04.50.22.00
+    FW Terminal Module TM41 (tm41d.ufw)           04.50.30.35	04.50.30.35
+    FW Terminal Module TM31 (tm31d.ufw)           04.50.30.35	04.50.30.35
+    FW Terminal Module TM150 (tm150.ufw)          04.50.30.35	04.50.30.35
+    FW Terminal Module TM120 (tm120.ufw)          04.50.30.35	04.50.30.35
+    FW Sensor Module SMC30 (smc30f.ufw)           04.50.30.35	04.50.30.35
+    FW Chassis-MoMo / ALM / BLM / SLM (psad.ufw)  04.50.30.35	04.50.30.35
+    FW Chassis-MoMo / ALM / BLM / SLM (psad.ufw) S04.50.30.05	04.50.30.05
+    FW Chassis-MoMo / ALM / BLM / SLM (psad.ufw) M04.50.30.30	04.50.30.30
+    FW Chassis-MoMo / ALM / BLM / SLM (psadf.ufw) 04.50.30.35	04.50.30.35
+    FW Chassis-MoMo / ALM / BLM / SLM (psadf.ufw) 04.50.30.05	04.50.30.05
+    FW Chassis-MoMo / ALM / BLM / SLM (psadf.ufw) 04.50.30.30	04.50.30.30
+    FW Hub Module DMC20 (dmc20.ufw)               04.50.30.35	04.50.30.35
+    FW PM340-Adapter CUA32 (cua32.ufw)            04.30.28.00	04.30.28.00
+    FW PM340-Adapter CUA32 (cua32.ufw) SI         04.30.14.00	04.30.14.00
+    FW PM340-Adapter CUA32 (cua32.ufw) MM SI      04.30.15.00	04.30.15.00
+    FW PM340-Adapter CUA32X (cua32x.ufw)          04.50.30.35	04.50.30.35
+    FW PM340-Adapter CUA32X (cua32x.ufw) SI       04.50.30.05	04.50.30.05
+    FW PM340-Adapter CUA32X (cua32x.ufw) MM SI    04.50.30.30	04.50.30.30
+    FW PM340-Adapter CUA31 (cua31x.ufw)           04.40.23.13	04.40.23.13
+    FW PM340-Adapter CUA31 (cua31x.ufw) SI        04.40.23.04	04.40.23.04
+    FW PM340-Adapter CUA31 (cua31x.ufw) MM SI     04.40.23.04	04.40.23.04
+    FW PM340-Adapter CUA31 (cua31f.ufw)           04.50.30.35	04.50.30.35
+    FW PM340-Adapter CUA31 (cua31f.ufw) SI        04.50.30.05	04.50.30.05
+    FW PM340-Adapter CUA31 (cua31f.ufw) MM SI     04.50.30.30	04.50.30.30
+    FW Booksize SMM / ALM / BLM / SLM (abo.ufw)   04.50.30.35	04.50.30.35
+    FW Booksize SMM / ALM / BLM / SLM (abo.ufw) SI04.50.30.05	04.50.30.05
+    FW Booksize SMM / ALM / BLM / SLM (abo.ufw) MM04.50.30.30	04.50.30.30
+    FW Booksize SMM / ALM / BLM / SLM (abohf.ufw) 04.50.30.35	04.50.30.35
+    FW Booksize DMM (abo2.ufw)                    04.50.30.35	04.50.30.35
+    FW Booksize DMM (abo2.ufw) SI                 04.50.30.05	04.50.30.05
+    FW Booksize DMM (abo2.ufw) MM SI              04.50.30.30	04.50.30.30
+
+  LinuxBase (NCU)                                 04.50.56.00	04.50.56.00
+    LinuxBase (NCU)                               
+    Version:                                      04.50.56.00
+    InternalVersion:                              04.50.56.00
+    X11 Server                                    04.50.56.00	04.50.56.00
+    TCU Basesystem                                04.50.56.00	04.50.56.00
+    gcc-2.95 compat libraries                     04.50.56.00	04.50.56.00
+    Filesystem in Userspace                       04.50.56.00	04.50.56.00
+    TCU Support                                   04.50.56.00	04.50.56.00
+    Network Boot Files                            04.50.56.00	04.50.56.00
+    Hardware Version Collector                    04.50.56.00	04.50.56.00
+    Service Command Tool                          04.50.56.00	04.50.56.00
+    Firmware Update                               04.50.56.00	04.50.56.00
+    ERTEC400 Firmware Loader                      04.50.56.00	04.50.56.00
+
+  SINUMERIK Operate                               04.05.04.02	04.05.04.02
+    SINUMERIK Operate                             
+    Version:                                      04.05.04.02
+    InternalVersion:                              04.05.04.02.001
+    3D graphics                                   04.05.04.02	04.05.04.02
+      3D graphics                                 
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+      3D graphics (milling basics)                04.05.04.02	04.05.04.02
+        3D graphics (milling basics)              
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (milling only)                  04.05.04.02	04.05.04.02
+        3D graphics (milling only)                
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (turning basics)                04.05.04.02	04.05.04.02
+        3D graphics (turning basics)              
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (turning only)                  04.05.04.02	04.05.04.02
+        3D graphics (turning only)                
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+
+    Qtopia                                        04.05.02.00	04.05.02.00
+      Qtopia                                      
+      Version:                                    04.05.02.00
+      InternalVersion:                            45.20.26.00
+
+    ACE/TAO                                       6.1.2	6.1.2
+      ACE/TAO                                     
+      Version:                                    6.1.2
+      InternalVersion:                            61.20.04.00/21.20.04.00
+
+    Miniweb                                       04.05.04.02	04.05.04.02
+      Miniweb                                     
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+
+
+  Compile Cycles                                  @NCKOPI=002.000@Interfaces=008.007@TChain=003.000@TRAFOOPI=001.000@INCOA_OPI=001.004	
+    NCK System: CC Interface Version              
+    Version:                                      @NCKOPI=002.000@Interfaces=008.007@TChain=003.000@TRAFOOPI=001.000@INCOA_OPI=001.004
+    Addresses                                     	
+
+
+OEM                                               	
+  Manufacturer Cycles                             	
+    Manufacturer cycles                           
+    ASUP.SPF                                      		CMA
+    CAMBIO_DISCOMOB_DEP.SPF                       		CMA
+    CAMBIO_DISCOMOB_PRE.SPF                       		CMA
+    CAMBIO.SPF                                    		CMA
+    CONFIG_CYCLE_MEAS.SPF                         		CMA
+    CONFIG_TESTA_CYCLE800.SPF                     		CMA
+    CUFFIA.SPF                                    		CMA
+    CUSTOM1.SPF                                   		CMA
+    CUSTOM2.SPF                                   		CMA
+    CUSTOM3.SPF                                   		CMA
+    CUST_832.SPF                                  04.05.30.00		CMA
+    CUST_MEACYC.SPF                               04.05.30.00		CMA
+    CYCPE1MA.SPF                                  		CMA
+    INCHCONV.SPF                                  		CMA
+    KINEMATICS_CALCULATION.SPF                    		CMA
+    PARA.SPF                                      		CMA
+    POS_LASER_TS30.SPF                            		CMA
+    PRG_M42.SPF                                   		CMA
+    PRG_M44.SPF                                   		CMA
+    PRG_M45.SPF                                   		CMA
+    PRG_M46.SPF                                   		CMA
+    PRG_M47.SPF                                   		CMA
+    PRG_M48.SPF                                   		CMA
+    PROBE_CALIBRATION.SPF                         		CMA
+    QUOTECU.SPF                                   		CMA
+    QUOTEPARA.SPF                                 		CMA
+    RESETCU.SPF                                   		CMA
+    RIQUALIF_AXES.SPF                             		CMA
+    RUN1.SPF                                      		CMA
+    SETLIMITI.SPF                                 		CMA
+    SETLIMTASTDISCOMOB.SPF                        		CMA
+    SPECIAL1.SPF                                  		CMA
+    SPINDLEPOS.SPF                                		CMA
+    WARMUP.SPF                                    		CMA
+    ZERO.SPF                                      		CMA
+
+  Definitions                                     	
+    Definitions                                   
+    GUD8.DEF                                      		DEF
+    MGUD.DEF                                      		DEF
+    MMAC.DEF                                      		DEF
+
+  OEM-INFO                                        	
+
+USER                                              	
+  User Cycles                                     	
+    User cycles                                   
+    RNC_9760.SPF                                  		CUS
+    RNC_9761.SPF                                  		CUS
+    RNC_9762.SPF                                  		CUS
+    RNC_9763.SPF                                  		CUS
+    RNC_9764.SPF                                  		CUS
+    RNC_9765.SPF                                  		CUS
+    RNC_9766.SPF                                  		CUS
+    RNC_9769.SPF                                  		CUS
+    RNC_9860.SPF                                  		CUS
+    RNC_9861.SPF                                  		CUS
+    RNC_9862.SPF                                  		CUS
+    RNC_9863.SPF                                  		CUS
+    RNC_9865.SPF                                  		CUS
+    RNC_9866.SPF                                  		CUS
+    RNC_9867.SPF                                  		CUS
+    RNC_9868.SPF                                  		CUS
+    RNC_UEND.SPF                                  		CUS
+    RNC_USTA.SPF                                  		CUS
+    R_AIROFF.SPF                                  		CUS
+    R_AIRON.SPF                                   		CUS
+    R_LATOFF.SPF                                  		CUS
+    R_LATON.SPF                                   		CUS
+    R_SPLOFF.SPF                                  		CUS
+    R_SPLON.SPF                                   		CUS
+    R_TLBOFF.SPF                                  		CUS
+    R_TLBON.SPF                                   		CUS
+
+  Definitions                                     	
+
+Systemsoftware PCU HMI                            V04.05 + SP 04 + HF 02	
+  SINUMERIK Operate                               
+  Version:                                        V04.05 + SP 04 + HF 02
+  InternalVersion:                                04.05.04.02.001
+  SINUMERIK Operate                               04.05.04.02	04.05.04.02
+    SINUMERIK Operate                             
+    Version:                                      04.05.04.02
+    InternalVersion:                              04.05.04.02.001
+    Basesystem                                    04.05.04.02	04.05.04.02
+      Basesystem                                  
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+      cp_840di.exe                                		SIEMENS
+      dbghelp.dll                                 		SIEMENS
+      plink.exe                                   		SIEMENS
+      pscp.exe                                    		SIEMENS
+      satmain.dll                                 04.05.04.00	04.05.04.00	SIEMENS
+      slqsmart.dll                                12.00.00.00_33.11.00.02_005	12.00.00.00_33.11.00.02_005	SIEMENS
+      hmiexit.exe                                 		SIEMENS
+      SITOP_Abschaltung.exe                       		SIEMENS
+      policy.4.4.Siemens.Sinumerik.Operate.Service04.05.04.02	04.05.04.02	SIEMENS
+      policy.4.5.Siemens.Sinumerik.Operate.Service04.05.04.02	04.05.04.02	SIEMENS
+      qtsolutions.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      Siemens.Sinumerik.Operate.Services.dll      04.05.04.02	04.05.04.02	SIEMENS
+      Siemens.Sinumerik.Operate.Services.Wrapper.d04.05.04.02	04.05.04.02	SIEMENS
+      slacx.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      slaeconverterdata.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slaefactory.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slaeprefix.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slaeservice.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slaesvcadapter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slaetc.exe                                  04.05.04.02	04.05.04.02	SIEMENS
+      slaexmltobinconverter.dll                   04.05.04.02	04.05.04.02	SIEMENS
+      slamareamenu.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slarchiveadapter.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slarchivedrv.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slarchiveservice.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slarchivetree.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slastlogic.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slastplatformcommunication.dll              04.05.04.02	04.05.04.02	SIEMENS
+      slastservices.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slatwwrapper.exe                            04.05.04.02	04.05.04.02	SIEMENS
+      slcap.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      slcapfactory.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slcapsvc.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slcaptest.exe                               04.05.04.02	04.05.04.02	SIEMENS
+      slcopydrv.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slcpnck.exe                                 04.05.04.02	04.05.04.02	SIEMENS
+      slcriaservice.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slcriasvcadapter.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slctxtextconverter.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      sldcadapter.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sldcservice.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sldglogic.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      sledbase.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      sledblclasses.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sledmcewidget.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slednccom.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      sledstephandler.dll                         04.05.04.02	04.05.04.02	SIEMENS
+      sledsteplogic.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slembtcudialog.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slepsdncserviceadapter.dll                  04.05.04.02	04.05.04.02	SIEMENS
+      slerr.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      slerrconverter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slerrorlookup.exe                           04.05.04.02	04.05.04.02	SIEMENS
+      slescfi.dll                                 04.05.04.02	04.05.04.02	SIEMENS
+      sleseasyscreen.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slfcilogic.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slfsfilesvc.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slfsfilesvcadapter.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      slfvdata.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slfvfileservicecollector.dll                04.05.04.02	04.05.04.02	SIEMENS
+      slfvfileviewer.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slfvtreeview.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slgfw.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      slgfwcommon.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slgfwconverter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slgfwdata.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slgfwfastwidget.dll                         04.05.04.02	04.05.04.02	SIEMENS
+      slgfwmanager.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slgfwvirtualkeyboard.dll                    04.05.04.02	04.05.04.02	SIEMENS
+      slgfwvirtualkeyboardconverter.dll           04.05.04.02	04.05.04.02	SIEMENS
+      slgfwwebview.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slgfwwidget.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slgp.dll                                    04.05.04.02	04.05.04.02	SIEMENS
+      slgrgrid.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slgvwidget.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slhlpadapter.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slhlpservice.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slhmiconvertercmd.exe                       04.05.04.02	04.05.04.02	SIEMENS
+      slhmiconvertergui.exe                       04.05.04.02	04.05.04.02	SIEMENS
+      slhmiconverterlib.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slhmisettingsconverter.dll                  04.05.04.02	04.05.04.02	SIEMENS
+      slhmiutilitieslib.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slhz.dll                                    04.05.04.02	04.05.04.02	SIEMENS
+      slibnalm_migb.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slibndrv_migb.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slibnnco.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slibnsi.dll                                 04.05.04.02	04.05.04.02	SIEMENS
+      slkbdhook.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slkclogic.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      sllsservice.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slmcistdiidentconnectionadapter.dll         04.05.04.02	04.05.04.02	SIEMENS
+      slmcistdiidentconnectionservice.dll         04.05.04.02	04.05.04.02	SIEMENS
+      slmcistdiwkonvert.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slmd.dll                                    04.05.04.02	04.05.04.02	SIEMENS
+      slmdbase.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slmdlist.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slmdtext.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slmdwidget.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slmousehook.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sloperatecppapi.dll                         04.05.04.02	04.05.04.02	SIEMENS
+      slpmlogic.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slppvcprojconverter.dll                     04.05.04.02	04.05.04.02	SIEMENS
+      slrsadapter.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slrsconverterlib.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slrslink.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      slrsresolutionswitch.exe                    04.05.04.02	04.05.04.02	SIEMENS
+      slrsservice.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slrsstarter.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsc.dll                                    04.05.04.02	04.05.04.02	SIEMENS
+      slsfw.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      slsimservice.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsimserviceadapter.dll                     04.05.04.02	04.05.04.02	SIEMENS
+      slsimviewerwidget.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slsitservice.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsitservicesettings.dll                    04.05.04.02	04.05.04.02	SIEMENS
+      slsmhmihost.exe                             04.05.04.02	04.05.04.02	SIEMENS
+      slsmhmihostdiag.dll                         04.05.04.02	04.05.04.02	SIEMENS
+      slsmhmihostshared.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slsmoemframe.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsmsystemmanager.exe                       04.05.04.02	04.05.04.02	SIEMENS
+      slsmsystemmanageradapter.dll                04.05.04.02	04.05.04.02	SIEMENS
+      slsnxtopo.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slsteputilities.dll                         04.05.04.02	04.05.04.02	SIEMENS
+      slstycommonstyle.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slstywindowsstyle.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slsudpclapi.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsudpclogic.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsudrvaxasslogic.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slsudsa.dll                                 04.05.04.02	04.05.04.02	SIEMENS
+      slsulogic.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slsuncmemory.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      sltmservice.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sltmserviceadapter.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      sltmutilities.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sltraceadapter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      sltracecore.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sltracesvc.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      sltrc.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      sltrcsvc.exe                                04.05.04.02	04.05.04.02	SIEMENS
+      sltrctraceon.exe                            04.05.04.02	04.05.04.02	SIEMENS
+      sltrp.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      sltrpsettings.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sltrpshowlog.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      sltrpsvc.dll                                04.05.04.02	04.05.04.02	SIEMENS
+      sltxtadapter.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      sltxtconverter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      sltxtservice.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slutcommon.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slutgui.exe                                 04.05.04.02	04.05.04.02	SIEMENS
+      sluttestrunner.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slvtviewer.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slx3dconverter.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slx3dviewer.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      vtlib.dll                                   04.05.04.02	04.05.04.02	SIEMENS
+      xpdfwidget.dll                              04.05.04.02	04.05.04.02	SIEMENS
+
+    Applications                                  04.05.04.02	04.05.04.02
+      Applications                                
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+      glut32.dll                                  		SIEMENS
+      theVComSL.dll                               		SIEMENS
+      kdchart.dll                                 04.05.04.02	04.05.04.02	SIEMENS
+      slalmrecdlg.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slastdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slatwclassicdialog.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      slckcpfkey.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slcmchanmenu.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slcommonlogic.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sldgbackupdialog.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      sldgdialog.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      sldgforms.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      sldgnddialog.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      sldgspindiagforms.dll                       04.05.04.02	04.05.04.02	SIEMENS
+      slediform.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slhdstdheader.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sljkjogkeys.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      sllicdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slmachine.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slmadialog.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slmaforms.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slmalogic.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slnetlogic.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slnrgdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slpadialog.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slpaforms.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slparameter.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slpmdialog.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slpmplc.dll                                 04.05.04.02	04.05.04.02	SIEMENS
+      slprgedidialog.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slprogramedit.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slqoemsupport.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slsdsysdialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slsimcontrolthread.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      slsimcoremanager.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slsimdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsimfbdialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slsimstatusbar.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      slsncdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsrtdialog.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slstepeditordialog.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      slstepforms.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsucstdialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slsudialog.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slsudpcdialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      slsufilecomp.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsuforms.dll                               04.05.04.02	04.05.04.02	SIEMENS
+      slsukcdialog.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsumdcommon.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsumddialog.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsumdfiledialog.dll                        04.05.04.02	04.05.04.02	SIEMENS
+      slsusiforms.dll                             04.05.04.02	04.05.04.02	SIEMENS
+      slsutpdialog.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      slsuwizdialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sltloperateadapter.dll                      04.05.04.02	04.05.04.02	SIEMENS
+      sltlprodgforms.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      sltmlistdialog.dll                          04.05.04.02	04.05.04.02	SIEMENS
+      sltracedialog.dll                           04.05.04.02	04.05.04.02	SIEMENS
+      sltraceforms.dll                            04.05.04.02	04.05.04.02	SIEMENS
+      sltrcforms.dll                              04.05.04.02	04.05.04.02	SIEMENS
+      slupperscreen.dll                           04.05.04.02	04.05.04.02	SIEMENS
+
+    3D graphics                                   04.05.04.02	04.05.04.02
+      3D graphics                                 
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+      3D graphics (milling basics)                04.05.04.02	04.05.04.02
+        3D graphics (milling basics)              
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (milling only)                  04.05.04.02	04.05.04.02
+        3D graphics (milling only)                
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (turning basics)                04.05.04.02	04.05.04.02
+        3D graphics (turning basics)              
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      3D graphics (turning only)                  04.05.04.02	04.05.04.02
+        3D graphics (turning only)                
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+
+    Qtopia                                        04.05.02.00	04.05.02.00
+      Qtopia                                      
+      Version:                                    04.05.02.00
+      InternalVersion:                            45.20.26.00
+      Qt3Support4.dll                             04.05.02.00	04.05.02.00	SIEMENS
+      QtCore4.dll                                 04.05.02.00	04.05.02.00	SIEMENS
+      QtGui4.dll                                  04.05.02.00	04.05.02.00	SIEMENS
+      QtNetwork4.dll                              04.05.02.00	04.05.02.00	SIEMENS
+      QtOpenGL4.dll                               04.05.02.00	04.05.02.00	SIEMENS
+      QtScript4.dll                               04.05.02.00	04.05.02.00	SIEMENS
+      QtScriptTools4.dll                          04.05.02.00	04.05.02.00	SIEMENS
+      QtSql4.dll                                  04.05.02.00	04.05.02.00	SIEMENS
+      QtSvg4.dll                                  04.05.02.00	04.05.02.00	SIEMENS
+      QtWebKit4.dll                               04.05.02.00	04.05.02.00	SIEMENS
+      QtXml4.dll                                  04.05.02.00	04.05.02.00	SIEMENS
+      QtXmlPatterns4.dll                          04.05.02.00	04.05.02.00	SIEMENS
+
+    ACE/TAO                                       6.1.2	6.1.2
+      ACE/TAO                                     
+      Version:                                    6.1.2
+      InternalVersion:                            61.20.04.00/21.20.04.00
+      ACE.dll                                     6.1.2	6.1.2	SIEMENS
+      TAO.dll                                     2.1.2	2.1.2	SIEMENS
+      TAO_AnyTypeCode.dll                         2.1.2	2.1.2	SIEMENS
+      TAO_Catior_i.dll                            2.1.2	2.1.2	SIEMENS
+      TAO_CodecFactory.dll                        2.1.2	2.1.2	SIEMENS
+      TAO_Compression.dll                         2.1.2	2.1.2	SIEMENS
+      TAO_CosNaming.dll                           2.1.2	2.1.2	SIEMENS
+      TAO_IDL_BE.dll                              2.1.2	2.1.2	SIEMENS
+      TAO_IDL_FE.dll                              2.1.2	2.1.2	SIEMENS
+      TAO_Messaging.dll                           2.1.2	2.1.2	SIEMENS
+      TAO_PI.dll                                  2.1.2	2.1.2	SIEMENS
+      TAO_PortableServer.dll                      2.1.2	2.1.2	SIEMENS
+      TAO_RTCORBA.dll                             2.1.2	2.1.2	SIEMENS
+      TAO_Strategies.dll                          2.1.2	2.1.2	SIEMENS
+      TAO_Valuetype.dll                           2.1.2	2.1.2	SIEMENS
+      TAO_ZIOP.dll                                2.1.2	2.1.2	SIEMENS
+
+    Autostart                                     04.05.04.02	04.05.04.02
+      Autostart                                   
+      Version:                                    04.05.04.02
+      InternalVersion:                            04.05.04.02.001
+
+    Language files                                04.04.01.00	04.04.01.00
+      Language files                              
+      Version:                                    04.04.01.00
+      Chinese simplified language files for applsy04.05.04.02	04.05.04.02
+        Chinese simplified language files for appl
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      German language files for applsystem        04.05.04.02	04.05.04.02
+        German language files for applsystem      
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      English language files for applsystem       04.05.04.02	04.05.04.02
+        English language files for applsystem     
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Spain language files for applsystem         04.05.04.02	04.05.04.02
+        Spain language files for applsystem       
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      France language files for applsystem        04.05.04.02	04.05.04.02
+        France language files for applsystem      
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Italian language files for applsystem       04.05.04.02	04.05.04.02
+        Italian language files for applsystem     
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Chinese simplified language files for basesy04.05.04.02	04.05.04.02
+        Chinese simplified language files for base
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      German language files for basesystem        04.05.04.02	04.05.04.02
+        German language files for basesystem      
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      English language files for basesystem       04.05.04.02	04.05.04.02
+        English language files for basesystem     
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Spain language files for basesystem         04.05.04.02	04.05.04.02
+        Spain language files for basesystem       
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      France language files for basesystem        04.05.04.02	04.05.04.02
+        France language files for basesystem      
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Italian language files for basesystem       04.05.04.02	04.05.04.02
+        Italian language files for basesystem     
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+
+    Online help                                   04.04.01.00	04.04.01.00
+      Online help                                 
+      Version:                                    04.04.01.00
+      Chinese simplified online help              04.05.04.02	04.05.04.02
+        Chinese simplified online help            
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Chinese simplified online help for sinamics 04.05.04.02	04.05.04.02
+        Chinese simplified online help for sinamic
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Chinese simplified online help for sinamics 04.05.04.02	04.05.04.02
+        Chinese simplified online help for sinamic
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      German online help                          04.05.04.02	04.05.04.02
+        German online help                        
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      German online help for sinamics 02604800    04.05.04.02	04.05.04.02
+        German online help for sinamics 02604800  
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      German online help for sinamics 04502400    04.05.04.02	04.05.04.02
+        German online help for sinamics 04502400  
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      English online help                         04.05.04.02	04.05.04.02
+        English online help                       
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      English online help for sinamics 02604800   04.05.04.02	04.05.04.02
+        English online help for sinamics 02604800 
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      English online help for sinamics 04502400   04.05.04.02	04.05.04.02
+        English online help for sinamics 04502400 
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Spain online help                           04.05.04.02	04.05.04.02
+        Spain online help                         
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Spain online help for sinamics 02604800     04.05.04.02	04.05.04.02
+        Spain online help for sinamics 02604800   
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Spain online help for sinamics 04502400     04.05.04.02	04.05.04.02
+        Spain online help for sinamics 04502400   
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      France online help                          04.05.04.02	04.05.04.02
+        France online help                        
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      France online help for sinamics 02604800    04.05.04.02	04.05.04.02
+        France online help for sinamics 02604800  
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      France online help for sinamics 04502400    04.05.04.02	04.05.04.02
+        France online help for sinamics 04502400  
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Italian online help                         04.05.04.02	04.05.04.02
+        Italian online help                       
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Italian online help for sinamics 02604800   04.05.04.02	04.05.04.02
+        Italian online help for sinamics 02604800 
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+      Italian online help for sinamics 04502400   04.05.04.02	04.05.04.02
+        Italian online help for sinamics 04502400 
+        Version:                                  04.05.04.02
+        InternalVersion:                          04.05.04.02.001
+
+
+
+
+ADDON PCU                                         	
+  sinintclient                                    02.00.00.00	
+    Sinumerik Integrate                           
+    Version:                                      02.00.00.00
+    InternalVersion:                              02.00.00.00.030
+    Applications                                  02.00.00.00	02.00.00.00
+      Applications                                
+      Version:                                    02.00.00.00
+      InternalVersion:                            02.00.00.00.030
+      slepscfgdialog.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsiacdialog.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsjsdialog.dll                           02.00.00.00	02.00.00.00	SININTCLIENT
+      slepspdfdialog.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangdialog.dll                         02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangproxy.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangservice.dll                        02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangserviceadapter.dll                 02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangvnchooks.dll                       02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsrangvncsrv.dll                         02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsstartstopdialog.dll                    02.00.00.00	02.00.00.00	SININTCLIENT
+
+    Basesystem                                    02.00.00.00	02.00.00.00
+      Basesystem                                  
+      Version:                                    02.00.00.00
+      InternalVersion:                            02.00.00.00.030
+      UI Plugins                                  		SININTCLIENT
+        UI Plugins                                
+        Version:                                  02.00.00.00
+        InternalVersion:                          02.00.00.00.030
+        slepslayouts.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+        slepswidgets.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+
+      libcurl.dll                                 		SININTCLIENT
+      libeay32.dll                                		SININTCLIENT
+      libexslt.dll                                		SININTCLIENT
+      libxml2.dll                                 		SININTCLIENT
+      libxslt.dll                                 		SININTCLIENT
+      ssleay32.dll                                		SININTCLIENT
+      nspr4.dll                                   02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsconfigaccess.dll                       02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsepsconfig.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsforms.dll                              02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhaccessservice.dll                    02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhaccessserviceadapter.dll             02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhconfigservice.dll                    02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhconfigserviceadapter.dll             02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhservice.dll                          02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhserviceadapter.dll                   02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsmhtypessingletons.dll                  02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsserverconnection.dll                   02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsuibase.dll                             02.00.00.00	02.00.00.00	SININTCLIENT
+      slepsxmlplus.dll                            02.00.00.00	02.00.00.00	SININTCLIENT
+      slepszip.dll                                02.00.00.00	02.00.00.00	SININTCLIENT
+      slmcistdicommon.dll                         02.00.00.00	02.00.00.00	SININTCLIENT
+      slmcistdiservice.dll                        02.00.00.00	02.00.00.00	SININTCLIENT
+      slmcistdiserviceadapter.dll                 02.00.00.00	02.00.00.00	SININTCLIENT
+
+
+
+Hardware                                          	
+  Hardware                                        
+  Drive/Motor                                     	
+    Sinamics Runtime                              
+    DP3.SLAVE3.Control_Unit_1                     	
+      Control_Unit_1                              
+      Control_Unit_1                              1	4503035	6FC5372-0AA30-0AA1	D	T-F36004077
+      Motor_Module_2                              2	4503035	6SL3120-2TE21-8AA3	H	T-F36012450
+      Motor_Module_3                              3	4503035	6SL3120-2TE21-8AA3	H	T-F36012450
+      Line_Module_4                               4	4503035	6SL3130-6TE21-6AA4	B	T-F26241097
+      Motor_Module_5                              5	4503035	6SL3120-2TE21-0AA4	B	T-F36012015
+      Motor_Module_6                              6	4503035	6SL3120-2TE21-0AA4	B	T-F36012015
+      Motor_Module_7                              7	4503035	6SL3120-2TE15-0AA4	B	T-F26285740
+      Motor_Module_8                              8	4503035	6SL3120-2TE15-0AA4	B	T-F26285740
+      SM_9                                        9	4703508	6SL3055-0AA00-5EA3	L	T-EN6004723
+      SMI20_11                                    11	4703508	1FT7042-5AK70-1FG1	N	T-F26061162
+      Encoder_12                                  12	0	1FT7042-5AK70-1FG1		T-F26061162
+      Motor_SMI_13                                13	0	1FT7042-5AK70-1FG1		F361 57711 04 001
+      SMI20_14                                    14	4703508	1FT7034-1AK70-1FG1	N	T-F26125398
+      Encoder_15                                  15	0	1FT7034-1AK70-1FG1		T-F26125398
+      Motor_SMI_16                                16	0	1FT7034-1AK70-1FG1		F361 57711 05 001
+      DQI_17                                      17	1322530	1FK7084-2AF71-1RH0	A	C0048402085
+      Encoder_18                                  18	0	1FK7084-2AF71-1RH0		C0048402085
+      Motor_DQI_19                                19	0	1FK7084-2AF71-1RH0		F361 57711 02 001
+      DQI_20                                      20	1322530	1FK7062-3BF71-1RG0	A	C0048385145
+      Encoder_21                                  21	0	1FK7062-3BF71-1RG0		C0048385145
+      Motor_DQI_22                                22	0	1FK7062-3BF71-1RG0		F361 57711 03 001
+      DQI_23                                      23	1322530	1FK7084-2AF71-1RG0	A	C0048402143
+      Encoder_24                                  24	0	1FK7084-2AF71-1RG0		C0048402143
+      Motor_DQI_25                                25	0	1FK7084-2AF71-1RG0		F361 57711 01 001
+      DQI_26                                      26	1322530	1FK7084-2AF71-1RG0	A	C0048402077
+      Encoder_27                                  27	0	1FK7084-2AF71-1RG0		C0048402077
+      Motor_DQI_28                                28	0	1FK7084-2AF71-1RG0		F361 57711 01 002
+      SM_29                                       29	4703508	6SL3055-0AA00-5EA3	L	T-F36012068
+      SM_31                                       31	4703508	6SL3055-0AA00-5EA3	L	T-EN6004727
+      SM_33                                       33	4703508	6SL3055-0AA00-5EA3	L	T-EN6004728
+      SM_35                                       35	4703508	6SL3055-0AA00-5EA3	L	T-F36008640
+      SM_37                                       37	4703508	6SL3055-0AA00-5EA3	L	T-EN6004733
+
+
+
+

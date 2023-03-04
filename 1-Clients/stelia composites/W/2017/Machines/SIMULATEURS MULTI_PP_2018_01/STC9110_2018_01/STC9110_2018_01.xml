@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="STC9110" version="1.8" units="metric">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <geometry name="Bâti_Tables" geo="9110_bâti_tables.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <axis id="P_DEUX" type="translation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="900.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="Porte2_Changeur_Outil" geo="9110_porte2_changeur_outil.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="P_UNE" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="900.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="Porte1_Changeur_Outil" geo="9110_porte1_changeur_outil.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="T_X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-440.000000" maxvalue="440.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="Changeur_Outil_Déplacement_X_Clair" geo="9110_changeur_outil_déplacement_x_clair.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="Changeur_Outil_Déplacement_X_Foncé" geo="9110_changeur_outil_déplacement_x_foncé.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="T_Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-500.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+            <geometry name="Changeur_Outil_Déplacement_Y_Foncé" geo="9110_changeur_outil_déplacement_y_foncé.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Changeur_Outil_Déplacement_Y_Laser" geo="9110_changeur_outil_déplacement_y_laser.stl" clrr="0.86274511" clrg="0.07843138" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Changeur_Outil_Déplacement_Y_Structure" geo="9110_changeur_outil_déplacement_y_structure.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="Changeur_Outil_Déplacement_Y_Support_Laser" geo="9110_changeur_outil_déplacement_y_support_laser.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="T_C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000" rzx="2210.00000000" rzy="2199.85009766" rzz="0.00000000">
+                <geometry name="Changeur_Outil_Rotation_Platine" geo="9110_changeur_outil_rotation_platine.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Changeur_Outil_Rotation_Supports" geo="9110_changeur_outil_rotation_supports.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="Changeur_Outil_Rotation_Tole" geo="9110_changeur_outil_rotation_tole.stl" clrr="1.00000000" clrg="0.54901963" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+        </axis>
+    </axis>
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-190.000000" maxvalue="4610.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="AxeX_Moteurs_Clairs" geo="9110_axex_moteurs_clairs.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="AxeX_Moteurs_Foncés" geo="9110_axex_moteurs_foncés.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="AxeX_Poutre" geo="9110_axex_poutre.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-450.000000" maxvalue="1350.000000" valuetype="cont" initial_value="0.000000">
+            <geometry name="AxeY_Capots" geo="9110_axey_capots.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="AxeY_Moteurs_Clairs" geo="9110_axey_moteurs_clairs.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="AxeY_Moteurs_Foncés" geo="9110_axey_moteurs_foncés.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="AxeY_Platine" geo="9110_axey_platine.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="43.500000" maxvalue="1243.500000" valuetype="cont" initial_value="1243.500000">
+                <geometry name="AxeZ_Clair" geo="9110_axez_clair.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="AxeZ_Foncé" geo="9110_axez_foncé.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="AxeZ_Fut" geo="9110_axez_fut.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-185.000000" maxvalue="185.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="70.00000000" rzz="0.00000000">
+                    <geometry name="AxeC" geo="9110_axec.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    <geometry name="AxeC_Platine" geo="9110_axec_platine.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    <axis id="B" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-120.000000" maxvalue="120.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="160.00000000">
+                        <geometry name="Broche_Clair" geo="9110_broche_clair.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <geometry name="Broche_Corps" geo="9110_broche_corps.stl" clrr="0.86274511" clrg="0.07843138" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <geometry name="Broche_Foncé" geo="9110_broche_foncé.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <axis id="Cl_B_DEUX" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="180.000000" valuetype="cont" initial_value="0.000000" rzx="-92.00000000" rzy="0.00000000" rzz="73.40000153">
+                            <geometry name="Cloche_Mobile_2" geo="9110_cloche_mobile_2.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                            <geometry name="Cloche_Mobile_2_Poils" geo="9110_cloche_mobile_2_poils.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="Cl_B_UNE" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-180.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000" rzx="92.00000000" rzy="0.00000000" rzz="73.40000153">
+                            <geometry name="Cloche_Mobile_1" geo="9110_cloche_mobile_1.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                            <geometry name="Cloche_Mobile_1_Poils" geo="9110_cloche_mobile_1_poils.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <geometry name="Cloche_Fixe" geo="9110_cloche_fixe.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="tool" geo="tool.stl" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="0.84313726" cuttb="0.00000000" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.75294119" arborg="0.75294119" arborb="0.75294119" holderr="0.41176471" holderg="0.41176471" holderb="0.41176471" />
+                        </transform>
+                    </axis>
+                </axis>
+            </axis>
+        </axis>
+    </axis>
+    <geometry name="mh_Bâti_Capotage_Magasin" geo="9110_bâti_capotage_magasin.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Façades" geo="9110_bâti_façades.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Glissières" geo="9110_bâti_glissières.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Magasin" geo="9110_bâti_magasin.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.7" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Portes" geo="9110_bâti_portes.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Pupitres" geo="9110_bâti_pupitres.stl" clrr="0.00000000" clrg="0.80784315" clrb="0.81960785" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Pupitres_Écrans" geo="9110_bâti_pupitres_Écrans.stl" clrr="0.93333334" clrg="0.90980393" clrb="0.66666669" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_Bâti_Structure" geo="9110_bâti_structure.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+        <geometry name="Fixture" geo="Fixture.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+        <geometry name="Initial Stock" geo="Initial Stock.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+        <geometry name="Stock" geo="Stock.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="stock" />
+        <geometry name="Workpiece" geo="Workpiece.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="workpiece" />
+        <geometry name="toolpath" geo="toolpath.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+    </transform>
+    <collcheck id="cc1" name="cc1" group1="AxeC,AxeC_Platine,AxeZ_Clair,AxeZ_Foncé,AxeZ_Fut,Broche_Clair,Broche_Corps,Broche_Foncé,Cloche_Fixe,Cloche_Mobile_1,Cloche_Mobile_1_Poils,Cloche_Mobile_2,Cloche_Mobile_2_Poils" dynamic1="true" dynamic2="true" active="true" group2="Bâti_Tables" />
+    <collcheck id="cc2" name="cc2" group1="Bâti_Tables" dynamic1="true" dynamic2="true" active="true" group2="tool" />
+    <collcheck id="cc3" name="cc3" group1="Changeur_Outil_Rotation_Tole,Changeur_Outil_Rotation_Supports,Changeur_Outil_Rotation_Platine,Changeur_Outil_Déplacement_Y_Support_Laser,Changeur_Outil_Déplacement_Y_Laser,Changeur_Outil_Déplacement_Y_Structure,Changeur_Outil_Déplacement_Y_Foncé,Changeur_Outil_Déplacement_X_Foncé,Changeur_Outil_Déplacement_X_Clair" dynamic1="true" dynamic2="true" active="true" group2="Porte1_Changeur_Outil,Porte2_Changeur_Outil,AxeC,AxeC_Platine,AxeZ_Clair,AxeZ_Foncé,AxeZ_Fut,Broche_Corps,Broche_Foncé,Cloche_Fixe,Cloche_Mobile_1,Cloche_Mobile_1_Poils,Cloche_Mobile_2,Cloche_Mobile_2_Poils" />
+</machine_definition>

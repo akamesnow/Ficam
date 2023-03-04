@@ -1,0 +1,118 @@
+PROC CUST_832(INT _MCASE,VAR REAL _FACTOR,VAR REAL _FGREF) SBLOF DISPLOF
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.05.47.00 ;DATE: 2013-03-19
+;customer cycle to cycle High Speed Settings (CYCLE832)
+; The user can modify marks _M_INIT, and _M_NORM to _M_ROUGH
+; _M_INIT       = Init CYCLE832
+; _M_NORM       = Deselect CYCLE832 (_OFF)
+; _M_FINISH     = Machining Finish  (_FINISH or _ORI_FINISH)
+; _M_SEMIFINISH = Machining Semifinish (_SEMIFIN or _ORI_SEMIFIN)  
+; _M_ROUGH      = Machining Rough (_ROUGH or _ORI_ROUGH) 
+; Tolerance of orientation see parameter CYCLE832 S_OTOL
+; or _FACTOR for orientation see setting data from SD 55441 to 55443
+; Multi-axis programming see CUST_832 parameter _MOTOL 0=no 1=yes
+DEF INT _MOTOL 
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF (($P_PATH[$P_STACK]=="/_N_CST_DIR/") AND ($P_SUBPAR[1]==0))
+  _MCASE=_SC_CUST_MODE[0]
+ENDIF
+;END_DO_UPGRADE
+_MCASE=ABS(_MCASE)
+IF ((_MCASE _DEC2)==2)         
+  _MOTOL=1 _MCASE=_MCASE - 10  
+ENDIF  
+N83201 CASE _MCASE OF 0 GOTOF _M0 1 GOTOF _M1 2 GOTOF _M2 3 GOTOF _M3 4 GOTOF _M4 10 GOTOF _M_NORM 11 GOTOF _M_FINISH 12 GOTOF _M_SEMIFINISH 13 GOTOF _M_ROUGH 14 GOTOF _M_INIT
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF ($P_PATH[$P_STACK]<>"/_N_CST_DIR/")
+  _SC_CUST_MODE[0]=REP(0)
+  _SC_CUST_MODE[0]=_MCASE
+  N990 CALL "/_N_CST_DIR/_N_CUST_832_SPF"
+  GOTOF _MEND
+ELSE
+   SETAL(61019,"_MCASE="<<_MCASE<<" (CUST_832)" );    Parameter _MCASE=n incorrectly defined
+ENDIF
+;END_DO_UPGRADE
+;
+RET
+_M_INIT:
+_FGREF=10    
+GOTOF _MEND
+;
+_M_NORM:                               
+GOTOF _MEND
+;
+_M_FINISH:
+SOFT 
+COMPCAD
+G645
+FIFOCTRL
+UPATH
+;FFWON
+DYNFINISH
+GOTOF _MEND
+;
+_M_SEMIFINISH:
+SOFT 
+COMPCAD
+G645
+FIFOCTRL
+UPATH
+;FFWON
+DYNSEMIFIN
+GOTOF _MEND
+;
+_M_ROUGH:
+SOFT 
+COMPCAD
+G645
+FIFOCTRL
+UPATH
+;FFWON
+DYNROUGH
+GOTOF _MEND
+;
+;------ compatible with CYC_832T and Advanced Surface 
+_M4: 
+;Parameter _FACTOR see Setting Data 55441 $SCS_MILL_TOL_FACTOR_ROUGH and following  
+GOTOF _MEND
+;
+_M0: 
+DYNNORM
+GOTOF _MEND
+;
+_M1: 
+SOFT 
+;COMPCAD
+;G645
+;FIFOCTRL
+;UPATH
+;FFWON
+DYNFINISH
+GOTOF _MEND
+;
+_M2: 
+SOFT 
+;COMPCAD
+;G645
+;FIFOCTRL
+;UPATH
+;FFWON
+DYNSEMIFIN
+GOTOF _MEND
+;
+_M3: 
+SOFT 
+;COMPCAD
+;G645
+;FIFOCTRL
+;UPATH
+;FFWON
+DYNROUGH
+GOTOF _MEND
+;
+_MEND:
+RET ;M17

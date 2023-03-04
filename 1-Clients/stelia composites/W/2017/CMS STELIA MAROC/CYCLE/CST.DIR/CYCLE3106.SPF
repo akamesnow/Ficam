@@ -1,0 +1,13 @@
+PROC CYCLE3106
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 02.05.01.00 Sep 27, 2007
+;ISO rapid lift (G10.6)
+;
+;
+; to do:
+; If the axes and spindle are to be stopped following fast retraction,
+; M0 and M5 must be programmed accordingly.
+; Otherwise the part program will continue uninterrupted following fast retraction.
+;
+;
+M17

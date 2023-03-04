@@ -1,0 +1,151 @@
+PROC F_SP_IS(INT _MODE,VAR INT _STAT,REAL _P11,REAL _P12,REAL _P21,REAL _P22,VAR REAL _RPT[]) SAVE DISPLOF PREPRO
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 02.06.34.00 ;DATE: 2009-09-11
+;ShopTurn: Intersection Cycle
+DEF INT _I
+DEF REAL _FAK2,_FAK3
+DEF REAL _UE=1000000
+DEF REAL _U
+DEF REAL _RP[5]
+DEF REAL _TG[2,6]
+DEF REAL _SB[5,6]
+DEF REAL _KT[2,6]
+DEF REAL _SP[2,2]
+DEF INT _LOG,_LOG_ON
+DEF STRING[35] _LOG_FILE
+_LOG_FILE="/_N_MPF_DIR/_N_LOG_F_SP_IS_"<<$P_CHANNO<<"_MPF"
+_LOG_ON=ISFILE(_LOG_FILE)
+IF(_LOG_ON)
+; DELETE(_LOG,_LOG_FILE)
+WRITE(_LOG,_LOG_FILE,"-------------------")
+WRITE(_LOG,_LOG_FILE,"Logfile F_SP_IS: "<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<":"<<$A_MINUTE<<":"<<$A_SECOND)
+ENDIF
+_FAK2=1
+IF($MN_SCALING_SYSTEM_IS_METRIC)
+IF($P_GG[13]==1)OR($P_GG[13]==3)
+_FAK2=1/$MN_SCALING_VALUE_INCH
+ENDIF
+ELSE
+IF($P_GG[13]==2)OR($P_GG[13]==4)
+_FAK2=$MN_SCALING_VALUE_INCH
+ENDIF
+ENDIF
+_FAK3=1
+IF($P_GG[13]==1)OR($P_GG[13]==3)
+_FAK3=1/$MN_SCALING_VALUE_INCH
+ENDIF
+_U=0.1/$MN_INT_INCR_PER_MM
+_UE=_UE*_FAK3
+;_U=_U*_FAK3
+_RP[0]=_RPT[0]*_FAK2
+_RP[1]=_RPT[1]*_FAK2
+IF(_RPT[2]<>_SC_NO_VAL)
+_RP[2]=_RPT[2]*_FAK2
+ELSE
+_RP[2]=-_UE
+ENDIF
+IF(_RPT[3]<>_SC_NO_VAL)
+_RP[3]=_RPT[3]*_FAK2
+ELSE
+_RP[3]=-_UE
+ENDIF
+IF(_RPT[4]<>_SC_NO_VAL)
+_RP[4]=_RPT[4]*_FAK2
+ELSE
+_RP[4]=0
+ENDIF
+IF(_MODE==0)
+IF(_P11<_RP[0])AND(_P11>_RP[2])AND(_P12<_RP[1])AND(_P12>_RP[3])
+_STAT=1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"  Punkt liegt im Schutzbereich: "<<_P11<<"/"<<_P12)
+ENDIF
+ELSE
+_STAT=0
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"  Punkt liegt nicht im Schutzbereich: "<<_P11<<"/"<<_P12)
+ENDIF
+ENDIF
+ENDIF
+IF(_MODE==1)
+_TG[0,1]=_RP[2] _TG[0,2]=-_UE
+_TG[1,1]=_RP[2] _TG[1,2]=_RP[3]
+IF(_TG[1,2]==-_UE)
+_TG[1,2]=_RP[1]-_U
+ENDIF
+IF(_TG[0,1]==-_UE)
+_TG[0,1]=0
+_TG[1,1]=0
+ELSE
+_TG[0,1]=_TG[0,1]+_U
+_TG[1,1]=_TG[1,1]+_U
+ENDIF
+_SB[0,1]=_RP[0]-_U _SB[0,2]=_RP[1]-_U
+_SB[1,1]=_RP[2]+_U _SB[1,2]=_RP[1]-_U
+_SB[2,1]=_RP[2]+_U _SB[2,2]=_RP[3]+_U
+_SB[3,1]=_RP[0]-_U _SB[3,2]=_RP[3]+_U
+_SB[4,1]=_SB[0,1] _SB[4,2]=_SB[0,2]
+_KT[0,1]=_P11 _KT[0,2]=_P12
+_KT[1,1]=_P21 _KT[1,2]=_P22
+_STAT= ISPOINTS(_TG[0],_KT[0],_SP)
+_STAT=_STAT OR ISPOINTS(_SB[0],_KT[0],_SP)
+_STAT=_STAT OR ISPOINTS(_SB[1],_KT[0],_SP)
+_STAT=_STAT OR ISPOINTS(_SB[2],_KT[0],_SP)
+_STAT=_STAT OR ISPOINTS(_SB[3],_KT[0],_SP)
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"  TG ="<<_TG[0,1]<<"/"<<_TG[0,2]<<"->"<<_TG[1,1]<<"/"<<_TG[1,2])
+WRITE(_LOG,_LOG_FILE,"  SB0="<<_SB[0,1]<<"/"<<_SB[0,2]<<"->"<<_SB[1,1]<<"/"<<_SB[1,2])
+WRITE(_LOG,_LOG_FILE,"  SB1="<<_SB[1,1]<<"/"<<_SB[1,2]<<"->"<<_SB[2,1]<<"/"<<_SB[2,2])
+WRITE(_LOG,_LOG_FILE,"  SB2="<<_SB[2,1]<<"/"<<_SB[2,2]<<"->"<<_SB[3,1]<<"/"<<_SB[3,2])
+WRITE(_LOG,_LOG_FILE,"  SB3="<<_SB[3,1]<<"/"<<_SB[3,2]<<"->"<<_SB[4,1]<<"/"<<_SB[4,2])
+WRITE(_LOG,_LOG_FILE,"  KT ="<<_KT[0,1]<<"/"<<_KT[0,2]<<"->"<<_KT[1,1]<<"/"<<_KT[1,2])
+_I=ISPOINTS(_TG[0],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  TG/KT  -> "<<_I)
+_I=ISPOINTS(_SB[0],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB0/KT -> "<<_I)
+_I=ISPOINTS(_SB[1],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB1/KT -> "<<_I)
+_I=ISPOINTS(_SB[2],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB2/KT -> "<<_I)
+_I=ISPOINTS(_SB[3],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB3/KT -> "<<_I)
+IF(_STAT)
+WRITE(_LOG,_LOG_FILE,"  Gerade KT schneidet Schutzbereich!")
+ELSE
+WRITE(_LOG,_LOG_FILE,"  Gerade KT schneidet Schutzbereich nicht!")
+ENDIF
+ENDIF
+ENDIF
+IF(_MODE==2)
+_SB[0,1]=_RP[4]-_U _SB[0,2]=_RP[1]+_U
+_SB[1,1]=-_UE _SB[1,2]=_RP[1]+_U
+_SB[2,1]=_RP[4]-_U _SB[2,2]=_RP[1]+_U
+_SB[3,1]=_RP[4]-_U _SB[3,2]=+_UE
+_KT[0,1]=_P11 _KT[0,2]=_P12
+_KT[1,1]=_P21 _KT[1,2]=_P22
+_STAT= ISPOINTS(_SB[0],_KT[0],_SP)
+_STAT=_STAT OR ISPOINTS(_SB[2],_KT[0],_SP)
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"  SB0="<<_SB[0,1]<<"/"<<_SB[0,2]<<"->"<<_SB[1,1]<<"/"<<_SB[1,2])
+WRITE(_LOG,_LOG_FILE,"  SB2="<<_SB[2,1]<<"/"<<_SB[2,2]<<"->"<<_SB[3,1]<<"/"<<_SB[3,2])
+WRITE(_LOG,_LOG_FILE,"  KT ="<<_KT[0,1]<<"/"<<_KT[0,2]<<"->"<<_KT[1,1]<<"/"<<_KT[1,2])
+_I=ISPOINTS(_SB[0],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB0/KT -> "<<_I)
+_I=ISPOINTS(_SB[2],_KT[0],_SP)
+WRITE(_LOG,_LOG_FILE,"  SB2/KT -> "<<_I)
+IF(_STAT)
+WRITE(_LOG,_LOG_FILE,"  Gerade KT schneidet Reitstock!")
+ELSE
+WRITE(_LOG,_LOG_FILE,"  Gerade KT schneidet Reitstock nicht!")
+ENDIF
+ENDIF
+IF(_STAT==0)
+IF(_P11<_RP[4])AND(_P12>_RP[1])
+_STAT=1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"  Startpunkt von KT liegt im Reitstockbereich!")
+ENDIF
+ENDIF
+ENDIF
+ENDIF
+RET

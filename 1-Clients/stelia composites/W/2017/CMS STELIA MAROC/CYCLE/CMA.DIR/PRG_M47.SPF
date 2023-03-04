@@ -1,0 +1,26 @@
+PROC PRG_M47 DISPLOF SBLOF
+;-----------------------------------------------------------------------
+;------------ PROGRAMMA RIQUALIFICA CON TASTATORE (M47)
+;-----------------------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 30-10-2012
+STOPRE
+M447             ;Avvio sequenza PLC per attivazione tastatore
+STOPRE
+REALVARAUX=$MN_USER_DATA_HEX[5] B_AND 16
+IF REALVARAUX == 0 GOTOF FINE   ;Salto se opzione tastatore su disco mobile=0
+IF $AA_IM[Z] < $MN_USER_DATA_FLOAT[2] GOTOF FINE        ;Asse Z NON alto (arresto ciclo da PLC)
+IF $A_IN[9] == 0 GOTOF FINE         ;Paratia non presente
+;----------------------------------------------------------------
+;Acquisizione Limiti Zone
+QUOTEPARA
+;Apertura LIMITI per tastatura pezzo
+M170            ;Abilita accesso costruttore
+SetLimTastDiscoMob
+M172            ;Ripristina accesso utente
+;----------------------------------------------------------------
+FINE:
+STOPRE
+M17
+RET
+

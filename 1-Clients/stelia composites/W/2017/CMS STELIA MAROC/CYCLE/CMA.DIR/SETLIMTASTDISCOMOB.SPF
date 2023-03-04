@@ -1,0 +1,38 @@
+PROC SetLimTastDiscoMob DISPLOF SBLOF
+;----------------------------------------------------------------------
+;--- PROGRAMMA DI SETTAGGIO LIMITI GESTIONE TASTATORI SU DISCO MOBILE -
+;----------------------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 30-10-2012
+;-----------------------------------------------------------------------
+STOPRE
+IF $A_IN[9] == 0 GOTOF SET_NOPARA    ;Paratia non presente
+IF $A_IN[12]== 1 GOTOF SET_ZONA1     ;Macchina in zona 1
+IF $A_IN[12]== 0 GOTOF SET_ZONA2     ;Macchina in zona 2
+GOTOF SET_ZONA1
+;----- Paratia non presente
+SET_NOPARA:
+$MA_POS_LIMIT_PLUS[X1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[X1] = LIM_INF
+$MA_POS_LIMIT_PLUS[U1]  = LIM_SUP
+$MA_POS_LIMIT_MINUS[U1] = LIM_INF
+NEWCONF
+GOTOF FINE
+;----- Paratia presente - macchina zona 1
+SET_ZONA1:
+$MA_POS_LIMIT_PLUS[X1]  = LIM_SUP_Z1
+$MA_POS_LIMIT_MINUS[X1] = ((LIM_INF_Z1)-(INC_INF_Z1))
+$MA_POS_LIMIT_PLUS[U1]  = LIM_SUP_Z1
+$MA_POS_LIMIT_MINUS[U1] = ((LIM_INF_Z1)-(INC_INF_Z1))
+NEWCONF
+GOTOF FINE
+;----- Paratia presente - macchina zona 2
+SET_ZONA2:
+$MA_POS_LIMIT_PLUS[X1]  = ((LIM_SUP_Z2)+(INC_SUP_Z2))
+$MA_POS_LIMIT_MINUS[X1] = LIM_INF_Z2
+$MA_POS_LIMIT_PLUS[U1]  = ((LIM_SUP_Z2)+(INC_SUP_Z2))
+$MA_POS_LIMIT_MINUS[U1] = LIM_INF_Z2
+NEWCONF
+
+FINE:
+M17

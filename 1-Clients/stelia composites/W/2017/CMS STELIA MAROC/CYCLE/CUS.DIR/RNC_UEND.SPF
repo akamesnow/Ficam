@@ -1,0 +1,48 @@
+;%_N_RNC_UEND_SPF
+;$PATH=/_N_CMA_DIR
+M05S0
+;---------------------------------------------
+;-------- RESETA VARIABILE LASER/TS27 --------
+;---------------------------------------------
+SUPA G0 G90 D0 AX[$P_AXN3]=0 
+SUPA AX[_AXN4]=0 AX[_AXN5]=0
+_MSEN=448 _MDIN=448 _MSTA=448 _MLAT=448 _LASER_TS30=-12 _CALIB=-13
+;---------------------------------------------
+;--- ABBILITA UTENSILE MISURATO TOOL TABLE ---
+;---------------------------------------------
+IF ($P_TOOLNO <> 0)
+IF (($TC_TP8[$P_TOOLNO] B_AND 8) == 0)
+$TC_TP8[$P_TOOLNO]=$TC_TP8[$P_TOOLNO] B_OR 8
+ENDIF
+IF (_RENT[11] == 9862) 
+M259;ABILITA UTENSILE MISURATO
+STOPRE
+ENDIF
+;---------------------------------------------
+;- SINCRONISMO TOOL TABLE / TABELLA SIEMENS --
+;---------------------------------------------
+IF ((_RENC[48] <> 0) OR ($TC_TP8[$P_TOOLNO] B_AND 'B100'))
+M254;ABILITA UTENSILE ROTTO
+M260;DISABILITTA UTENSILE MISURATO
+VALDEC1=$TC_TP8[$P_TOOLNO]
+VALBIN1='B11110011'
+RISULT1=VALDEC1 B_AND VALBIN1
+STOPRE
+$TC_TP8[$P_TOOLNO]=RISULT1
+STOPRE
+ENDIF
+ENDIF
+STOPRE
+M448;DISATTIVA LASER/TS27
+;---------------------------------------------
+;----- AGGIORNA VARIABILI TOOL TABLE/Rxx -----
+;---------------------------------------------
+M100    ;ABILITA CAMBIO
+G04F0.2
+M258    ;AGGIORNA VARIABILE R
+M107    ;AGGIORNA DATI UT
+M101    ;DISABILITA CAMBIO
+M253    ;AGGIORNA TOOL TABLE
+M256    ;ABILITA CONT. VITA UT
+RET
+;end

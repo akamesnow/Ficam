@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="STC9103" version="1.8" units="metric">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <geometry name="SUPPORT CHARGEUR OUTILS 1" geo="support chargeur d&apos;outils 1.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="SUPPORT CHARGEUR OUTILS 2" geo="support chargeur d&apos;outils 2.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="TAQUE" geo="taque.stl" clrr="0.64705884" clrg="0.64705884" clrb="0.64705884" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-991.590000" maxvalue="10008.410000" valuetype="cont" initial_value="125.000000">
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-551.398000" maxvalue="3058.611000" valuetype="cont" initial_value="0.000000">
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="138.968000" maxvalue="1533.000000" valuetype="cont" initial_value="138.968000">
+                <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-365.000000" maxvalue="365.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                    <axis id="A" type="rotation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-110.000000" maxvalue="110.000000" valuetype="cont" initial_value="0.000000" rzx="-90.00000000" rzy="1.00000000" rzz="209.89300537">
+                        <geometry name="BROCHE" geo="broche.stl" clrr="0.11764706" clrg="0.11764706" clrb="0.11764706" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <axis id="CLOCHE_CINQ" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_5" geo="cloche_5.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_DEUX" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_2" geo="cloche_2.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_HUIT" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_8" geo="cloche_8.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_QUATRE" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_4" geo="cloche_4.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_SEPT" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_7" geo="cloche_7.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_SIX" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_6" geo="cloche_6.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_TROIS" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_3" geo="cloche_3.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="CLOCHE_UNE" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                            <geometry name="CLOCHE_1" geo="cloche_1.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <geometry name="MANCHON D&apos;ASPIRATION" geo="manchon d&apos;aspiration.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="tool" geo="tool.stl" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="tool" cuttr="0.00000000" cuttg="1.00000000" cuttb="1.00000000" noncuttr="0.00000000" noncuttg="1.00000000" noncuttb="1.00000000" arborr="0.00000000" arborg="1.00000000" arborb="1.00000000" holderr="0.00000000" holderg="1.00000000" holderb="1.00000000" />
+                        </transform>
+                    </axis>
+                    <geometry name="COL DE CYGNE" geo="col de cygne.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                </axis>
+                <geometry name="FUT" geo="fut.stl" clrr="0.91372550" clrg="0.91372550" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="mh_*GLISSIERE" geo="glissiere.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="mh_PORTIQUE" geo="portique.stl" clrr="0.82352942" clrg="0.82352942" clrb="0.82352942" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X_DEUX" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-1500.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="mh_PORTE_2_CHARGEUR_1" geo="porte 2 chargeur outils z1.stl" clrr="0.60000002" clrg="0.19607843" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X_QUATRE" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="1500.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="mh_PORTE_2_CHARGEUR_2" geo="porte 2 chargeur outils z2.stl" clrr="0.60000002" clrg="0.19607843" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X_TROIS" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="2700.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="mh_PORTE_1_CHARGEUR_2" geo="porte 1 chargeur outils z2.stl" clrr="0.60000002" clrg="0.19607843" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X_UN" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-2700.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="mh_PORTE_1_CHARGEUR_1" geo="porte 1 chargeur outils z1.stl" clrr="0.60000002" clrg="0.19607843" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="YO_DEUX" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="1400.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="CHARGEUR OUTILS 2" geo="chargeur d&apos;outils 2.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="CO_DEUX" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="360.000000" valuetype="cont" initial_value="0.000000" rzx="7925.53076172" rzy="-2271.00000000" rzz="0.00000000">
+            <geometry name="CLOCHE_2_1" geo="cloche 2_1.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_2_2" geo="cloche 2_2.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_2_3" geo="cloche 2_3.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_2_4" geo="cloche 2_4.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="DISQUE_CHARGEUR_OUTILS_2" geo="disque chargeur outils 2.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PINCES_CHARGEUR_OUTILS_2" geo="pinces chargeur outils 2.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_2_1" geo="platine 2_1.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_2_2" geo="platine 2_2.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_2_3" geo="platine 2_3.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_2_4" geo="platine 2_4.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="TETE CHARGEUR OUTILS 2" geo="tete chargeur d&apos;outils 2.stl" clrr="0.94117647" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+    </axis>
+    <axis id="YO_UN" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="1400.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="CHARGEUR OUTILS 1" geo="chargeur d&apos;outils 1.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <axis id="CO_UN" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.000000" maxvalue="360.000000" valuetype="cont" initial_value="0.000000" rzx="995.00000000" rzy="-2271.00000000" rzz="0.00000000">
+            <geometry name="CLOCHE_1_1" geo="cloche 1_1.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_1_2" geo="cloche 1_2.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_1_3" geo="cloche 1_3.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="CLOCHE_1_4" geo="cloche 1_4.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="DISQUE_CHARGEUR_OUTILS_1" geo="disque chargeur outils 1.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PINCES_CHARGEUR_OUTILS_1" geo="pinces chargeur outils 1.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_1_1" geo="platine 1_1.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_1_2" geo="platine 1_2.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_1_3" geo="platine 1_3.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="PLATINE_1_4" geo="platine 1_4.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="TETE CHARGEUR OUTILS 1" geo="tete chargeur d&apos;outils 1.stl" clrr="0.97254902" clrg="0.97254902" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+    </axis>
+    <geometry name="mh_BATI" geo="bati.stl" clrr="1.00000000" clrg="0.98431373" clrb="0.94117647" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_CARRENAGES" geo="carrenages.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte 1" geo="porte 1.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.37254903" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte 2" geo="porte 2.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.37254903" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte 3" geo="porte 3.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.37254903" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte 4" geo="porte 4.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.37254903" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+        <geometry name="Pièce" geo="pièce.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="workpiece" />
+        <geometry name="brut" geo="brut.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="stock" />
+        <geometry name="brut_initial" geo="brut_initial.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+        <geometry name="montage" geo="montage.stl" clrr="0.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+        <geometry name="parcours d&apos;outil" geo="parcours d&apos;tool.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+    </transform>
+</machine_definition>

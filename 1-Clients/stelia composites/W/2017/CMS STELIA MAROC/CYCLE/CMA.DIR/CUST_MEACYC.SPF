@@ -1,0 +1,322 @@
+PROC CUST_MEACYC(INT _MODE,REAL _SPOS_POS,INT _SPOS_MOD)
+;VERSION: 04.05.30.00 ;DATE: 2012-12-13
+;CHANGE : 04.05.27.00 ;DATE: 2012-09-07
+;User-specific cycle - Comment in English
+IF _MODE==2 GOTOF _MEACYC_END  IF _MODE==3 GOTOF _MEACYC_MTOFFON
+CASE _OVI[2] OF 961 GOTOF _M961 971 GOTOF _M971 972 GOTOF _M972 973 GOTOF _M973 974 GOTOF _M974 976 GOTOF _M976 977 GOTOF _M977 978 GOTOF _M978 979 GOTOF _M979 982 GOTOF _M982 994 GOTOF _M994 995 GOTOF _M995 9961 GOTOF _M9961 996 GOTOF _M996 997 GOTOF _M997 998 GOTOF _M998
+;
+  N631001 SETAL(61099," Parameter _OVI[2] ")
+;
+_M976:
+  ; Before workpiece measurement with cycle976(Calibrate workpiece probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M961:
+  ; Before workpiece measurement with cycle961(Measure corner automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M977:
+  ; Before workpiece measurement with cycle977(Measure hole/shaft/groove/web)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M978:
+  ; Before workpiece measurement with cycle978(Measure surface)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M979:
+  ; Before workpiece measurement with cycle979(Measure hole/shaft/groove/web at angle)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M995:
+  ; Before positioning with cycle995
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES  
+	; 
+_M9961:
+  ; Before Kinematic measure with cycle996
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+_M996:
+  ; Before Kinematic calculate with cycle996
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M997:
+  ; Before workpiece measurement with cycle997(Measure sphere automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M998:
+  ; Before workpiece measurement with cycle998(Measure angle automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M973:
+  ; Before workpiece measurement with cycle973(Calibrate workpiece probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M974:
+  ; Before workpiece measurement with cycle974(1-point measurement)
+  GOTOF _AM_WP_MES
+  ;
+_M994:
+  ; Before workpiece measurement with cycle994(2-point measurement)
+  STOPRE
+CONFIG_CYCLE_MEAS(3);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_WP_MES
+  ;
+_M971:
+  ; Before tool measurement with cycle971(Measure tool/Calibrate tool probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(1);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_T_MES
+  ;
+_M972:
+  ; Before tool measurement with cycle972(Measure tool/Calibrate tool probe)
+  ;eliminato_Siemens
+  GOTOF _AM_T_MES
+  ;
+_M982:
+  ; Before tool measurement with cycle982(Measure tool/Calibrate tool probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(1);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _AM_T_MES
+  ;
+_AM_WP_MES:
+  ; Before workpiece measurement
+  ; User example for spindel positioning, if you do not have a coupling between the   spindel and the coordinate system!
+  ; If it necessary, the user can delete this example!
+  ;
+  IF _OVI[14]==1;                       cycle is calling from the JOG-mode
+   IF ($SCS_MEA_FUNCTION_MASK B_AND 'B100000000000000')==0; no coupling, relating to the JOG-mode
+    SPOS=0
+   ENDIF
+  ELSE;                              cycle is calling from the AUTOMATIC-mode
+   IF ($SCS_MEA_FUNCTION_MASK B_AND 'B10')==0; no coupling, relating to the AUTOMATIC-mode
+    SPOS=0
+   ENDIF
+  ENDIF
+M17
+  ;
+_AM_T_MES:
+  ; Before tool measurement
+M17
+;
+_MEACYC_END:
+;
+IF (_OVI[14]>=100)AND(_OVI[14]<200) GOTOF _OVI14E ; Only for measuring in JOG/ShopMill after measuring variants with several cycle calls
+;
+CASE _OVI[2] OF 961 GOTOF _ME961 971 GOTOF _ME971 972 GOTOF _ME972 973 GOTOF _ME973 974 GOTOF _ME974 976 GOTOF _ME976 977 GOTOF _ME977 978 GOTOF _ME978 979 GOTOF _ME979 982 GOTOF _ME982 994 GOTOF _ME994 995 GOTOF _ME995 9961 GOTOF _ME9961 996 GOTOF _ME996 997 GOTOF _ME997 998 GOTOF _ME998
+;
+  N631002 SETAL(61099," Parameter _OVI[2] ")
+;
+_ME976:
+  ; After workpiece measurement with cycle976(Calibrate workpiece probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME961:
+  ; After workpiece measurement with cycle961(Measure corner automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME977:
+  ; After workpiece measurement with cycle977(Measure hole/shaft/groove/web)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME978:
+  ; After workpiece measurement with cycle978(Measure surface)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME979:
+  ; After workpiece measurement with cycle979(Measure hole/shaft/groove/web at angle)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME995:
+  ; after positioning with cycle995
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+	;  
+_ME9961:
+  ; after Kinematic measure with cycle996
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME996:
+  ; after Kinematic calculate with cycle996
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME997:
+  ; After workpiece measurement with cycle997(Measure sphere automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME998:
+  ; After workpiece measurement with cycle998(Measure angle automatically)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME973:
+  ; After workpiece measurement with cycle973(Calibrate workpiece probe)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME974:
+  ; After workpiece measurement with cycle974(1-point measurement)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME994:
+  ; After workpiece measurement with cycle994(2-point measurement)
+  STOPRE
+CONFIG_CYCLE_MEAS(4);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_WP_MES
+  ;
+_ME971:
+  ; After tool measurement with cycle971(Measure tool/Calibrate tool probe)
+    STOPRE
+CONFIG_CYCLE_MEAS(2);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_T_MES
+  ;
+_ME972:
+  ; After tool measurement with cycle972(Measure tool/Calibrate tool probe)
+  ;eliminato Siemens
+  GOTOF _BM_T_MES
+  ;
+_ME982:
+  ; After tool measurement with cycle982(Measure tool/Calibrate tool probe)
+    STOPRE
+CONFIG_CYCLE_MEAS(2);PROGRAMMA PERSONALIZATO CMS PER CICLI SIEMENS
+  GOTOF _BM_T_MES
+  ;
+_BM_WP_MES:
+  ; After workpiece measurement
+M17
+  ;
+_BM_T_MES:
+ ; After tool measurement
+M17
+  ;
+_OVI14E:
+  ; After completion of measuring variants with several cycle calls in measuring in JOG/ShopMill
+  CASE _OVI[14] OF 100 GOTOF _M_DIS 103 GOTOF _M_HOL3 104 GOTOF _M_HOL4 105 GOTOF _M_COR3_OUT 106 GOTOF _M_COR4_OUT 110 GOTOF _M_ANG1 111 GOTOF _M_ANG1_SET 113 GOTOF _M_HOL3_ROT 114 GOTOF _M_HOL4_ROT 115 GOTOF _M_COR3_IN 116 GOTOF _M_COR4_IN 120 GOTOF _M_ANG2
+  ;
+  N631003 SETAL(61099," Parameter _OVI[14] ")
+  ;
+  _M_DIS:
+    ; After measure distance with offset
+    GOTOF _M_CORREC
+    ;
+  _M_ANG1:
+    ; After align corner/Base rotation over 2 holes/Spigot with offset
+    GOTOF _M_CORREC
+    ;
+  _M_ANG1_SET:
+    ; After base rotation over 2 holes/Set spigot with P1 with offset
+    GOTOF _M_CORREC
+    ;
+  _M_ANG2:
+    ; After align plane with offset
+    GOTOF _M_CORREC
+    ;
+  _M_HOL3:
+    ; After center point calculation for 3 holes/spigot with offset
+    GOTOF _M_CORREC
+    ;
+  _M_HOL3_ROT:
+    ; After center point calculation for 3 holes/spigot with angle offset
+    GOTOF _M_CORREC
+    ;
+  _M_HOL4:
+    ; After calculation of intersection for 4 holes/spigot with offset
+    GOTOF _M_CORREC
+    ;
+  _M_HOL4_ROT:
+    ; After calculation of intersection for 4 holes/spigot with angle offset
+    GOTOF _M_CORREC
+    ;
+  _M_COR3_OUT:
+    ; After calculation of right-angled outside corner with offset
+    GOTOF _M_CORREC
+    ;
+  _M_COR3_IN:
+    ; After calculation of right-angled inside corner with offset
+    GOTOF _M_CORREC
+    ;
+  _M_COR4_OUT:
+    ; After calculation of outside corner with offset
+    GOTOF _M_CORREC
+    ;
+  _M_COR4_IN:
+    ; After calculation of inside corner with offset
+    GOTOF _M_CORREC
+    ;
+  _M_CORREC:
+    ; After completion of calculations in "Measuring in JOG"/ShopMill with offset
+M17
+    ;
+_MEACYC_MTOFFON: IF _OVI[15] GOTOF _END_MEACYC
+    ;
+    ; NC-commands to disable the measuring probe,
+    ; for example M-commands, H-commands or other user spezific commands.
+    ; G4 Fxy
+    ; 
+    ; positioning the spindle
+    case _SPOS_MOD OF 1 GOTOF _MOD_ACP 2 GOTOF _MOD_ACN 3 GOTOF _MOD_AC 4 GOTOF _MOD_IC 5 GOTOF _MOD_STD
+    ;
+    SUPA SPOS=DC(_SPOS_POS)
+    GOTOF _MEACYC_MTON
+    ;
+    _MOD_ACP: SUPA SPOS=ACP(_SPOS_POS)
+    GOTOF _MEACYC_MTON
+    ;
+    _MOD_ACN: SUPA SPOS=ACN(_SPOS_POS)
+    GOTOF _MEACYC_MTON
+    
+    _MOD_AC: SUPA SPOS=AC(_SPOS_POS)
+    GOTOF _MEACYC_MTON
+    ;
+    _MOD_IC: SUPA SPOS=IC(_SPOS_POS)
+    GOTOF _MEACYC_MTON
+    ;
+    _MOD_STD: SUPA SPOS=_SPOS_POS
+    ;
+_MEACYC_MTON:
+    ; 
+    ; G4 Fxy
+    ; NC-commands to enable the measuring probe,
+    ; for example M-commands, H-commands or other user spezific commands.
+_END_MEACYC: RET

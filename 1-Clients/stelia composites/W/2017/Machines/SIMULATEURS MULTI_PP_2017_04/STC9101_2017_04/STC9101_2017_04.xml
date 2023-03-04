@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="STC9101" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <geometry name="BATI_CHARGEUR" geo="bati_chargeur.stl" clrr="0.93333334" clrg="0.93333334" clrb="0.78823531" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-2250.000000" maxvalue="1839.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="92.000000" maxvalue="1892.000000" valuetype="cont" initial_value="92.000000">
+            <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-360.000000" maxvalue="360.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                <axis id="A" type="rotation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-110.000000" maxvalue="110.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="157.80000305">
+                    <geometry name="BROCHE" geo="broche.stl" clrr="0.31764707" clrg="0.23137255" clrb="0.07843138" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    <axis id="CLOCHE_CINQ" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_5" geo="cloche_5.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <axis id="CLOCHE_DEUX" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_2" geo="cloche_2.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <axis id="CLOCHE_QUATRE" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_4" geo="cloche_4.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <axis id="CLOCHE_SIX" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_6" geo="cloche_6.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <axis id="CLOCHE_TROIS" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_3" geo="cloche_3.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <axis id="CLOCHE_UNE" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000">
+                        <geometry name="CLOCHE_1" geo="cloche_1.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    </axis>
+                    <geometry name="PLATINE_BROCHE" geo="platine_broche.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    <geometry name="TUYAU_PARTIE_MOBILE" geo="tuyau_partie_mobile.stl" clrr="0.62745100" clrg="0.62745100" clrb="0.64313728" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                    <transform id="head_adapter" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" objtype="mountadapter" />
+                    <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                        <geometry name="tool" geo="tool.stl" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="tool" cuttr="0.50196081" cuttg="0.50196081" cuttb="0.00000000" noncuttr="0.35294119" noncuttg="0.35294119" noncuttb="0.35294119" arborr="0.50196081" arborg="0.50196081" arborb="0.50196081" holderr="0.62745100" holderg="0.62745100" holderb="0.64313728" />
+                    </transform>
+                </axis>
+                <geometry name="FOURCHE" geo="fourche.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="FUT_NOIR" geo="fut_noir.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="TUYAU_PARTIE_FIXE" geo="tuyau_partie_fixe.stl" clrr="0.62745100" clrg="0.62745100" clrb="0.64313728" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="FUT_BLANC" geo="fut_blanc.stl" clrr="0.99215686" clrg="0.99215686" clrb="0.83921570" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+    </axis>
+    <axis id="Y" type="translation" x="0.00000000" y="-1.00000000" z="0.00000000" minvalue="-397.000000" maxvalue="3607.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="TABLES" geo="tables.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+            <geometry name="fixture" geo="fixture.stl" clrr="1.00000000" clrg="0.62745100" clrb="0.47843137" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+            <geometry name="initial Stock" geo="initial stock.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+            <geometry name="stock" geo="stock.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="toolpath" geo="toolpath.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+            <geometry name="workpiece" geo="workpiece.stl" clrr="0.96078432" clrg="0.96078432" clrb="0.86274511" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="workpiece" />
+        </transform>
+    </axis>
+    <axis id="Z_UN" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-125.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="X_UN" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-500.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+            <geometry name="CARTER_CHARGEUR" geo="carter chargeur.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <axis id="C_UN" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000000000.000000" maxvalue="1000000000.000000" valuetype="cont" initial_value="0.000000" rzx="2692.05200195" rzy="0.00000000" rzz="0.00000000">
+                <geometry name="CORPS_CHARGEUR" geo="corps chargeur.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="PINCES" geo="pinces.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="PLATINES" geo="platines.stl" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="SUPPORT_CLOCHES" geo="support cloche.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="SUPPORT_PINCES" geo="supp_pinces.stl" clrr="1.00000000" clrg="1.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+        </axis>
+    </axis>
+    <geometry name="mh_ENCADREMENT" geo="encadrement.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_MAGASIN_RA" geo="magasin_ra.stl" clrr="0.61568630" clrg="0.44313726" clrb="0.18039216" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_MAGASIN_RA_CAPTEURS" geo="magasin_ra_capteurs.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_PORTIQUE" geo="portique.stl" clrr="0.99215686" clrg="0.99215686" clrb="0.83921570" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_SEPARATION" geo="separation.stl" clrr="0.62745100" clrg="0.62745100" clrb="0.64313728" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_SEPARATION_ACCESSOIRES" geo="separation_accessoires.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_SUPPORT_TABLES" geo="support_tables.stl" clrr="0.99215686" clrg="0.99215686" clrb="0.83921570" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="BROCHE,PLATINE_BROCHE,FOURCHE,FUT_BLANC,mh_ENCADREMENT,mh_MAGASIN_RA,mh_MAGASIN_RA_CAPTEURS,mh_SEPARATION,mh_SEPARATION_ACCESSOIRES,TUYAU_PARTIE_MOBILE,FUT_NOIR" dynamic1="true" dynamic2="true" active="true" group2="TABLES,workpiece,stock,fixture" />
+    <collcheck id="cc2" name="cc2" group1="TUYAU_PARTIE_MOBILE,TUYAU_PARTIE_FIXE" dynamic1="true" dynamic2="true" active="true" group2="mh_MAGASIN_RA,mh_MAGASIN_RA_CAPTEURS,mh_SEPARATION,mh_SEPARATION_ACCESSOIRES,mh_ENCADREMENT,tool" />
+    <collcheck id="cc3" name="cc3" group1="tool" dynamic1="true" dynamic2="true" active="true" group2="TABLES" />
+    <magazine>
+        <head name="TETE_51">
+            <transform id="holder_transform1" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,-130.00000000,0.00000000,0.00000000,1.00000000,-166.80000305,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="tool1" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+            </transform>
+            <geometry name="RA_GRIS_1" geo="ra_gris.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="RA_ROUGE_1" geo="ra_rouge.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </head>
+        <head name="TETE_52">
+            <transform id="holder_transform2" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,130.00000000,0.00000000,0.00000000,1.00000000,-166.80000305,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="tool2" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+            </transform>
+            <geometry name="RA_GRIS_2" geo="ra_gris.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="RA_ROUGE_2" geo="ra_rouge.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </head>
+        <head name="TETE_61">
+            <transform id="holder_transform3" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,-130.00000000,0.00000000,0.00000000,1.00000000,-166.80000305,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="tool3" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+            </transform>
+            <geometry name="RA_GRIS_3" geo="ra_gris.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="RA_ROUGE_3" geo="ra_rouge.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </head>
+        <head name="TETE_62">
+            <transform id="holder_transform4" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,130.00000000,0.00000000,0.00000000,1.00000000,-166.80000305,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="tool4" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+            </transform>
+            <geometry name="RA_GRIS_4" geo="ra_gris.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="RA_ROUGE_4" geo="ra_rouge.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </head>
+    </magazine>
+    <post_definition>
+        <post_settings id="SANS_TETE">
+            <post_data detection_mode="autodetect_semiautomatic" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X" type="translation" order="first" pos="table" x="1.00000000" y="-0.00000000" z="-0.00000000" minvalue="0.00000000" maxvalue="3582.07300000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1250.05300000" maxvalue="460.40000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1045.67000000" maxvalue="0.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.00000000" maxvalue="270.00000000" rzx="0.00000000" rzy="0.00000000" rzz="-139.10000610" />
+            <axis id="A" type="rotation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.00000000" maxvalue="120.00000000" rzx="0.00000000" rzy="0.00000000" rzz="139.10000610" />
+            <use tool_name="tool" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="TETE_51">
+            <post_data detection_mode="autodetect_semiautomatic" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool1" type="spindle" x="0.00000000" y="1.00000000" z="0.00000000" />
+            <axis id="X" type="translation" order="first" pos="table" x="1.00000000" y="-0.00000000" z="-0.00000000" minvalue="0.00000000" maxvalue="3582.07300000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1250.05300000" maxvalue="460.40000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1045.67000000" maxvalue="0.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.00000000" maxvalue="270.00000000" rzx="0.00000000" rzy="0.00000000" rzz="-139.10000610" />
+            <axis id="A" type="rotation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.00000000" maxvalue="120.00000000" rzx="0.00000000" rzy="0.00000000" rzz="139.10000610" />
+            <use tool_name="tool1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="TETE_52">
+            <post_data detection_mode="autodetect_semiautomatic" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool2" type="spindle" x="0.00000000" y="-1.00000000" z="0.00000000" />
+            <axis id="X" type="translation" order="first" pos="table" x="1.00000000" y="-0.00000000" z="-0.00000000" minvalue="0.00000000" maxvalue="3582.07300000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1250.05300000" maxvalue="460.40000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1045.67000000" maxvalue="0.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.00000000" maxvalue="270.00000000" rzx="0.00000000" rzy="0.00000000" rzz="-139.10000610" />
+            <axis id="A" type="rotation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.00000000" maxvalue="120.00000000" rzx="0.00000000" rzy="0.00000000" rzz="139.10000610" />
+            <use tool_name="tool2" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="TETE_61">
+            <post_data detection_mode="autodetect_semiautomatic" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool3" type="spindle" x="0.00000000" y="1.00000000" z="0.00000000" />
+            <axis id="X" type="translation" order="first" pos="table" x="1.00000000" y="-0.00000000" z="-0.00000000" minvalue="0.00000000" maxvalue="3582.07300000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1250.05300000" maxvalue="460.40000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1045.67000000" maxvalue="0.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.00000000" maxvalue="270.00000000" rzx="0.00000000" rzy="0.00000000" rzz="-139.10000610" />
+            <axis id="A" type="rotation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.00000000" maxvalue="120.00000000" rzx="0.00000000" rzy="0.00000000" rzz="139.10000610" />
+            <use tool_name="tool3" workpiece_name="workpiece" />
+        </post_settings>	
+        <post_settings id="TETE_62">
+            <post_data detection_mode="autodetect_semiautomatic" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool4" type="spindle" x="0.00000000" y="-1.00000000" z="0.00000000" />
+            <axis id="X" type="translation" order="first" pos="table" x="1.00000000" y="-0.00000000" z="-0.00000000" minvalue="0.00000000" maxvalue="3582.07300000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1250.05300000" maxvalue="460.40000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1045.67000000" maxvalue="0.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-270.00000000" maxvalue="270.00000000" rzx="0.00000000" rzy="0.00000000" rzz="-139.10000610" />
+            <axis id="A" type="rotation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-120.00000000" maxvalue="120.00000000" rzx="0.00000000" rzy="0.00000000" rzz="139.10000610" />
+            <use tool_name="tool4" workpiece_name="workpiece" />
+        </post_settings>		
+    </post_definition>
+</machine_definition>

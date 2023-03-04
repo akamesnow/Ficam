@@ -1,0 +1,42 @@
+PROC PRG_M48 DISPLOF SBLOF
+;-----------------
+;--- PROGRAMMA FINE RIQUALIFICA TASTATORE/LASER (M48) --
+;-----------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 30-10-2012
+STOPRE
+IF $AA_IM[Z] < $MN_USER_DATA_FLOAT[2] GOTOF FINE        ;Asse Z NON alto (arresto ciclo da PLC)
+IF $A_IN[9] == 0 GOTOF FINE         ;Paratia non presente
+;Acquisizione Limiti Zone
+QUOTEPARA
+;
+M449  ;Ciclo di ripristino tastatori in corso (tacitazione allarmi)
+;
+REALVARAUX=$MN_USER_DATA_HEX[5] B_AND 16
+IF REALVARAUX == 0 GOTOF FINE   ;Salto se opzione tastatore su disco mobile=0
+IF $A_IN[12] == 0 GOTOF SET_ZONA2    ;Macchina in zona 2
+;----------------------------------------------------------------
+;Macchina in Zona 1: si riporta asse X nella posizione STD Zona 1
+SET_ZONA1:
+IF $AA_IM[X] > LIM_INF_Z1 GOTOF SETLIM 
+SUPA G0 G90 X=QUOT_Z1
+GOTOF SETLIM
+;----------------------------------------------------------------
+;Macchina in Zona 2: si riporta asse X nella posizione STD Zona 2
+SET_ZONA2:
+IF $AA_IM[X] < LIM_SUP_Z2 GOTOF SETLIM 
+SUPA G0 G90 X=QUOT_Z2
+GOTOF SETLIM
+;----------------------------------------------------------------
+;Ripristino LIMITI STD 
+SETLIM:
+M170            ;Abilita accesso costruttore
+SETLIMITI
+M172            ;Ripristina accesso utente
+;----------------------------------------------------------------
+FINE:
+M448             ;Avvio sequenza PLC ripristino disco e tastatore
+STOPRE
+M17
+RET
+

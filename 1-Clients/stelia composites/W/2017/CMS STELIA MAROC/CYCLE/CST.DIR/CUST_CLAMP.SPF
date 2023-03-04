@@ -1,0 +1,25 @@
+PROC CUST_CLAMP(INT _NPV,INT _PREV,INT _ACT,INT _NEXT) SBLOF DISPLOF
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.05.01.00 ;DATE: 2011-05-11
+; Machine Manufacturer Cycle for multiple-workpiece clamping
+;----------------------------------------------------------------
+; PARAMETER:
+;
+; _NPV     :   Number of the 1st work offset
+;                0 = G500
+;                1 = G54
+;                ...
+; _PREV    :   Number of the previous clamping position (-1 = none)
+; _ACT     :   Number of the actual clamping position (1, ...)
+; _NEXT    :   Number of the next clamping position (-1 = none)
+;----------------------------------------------------------------
+DEF INT _NV        ;  helper variable
+;----------------------------------------------------------------
+_NV=_NPV+_ACT      ;  calculate the number of the actual work offset
+;
+N10 G[8]=_NV       ;  here is no calculation allowed
+;----------------------------------------------------------------
+RET
+;----------------------------------------------------------------
+; END
+;----------------------------------------------------------------

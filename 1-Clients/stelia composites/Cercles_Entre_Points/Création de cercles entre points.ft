@@ -1,0 +1,35 @@
+-------------------------------------------------------------------------------
+  Création de cercles entre points .ft  (NET-Hook function table file)
+-------------------------------------------------------------------------------
+
+ NETHook    : Création de cercles entre points.dll
+ Date       : 05-09-2017
+ Author     : CNC Software, Inc.
+ Notes      : This FT file must located in the mcam####\CHooks folder.
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+ASSIGN A UNIQUE NAME
+-------------------------------------------------------------------------------
+APPLICATION "CreateCirclesBetweenPoints_AddIn
+
+-------------------------------------------------------------------------------
+CATEGORY in Settings-Customize to find this Add-Ons icon
+-------------------------------------------------------------------------------
+CATEGORY   "Geometry"
+
+-------------------------------------------------------------------------------
+NET-Hook LOCATION
+-------------------------------------------------------------------------------
+FUNC_DLL   "Chooks\Création de cercles entre points.dll"
+RES_DLL    "SAME"
+dnRES_NAME "CreateCircles.Properties.Resources"
+
+FUNCTION NET "Run"
+  dnSPNG "Icon16"
+  dnLPNG "Icon32"
+  dnTIP "Tip_String"
+  PARAM 1
+END_FUNCTION
+
+

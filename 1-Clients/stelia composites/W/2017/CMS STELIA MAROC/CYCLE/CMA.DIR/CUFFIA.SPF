@@ -1,0 +1,32 @@
+PROC CUFFIA DISPLOF SBLOF
+;----------------------------------------------------------
+;-------------- PROGRAMMA DI SETTAGGIO LIMITI -------------
+;----------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 15-02-2012
+;-----------------------------------------
+G04F1
+M170 ; Abilita accesso costruttore
+STOPRE
+IF $A_IN[27] == 0 GOTOF SET_NOCUFFIA    ;Cuffia non presente
+;----- Cuffia non presente
+$MA_POS_LIMIT_PLUS[C1]  = +186
+$MA_POS_LIMIT_MINUS[C1] = -186
+NEWCONF
+STOPRE
+GOTOF FINE
+;----- Cuffia non presente
+SET_NOCUFFIA:
+$MA_POS_LIMIT_PLUS[C1]  = +271
+$MA_POS_LIMIT_MINUS[C1] = -271
+NEWCONF
+STOPRE
+FINE:
+STOPRE
+G04 F1.0
+M173 ;Codice conferma limit cuffia
+STOPRE
+M172
+STOPRE
+M30
+;END

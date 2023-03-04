@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="STEMA01" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="P_DEUX" type="translation" x="-1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="900.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="porte_2_changeur_outils" geo="stema_porte_2_changeur_outil.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="P_UNE" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.000000" maxvalue="900.000000" valuetype="cont" initial_value="0.000000">
+        <geometry name="porte_1_changeur_outils" geo="stema_porte_1_changeur_outil.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="T_X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-440.000000" maxvalue="440.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="T_Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-500.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+            <axis id="T_C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000" rzx="2810.00000000" rzy="2199.85009766" rzz="0.00000000">
+                <geometry name="changeur_outil_rotation_platine" geo="stema_changeur_outil_rotation_platine.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="changeur_outil_rotation_supports" geo="stema_changeur_outil_rotation_supports.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="changeur_outil_rotation_tole" geo="stema_changeur_outil_rotation_tole.stl" clrr="1.00000000" clrg="0.54901963" clrb="0.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="changeur_outil_deplacement_y_clair" geo="stema_changeur_outil_deplacement_y_clair.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="changeur_outil_deplacement_y_corps" geo="stema_changeur_outil_deplacement_y_corps.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="changeur_outil_deplacement_y_foncé" geo="stema_changeur_outil_deplacement_y_fonce.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="changeur_outil_deplacement_y_laser" geo="stema_changeur_outil_deplacement_y_laser.stl" clrr="0.86274511" clrg="0.07843138" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="changeur_outil_deplacement_x_clair" geo="stema_changeur_outil_deplacement_x_clair.stl" clrr="0.66274512" clrg="0.66274512" clrb="0.66274512" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="changeur_outil_deplacement_x_foncé" geo="stema_changeur_outil_deplacement_x_fonce.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-190.000000" maxvalue="5810.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-450.000000" maxvalue="1350.000000" valuetype="cont" initial_value="0.000000">
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="43.500000" maxvalue="1243.500000" valuetype="cont" initial_value="1243.500000">
+                <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-185.000000" maxvalue="185.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="70.00000000" rzz="0.00000000">
+                    <axis id="B" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-120.000000" maxvalue="120.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="160.00000000">
+                        <axis id="Cl_B_DEUX" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="0.000000" maxvalue="180.000000" valuetype="cont" initial_value="0.000000" rzx="-92.00000000" rzy="0.00000000" rzz="73.40000153">
+                            <geometry name="cloche_mobile_2" geo="stema_cloche_mobile_2.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                            <geometry name="cloche_mobile_2_poils" geo="stema_cloche_mobile_2_poils.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <axis id="Cl_B_UNE" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-180.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000" rzx="92.00000000" rzy="0.00000000" rzz="73.40000153">
+                            <geometry name="cloche_mobile_1" geo="stema_cloche_mobile_1.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                            <geometry name="cloche_mobile_1_poils" geo="stema_cloche_mobile_1_poils.stl" clrr="0.18431373" clrg="0.30980393" clrb="0.30980393" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        </axis>
+                        <geometry name="broche_clair" geo="stema_broche_clair.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <geometry name="broche_corps" geo="stema_broche_corps.stl" clrr="0.86274511" clrg="0.07843138" clrb="0.23529412" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <geometry name="broche_foncé" geo="stema_broche_fonce.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <geometry name="cloche_fixe" geo="stema_cloche_fixe.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                        <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="tool" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+                        </transform>
+                    </axis>
+                    <geometry name="axe_c" geo="stema_axe_c.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                </axis>
+                <geometry name="axe_z_clair" geo="stema_axe_z_clair.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="axe_z_foncé" geo="stema_axe_z_fonce.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="axe_z_fut" geo="stema_axe_z_fut.stl" clrr="0.25490198" clrg="0.41176471" clrb="0.88235295" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="axe_y_glissière" geo="stema_axe_y_glissiere.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="axe_y_moteurs" geo="stema_axe_y_moteurs.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="axe_x_moteurs" geo="stema_axe_x_moteur.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="axe_x_traverse" geo="stema_axe_x_traverse.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="axe_x_éléments" geo="stema_axe_x_elements.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <geometry name="bâti_tables" geo="stema_bati_tables.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_capotage_magasin" geo="stema_bati_capotage_magasin.stl" clrr="0.00000000" clrg="0.54509807" clrb="0.54509807" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_capotage_magasin_2" geo="stema_bati_capotage_magasin_2.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_divers" geo="stema_bati_divers.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_façade" geo="stema_bati_facade.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_façade_2" geo="stema_bati_facade_2.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_gravure" geo="stema_bati_gravure.stl" clrr="0.41176471" clrg="0.41176471" clrb="0.41176471" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_portes" geo="stema_bati_portes.stl" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_pupitre" geo="stema_bati_pupitre.stl" clrr="0.00000000" clrg="0.80784315" clrb="0.81960785" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_structure" geo="stema_bati_structure.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_structure_2" geo="stema_bati_structure_2.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_séparateur" geo="stema_bati_separateur.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bâti_écran" geo="stema_bati_ecran.stl" clrr="0.93333334" clrg="0.90980393" clrb="0.66666669" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+    <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+        <geometry name="Brut" geo="brut.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="stock" />
+        <geometry name="Brut Initial" geo="brut initial.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+        <geometry name="Montage" geo="montage.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+        <geometry name="Pièce" geo="pièce.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.0" reflectivity="0.4" reflectivityBitmapFileName="" objtype="workpiece" />
+        <geometry name="parcours d&apos;outil" geo="parcours d&apos;outil.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+    </transform>
+</machine_definition>

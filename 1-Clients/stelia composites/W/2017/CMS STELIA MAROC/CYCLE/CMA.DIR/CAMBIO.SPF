@@ -1,0 +1,179 @@
+PROC CAMBIO DISPLOF SBLOF
+;-------------------------------------------------------------
+;-------------- PROGRAMMA DI CAMBIO UTENSILE  ----------------
+;-------------------------------------------------------------
+;data            : 05/06/2015
+;ultima modifica : 14/08/2015
+;-------------------------------------------------------------
+;CONTROLLO SIMULAZIONE TEST PROGRAMMA
+IF (($P_SIM==1) OR ($P_ISTEST==1) OR ($P_SEARCH==1))
+ M=$MC_TOOL_CHANGE_M_CODE
+ RET
+ M17
+ENDIF
+;-------------------------------------------------------------
+;----------------   CONTROLLI INZIALI CAMBIO   ---------------
+;-------------------------------------------------------------
+CONTCP=$P_TRAFO_PARSET
+CONTD=$P_TOOL
+STOPRE
+TRAFOOF
+D0
+WHILE $A_IN[20] == 0        ;Verifica Attuatori Ok
+ENDWHILE
+STOPRE
+G04 F0.2
+M100          ;Start ciclo cambio
+BRISK
+STOPRE
+WHILE (($A_IN[21] == 0) OR ($P_TOOLP <> R200))      ;T Chiamata OK
+G04F0.2
+STOPRE
+ENDWHILE
+STOPRE
+IF ((R202 == R212) AND (R201 == R211) AND (R200 == R210)) GOTOF NO_CU
+IF (R204 == R214) GOTOF NO_CU
+STOPRE
+M5 S0         ;Arresta mandrino
+STOPRE
+QUOTECU
+;-------------------------------------------------------------
+;----------------    INIZIO  CAMBIO            ---------------
+;-------------------------------------------------------------
+CONTOLLI_INIZIALI:
+IF $A_IN[12] == 1 ;Verifica zona macchina --> Anticipo posizionamento disco mobile
+  M82          ;COMANDO POSIZ. DISCO DX
+ELSE
+  M83          ;COMANDO POSIZ. DISCO SX
+ENDIF
+T=R200 D0
+STOPRE
+;***** VERIFICA UT DA DEPOSITARE *****
+IF R210 == 0 GOTOF PRELIEVO_S         ;T_MAND=0
+;*******************************************
+;***** CONFIGURARE NUM.MAG. CmsControl *****
+;*******************************************
+IF (R211 == -1)
+ CAMBIO_PICK1_DEP
+ STOPRE
+ENDIF
+IF (R211 == -1)
+ CAMBIO_PICK2_DEP
+ STOPRE
+ENDIF
+IF (R211 == 1) 
+ CAMBIO_DISCOMOB_DEP
+  STOPRE
+ENDIF
+IF (R211 == -1) 
+ CAMBIO_LAT1_DEP
+  STOPRE
+ENDIF
+IF (R211 == -1) 
+ CAMBIO_LAT2_DEP
+  STOPRE
+ENDIF
+IF (R211 == -1) 
+ CAMBIO_DISCO1_DEP
+  STOPRE
+ENDIF
+IF (R211 == -1) 
+ CAMBIO_DISCO2_DEP
+  STOPRE
+ENDIF
+GOTOF PRELIEVO
+;-------------------------------------------------------------
+;----------------       VERIFICA PRELIEVO     ----------------
+;-------------------------------------------------------------
+PRELIEVO_S:
+SUPA G0 G90 Z=0
+SUPA G0 G90 AX[_AXN4]=0 ;AX[_AXN5]=0
+M68
+PRELIEVO:
+STOPRE
+IF R200 == 0 GOTOF FINE_NO_MOV        ;T_CALL=0
+;*******************************************
+;***** CONFIGURARE NUM.MAG. CmsControl *****
+;*******************************************
+IF (R201 == -1)
+ CAMBIO_PICK1_PRE
+ STOPRE
+ENDIF
+IF (R201 == -1)
+ CAMBIO_PICK2_PRE
+ STOPRE
+ENDIF
+IF (R201 == 1) 
+ CAMBIO_DISCOMOB_PRE
+ STOPRE
+ENDIF
+IF (R201 == -1) 
+ CAMBIO_LAT1_PRE
+ STOPRE
+ENDIF
+IF (R201 == -1) 
+ CAMBIO_LAT2_PRE
+ STOPRE
+ENDIF
+IF (R201 == -1) 
+ CAMBIO_DISCO1_PRE
+ STOPRE
+ENDIF
+IF (R201 == -1) 
+ CAMBIO_DISCO2_PRE
+ STOPRE
+ENDIF
+GOTOF  FINE
+;-------------------------------------------------------------
+;----------------     CAMBIO SENZA CAMBIO     ----------------
+;-------------------------------------------------------------
+NO_CU:
+M107          ;MEMORIZZA UT.IN
+GOTOF FINE_NO_MOV
+;-------------------------------------------------------------
+;----------------           FINE CAMBIO       ----------------
+;-------------------------------------------------------------
+FINE:
+SUPA G0 G90 AX[_AXN4]=0 AX[_AXN5]=0
+FINE_NO_MOV:
+STOPRE              ;Svuotamento buffer
+$A_OUTA[1]=0        ;Imposta ripristino CU 
+M171
+M71                 ;Disattiva soffiatore cono
+M77                 ;Bloccaggio utensile
+;M267               ;MAG. IMBARCATO 1 INDIETRO + CHIUSURA PROTEZ
+;M269               ;MAG. IMBARCATO 2 INDIETRO + CHIUSUSRA PROTEZ
+;M85                ;MAG. LATERALE 1 INDIETRO + CHIUSURA PROTEZ
+;M87                ;MAG. LATERALE 2 INDIETRO + CHIUSUSRA PROTEZ
+M281                ;MAG. DISCO 1 INDIETRO + CHIUSURA PROTEZ
+; Funzioni di Test posizionamento
+
+;-------------------------------------------------------------
+;----------- ABBILITA UTENSILE IN MANDRINO SHOPMILL ----------
+;-------------------------------------------------------------
+M252
+STOPRE
+T=R210 D0
+M=$MC_TOOL_CHANGE_M_CODE
+IF ($P_TOOLNO <> 0)
+$TC_DP2[R210,1]=9
+ENDIF
+STOPRE
+M250
+STOPRE
+IF CONTCP == 1
+ TRAORI
+ENDIF
+D=CONTD
+G0G90
+;ATTESA TUTTI ATTUATORI OK (verifica portelle chiuse)
+WHILE $A_IN[20] == 0
+STOPRE
+ENDWHILE
+STOPRE
+SOFT
+M101;FINE CICLO CU
+G04 F0.200
+M17
+RET
+;END

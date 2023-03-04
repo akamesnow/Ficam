@@ -1,0 +1,7 @@
+;%_N_R_AIROFF_SPF
+;$PATH=/_N_CMA_DIR
+M9; Air off - edit M code to suit
+M79
+M81
+RET
+

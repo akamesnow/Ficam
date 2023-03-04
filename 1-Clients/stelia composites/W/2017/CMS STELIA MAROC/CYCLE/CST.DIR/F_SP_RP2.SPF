@@ -1,0 +1,652 @@
+PROC F_SP_RP2(VAR INT _RP_DIR[],VAR REAL _RPT[],VAR REAL _TCP[],VAR INT _NUM,VAR REAL _P[,2],VAR INT _ERR,INT _PAR) SAVE SBLOF
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.05.60.00 ;DATE: 2014-05-28
+;ShopTurn: Retract Calculation Cycle
+DEF AXIS _XX,_YY,_ZZ
+DEF INT _I,_STAT,_STAT2,_SP_IN_RP=0,_TRAANG,_NUM_DEL=0,_INT
+DEF REAL _FAK1,_FAK2,_FAK3,_AS,_AE,_DX,_DZ
+DEF REAL _SP[2],_EP[2],_EPM[2,2]
+DEF REAL _E[3,2]
+DEF REAL _NO_VAL=1EX300
+DEF STRING[40] _STR
+DEF INT _TEST_RETRCALC=0
+DEF INT _TNR
+DEF STRING[40] _PRG_TEST
+DEF STRING[200] _TEST_STR
+DEF CHAR _AZ=34
+DEF INT _LOG,_LOG_ON
+DEF STRING[35] _LOG_FILE
+DIAMCYCOF
+_TRAANG=0
+IF($ON_TRAFO_TYPE_MASK B_AND 'H08')
+IF($MC_TRAFO_MODE_MASK B_AND 'H01')AND($MC_TRAFO_RESET_VALUE>0)
+_INT=$MC_TRAFO_RESET_VALUE
+_STR="_INT=$MC_TRAFO_TYPE_"<<_INT
+EXECSTRING(_STR)
+IF(_INT B_AND 'H400')
+_TRAANG=2
+ENDIF
+ENDIF
+IF(_TRAANG==0)
+IF($P_TRAFO B_AND 'H400')
+_TRAANG=1
+ENDIF
+ENDIF
+ENDIF
+IF($P_GG[13]<3)
+_FAK1=1
+IF($MN_SCALING_SYSTEM_IS_METRIC)
+IF($P_GG[13]==1)
+_FAK1=1/$MN_SCALING_VALUE_INCH
+ENDIF
+ELSE
+IF($P_GG[13]==2)
+_FAK1=$MN_SCALING_VALUE_INCH
+ENDIF
+ENDIF
+ELSE
+_FAK1=1
+ENDIF
+_FAK2=1
+IF($MN_SCALING_SYSTEM_IS_METRIC)
+IF($P_GG[13]==1)OR($P_GG[13]==3)
+_FAK2=1/$MN_SCALING_VALUE_INCH
+ENDIF
+ELSE
+IF($P_GG[13]==2)OR($P_GG[13]==4)
+_FAK2=$MN_SCALING_VALUE_INCH
+ENDIF
+ENDIF
+_FAK3=1
+IF($P_GG[13]==1)OR($P_GG[13]==3)
+_FAK3=1/$MN_SCALING_VALUE_INCH
+ENDIF
+_LOG_FILE="/_N_MPF_DIR/_N_LOG_F_SP_RP2_"<<$P_CHANNO<<"_MPF"
+_LOG_ON=ISFILE(_LOG_FILE)
+IF(_LOG_ON)
+; DELETE(_LOG,_LOG_FILE)
+WRITE(_LOG,_LOG_FILE,"-------------------")
+WRITE(_LOG,_LOG_FILE,"Logfile F_SP_RP2: "<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<":"<<$A_MINUTE<<":"<<$A_SECOND)
+WRITE(_LOG,_LOG_FILE,"Uebergabeparameter:")
+WRITE(_LOG,_LOG_FILE,"_RP_DIR[]="<<_RP_DIR[0]<<" / "<<_RP_DIR[1])
+WRITE(_LOG,_LOG_FILE,"   _RPT[]="<<_RPT[0]<<" / "<<_RPT[1]<<" / "<<_RPT[2]<<" / "<<_RPT[3]<<" / "<<_RPT[4])
+WRITE(_LOG,_LOG_FILE,"   _TCP[]="<<_TCP[0]<<" / "<<_TCP[1]<<" / "<<_TCP[2])
+IF($MN_SCALING_SYSTEM_IS_METRIC)
+WRITE(_LOG,_LOG_FILE,"Grundsystem: Metric")
+ELSE
+WRITE(_LOG,_LOG_FILE,"Grundsystem: Inch")
+ENDIF
+WRITE(_LOG,_LOG_FILE,"G7"<<1-($P_GG[13] MOD 2)<<SUBSTR("0",0,($P_GG[13]-1)/2)<<": "<<_FAK1<<" / "<<_FAK2<<" / "<<_FAK3)
+WRITE(_LOG,_LOG_FILE,"Wertefolge: X/Z")
+ENDIF
+; Testprogramm fuer NCK-Test generieren:
+IF(_TEST_RETRCALC)
+_TNR=R0
+R0=R0+1
+_PRG_TEST="/_N_MPF_DIR/_N_TE_"
+IF(_TNR<10)
+_PRG_TEST=_PRG_TEST<<"0"
+ENDIF
+IF(_TNR<100)
+_PRG_TEST=_PRG_TEST<<"0"
+ENDIF
+IF(_TNR<1000)
+_PRG_TEST=_PRG_TEST<<"0"
+ENDIF
+IF(_TNR<10000)
+_PRG_TEST=_PRG_TEST<<"0"
+ENDIF
+_PRG_TEST=_PRG_TEST<<_TNR<<"_MPF"
+MSG("Testprogramm: "<<_PRG_TEST)
+DELETE(_LOG,_PRG_TEST)
+IF(NOT $MN_SCALING_SYSTEM_IS_METRIC)
+WRITE(_LOG,_PRG_TEST,"; $MN_SCALING_SYSTEM_IS_METRIC=0 ; ACHTUNG: Grundsystem Inch!")
+ENDIF
+WRITE(_LOG,_PRG_TEST,"DEF INT _RP_DIR[2],_NUM,_ERR,_PAR,_LOG,_I")
+WRITE(_LOG,_PRG_TEST,"DEF REAL _RPT[5],_TCP[3],_P[8,2],_PM[8,2]")
+WRITE(_LOG,_PRG_TEST,"G18")
+WRITE(_LOG,_PRG_TEST,"DIAMCYCOF")
+WRITE(_LOG,_PRG_TEST,"G[13]="<<$P_GG[13])
+WRITE(_LOG,_PRG_TEST,"_RP_DIR[0]=SET("<<_RP_DIR[0]<<","<<_RP_DIR[1]<<")")
+WRITE(_LOG,_PRG_TEST,"_RPT[0]=SET("<<_RPT[0]<<","<<_RPT[1]<<","<<_RPT[2]<<","<<_RPT[3]<<","<<_RPT[4]<<")")
+WRITE(_LOG,_PRG_TEST,"_TCP[0]=SET("<<_TCP[0]<<","<<_TCP[1]<<","<<_TCP[2]<<")")
+WRITE(_LOG,_PRG_TEST,"_PAR="<<_PAR)
+IF(_PAR B_AND 'B0001')AND(_TCP[2])
+WRITE(_LOG,_PRG_TEST,"T0")
+WRITE(_LOG,_PRG_TEST,"M6")
+WRITE(_LOG,_PRG_TEST,"D0")
+WRITE(_LOG,_PRG_TEST,"TRANS X="<<($P_EPM[X]-$P_EP[X])*_FAK1<<" Z="<<($P_EPM[Z]-$P_EP[Z])*_FAK1)
+ENDIF
+WRITE(_LOG,_PRG_TEST,"G0 X"<<$P_EP[X]*_FAK1<<" Z"<<$P_EP[Z]*_FAK1)
+WRITE(_LOG,_PRG_TEST,"IF(R0==0)")
+WRITE(_LOG,_PRG_TEST,"  RETRCALC(_RP_DIR,_RPT,_TCP,_NUM,_P,_ERR,_PAR)")
+WRITE(_LOG,_PRG_TEST,"ELSE")
+WRITE(_LOG,_PRG_TEST,"  F_SP_RP2(_RP_DIR,_RPT,_TCP,_NUM,_P,_ERR,_PAR)")
+WRITE(_LOG,_PRG_TEST,"ENDIF")
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Zielpunkt: "<<_TCP[0]<<"/"<<_TCP[1]<<":"<<_TCP[2]<<"(0=WKS;1=MKS)")
+WRITE(_LOG,_LOG_FILE,"RP: "<<_RPT[0]*_FAK2<<"/"<<_RPT[1]*_FAK2<<"/"<<_RPT[2]*_FAK2<<"/"<<_RPT[3]*_FAK2<<"/XR:"<<_RPT[4]*_FAK2)
+WRITE(_LOG,_LOG_FILE,"Letzte/neue Richtung: "<<_RP_DIR[0]<<"/"<<_RP_DIR[1])
+IF((_PAR B_AND 'B0001')==0)
+WRITE(_LOG,_LOG_FILE,"Zur Bearbeitung")
+ENDIF
+IF((_PAR B_AND 'B1000')<>0)
+WRITE(_LOG,_LOG_FILE,"Zur Parkposition")
+ENDIF
+IF(_PAR B_AND 'B0100')
+WRITE(_LOG,_LOG_FILE,"Wegfahren zum Werkzeugwechselpunkt abschalten")
+ENDIF
+ENDIF
+IF($P_GG[6]==1)
+_ZZ=$P_AXN3
+_XX=$P_AXN1
+IF(_TRAANG)
+_YY=$P_AXN2
+ENDIF
+ELSE
+IF($P_GG[6]==2)
+_ZZ=$P_AXN1
+_XX=$P_AXN2
+IF(_TRAANG)
+_YY=$P_AXN3
+ENDIF
+ELSE
+_ZZ=$P_AXN2
+_XX=$P_AXN3
+IF(_TRAANG)
+_YY=$P_AXN1
+ENDIF
+ENDIF
+ENDIF
+_NUM=0
+_ERR=0
+_SP[0]=$P_EP[_XX]*_FAK1
+_SP[1]=$P_EP[_ZZ]*_FAK1
+IF((_PAR B_AND 'B0001')==0)
+_EP[0]=_TCP[0]
+_EP[1]=_TCP[1]
+IF(_RP_DIR[1]==1)
+IF(_EP[0]<=0)
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Endpunkt in X korrigiert ("<<_EP[0]<<"->0.001*_FAK3)")
+ENDIF
+_EP[0]=0.001*_FAK3
+ENDIF
+ENDIF
+ELSE
+IF(_LOG_ON)AND(_RP_DIR[1])
+WRITE(_LOG,_LOG_FILE,"Werkzeugwechselpunkt hat keine Bearbeitungsrichtung -> neue Richtung: "<<_RP_DIR[1])
+ENDIF
+_RP_DIR[1]=0
+IF(_TCP[2]==0)
+_EP[0]=_TCP[0]*_FAK2*(1-2*$P_ACTFRAME[_XX,MI])
+_EP[1]=_TCP[1]*_FAK2
+IF($P_TOOL)AND((_PAR B_AND 'B10000')==0)
+_EP[0]=_EP[0]-$P_TOOLL[1]*_FAK1*(1-2*$P_ACTFRAME[_XX,MI])
+_EP[1]=_EP[1]-$P_TOOLL[2]*_FAK1*(1-2*$P_ACTFRAME[_ZZ,MI])
+ENDIF
+ELSE
+$AC_MEAS_VALID=0
+$AC_MEAS_TYPE=24
+$AC_MEAS_P1_COORD=2
+$AC_MEAS_P2_COORD=0
+IF($P_TOOL)AND((_PAR B_AND 'B10000')==0)
+$AA_MEAS_POINT1[_XX]=(_TCP[0]*_FAK2-$P_TOOLL[1]*_FAK1)/_FAK1
+$AA_MEAS_POINT1[_ZZ]=(_TCP[1]*_FAK2-$P_TOOLL[2]*_FAK1)/_FAK1
+ELSE
+$AA_MEAS_POINT1[_XX]=(_TCP[0]*_FAK2)/_FAK1
+$AA_MEAS_POINT1[_ZZ]=(_TCP[1]*_FAK2)/_FAK1
+ENDIF
+IF(_TRAANG)
+$AA_MEAS_POINT1[_YY]=0
+ENDIF
+_ERR=MEASURE()
+IF(_ERR)
+_ERR=_ERR+100
+GOTOF _END
+ENDIF
+_EP[0]=$AA_MEAS_POINT2[_XX]*_FAK1
+_EP[1]=$AA_MEAS_POINT2[_ZZ]*_FAK1
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Zum Werkzeugwechsel: "<<_EP[0]<<"/"<<_EP[1]<<" (WKS)")
+ENDIF
+IF((_PAR B_AND 'B1000')<>0)
+IF(_EP[0]<_RPT[0]*_FAK2)
+_ERR=8
+GOTOF _END
+ENDIF
+ELSE
+IF(NOT(_PAR B_AND 'H20'))OR($P_TOOL)
+F_SP_IS(0,_STAT,_EP[0],_EP[1],,,_RPT)
+IF(_STAT)
+_ERR=5
+GOTOF _END
+ENDIF
+ENDIF
+ENDIF
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"SP="<<_SP[0]<<"/"<<_SP[1]<<" EP="<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+IF((_PAR B_AND 'B0001')==1)
+ELSE
+IF((_PAR B_AND 'B1000')<>0)
+IF(_EP[0]<_RPT[0]*_FAK2)
+_ERR=8
+GOTOF _END
+ENDIF
+ELSE
+IF(_RP_DIR[1]==0)
+_ERR=2
+GOTOF _END
+ENDIF
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==99)
+_RP_DIR[0]=0
+IF(_PAR B_AND 'B0010')
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Bei Simulation direkt zum Endpunkt: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+_NUM=1
+GOTOF _END
+ENDIF
+ENDIF
+IF(_PAR B_AND 'H20')AND($P_TOOL==0)
+IF(_PAR B_AND 'B0001')
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Ohne Schneide direkt zum Werkzeugwechselpunkt: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+_NUM=1
+GOTOF _END
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==0)
+F_SP_IS(0,_STAT,_SP[0],_SP[1],,,_RPT)
+IF(_STAT)
+_ERR=1
+GOTOF _END
+ENDIF
+;
+IF(_LOG_ON)AND(_NUM>0)
+WRITE(_LOG,_LOG_FILE,"Rueckzug auf Punkt "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==2)
+F_SP_IS(0,_STAT,_SP[0],_SP[1],,,_RPT)
+IF(_STAT)AND(_RPT[2]==_NO_VAL)
+_ERR=1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Innere Rueckzugsebene nicht angegeben!")
+ENDIF
+GOTOF _END
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==1)
+F_SP_IS(0,_STAT,_SP[0],_SP[1],,,_RPT)
+IF(_STAT)AND(_RPT[3]==_NO_VAL)
+_ERR=1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Hintere Rueckzugsebene nicht angegeben!")
+ENDIF
+GOTOF _END
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==-1)AND(_SP[1]<_RPT[1]*_FAK2)
+_SP_IN_RP=1
+_P[_NUM,0]=_SP[0]
+_P[_NUM,1]=_RPT[1]*_FAK2
+_SP[1]=_P[_NUM,1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Nach Vorderseitenbearbeitung auf RP herausziehen: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==1)AND(_RPT[3]<>_NO_VAL)AND(_SP[1]>_RPT[3]*_FAK2)
+_SP_IN_RP=1
+_P[_NUM,0]=_SP[0]
+_P[_NUM,1]=_RPT[3]*_FAK2
+_SP[1]=_P[_NUM,1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Nach Rueckseitenbearbeitung auf RP herausziehen: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==-2)AND(_SP[0]<_RPT[0]*_FAK2)
+_SP_IN_RP=1
+_P[_NUM,0]=_RPT[0]*_FAK2
+_P[_NUM,1]=_SP[1]
+_SP[0]=_P[_NUM,0]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Nach Aussenbearbeitung auf RP herausziehen: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==2)AND(_RPT[2]<>_NO_VAL)AND(_SP[0]>_RPT[2]*_FAK2)
+_SP_IN_RP=1
+_P[_NUM,0]=_RPT[2]*_FAK2
+_P[_NUM,1]=_SP[1]
+_SP[0]=_P[_NUM,0]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Nach Innenbearbeitung auf RP herausziehen: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]==2)AND(_RP_DIR[1]<>2)AND(_RPT[2]<>_NO_VAL)AND(_SP[0]<=_RPT[2]*_FAK2)AND(_SP[1]<_RPT[1]*_FAK2)
+_SP_IN_RP=_SP_IN_RP+1
+_P[_NUM,0]=_SP[0]
+_P[_NUM,1]=_RPT[1]*_FAK2
+_SP[1]=_P[_NUM,1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Nach Innenbearbeitung seitlich aus dem Teil herausfahren: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RPT[4]<>_NO_VAL)AND(_SP[0]<_RPT[4]*_FAK2)AND(_SP[1]>_RPT[1]*_FAK2)
+_SP_IN_RP=_SP_IN_RP+1
+_P[_NUM,0]=_RPT[4]*_FAK2
+_P[_NUM,1]=_SP[1]
+_SP[0]=_P[_NUM,0]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Senkrecht aus Reitstock herausfahren: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+IF(_RP_DIR[1]==1)AND(_RPT[3]==_NO_VAL)
+_ERR=4
+GOTOF _END
+ENDIF
+IF(_RP_DIR[1]==2)AND(_RPT[2]==_NO_VAL)
+_ERR=4
+GOTOF _END
+ENDIF
+_EPM[0,0]=_NO_VAL
+_EPM[1,0]=_NO_VAL
+IF(_RP_DIR[1]==-1)AND(_EP[1]<_RPT[1]*_FAK2)
+_EPM[0,0]=_EP[0]
+_EPM[0,1]=_EP[1]
+_EP[1]=_RPT[1]*_FAK2
+_NUM_DEL=_NUM_DEL+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Vorderseitenbearbeitung: Endpunkt gemerkt und verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_RP_DIR[1]==1)AND(_RPT[3]<>_NO_VAL)AND(_EP[1]>_RPT[3]*_FAK2)
+_EPM[0,0]=_EP[0]
+_EPM[0,1]=_EP[1]
+_EP[1]=_RPT[3]*_FAK2
+_NUM_DEL=_NUM_DEL+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Rueckseitenbearbeitung: Endpunkt gemerkt und verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_RP_DIR[1]==-2)AND(_EP[0]<_RPT[0]*_FAK2)
+_EPM[0,0]=_EP[0]
+_EPM[0,1]=_EP[1]
+_EP[0]=_RPT[0]*_FAK2
+_NUM_DEL=_NUM_DEL+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Aussenbearbeitung: Endpunkt gemerkt und verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_RP_DIR[1]==2)AND(_RPT[2]<>_NO_VAL)AND(_EP[0]>_RPT[2]*_FAK2)
+_EPM[0,0]=_EP[0]
+_EPM[0,1]=_EP[1]
+_EP[0]=_RPT[2]*_FAK2
+_NUM_DEL=_NUM_DEL+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Innenbearbeitung: Endpunkt gemerkt und verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_RP_DIR[0]<>2)AND(_RP_DIR[1]==2)AND(_EP[1]<=_RPT[1]*_FAK2)AND(_EP[0]<>_SP[0])
+_EPM[1,0]=_EP[0]
+_EPM[1,1]=_EP[1]
+_EP[1]=_RPT[1]*_FAK2
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Innenbearbeitung: Endpunkt gemerkt und nach ZRA verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_RPT[4]<>_NO_VAL)AND(_EP[0]<_RPT[4]*_FAK2)AND(_EP[1]>_RPT[1]*_FAK2)
+_EPM[1,0]=_EP[0]
+_EPM[1,1]=_EP[1]
+_EP[0]=_RPT[4]*_FAK2
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Endpunkt im Reitstock: Endpunkt gemerkt und nach ZRA verschoben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+F_SP_IS(1,_STAT,_SP[0],_SP[1],_EP[0],_EP[1],_RPT)
+IF(_STAT==0)AND(_RPT[4]<>_NO_VAL)
+F_SP_IS(2,_STAT2,_SP[0],_SP[1],_EP[0],_EP[1],_RPT)
+IF(_LOG_ON)AND(_STAT2)
+WRITE(_LOG,_LOG_FILE,"Kollision mit Reitstock!")
+ENDIF
+ENDIF
+IF(_STAT)OR(_STAT2)
+IF(_RPT[2]==_NO_VAL)OR(_RPT[3]==_NO_VAL)
+_DX=_SP[0]-_RPT[0]*_FAK2
+_DZ=_SP[1]-_RPT[1]*_FAK2
+IF(_DX==0)AND(_DZ==0)
+_DZ=_DZ+0.001*_FAK3
+ENDIF
+_AS=ATAN2(_DX,_DZ)
+_DX=_EP[0]-_RPT[0]*_FAK2
+_DZ=_EP[1]-_RPT[1]*_FAK2
+IF(_DX==0)AND(_DZ==0)
+_DZ=_DZ+0.001*_FAK3
+ENDIF
+_AE=ATAN2(_DX,_DZ)
+ELSE
+_DX=_SP[0]-_RPT[2]*_FAK2
+_DZ=_SP[1]-_RPT[3]*_FAK2
+IF(_DX==0)AND(_DZ==0)
+_DZ=_DZ-0.001*_FAK3
+ENDIF
+_AS=ATAN2(_DX,_DZ)
+_DX=_EP[0]-_RPT[2]*_FAK2
+_DZ=_EP[1]-_RPT[3]*_FAK2
+IF(_DX==0)AND(_DZ==0)
+_DZ=_DZ-0.001*_FAK3
+ENDIF
+_AE=ATAN2(_DX,_DZ)
+IF(_AS==180)
+_AS=-180
+ENDIF
+IF(_AE==180)
+_AE=-180
+ENDIF
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Winkel: _AS="<<_AS<<" _AE="<<_AE)
+ENDIF
+IF(_AE>_AS)
+_E[1,0]=_RPT[0]*_FAK2 _E[1,1]=_RPT[1]*_FAK2
+_E[0,1]=_RPT[1]*_FAK2
+IF(_RPT[2]==_NO_VAL)
+_E[0,0]=_E[1,0]
+ELSE
+_E[0,0]=_RPT[2]*_FAK2
+ENDIF
+_E[2,0]=_RPT[0]*_FAK2
+IF(_RPT[3]==_NO_VAL)
+_E[2,1]=_E[1,1]
+ELSE
+_E[2,1]=_RPT[3]*_FAK2
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Linksherum")
+ENDIF
+ELSE
+_E[1,0]=_RPT[0]*_FAK2 _E[1,1]=_RPT[1]*_FAK2
+_E[0,0]=_RPT[0]*_FAK2
+IF(_RPT[3]==_NO_VAL)
+_E[0,1]=_E[1,1]
+ELSE
+_E[0,1]=_RPT[3]*_FAK2
+ENDIF
+_E[2,1]=_RPT[1]*_FAK2
+IF(_RPT[2]==_NO_VAL)
+_E[2,0]=_E[1,0]
+ELSE
+_E[2,0]=_RPT[2]*_FAK2
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Rechtsherum")
+ENDIF
+ENDIF
+ELSE
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Direkt zum Endpunkt!")
+ENDIF
+ENDIF
+_I=0
+WHILE((_STAT)OR(_STAT2))AND(_I<3)
+IF(_NUM>7)
+_ERR=7
+GOTOF _END
+ENDIF
+F_SP_IS(1,_STAT,_SP[0],_SP[1],_EP[0],_EP[1],_RPT)
+IF(_STAT)
+_I=0
+REPEAT
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"SP="<<_SP[0]<<"/"<<_SP[1]<<" Ecke="<<_E[_I,0]<<"/"<<_E[_I,1]<<" _I="<<_I<<" _STAT="<<_STAT)
+ENDIF
+F_SP_IS(1,_STAT,_SP[0],_SP[1],_E[_I,0],_E[_I,1],_RPT)
+_I=_I+1
+UNTIL(NOT _STAT)OR(_I>2)
+_STAT=0
+WHILE(NOT _STAT)AND(_I<=2)
+F_SP_IS(1,_STAT,_SP[0],_SP[1],_E[_I,0],_E[_I,1],_RPT)
+IF(NOT _STAT)
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Naechster Punkt geht auch: _I="<<_I<<" "<<_E[_I,0]<<"/"<<_E[_I,1])
+ENDIF
+_I=_I+1
+ENDIF
+ENDWHILE
+_P[_NUM,0]=_E[_I-1,0]
+_P[_NUM,1]=_E[_I-1,1]
+_STAT=1
+ELSE
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+ENDIF
+IF(_RPT[4]<>_NO_VAL)
+F_SP_IS(2,_STAT2,_SP[0],_SP[1],_P[_NUM,0],_P[_NUM,1],_RPT)
+IF(_LOG_ON)AND(_STAT2)
+WRITE(_LOG,_LOG_FILE,"Kollision mit Reitstock!")
+ENDIF
+ENDIF
+IF(_STAT2)
+_P[_NUM,0]=_RPT[4]*_FAK2
+_P[_NUM,1]=_RPT[1]*_FAK2
+_NUM=_NUM+1
+_I=0
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Kollision mit Reitstock -> Ecke anfahren: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ELSE
+IF(_STAT)
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Zwischenpunkt eingetragen: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+ENDIF
+ENDIF
+IF(_STAT)OR(_STAT2)
+_SP[0]=_P[_NUM-1,0]
+_SP[1]=_P[_NUM-1,1]
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Startpunkt verschoben: "<<_SP[0]<<"/"<<_SP[1])
+ENDIF
+ENDIF
+ENDWHILE
+IF(_EPM[1,0]<>_NO_VAL)
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Gemerkten Eckpunkt 2 anfahren: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+_EP[0]=_EPM[1,0]
+_EP[1]=_EPM[1,1]
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Gemerkten Endpunkt 2 zurueckgeschrieben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+IF(_EPM[0,0]<>_NO_VAL)
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Gemerkten Endpunkt 1 anfahren: "<<_P[_NUM-1,0]<<"/"<<_P[_NUM-1,1])
+ENDIF
+_EP[0]=_EPM[0,0]
+_EP[1]=_EPM[0,1]
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Gemerkten Endpunkt 1 zurueckgeschrieben: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+ENDIF
+_P[_NUM,0]=_EP[0]
+_P[_NUM,1]=_EP[1]
+_NUM=_NUM+1
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Endpunkt anfahren: "<<_EP[0]<<"/"<<_EP[1])
+ENDIF
+IF((_PAR B_AND 'B0001')==1)
+IF(_PAR B_AND 'B0100')
+_NUM=_SP_IN_RP
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Punkte entfernt: nur aus RP herausfahren")
+ENDIF
+ENDIF
+ELSE
+_NUM=_NUM-(_NUM_DEL+1)
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,""<<_NUM_DEL+1<<" Punkt(e) am Ende entfernt!")
+ENDIF
+ENDIF
+IF(_LOG_ON)
+WRITE(_LOG,_LOG_FILE,"Anzahl Punkte: "<<_NUM)
+FOR _I=0 TO _NUM-1
+WRITE(_LOG,_LOG_FILE,"Punkt "<<_I<<": "<<_P[_I,0]<<"/"<<_P[_I,1])
+ENDFOR
+ENDIF
+_END:
+IF(_LOG_ON)AND(_ERR)
+WRITE(_LOG,_LOG_FILE,"Fehler: "<<_ERR)
+ENDIF
+IF(_TEST_RETRCALC)
+IF(_ERR==0)
+WRITE(_LOG,_PRG_TEST,"IF(_NUM<>"<<_NUM<<")")
+_TEST_STR="  WRITE(_LOG,"<<_AZ<<"/_N_MPF_DIR/_N_TE_ERR_MPF"<<_AZ<<","<<_AZ<<_TNR<<": _NUM falsch ("<<_AZ<<"<<_NUM<<"<<_AZ<<" statt "<<_NUM<<")"<<_AZ<<")"
+WRITE(_LOG,_PRG_TEST,_TEST_STR)
+WRITE(_LOG,_PRG_TEST,"ENDIF")
+FOR _I=0 TO _NUM-1
+WRITE(_LOG,_PRG_TEST,"_PM["<<_I<<",0]="<<_P[_I,0])
+WRITE(_LOG,_PRG_TEST,"_PM["<<_I<<",1]="<<_P[_I,1])
+ENDFOR
+WRITE(_LOG,_PRG_TEST,"FOR _I=0 TO "<<_NUM-1)
+WRITE(_LOG,_PRG_TEST,"  IF(_P[_I,0]<>_PM[_I,0])")
+_TEST_STR="    WRITE(_LOG,"<<_AZ<<"/_N_MPF_DIR/_N_TE_ERR_MPF"<<_AZ<<","<<_AZ<<_TNR<<": _P["<<_AZ<<"<<_I<<"<<_AZ<<",0] falsch ("<<_AZ<<"<<_P[_I,0]<<"<<_AZ<<" statt "<<_AZ<<"<<_PM[_I,0]<<"<<_AZ<<")"<<_AZ<<")"
+WRITE(_LOG,_PRG_TEST,_TEST_STR)
+WRITE(_LOG,_PRG_TEST,"  ENDIF")
+WRITE(_LOG,_PRG_TEST,"  IF(_P[_I,1]<>_PM[_I,1])")
+_TEST_STR="    WRITE(_LOG,"<<_AZ<<"/_N_MPF_DIR/_N_TE_ERR_MPF"<<_AZ<<","<<_AZ<<_TNR<<": _P["<<_AZ<<"<<_I<<"<<_AZ<<",1] falsch ("<<_AZ<<"<<_P[_I,1]<<"<<_AZ<<" statt "<<_AZ<<"<<_PM[_I,1]<<"<<_AZ<<")"<<_AZ<<")"
+WRITE(_LOG,_PRG_TEST,_TEST_STR)
+WRITE(_LOG,_PRG_TEST,"  ENDIF")
+WRITE(_LOG,_PRG_TEST,"ENDFOR")
+ENDIF
+WRITE(_LOG,_PRG_TEST,"IF(_ERR<>"<<_ERR<<")")
+_TEST_STR="  WRITE(_LOG,"<<_AZ<<"/_N_MPF_DIR/_N_TE_ERR_MPF"<<_AZ<<","<<_AZ<<_TNR<<": _ERR falsch ("<<_AZ<<"<<_ERR<<"<<_AZ<<" statt "<<_ERR<<")"<<_AZ<<")"
+WRITE(_LOG,_PRG_TEST,_TEST_STR)
+WRITE(_LOG,_PRG_TEST,"ENDIF")
+WRITE(_LOG,_PRG_TEST,"M30")
+ENDIF
+RET

@@ -1,0 +1,69 @@
+;%_N_RNC_USTA_SPF
+;$PATH=/_N_CMA_DIR
+;(_LASER_BROKEN = 1 ;LASER 1 BREAK) 
+;(_LASER_BROKEN = 2 ;LASER 2 BREAK) 
+;(_LASER_TS30 = LASER=1 TS30=2)
+;*********************************
+M252 ;ATTIVA CHIAMATA UT PER ID
+;---------------------------------------------
+;----- AGGIORNA VARIABILI TOOL TABLE/R2xx ----
+;---------------------------------------------
+T=$P_TOOLNO
+M100    ;ABILITA CAMBIO
+G04F0.2
+M258    ;AGGIORNA VARIABILE R
+M107    ;AGGIORNA DATI UT
+M101    ;DISABILITA CAMBIO
+M250    ;ATTIVA CHIAMATA UT PER FAMIGLIA
+;---------------------------------------------
+;----------- CICLI RENISHAW IN JOG -----------
+;---------------------------------------------
+IF $P_OPMODE == 0
+_VALD=$P_TOOL
+IF (_RENT[11] <> 9862) 
+_CALIB=1 _VALD=1
+ENDIF
+_LASER_BROKEN=0 _LASER_TS30=1
+ENDIF
+;SUPA AX[_AXN4]=0 AX[_AXN5]=0
+STOPRE
+;---------------------------------------------
+;----------- CONFIGURA LASER/TS27 ------------
+;---------------------------------------------
+IF ((_LASER_TS30 == 1)OR(_LASER_TS30 == 2)) 
+POS_LASER_TS30
+ENDIF
+STOPRE
+;M252 VERIFICARE SE è NECESSARIO
+;---------------------------------------------
+;-------- CONTROLLO UTENSILE MISURATO --------
+;---------------------------------------------
+IF _CALIB <> 1
+IF (((_RENT[11]==9862) AND (_RENC[20]<>0)) OR ((_RENT[11]==9868) AND (_RENC[20]<>0)) OR (_RENT[11] == 9999))
+IF (R216 <> 4)
+_ERR1:
+MSG("TOOL NOT MEASURED CHECK TOOL TABLE")
+M448;DISATTIVA LASER/TS27
+M00
+GOTOB _ERR1
+ENDIF
+ENDIF
+ENDIF
+M250
+STOPRE
+_LASER_TS30=-12 _CALIB=-13
+M255      ;DISABILITA CONT. VITA UT
+;---------------------------------------------
+;----- POSIZIONA Z PER CONTROLLO BALANCE -----
+;---------------------------------------------
+IF _RENT[11] == 9860
+IF $MN_SCALING_SYSTEM_IS_METRIC == 1
+M44
+MEAS=2 G90 G01 D1 F8000 Z=((_Z_POS_LASER)+(8))
+ELSE
+MEAS=2 G90 G01 D1 F315 Z=((_Z_POS_LASER)+(0.315))
+ENDIF
+ENDIF
+;SUPA G0 G90 D0 AX[$P_AXN3]=0
+RET
+;end

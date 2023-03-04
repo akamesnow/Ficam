@@ -1,0 +1,539 @@
+PROC CUST_TECHCYC(INT _MODE)
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.05.61.00 ;DATE: 2014-08-14
+; Machine Manufacturer Cycle for Technology Cycles
+;----------------------------------------------------------------
+; CAUTION:
+; It is possible that one mode is called several times in succession.
+; The machine manufacturer must therefore make sure that the repeated 
+; call of an already set state does not lead to a false response at
+; the machine.
+;----------------------------------------------------------------
+; PARAMETER:
+;
+; _MODE    :   Mode:
+;                 1 = Main spindle: Change to C axis mode
+;                 2 = Main spindle: Change to spindle mode
+;                 3 = Main spindle: C axis clamping
+;                 4 = Main spindle: Release C axis clamping
+;                 5 = Main spindle: Flush chuck
+;                 6 = Main spindle: Close chuck
+;                 7 = Main spindle: Open chuck with spindle stationary
+;                 8 = Main spindle: Open chuck with spindle rotating
+;                 9 = Main spindle: Flush chuck off
+;
+;                11 = Tool spindle: Change to C axis mode
+;                12 = Tool spindle: Change to spindle mode
+;                13 = Tool spindle: C axis clamping
+;                14 = Tool spindle: Release C axis clamping
+;
+;                21 = Sub spindle: Change to C axis mode
+;                22 = Sub spindle: Change to spindle mode
+;                23 = Sub spindle: C axis clamping
+;                24 = Sub spindle: Release C axis clamping
+;                25 = Sub spindle: Flush chuck
+;                26 = Sub spindle: Close chuck
+;                27 = Sub spindle: Open chuck with spindle stationary
+;                28 = Sub spindle: Open chuck with spindle rotating
+;                29 = Sub spindle: Flush chuck off
+;
+;                30 = 4th axes after block search (e.g. sub spindle linear axis, tailstock, steady rest)
+;
+;                41 = Engage driven tool
+;                42 = Disengage driven tool
+;
+;                61 = Change to turning
+;                62 = Change to peripheral surface machining C
+;                63 = Change to face machining C
+;                64 = Change to peripheral surface machining Y
+;                65 = Change to face machining Y
+;                66 = Change to face machining B (swiveling)
+;                67 = Deselect face machining B (swiveling)
+;                68 = After block search on ST-block before swiveling
+;
+;               100 = Position receptacle before cut-off
+;               101 = Open receptacle for cut-off
+;               102 = Close receptacle after cut-off
+;               103 = End of cut-off
+;
+;               110 = Tool change (ShopTurn, CYCLE206)
+;               111 = After tool change cycle (with tool change) (ShopTurn, CYCLE206)
+;               112 = Before tool change at release plane (ShopTurn)
+;               113 = Before cutting edge change (ShopTurn, CYCLE206)
+;               114 = After tool change cycle (without tool change) (ShopTurn)
+;               116 = At tool change point (ShopTurn)
+;               117 = Before tool change T (ShopMill, ShopTurn, CYCLE206)
+;
+;               120 = Definition: coupling counterspindle/main spindle
+;               121 = Switch off C axis mode after COUPOF
+;               122 = Definition: coupling main spindle/counterspindle
+;               123 = Switch off C axis mode after COUPOF
+;               125 = Change to main spindle
+;               126 = Change to sub spindle
+;
+;               131 = Program start (ShopTurn-Program)
+;               132 = End program header (ShopTurn-Program)
+;               135 = End program loop (ShopTurn-Program)
+;               136 = Program end (ShopTurn-Program)
+;
+;               140 = Blocksearch before tool change
+;               141 = Blocksearch after tool change (collected tool)
+;               142 = Blocksearch after tool change (new tool from ShopTurn)
+;
+;               150 = 2-channel roughing: leading channel before balance cutting
+;               151 = 2-channel roughing: leading channel after balance cutting
+;               152 = 2-channel roughing: following channel before balance cutting
+;               153 = 2-channel roughing: following channel after balance cutting
+;               154 = 2-channel roughing: start roughing in leading channel
+;               155 = 2-channel roughing: end roughing in leading channel
+;               156 = 2-channel roughing: start roughing in following channel
+;               157 = 2-channel roughing: end roughing in following channel
+;
+;               160 = Start multichannel programming
+;
+;               170 = Start group with spindle
+;               171 = End group with spindle
+;
+;               300 = CYCLE86 - position of spindle align to tool orientation (SD 55216 Bit6=1)
+;
+;----------------------------------------------------------------
+; GUD PARAMETER:
+;
+; _F_S_NR[0]:       Number of main spindle
+; _F_S_NR[2]:       Number of counterspindle
+; _F_S_AX[0]:       Axis variable of main spindle
+; _F_S_AX[2]:       Axis variable of counterspindle
+; _SC_CHAN:         Channels of the joblist ("1,2")
+; _SC_ROU_CHAN[0]:  Number of leading channel for 2-channel roughing
+; _SC_ROU_CHAN[1]:  Number of following channel for 2-channel roughing
+; _E_ST_PRG:        ShopTurn program is active
+; _TC_N_WZ:         Tool follow up (CYCLE800)
+; _TC_A_WZ:         Tool orientating (CYCLE800)
+;----------------------------------------------------------------
+; In the variable _F_PLANE there is information available about
+; the next machining plane already before a tool change.
+; This information can be used e.g. in CUST_TECHCYC(41, 42, 110 - 117)
+; or in the tool change cycle of the manufacturer (L6) to prepare
+; the following change of the machining plane during
+; the tool change.
+;
+; _F_PLANE = 61 = Turning
+; _F_PLANE = 62 = Peripheral surface C
+; _F_PLANE = 63 = Face C
+; _F_PLANE = 64 = Peripheral surface Y
+; _F_PLANE = 65 = Face Y
+; _F_PLANE = 66 = Face B (swiveling)
+;----------------------------------------------------------------
+; Before T change this new values are available:
+;   _F_T_STR = tool name ("" = no, "0" = T0)
+;   _F_DP_NO = sister tool (-1 = no)
+;   _F_T_MP  = magazin place (-1 = no)
+; This informations can only be used in CUST_TECHCYC(117).
+;----------------------------------------------------------------
+; Before cutting edge change the new cutting edge is available
+; in the GUD _F_D_NO.
+; This information can only be used in CUST_TECHCYC(113).
+;----------------------------------------------------------------
+DEF INT _I
+DEF REAL _FAK1
+DEF STRING[100] _STR
+DEF CHAR _CHR=34
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF (($P_PATH[$P_STACK]=="/_N_CST_DIR/") AND ($P_SUBPAR[1]==0))
+  _MODE=_SC_CUST_MODE[0]
+ENDIF
+;END_DO_UPGRADE
+;
+; Mode:
+CASE _MODE OF 1 GOTOF _M1 2 GOTOF _M2 3 GOTOF _M3 4 GOTOF _M4 5 GOTOF _M5 6 GOTOF _M6 7 GOTOF _M7 8 GOTOF _M8 9 GOTOF _M9 11 GOTOF _M11 12 GOTOF _M12 13 GOTOF _M13 14 GOTOF _M14 21 GOTOF _M21 22 GOTOF _M22 23 GOTOF _M23 24 GOTOF _M24 25 GOTOF _M25 26 GOTOF _M26 27 GOTOF _M27 28 GOTOF _M28 29 GOTOF _M29 30 GOTOF _M30
+CASE _MODE OF 41 GOTOF _M41 42 GOTOF _M42 61 GOTOF _M61 62 GOTOF _M62 63 GOTOF _M63 64 GOTOF _M64 65 GOTOF _M65 66 GOTOF _M66 67 GOTOF _M67 68 GOTOF _M68
+CASE _MODE OF 100 GOTOF _M100 101 GOTOF _M101 102 GOTOF _M102 103 GOTOF _M103 110 GOTOF _M110 111 GOTOF _M111 112 GOTOF _M112 113 GOTOF _M113 114 GOTOF _M114 116 GOTOF _M116 117 GOTOF _M117 120 GOTOF _M120 121 GOTOF _M121 122 GOTOF _M122 123 GOTOF _M123 125 GOTOF _M125 126 GOTOF _M126 131 GOTOF _M131 132 GOTOF _M132 135 GOTOF _M135 136 GOTOF _M136
+CASE _MODE OF 140 GOTOF _M140 141 GOTOF _M141 142 GOTOF _M142 150 GOTOF _M150 151 GOTOF _M151 152 GOTOF _M152 153 GOTOF _M153 154 GOTOF _M154 155 GOTOF _M155 156 GOTOF _M156 157 GOTOF _M157 160 GOTOF _M160 170 GOTOF _M170 171 GOTOF _M171 300 GOTOF _M300
+;
+;BEGIN_DO_UPGRADE
+; logic for compatibility if you upgrade software
+IF ($P_PATH[$P_STACK]<>"/_N_CST_DIR/")
+  _SC_CUST_MODE[0]=REP(0)
+  _SC_CUST_MODE[0]=_MODE
+  N990 CALL "/_N_CST_DIR/_N_CUST_TECHCYC_SPF"
+  GOTOF _MEND
+ELSE
+   SETAL(61019,"_MODE="<<_MODE<<" (CUST_TECHCYC)" );    Parameter _MODE=n incorrectly defined
+ENDIF
+;END_DO_UPGRADE
+;
+_M1: ; Main spindle: Change to C axis mode
+  ; Spindle is not in C axis mode or after block search
+  IF(($P_SMODE[_F_S_NR[0]]<>2)AND($P_SMODE[_F_S_NR[0]]<>4))OR($P_PROG_EVENT==5)
+    N10 SPOS[_F_S_NR[0]]=0       ; Spindle in C axis mode
+  ENDIF
+  GOTOF _MEND
+  ;
+_M2: ; Main spindle: Change to spindle mode
+  IF($P_SMODE[_F_S_NR[0]]<>1); Spindle is not in spindle mode
+    ;N20 M[_F_S_NR[0]]=           ; Change to spindle mode
+  ENDIF
+  GOTOF _MEND
+  ;
+_M3: ; Main spindle: C axis clamping Attention: The spindle must stay in C axis mode! Do not use M5!
+  ;N30 M[_F_S_NR[0]]=             ; C axis clamping
+  ;N35 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M4: ; Main spindle: Release C axis clamping
+  ;N40 M[_F_S_NR[0]]=             ; Release C axis clamping
+  ;N45 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M5: ; Main spindle: Flush chuck
+  GOTOF _MEND
+  ;
+_M6: ; Main spindle: Close chuck
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_CLOSE[0]))
+    N60 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_CLOSE[0])
+  ELSE
+    N65 EXECSTRING($MCS_M_CODE_CHUCK_CLOSE[0])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M7: ; Main spindle: Open chuck with spindle stationary
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_OPEN[0]))
+    N70 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_OPEN[0])
+  ELSE
+    N75 EXECSTRING($MCS_M_CODE_CHUCK_OPEN[0])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M8: ; Main spindle: Open chuck with spindle rotating
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_OPEN_ROT[0]))
+    N80 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_OPEN_ROT[0])
+  ELSE
+    N85 EXECSTRING($MCS_M_CODE_CHUCK_OPEN_ROT[0])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M9: ; Main spindle: Flush chuck off
+  GOTOF _MEND
+  ;
+_M11: ;  Tool spindle: Change to C axis mode
+; Spindle is not in C axis mode or after block search
+  IF(($P_SMODE[_F_S_NR[1]]<>4)AND($P_SMODE[_F_S_NR[1]]<>2))OR($P_PROG_EVENT==5)
+    N110 SPOS[_F_S_NR[1]]=0       ; Spindle in C axis mode
+  ENDIF
+  GOTOF _MEND
+  ;
+_M12: ;  Tool spindle: Change to spindle mode
+  IF($P_SMODE[_F_S_NR[1]]<>1); Spindle is not in spindle mode
+    ;N120 M[_F_S_NR[1]]=           ; Change to spindle mode 
+  ENDIF
+  GOTOF _MEND
+  ;
+_M13: ;  Tool spindle: C axis clamping
+  ;N130 M[_F_S_NR[1]]=             ; C axis clamping
+  ;N135 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M14: ;  Tool spindle: Release C axis clamping
+  ;N140 M[_F_S_NR[1]]=             ; Release C axis clamping
+  ;N145 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M21: ; Sub spindle: Change to C axis mode
+  ; Spindle is not in C axis mode or after block search
+  IF(($P_SMODE[_F_S_NR[2]]<>2)AND($P_SMODE[_F_S_NR[2]]<>4))OR($P_PROG_EVENT==5)
+    N210 SPOS[_F_S_NR[2]]=0       ; Spindle in C axis mode
+  ENDIF
+  GOTOF _MEND
+  ;
+_M22: ; Sub spindle: Change to spindle mode
+  IF($P_SMODE[_F_S_NR[2]]<>1); Spindle is not is spindle mode
+    ;N220 M[_F_S_NR[2]]=           ; Change to spindle mode
+  ENDIF
+  GOTOF _MEND
+  ;
+_M23: ; Sub spindle: C axis clamping Attention: The spindle must stay in C axis mode! Do not use M5!
+  ;N230 M[_F_S_NR[2]]=             ; C axis clamping
+  ;N235 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M24: ; Sub spindle: Release C axis clamping
+  ;N240 M[_F_S_NR[2]]=             ; Release C axis clamping
+  ;N245 $AC_PRTIME_A_INC=1.5       ; increase auxillary time by 1.5 seconds
+  GOTOF _MEND
+  ;
+_M25: ; Sub spindle: Flush chuck
+  GOTOF _MEND
+  ;
+_M26: ; Sub spindle: Close chuck
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_CLOSE[1]))
+    N260 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_CLOSE[1])
+  ELSE
+    N265 EXECSTRING($MCS_M_CODE_CHUCK_CLOSE[1])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M27: ; Sub spindle: Open chuck with spindle stationary
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_OPEN[1]))
+    N270 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_OPEN[1])
+  ELSE
+    N275 EXECSTRING($MCS_M_CODE_CHUCK_OPEN[1])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M28: ; Sub spindle: Open chuck with spindle rotating
+  IF(ISNUMBER($MCS_M_CODE_CHUCK_OPEN_ROT[1]))
+    N280 EXECSTRING("M"<<$MCS_M_CODE_CHUCK_OPEN_ROT[1])
+  ELSE
+    N285 EXECSTRING($MCS_M_CODE_CHUCK_OPEN_ROT[1])
+  ENDIF
+  GOTOF _MEND
+  ;
+_M29: ; Sub spindle: Flush chuck off
+  GOTOF _MEND
+  ;
+_M30: ; 4th axes after block search (e.g. sub spindle linear axis, tailstock, steady rest)
+  IF(_F_AX_EXISTS[3])
+    ; Factor 1 for conversion of system variables into actual inch/metric system:
+    IF($P_GG[13]<3)                     
+      _FAK1=1
+      IF($MN_SCALING_SYSTEM_IS_METRIC)  
+        IF($P_GG[13]==1)                
+         _FAK1=1/$MN_SCALING_VALUE_INCH 
+        ENDIF
+      ELSE                              
+        IF($P_GG[13]==2)                
+          _FAK1=$MN_SCALING_VALUE_INCH  
+        ENDIF
+      ENDIF
+    ELSE                                
+      _FAK1=1
+    ENDIF
+    IF($MA_BASE_FUNCTION_MASK[_F_S_AX[3]] B_AND 'H100')        
+      FPRAOF(_F_S_AX[3])      
+      N300 G0 POS[_F_S_AX[3]]=$AC_RETPOINT[_F_S_AX[3]]*_FAK1
+    ELSE
+      N301 G0 AX[_F_S_AX[3]]=$AC_RETPOINT[_F_S_AX[3]]*_FAK1
+    ENDIF
+  ENDIF
+  GOTOF _MEND
+  ;
+_M41: ; Engage driven tool
+  ;N410 M[_F_S_NR[1]]=             ;            ; Engage driven tool
+  GOTOF _MEND
+  ;
+_M42: ; Disengage driven tool
+  N420 M[_F_S_NR[1]]=5            ; Stop spindle
+  ;N425 M[_F_S_NR[1]]=             ; Disengage driven tool
+  GOTOF _MEND
+  ;
+_M61: ; Change to turning
+  GOTOF _MEND
+  ;
+_M62: ; Change to peripheral surface machining C
+  GOTOF _MEND
+  ;
+_M63: ; Change to face machining C
+  GOTOF _MEND
+  ;
+_M64: ; Change to peripheral surface machining Y
+  GOTOF _MEND
+  ;
+_M65: ; Change to face machining Y
+  GOTOF _MEND
+  ;
+_M66: ; Change to face machining B (swiveling)
+  GOTOF _MEND
+  ;
+_M67: ; Deselect face machining B (swiveling)
+  ;N670 CYCLE800()
+  GOTOF _MEND
+  ;
+_M68: ; After block search on ST-block before swiveling
+  GOTOF _MEND
+  ;
+_M100: ; Position receptacle before cut-off
+  GOTOF _MEND
+  ;
+_M101: ; Open receptacle for cut-off
+  GOTOF _MEND
+  ;
+_M102: ; Close receptacle after cut-off
+  GOTOF _MEND
+  ;
+_M103: ; End of cut-off
+  GOTOF _MEND
+  ;
+_M110: ; Tool change
+  GOTOF _MEND
+  ;
+_M111: ; After tool change cycle (with tool change)
+  ;IF($P_TOOL)
+  ;  IF($P_AD[1]>=500)AND($P_AD[1]<=599)
+  ;    $P_SETFRAME[SPI(_F_S_NR[1]),TR]=$TC_TPC2[$P_TOOLNO]
+  ;  ELSE
+  ;    $P_SETFRAME[SPI(_F_S_NR[1]),TR]=0
+  ;  ENDIF
+  ;  $P_SETFR=$P_SETFRAME
+  ;ENDIF
+  IF(_E_ST_PRG)AND($MC_TOOL_CHANGE_MODE==1) ;
+; if ShopTurn program is active and tool change with M6
+    _I=0                           ;  not tool type
+    IF($P_TOOL>0)                  ; D > 0
+      _I=$P_AD[1]            ;  tool type
+    ENDIF
+    IF(_I<>731)AND(_I<>732)        ;  not Par quill or Steady rest
+      N1110 F_HOME                 ; Go home to tool change point
+    ENDIF
+  ENDIF                       
+  GOTOF _MEND
+  ;
+_M112: ; Before tool change at release plane
+  GOTOF _MEND
+  ;
+_M113: ; Before cutting edge change
+  ; the new cutting edge is available in the GUD _F_D_NO
+  IF(_E_ST_PRG)                    ;
+; if ShopTurn program is active
+    _I=0                           ;  not tool type
+    IF($P_TOOL>0)                  ; D > 0
+      _I=$P_AD[1]            ;  tool type
+    ENDIF
+    IF(_I<>731)AND(_I<>732)        ;  not Par quill or Steady rest
+      N1130 F_HOME                 ; Go home to tool change point
+    ENDIF
+  ENDIF                       
+  GOTOF _MEND
+  ;
+_M114: ; After tool change cycle (without tool change)
+  GOTOF _MEND
+  ;
+_M116: ; At tool change point
+  GOTOF _MEND
+  ;
+_M117: ; Before tool change T
+  GOTOF _MEND
+  ;
+_M120: ; Definition: coupling counterspindle/main spindle
+  N1200 COUPDEF(SPI(_F_S_NR[2]),SPI(_F_S_NR[0]),1,1,"NOC","DV")
+  GOTOF _MEND
+  ;
+_M121: ; Switch off C axis mode after COUPOF
+  N1210 COUPDEL(SPI(_F_S_NR[2]),SPI(_F_S_NR[0]))
+  GOTOF _MEND
+  ;
+_M122: ; Definition: coupling main spindle/counterspindle
+  N1200 COUPDEF(SPI(_F_S_NR[0]),SPI(_F_S_NR[2]),1,1,"NOC","DV")
+  GOTOF _MEND
+  ;
+_M123: ; Switch off C axis mode after COUPOF
+  N1210 COUPDEL(SPI(_F_S_NR[0]),SPI(_F_S_NR[2]))
+  GOTOF _MEND
+  ;
+_M125: ; Change to main spindle
+  GOTOF _MEND
+  ;
+_M126: ; Change to sub spindle
+  GOTOF _MEND
+  ;
+_M131: ; Program start (ShopTurn-Program)
+  _TC_N_WZ=0
+  _TC_A_WZ=0
+  GOTOF _MEND
+  ;
+_M132: ; End program header (ShopTurn-Program)
+  _I=0                           ;  not tool type
+  IF($P_TOOL>0)                  ; D > 0
+    _I=$P_AD[1]            ;  tool type
+  ENDIF
+  IF(_I<>731)AND(_I<>732)        ;  not Par quill or Steady rest
+    N1320 F_HOME                 ; Go home to tool change point
+  ENDIF
+  GOTOF _MEND
+  ;
+_M135: ; End program loop (ShopTurn-Program)
+  GOTOF _MEND
+  ;
+_M136: ; Program end (ShopTurn-Program)
+  _I=0                           ;  not tool type
+  IF($P_TOOL>0)                  ; D > 0
+    _I=$P_AD[1]            ;  tool type
+  ENDIF
+  IF(_I<>731)AND(_I<>732)        ;  not Par quill or Steady rest
+    N1360 F_HOME                 ; Go home to tool change point
+  ENDIF
+  GOTOF _MEND
+  ;
+_M140: ; Blocksearch before tool changeel
+  GOTOF _MEND
+  ;
+_M141: ; Blocksearch after tool change (collected tool)
+  GOTOF _MEND
+  ;
+_M142: ; Blocksearch after tool change (new tool from ShopTurn)
+  GOTOF _MEND
+  ;
+_M150: ; 2-channel roughing: leading channel before balance cutting
+  GOTOF _MEND
+  ;
+_M151: ; 2-channel roughing: leading channel after balance cutting
+  GOTOF _MEND
+  ;
+_M152: ; 2-channel roughing: following channel before balance cutting
+  ; axis couplings activate (example for channel axis: X1, Z1, X2, Z2, ...)
+  _STR="CPLON[X"<<_SC_ROU_CHAN[1]<<"]=(X"<<_SC_ROU_CHAN[0]<<") CPSETTYPE[X"<<_SC_ROU_CHAN[1]<<"]="<<_CHR<<"TRAIL"<<_CHR<<" CPLNUM[X"<<_SC_ROU_CHAN[1]<<",X"<<_SC_ROU_CHAN[0]<<"]=1"
+  EXECSTRING(_STR) ; CPLON[X2]=(X1) CPSETTYPE[X2]="TRAIL" CPLNUM[X2,X1]=1
+  _STR="CPLON[Z"<<_SC_ROU_CHAN[1]<<"]=(Z"<<_SC_ROU_CHAN[0]<<") CPSETTYPE[Z"<<_SC_ROU_CHAN[1]<<"]="<<_CHR<<"TRAIL"<<_CHR<<" CPLNUM[Z"<<_SC_ROU_CHAN[1]<<",Z"<<_SC_ROU_CHAN[0]<<"]=1"
+  EXECSTRING(_STR) ; CPLON[Z2]=(Z1) CPSETTYPE[Z2]="TRAIL" CPLNUM[Z2,Z1]=1
+  GOTOF _MEND
+  ;
+_M153: ; 2-channel roughing: following channel after balance cutting
+  ; axis couplings deactivate (example for channel axis: X1, Z1, X2, Z2, ...)
+  _STR="CPLOF[X"<<_SC_ROU_CHAN[1]<<"]=(X"<<_SC_ROU_CHAN[0]<<")"
+  EXECSTRING(_STR) ; CPLOF[X2]=(X1)
+  _STR="CPLOF[Z"<<_SC_ROU_CHAN[1]<<"]=(Z"<<_SC_ROU_CHAN[0]<<")"
+  EXECSTRING(_STR) ; CPLOF[Z2]=(Z1)
+  GOTOF _MEND
+  ;
+_M154: ; 2-channel roughing: start roughing in leading channel
+  GOTOF _MEND
+  ;
+_M155: ; 2-channel roughing: end roughing in leading channel
+  GOTOF _MEND
+  ;
+_M156: ; 2-channel roughing: start roughing in following channel
+  GOTOF _MEND
+  ;
+_M157: ; 2-channel roughing: end roughing in following channel
+  GOTOF _MEND
+  ;
+_M160: ; Start multichannel programming
+  ; Start of all other channels of the joblist (up to channel 9) from the first programmed channel
+  ;IF(_SC_CHAN<>"")AND(NOT $P_SIM) ; in simulation all channels are started automatically
+    ; only in the first programmed channel
+    ;IF(NUMBER(SUBSTR(_SC_CHAN,0,1))==$P_CHANNO)
+      ;_I=2
+      ; loop over all channels
+      ;WHILE(_I<STRLEN(_SC_CHAN))
+        ;START(NUMBER(SUBSTR(_SC_CHAN,_I,1)))
+        ;_I=_I+2
+      ;ENDWHILE
+    ;ENDIF
+  ;ENDIF
+  GOTOF _MEND
+  ;
+_M170: ; Start group with spindle
+  GOTOF _MEND
+  ;
+_M171: ; End group with spindle
+  GOTOF _MEND
+  ;
+_M300: ; CYCLE86 - position of spindle align to tool orientation (SD 55216 Bit6=1)
+  GOTOF _MEND
+  ;
+_MEND:
+RET
+;----------------------------------------------------------------
+; END
+;----------------------------------------------------------------

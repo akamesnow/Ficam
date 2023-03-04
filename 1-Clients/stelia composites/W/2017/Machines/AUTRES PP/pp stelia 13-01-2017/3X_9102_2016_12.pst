@@ -1,0 +1,4267 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V19.00 P0 E1 W19.00 T1442758040 M19.00 I0 O0
+# post Num760 
+# LE 18/11/2000  PAR Eric Dauvilliers
+# Special = outil 14 pour usinage lateral a 0 90 180 270
+# MODIF  ROTATION /10
+# MODIF PAS DE G17
+# Modif le 27/4/2011 modif entete 
+# Modif le 27/7/2012 cicle helicoid spiral
+# le 29 - 11 - 2012 = > revision 2 cycle caq triple spiral + debut goute d'eau 
+
+
+#--------------------------------- FORMATS ----------------------------------
+fs  1  1.3l
+fs  2  1.3
+fs  3  4 0
+fs  4  1 0ln
+fs  5  3 0t
+fs  6  2 0ln
+fs  9  1 0ltn
+fs  11  1.3ln
+fs  12  1 0l
+fs  13  1.3n
+fs  14  1.2l
+#------------------------ AFFECTATIONS FORMATS ------------------------------
+fmt  "X" 13 xr$
+fmt  "Z" 13 zr$
+fmt  "Y" 13 yr$
+fmt  "T" 4 t$
+fmt  "T" 4 next_tool$
+fmt  "T" 4 prvt
+fmt  "D" 4 tloffno$
+fmt  "H" 4 tlngno$
+
+fmt "G" 12 pgpl
+#------------------------ CONDITIONS DE COUPE --------
+fmt  "F" 5 fr$
+fmt  "F" 5 fr_pos$
+fmt  "F" 5 avance
+fmt  "S" 3 ss$
+
+# MODIF DE ROTATION /10
+
+ss$=ss$/10
+
+fmt  "F" 5 fr3       #pas*broche
+#----------------------------- DIVERS --------------
+fmt  "I" 1 i$
+fmt  "J" 1 j$
+fmt  "K" 1 k$
+fmt  "R" 11 arcrad$
+fmt  "N" 3 n$
+fmt  "%" 9 progno$
+fmt  9 progname$
+fmt    12 gcode$
+fmt    4 opcode$
+fmt    4 coolant$
+fmt    3 ccomp$
+fmt   11 debut
+fmt   11 debut1
+fmt   11 debut3  #sert a afficher G90 G0 avec coco apres chgt outil
+fmt "E60000=" 4 mi1$
+fmt "E61000=" 4 mi2$
+fmt "E62000=" 4 mi3$
+fmt "W" 2 axec
+fmt "PW" 2 prvaxec
+fmt  "OP" 3 op_id$
+fmt  "PRV_OP" 3 prvop_id
+
+
+#---------------------------- VAR PERCAGES -----------
+fmt  "Z" 2 depth$
+fmt  "ER" 2 refht$
+fmt  "EF" 2 dwell$
+fmt  "Z" 2 initht$
+fmt  "Q" 1 peckclr$
+fmt  "P" 1 peck1$
+fmt  "F" 5 frplunge$
+
+#Address string definitions
+strm        : "M"
+strn        : "N"
+stro        : "O"
+strp        : "P"
+srad        : "R"
+srminus     : "R-"
+sblank : ""
+
+sdcom   : "("            # STRING de debut de commentaire
+sfcom   : ")"            # STRING de fin de commentaire
+
+
+#----------------------------questions------------------------
+
+srefpiec : ""
+fq 1 srefpiec "REFERENCE PIECE ? ( 15 caractères maxi )"
+
+snomprog : ""
+fq 2 snomprog "NOM DU PROGRAMMEUR ?"
+
+stxtdiv : ""
+fq 3 stxtdiv "COMMENTAIRES ?"
+
+
+#------------------------------ FORMULES ------------------------------------
+mill      : 1
+spaces$    : 1
+yes$       =1
+no$        =0
+progno$    : 100
+seqmax$    : 32000   # Max. sequence no.
+omitseq$   : no$     # Omit sequence no.?
+frrapid   : 300      # Rapid feedrate? 300.0
+frmax     : 5000     # Maximum feedrate? 300.0
+ssmax     : 5000     # Maximum spindle speed? 3000
+breakarcs$ : 0       #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+arctype$   : 1       # Arc center 1=abs, 2=inc, 3=st-cen, 4=unsigned inc.
+do_full_arc$ : 1     #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 2     #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+ncldr$     : 20      # No. of leader characters
+ldrcode$   : 65      # Leader character dec. equiv.
+bldnxtool$ : 1       # Build next tool table
+tooltable$ : 1
+opcode$    : 1
+cool      : 0
+fr3       = peck2$*ss$*0.95
+nobrk$     : no$     # Omit breakup of rapid linear motion? yes/no(xy,z or z,xy)
+x$         : 999
+y$         : 999
+z$         : 999
+i$         : 999
+j$         : 999
+k$         : 0
+gcode$     :   -1
+drlgsel   =   -1
+rotaxtyp$  : 4
+
+# sscode    = frange(1,ss$)  # Spindle speed code
+true      = 1
+false     = 0
+
+#---------------------------- CYCLES UTILISES -------------------------------
+usecandrill$ : yes$
+usecanpeck$  : yes$
+usecanchip$  : no$
+usecantap$   : yes$
+usecanbore1$ : yes$
+usecanbore2$ : yes$
+usecanmisc1$ : yes$
+usecanmisc2$ : yes$
+
+
+fastmode$ = 0
+bug1$ : 1              # 1 = Output post to screen - 2 = output leader to screen
+bug2$ : 50             # Add postline label to each line at column 'bug2'
+bug3$ : 60             # Add whatline to each line
+bug4$ : 70             # Add nci no
+whatno$ : yes$         # Ignore whatline branches to plin1 etc.?
+linktolvar$    : 1     #Associer les variables de tolérance X aux variables V9-
+linkplnvar$    : 1     #Associer les variables spécifiques plan X aux variables V9-?
+linklvar$      : 1     #Associer les variables spécifiques X Tournage aux variables V9-
+cant_tlchng$   : 1     #Ignorer entrée de texte programmé au changement avec tlchng_aft?
+newglobal$     : 0     #Activer la vérification d'erreur pour les variables globales?
+
+strtool_v7$ : 2        #Use Version 7 toolname, 1= path components, 2=string
+get_1004$   : 1        #Find gcode 1004 with getnextop?
+rpd_typ_v7$ : 1        #Use Version 7 style contour flags?
+#------------------------------- FORMAT DES STRINGS ------------------------------------
+sg00    : "G0"
+sg01    : "G1"
+sg02    : "G2"
+sg03    : "G3"
+sgcode : ""
+
+fstrsel  sg00 gcode$ sgcode 4 -1
+#                   ----------------------------------------
+sm09    : "M9"
+sm08    : "M8"
+smcool : ""
+
+lubrif = fsg2(coolant$)
+fstrsel  sm09 lubrif smcool 2 -1
+#                   ----------------------------------------
+sm01          : "M4"
+sm02          : "M5"
+sm03          : "M3"
+spdlon : ""
+
+spdlsel = fsg3(ss$)
+fstrsel  sm01 spdlsel spdlon 3 -1
+#                   ----------------------------------------
+scc0    : ""
+sg40    : "G40"
+sg41    : "G41"
+sg42    : "G42"
+sg140   : "G40"
+sccomp : ""
+
+fstrsel  scc0 ccomp$ sccomp 5 -1
+#                   ----------------------------------------
+#selection automatique du type d'operation.
+sopcode1    : "CONTOUR2D"
+sopcode2    : "CONTOUR3D"
+sopcode3    : "PERCAGE"
+sopcode4    : "POCHE"
+sopcode5    : "REGLEE"
+sopcode6    : "BALAYEE2D"
+sopcode7    : "BALAYEE3D"
+sopcode8    : "REVOLUTION"
+sopcode9    : "SECTION"
+sopcode10   : "CARREAUX"
+sopcode11   : "RACCORD"
+sopcode12   : "3D"
+sopcode13   : "3D"
+sopcode14   : "3D"
+sopcode15   : "3D"
+sopcode16   : "3D"
+sopcode17   : "3D"
+sopcode18   : "3D"
+sopcode19   : "3D"
+sopcode20   : "3D"
+sopcode21   : "3D"
+sopcode22   : "3D"
+sopcode23   : "3D"
+sopcode24   : "3D"
+sopcode25   : "3D"
+sopcode26   : "3D"
+
+sopcode : ""
+
+opcode$=opcode$-1
+fstrsel  sopcode1 opcode$ sopcode 17 -1
+
+# --------------------COMMENTAIRES-------------------------------------
+
+fmt " OUTIL-T"       4   tnote     # Note format
+fmt " COR-DIA-D" 4   toffnote      # Note format
+fmt " LONG.-"      4   tlngnote    # Note format
+fmt " DIAM-"      1   tldia$       # Note format
+fmt " RAY-"      1   tlrad$        # Note format
+
+serreur_1 : "Utilisation d'opération 5 axes incompatible avec cette machine - Opération n°"
+
+psortie
+        serreur_visu = serreur_1 + no2str(numop)
+        *serreur_visu, e$
+        result = mprint(serreur_visu)
+        exitpost$
+
+ptoolcomment    #commentaire sur outil
+              tnote = t$
+              toffnote = tloffno$
+              tlngnote = tlngno$
+            spaces$ = 0
+              "(", strtool$, *tnote, *toffnote, *tldia$,"mm", *tlrad$,"mm", ")", e$
+            spaces$ = 1
+
+pcomment$        #commentaire 
+            pcomment2
+
+pcomment2       #commentaire en majuscule
+            scomm$ = ucase (scomm$)
+            if gcode$ = 1007, "(", scomm$,")"
+            else, "(", scomm$, ")", e$
+
+#-------------------- divers -----------------------------------------
+pgamev       # Gamme de vitesse pour Speed G40 ou G41
+             #  if ss < 17999, "M40"
+                if ss$ > 0, "M40"
+
+pfr         # avance
+                #if fr$ >= 0, fr$
+                avance = fr_pos$
+                avance
+
+pcord   # Compensation outil ray.
+            if cc$ = 41, sccomp
+            if cc$ = 42, sccomp
+            sccomp
+
+
+
+
+
+#----------------- USINAGE AVEC OUTIL 14 AVEC RENVOI ANGLE ----------------------------
+
+pdec0       #axes a 0 degre
+            n$,"E60001=-782611",e$
+            n$,"E61001=41618",e$
+            n$,"E62001=-33100",e$
+
+pdec90      #axes a 90 degre
+            n$,"E60001=-726540",e$
+            n$,"E61001=-13750",e$
+            n$,"E62001=-33100",e$
+
+pdec180     #axes a 180 degre
+            n$,"E60001=-672050",e$
+            n$,"E61001=41618",e$
+            n$,"E62001=-32800",e$
+
+pdec270     #axes a 270 degre
+            n$,"E60001=-727890",e$
+            n$,"E61001=96859",e$
+            n$,"E62001=-32800",e$
+
+
+pusilat       # ecriture de l'angle et du decalage pour nouvelle outil
+            axec = atan2(m8$,m7$)
+            gcode$ = 0
+            !t$
+                n$,"M6T0D0", e$
+                n$,"M111", e$
+            n$, "M60",e$      # verifier correspondance   
+            n$, "M120",e$     # verifier correspondance                 
+            prvt = t$
+            prvaxec = axec
+                    n$, *sgcode,"G52", *axec, e$
+            if axec = 0, pdec0
+                    if axec = 90, pdec90
+            if axec = 180, pdec180
+            if axec = 270, pdec270
+            n$,"M130", e$
+                    n$, *sgcode, xr$, yr$, e$
+            n$, zr$, e$
+            ex$
+pusilat2       # ecriture de l'angle et du decalage pour meme outil et new angle
+            axec = atan2(m8$,m7$)
+            gcode$ = 0
+            prvt = t$
+            prvaxec = axec
+            n$, *sgcode, "G52","Z70",e$
+                    n$, *sgcode,"G52", *axec, e$
+            if axec = 0, pdec0
+                    if axec = 90, pdec90
+            if axec = 180, pdec180
+            if axec = 270, pdec270
+            n$,"M130", e$
+                    n$, *sgcode, xr$, yr$, e$
+            n$, zr$, e$
+            ex$
+
+prazusilat    # remise a zero du renvoie d angle
+            n$, "M131", e$     # verifier correspondance  
+            n$, "M121", e$     # verifier correspondance  
+                    n$, "G0 G52 W0", e$
+            n$, "E60001=0", e$
+            n$, "E61001=0", e$
+            n$, "E62001=0", e$
+            n$, "G0","G52","Z70",e$
+
+
+
+#-------------------------------- ENTETES -----------------------------------
+pprep$
+
+    #   err_file$ = 4
+
+pheader$     # Entete
+
+                   q2
+                   if progno$ = 0, progno$ = 1
+             progno$,e$
+
+psof0$       # Deb T0
+             psof$
+
+pcool       # mise en place de l'arrosage
+               # n, "M8"
+               cool = 1
+
+psof$        # deb T<>0
+            pnumop
+            if opcode$ = 16 | nextop$ = 11, psortie
+            avance = 999999
+            !avance
+            if mi1$ = 0, mi1$ = 1099403
+            if mi2$ = 0, mi2$ = 693276
+            if mi3$ = 0, mi3$ =   -280550
+            gcode$ = 0
+            "(EADS - COMPOSITES AQUITAINE)",e$
+            "(CRENEAU 3 AXES 9102)",e$
+            "(ETABLI LE ",date$," A ",time$, " H)",e$
+            "(PROG PAR ",snomprog, ")",e$
+            #"$ PIECE:", srefpiec,e$
+            #"$ USINAGE:", sopcode,e$
+            comment$
+            ptoolcomment
+            n$, "G0 G52 Z70",e$
+            n$, "M131",e$   # verifier correspondance 
+            n$, "M121",e$   # verifier correspondance 
+            if t$ <> 14, n$, "G0 G52 W0",e$
+            n$, *mi1$,e$
+            n$, *mi2$,e$
+            n$, *mi3$,e$
+            n$, "E60001=0", e$
+            n$, "E61001=0", e$
+            n$, "E62001=0", e$
+            if t$ = 14, pusilat
+                    n$, "G0 G52 Z70",e$
+            n$, "M5",e$
+                n$, *t$, *tloffno$, "M6",e$
+                    n$, *sgcode, xr$, yr$,e$
+            n$, "M60",e$    # verifier correspondance 
+            n$, "M110",e$   # verifier correspondance               
+            n$, pgamev, *spdlon ,*ss$,e$
+            n$, zr$,e$
+            prvt = t$
+            prvop_id = op_id$
+
+
+ptlchg0$     # Chang T=0
+             #"$ USINAGE:", sopcode,e$
+             pnumop
+             if opcode$ = 16 | nextop$ = 11, psortie
+             comment$
+             axec = atan2(m8$,m7$)
+                    if t$ = 14 & prvaxec <> axec, pusilat2
+                        if t$ <> 14, n$,*ss$,e$
+                        prvop_id = op_id$
+
+ptlchg$      # Chang T<>prv_tool
+            pnumop
+            if opcode$ = 16 | nextop$ = 11, psortie
+            gcode$ = 0
+            avance = 999999
+            !avance
+                    n$,"M5",e$
+            #"$ USINAGE:", sopcode,e$
+            comment$
+            ptoolcomment
+                    n$, "G0 G52 Z70",e$
+            n$, "M5",e$
+            if prvt = 14, prazusilat
+            if t$ =  14, pusilat
+                n$, *t$, *tloffno$, "M6",e$
+                    n$, *sgcode, xr$, yr$,e$
+                    !prvt
+                    n$, "M60",e$    # verifier correspondance 
+             n$, "M110",e$          # verifier correspondance    
+            n$, pgamev, *spdlon ,*ss$,e$
+            n$, zr$,e$
+            prvt = t$
+            prvop_id = op_id$
+
+peof0$       # Fin T = 0
+            peof$
+
+peof$        # Fin T <> 0
+                  n$, "G0 G52 Z70",e$
+            n$, "M5",e$
+            if prvt <> 14 ,n$, "M6", "T0D0",e$
+            if prvt = 14, prazusilat
+            n$, "G0","G52","X445","Y1600",e$
+            if prvt <> 14, n$, "M60",e$
+            if prvt <> 14, n$, "M111",e$
+            n$, "M02",e$
+
+
+#------------------------------- CONTOURS -----------------------------------
+prapid$      # Ligne rapide
+            n$, sccomp, sgcode, *x$, *y$, *z$, e$
+            avance = 999999
+            !avance
+
+pzrapid$     # Ligne Z rapide
+            n$, sccomp, sgcode, z$, e$
+            avance = 999999
+            !avance
+plin$        # Ligne travail
+            if cool = 0, pcool
+            n$, pcord, sgcode, *x$, *y$, z$, pfr,e$
+
+pz$          # z en avance rapide
+            n$, sgcode, z$, pfr,e$
+
+pcir$        # Circular
+                        pgpl = 17
+            if plane$ = 1, pgpl = 19
+            if plane$ = 2, pgpl = 18
+            if cool = 0, pcool
+            #if plane = 0, n, pgpl, sccomp, *sgcode, *x, *y, *i, *j, pfr
+                #if plane = 1, n, pgpl, sccomp, *sgcode, *y, *z, *j, *k, pfr
+                #if plane = 2, n, pgpl, sccomp, *sgcode, *x, *z, *i, *k, pfr
+
+
+                if plane$ = 0, n$, sccomp, *sgcode, *x$, *y$, z$, *i$, *j$, pfr,e$
+                if plane$ = 1, n$, sccomp, *sgcode, *y$, *z$, x$, *j$, *k$, pfr,e$
+                if plane$ = 2, n$, sccomp, *sgcode, *x$, *z$, y$, *i$, *k$, pfr,e$
+
+#------------------------------- PERCAGES -----------------------------------
+
+phole       # Transition entre cycles
+                n$, x$, y$, e$
+
+
+pdrill$      # Cycle de percage G81
+            if cool = false, pcool
+            n$, "G81", *x$, *y$, *refht$, *depth$, *frplunge$,e$
+
+
+pchpbrk$     # Cycle de debourrage G83
+            if cool = 0, pcool
+            n$, "G83", *x$, *y$, *depth$, *refht$, *peck1$, *peckclr$, *dwell$, *frplunge$,e$
+
+
+ppeck$       # Cycle de lamage G82
+            if cool = 0, pcool
+            n$, "G82", *x$, *y$, *depth$, *refht$, *dwell$, *frplunge$,e$
+
+
+ptap$        # Cycle de taraudage G84
+            n$, "M9",e$
+                    n$, "M7",e$
+            n$, "G84", *x$, *y$, *depth$, *refht$, *frplunge$,e$
+                    cool = 0
+
+
+pbore1$      # Cycle d'alesage G85
+            if cool = 0, pcool
+            n$, "G85", *x$, *y$, *depth$, *refht$, *frplunge$,e$
+
+
+pbore2$      # Cycle d'alesage arret de broche G86
+            if cool = 0, pcool
+            n$, "G86", *x$, *y$, *depth$, *refht$, *frplunge$,e$
+
+
+pmisc1$      # cycle de percage brise copeaux  G87
+            if cool = 0, pcool
+            n$, "G87", *x$, *y$, *depth$, *refht$, *peck1$, *peckclr$, *dwell$, *frplunge$,e$
+
+pmisc2$      # cycle alesage arret indexe
+            if cool = 0, pcool
+            n$, sdcom, " DEBUT FIN CYCLE HELICOIDO SPIRAL", sfcom, e$
+            percage_helicoido_spiral
+
+
+pdrill_2$    # Canned Drill Cycle
+          phole
+ppeck_2$     # Canned Peck Drill Cycle
+          phole
+pchpbrk_2$   # Canned Chip Break Cycle
+          phole
+ptap_2$      # Canned Tap Cycle
+          phole
+pbore1_2$    # Canned Bore #1 Cycle
+          phole
+pbore2_2$    # Caned Bore #2 Cycle
+          phole
+pmisc1_2$    # Canned Misc #1 Cycle
+          phole
+pmisc2_2$    # Canned Misc #2 Cycle
+          percage_helicoido_spiral_2
+
+pcanceldc$   # Cancel canned drill cycle
+
+            if cycle_heli_spiral = 0, n$, "G80",e$
+            gcode$ = 0
+            n$, *sgcode ,*initht$,e$
+            cycle_heli_spiral = 0
+
+pcancelcc$   # Cancel canned drill cycle
+
+pnumop      # numerotation des operations post-processées
+
+             if op_id$ <> prvop_id, numop = numop + 1
+
+
+
+# ----------------------- DEBUT CYCLE SPECIAL HELICOIDO-SPIRAL ------------------------
+
+
+
+#------------- DECLARATION DES VARIABLES via le cycle  ------------
+
+
+fmt "Aval ou OPP=" 4 ava_opp                        # Détermine si la fraise travail en avalant ou opposition
+fmt "Diametre final=" 2 dia_final                   # diametre du trou programmé 
+fmt "Diametre ebauche=" 2 dia_ebauche               # diametre d'ebauche
+fmt "Pas maximum en Z=" 2 pas_max_z                 # Pas maximum en Z
+fmt "Pas maximum en XY=" 2 pas_max_xy               # Pas maximum en XY pour la spiral en fond de trou
+fmt "Nb Tr de finition=" 4 nbe_tr_fin               # Nombre de tour pour passe de finition
+fmt "F" 4 f_ent_cir                                 # avance en entree ciculaire au debut de l'helicoide
+fmt "F" 4 f_int_hel                                 # avance de l'helicoide 
+fmt "F" 4 f_spiral                                  # avance de la spiral
+fmt "F" 4 f_int_fin                                 # avance sur la finition du trou
+fmt "F" 4 f_sor_cir                                 # avance sur la sortie de la finition du trou
+fmt "F" 4 f_base                                    # avance de base du cycle
+fmt "Dis. entre perp=" 2 ent_perp                   # distance d'entree perpendiculaire au debut du cycle pour le G41
+fmt "Gestion usure=" 4 cor_ray                      # ativation d'un G41 ou G42 suivant besoins
+fmt "Nb Tr de finition de retour=" 4 nbe_tr_retour  # Nombre de tour pour la deuxieme passe de finition a l'opposer du sens de la premiere
+fmt  "OPERATION "  4 numop                          # NUMERO D'OPERATION
+
+fmt "Drl_prm1=" 2 drl_prm1$
+fmt "Drl_prm2=" 2 drl_prm2$
+fmt "Drl_prm3=" 2 drl_prm3$
+fmt "Drl_prm4=" 2 drl_prm4$
+fmt "Drl_prm5=" 2 drl_prm5$
+fmt "Drl_prm6=" 2 drl_prm6$
+fmt "Drl_prm7=" 2 drl_prm7$
+fmt "Drl_prm8=" 2 drl_prm8$
+fmt "Drl_prm9=" 2 drl_prm9$
+fmt "Drl_prm10=" 2 drl_prm10$
+
+
+#------------- DECLARATION DES VARIABLES pour calcul interne  ------------
+
+
+fmt "X" 2 x_chs                                 # coordonee X du centre du trou du cycle helicoido-spiral
+fmt "Y" 2 y_chs                                 # coordonee X du centre du trou du cycle helicoido-spiral
+fmt "Z" 2 z_plan_securite                       # coordonee Z du plan de securite
+fmt "Z" 2 z_retraction                          # coordonee Z du plan de rétraction 
+fmt "Z" 2 z_dessus_brut                         # coordonee Z du dessus du brut , debut matiere 
+fmt "Z" 2 z_profondeur                          # coordonee Z du fond du trou
+fmt "X" 2 x_perp                                # coordonee X du point pour l'entre perpendiculaire
+fmt "X" 2 x_ent_cir                             # coordonee X du point du centre du cercle pour l'entre circulaire
+fmt "R" 2 ray_ent_cir                           # rayon du cercle de l'entree circulaire
+fmt "Nb pas Z =" 4 nbe_pas_z                    # nombre de pas ( ou de tour ) sur l'interpo helicoidale
+fmt "Nb de pas actuel" 4 nbe_pas_actu           # nombre de pas actuel
+fmt "Pas Z=" 2 pas_z                            # valeur reel du pas de l'helice
+fmt "Nb pas XY =" 2 nbe_pas_xy                  # nombre de pas ( ou de tour ) sur l'interpo helicoidale
+fmt "Pas XY=" 2 pas_xy                          # valeur reel du pas de la spiral
+fmt "Nb de cercle" 2 nbe_demi_cercle            # nombre de demi cercle que constitue la spiral
+fmt "R" 2 ray_sor_cir                           # rayon pour la sortie de la spiral
+fmt "X" 2 x_sor_cir                             # coordonee X du point du centre du cercle pour la sortie circulaire
+fmt "R" 2 ray_ebauche                           # rayon d'ebauche 
+fmt "Sens" 4 sens_usi                           # sens de l'usinage, -1 = avalant, 1 = opposition et depend de la reponce: Avalant=0 Oppositon = 1
+fmt "I" 2 i_ent_cir                             # coordonee I centre du cercle en relatif point de depart
+fmt "J" 2 j_ent_cir                             # coordonee J centre du cercle en relatif point de depart
+fmt "X" 2 xp_chs                                # ecriture d'un X dans le cycle Helicoédo-Spiral
+fmt "X" 2 old_xp_chs                            # ecriture d'un X dans le cycle Helicoédo-Spiral
+fmt "Y" 2 yp_chs                                # ecriture d'un Y dans le cycle Helicoédo-Spiral
+fmt "Z" 2 zp_chs                                # ecriture d'un Y dans le cycle Helicoédo-Spiral
+fmt "I" 2 ip_chs                                # ecriture d'un X dans le cycle Helicoédo-Spiral
+fmt "J" 2 jp_chs                                # ecriture d'un Y dans le cycle Helicoédo-Spiral
+fmt "I" 2 i_eb_cir                              # coordonee I centre du cercle de l'helicoide en relatif point de depart
+fmt "J" 2 j_eb_cir                              # coordonee J centre du cercle en relatif point de depart
+fmt "Diam" 2 diam_cercle                        # diametre du cercle d'un demi tours de spiral
+fmt "X max dans le trou" 2 xp_chs_max           # coordoonee maxi dans le centre du trou
+fmt "Ray_sortie" 2 ray_cercle_sortie            # Rayon de sortie sur la finition 
+fmt "rap_ray_sortie=" 1 rapport_ray_sortie      # rapport muliplicateur du rayon de sortie
+fmt "angle_ray_sortie" 1 angle_ray_sortie       # angle de balayage de la portion de cercle de la sortie
+fmt "cycle_heli_spiral=" 4 cycle_heli_spiral    # flag pour savoir si on a fait une spirale
+fmt  "X" 2 xabs                                 # XYZ en Absolue pour NC
+fmt  "Y" 2 yabs
+fmt  "Z" 2 zabs
+fmt  "X" 2 xsav                                 # XYZ en Absolue pour NC
+fmt  "Y" 2 ysav
+fmt  "X" 2 xinc_abs                             # ajout valeur XYZ en Absolue ou incremental
+fmt  "Y" 2 yinc_abs
+fmt  "Z" 2 zinc_abs
+fmt  "abs_inc" 4 abs_inc
+#fmt "F" 4 avance
+fmt "Nb spiral debut " 4 nb_tr_debut " tr"      # Nombre de spiral en debut
+fmt "Nb spiral fin " 4 nb_tr_fin    " tr"       # Nombre de spiral en fin
+fmt "Pas spiral debut-fin " 2 pas_Z_deb_fin " mm"       # Pas de la spiral d'entree et de fin  
+fmt "haut spi debut" 2 prof_z_deb_spi           # calcul de la hauteur de la spiral de debut en ebauche
+fmt "haut spi fin" 2 prof_z_fin_spi             # calcul de la hauteur de la spiral de fin en ebauche
+fmt "helice total = " 2 hauteur_hel " mm"       # hauteur totale de l'helicoide
+fmt "Le cumul helice debut et fin = " 2 hauteur_hel_debfin " mm"
+fmt "Ray_cercle ebauche" 2 ray_cercle_ebauche   # Rayon de sortie sur la finition 
+
+
+
+#------------------ DECLARATIONS DE MESSAGE SI VALEURS NON CONFORMES-----------
+
+
+serreur_visu : ""
+serreur1 : "Erreur dans cycle CAQ, il faut entrer une valeur 0 ou 1 pour le choix : Avalant=0 - Opposition=1 - Opération n°"
+serreur2 : "Erreur dans cycle CAQ, il faut entrer une valeur positive pour le choix : Diamétre final - Opération n°"
+serreur3 : "Erreur dans cycle CAQ, il faut entrer une valeur positive pour le choix : Diamétre ébauche - Opération n°"
+serreur4 : "Erreur dans cycle CAQ, il faut entrer une valeur inférieure au diamètre final pour le choix : Diamètre ébauche - Opération n°"
+serreur5 : "Erreur dans cycle CAQ, il faut entrer une valeur supérieure au diamètre outil pour le choix : Diamètre final - Opération n°"
+serreur6 : "Erreur dans cycle CAQ, il faut entrer une valeur plus petite pour le choix : Pas maxi hélice en Z - Opération n°"
+serreur7 : "Erreur dans cycle CAQ, il faut entrer une valeur strictement positive pour le choix : Pas maxi hélice en Z - Opération n°"
+serreur8 : "Erreur dans cycle CAQ, il faut entrer une valeur strictement positive pour le choix : Pas maxi XY spirale - Opération n°"
+serreur9 : "Erreur dans cycle CAQ, il faut entrer une valeur positive et entière pour le choix : Nbe de tours finition - Opération n°"
+serreur10 : "Erreur dans cycle CAQ, il faut entrer une valeur positive d'avance pour le choix : f entrée circulaire - Opération n°"
+serreur11 : "Erreur dans cycle CAQ, il faut entrer une valeur positive d'avance pour le choix : f interpo. hélicoédale - Opération n°"
+serreur12 : "Erreur dans cycle CAQ, il faut entrer une valeur positive d'avance pour le choix : f spirale - Opération n°"
+serreur13 : "Erreur dans cycle CAQ, il faut entrer une valeur positive d'avance pour le choix : f interpo. finale - Opération n°"
+serreur14 : "Erreur dans cycle CAQ, il faut entrer une valeur positive d'avance pour le choix : f sortie circulaire - Opération n°"
+serreur15 : "Erreur dans cycle CAQ, la valeur : Dis. Entrée Perp. est incompatible avec les valeurs du diamétre de l'ébauche et de l'outil - Opération n°"
+serreur16 : "Erreur dans cycle CAQ, il faut entrer une valeur positive car correction usure demandée pour le choix : Dist. Entrée perp. - Opération n°"
+serreur17 : "Erreur dans cycle CAQ, il faut entrer une valeur 0 ou 1 pour le choix : Cor. Ray. usure=1 - Opération n°"
+serreur18 : "Erreur dans cycle CAQ, il faut entrer une valeur positive et entière pour le choix : Nbe tours de retour - Opération n°"
+serreur19 : "Erreur dans cycle CAQ, il faut entrer une valeur supérieure au diamétre outil pour le choix : Diamétre ébauche - Opération n°"
+serreur20 : "Erreur dans cycle CAQ, incohérence entre le dessus du brut et profondeur du trou : Vérifiez vos plans Z - Opération n°"
+serreur21 : "Erreur dans cycle CAQ, incohérence entre la garde et le dessus du brut : Vérifiez vos plans Z - Opération n°"
+serreur22 : "Erreur dans cycle CAQ, incohérence entre le plan de securite et la garde : Vérifiez vos plans Z - Opération n°"
+serreur23 : "ATTENTION : Le rayon d'ébauche est supérieur au diamétre de l'outil, il restera théoriquement une carotte au milieu du trou ! OK pour continuer, Annuler pour arrêt post-processeur - Opération n°"
+serreur24 : "Erreur dans cycle CAQ, il faut entrer une valeur supérieure au diamètre outil pour le choix : Diamètre ébauche - Opération n°"
+serreur25 : "Erreur dans cycle CAQ, il faut entrer une valeur positive pour le choix : Pas en Z debut/fin - Opération n°"
+serreur26 : "Erreur dans cycle CAQ, il faut entrer une valeur positive pour le choix : Nb tours debut/fin - Opération n°"
+serreur27 : "Erreur dans cycle CAQ, les valeurs rentrées pour le Pas en Z debut/fin et le Nb tours debut/fin créent une spirale trop importante - Opération n°"
+
+result : 0
+
+
+percage_helicoido_spiral_2  # ecriture générale du cycle spécial helicoédo-spiral trou suivant
+                                gcode$ = 0
+
+                                xabs = x$
+                                yabs = y$
+                                zabs = initht$
+                                n$, *sgcode, *zabs, e$
+                                n$, sdcom, " POSITIONEMENT TROU SUIVANT", sfcom, e$
+                                n$, *xabs, *yabs, e$
+                                percage_helicoido_spiral
+
+
+
+
+
+percage_helicoido_spiral   # ecriture générale du cycle spécial helicoédo-spiral
+
+                            pcalcule_variable
+                            #pvoir_variable
+                            #ptest_variable
+                            spaces$ = 1
+                            if ent_perp <> -1,
+                                [
+                                phase_1                 # approche ligne + demi cercle
+                                ]
+                            else,
+                                [
+                                phase_1_2
+                                ]
+
+                            if pas_Z_deb_fin > 0 & nb_tr_debut <> 0,  # debut ebauche helicoide
+                                [
+                                # Calcul du nb de passe et du pas exacte    
+                                n$, sdcom, "DEBUT EBAUCHE HELICOIDALE", sfcom, e$
+                                nbe_pas_z = nb_tr_debut
+                                pas_z = pas_Z_deb_fin
+                                prof_z_deb_spi = nb_tr_debut * pas_Z_deb_fin    # calcul de la hauteur de la spiral de debut en ebauche
+                                z_profondeur = z_dessus_brut - prof_z_deb_spi
+                                phase_2                                         # debut ebauche helicoide
+
+                                z_dessus_brut = z_dessus_brut - prof_z_deb_spi
+                                ]
+                            if pas_Z_deb_fin > 0 & nb_tr_fin <> 0,
+                                [
+                                prof_z_fin_spi =  pas_Z_deb_fin * nb_tr_fin
+                                z_profondeur = depth$ + prof_z_fin_spi
+                                ]
+                            else,
+                                [
+                                 prof_z_fin_spi = 0
+                                 z_profondeur = depth$
+                                ]
+
+                            # Calcul du nb de passe et du pas exacte
+                            hauteur_hel = z_dessus_brut - z_profondeur
+                            nbe_pas_z = hauteur_hel/pas_max_z
+                            if frac(nbe_pas_z), nbe_pas_z = int(nbe_pas_z) + 1
+                            pas_z = hauteur_hel/nbe_pas_z
+
+                            phase_2                 # entre matiere helicoide
+
+                            if pas_Z_deb_fin > 0 & nb_tr_fin <> 0,  # fin ebauche helicoide
+                                [
+                                z_profondeur = depth$
+                                z_dessus_brut = z_profondeur + prof_z_fin_spi
+                                # Calcul du nb de passe et du pas exacte    
+                                n$, sdcom, "FIN EBAUCHE HELICOIDALE", sfcom, e$
+                                nbe_pas_z = nb_tr_fin
+                                pas_z = pas_Z_deb_fin
+                                phase_2                 # fin ebauche helicoide
+                                ]
+                        if dia_ebauche < dia_final, #  d'ebauche en spiral jusqu'au au diam final
+                                [
+                                phase_3             # ebauche fond du trou en spiral                            
+                            if nbe_tr_fin > 0,      # pas de premiere serie de passes de finition si on veux pas 
+                                    [
+                                    phase_4         # premiere serie de passes de finition 
+                                    ]
+                                phase_5             # sortie circlaire + ligne suite finition contour
+                            if nbe_tr_retour > 0,   # pas de deuxiemme passe de finition si on veux pas
+                                    [
+                                    phase_6         # entre ligne + cercle pour deuxiemme finition
+                                    phase_7         # premiere serie de passes de deuxieme finition 
+                                    phase_8         # sortie circlaire + ligne suite deuxieme finition contour
+                                    ]
+                                ]
+                        else,                       # on est deja au diametre final, donc on finis directement
+                                [
+                                phase_4_2           # premiere serie de passes de finition 
+                                phase_5_2           # sortie circlaire + ligne suite finition contour
+                            if nbe_tr_retour > 0,   # pas de deuxiemme passe de finition si on veux pas
+                                    [
+                                    phase_6_2       # entre ligne + cercle pour deuxiemme finition
+                                    phase_7_2       # premiere serie de passes de deuxieme finition 
+                                    phase_8_2       # sortie circlaire + ligne suite deuxieme finition contour
+                                    ]
+                                ]
+
+
+
+pvoir_variable         # juste pour voir si tout OK
+                            "voir variable drl:",e$
+                            f_ent_cir , e$
+                            f_int_hel, e$
+                            f_spiral, e$
+                            f_int_fin, e$
+                            f_sor_cir, e$
+                            ent_perp,e$
+                            cor_ray, e$
+                            nbe_tr_retour, e$
+                            " voir z_retraction = ",*z_retraction , e$
+                            " voir z_plan_securite = ", *z_plan_securite, e$
+                            " voir z_dessus brut = ",*z_dessus_brut, e$
+                            " voir z_profondeur = ",*z_profondeur , e$
+                            " voir dia_ebauche = ",*dia_ebauche , e$
+                            " voir rayon ebauche = ", *ray_ebauche, e$
+                            " voir ava_opp = ", *ava_opp , e$
+                            " voir dia_final = ",*dia_final , e$
+                            " voir nbe_tr_fin = ",*nbe_tr_fin , e$
+                            " voir pas_max_z = ", *pas_max_z, e$
+                            " voir f_base = ",*f_base , e$
+                            " voir pas_max_xy = ",*pas_max_xy , e$
+                            " voir z_dessus_brut =", *z_dessus_brut, e$
+                            " voir ray_ent_cir=", *ray_ent_cir, e$
+                            " voir nbe_pas_z=", *nbe_pas_z, e$
+                            " voir pas_z=", *pas_z, e$
+                            " Voir nbe_pas_xy=", *nbe_pas_xy, e$
+                            " voir pas_xy=", pas_xy, e$
+                            " voir nbe_demi_cercle=", *nbe_demi_cercle, e$
+                            " voir ray_sor_cir=", *ray_sor_cir, e$
+                            " voir ray_cercle_sortie=", *ray_cercle_sortie, e$
+                            " voir rapport_ray_sortie=", *rapport_ray_sortie, e$
+                            " angle_ray_sortie=", *angle_ray_sortie, e$
+                            " Voir pas spiral debut et fin=", *pas_Z_deb_fin, e$
+                            " Voir le nombre de tour en debut spiral d'entree=", nb_tr_debut, e$
+                            " Voir le nombre de tour en fin spiral d'entree=", nb_tr_fin, e$
+                            " voir ray_cercle_ebauche=",ray_cercle_ebauche, e$
+                            "------------- fin de verification ---------", e$
+
+
+pcalcule_variable       # mise a jour des variables
+
+                            f_ent_cir = drl_prm1$
+                            f_int_hel = drl_prm2$
+                            f_spiral  = drl_prm3$
+                            f_int_fin = drl_prm4$
+                            f_sor_cir = drl_prm5$
+                            ent_perp  = drl_prm6$
+                            cor_ray   = drl_prm7$
+                            nbe_tr_retour = drl_prm8$
+                            pas_Z_deb_fin = drl_prm9$
+                            nb_tr_debut = int(drl_prm10$)
+                            nb_tr_fin = (frac(drl_prm10$))*100
+                            z_retraction = refht$
+                            z_plan_securite = initht$
+                            z_profondeur = depth$
+                            dia_ebauche = peckclr$
+                            ava_opp = peck1$
+                            dia_final = peck2$
+                            nbe_tr_fin = shftdrl$
+                            pas_max_z = retr$
+                            f_base = frplunge$
+                            pas_max_xy = dwell$
+                            z_dessus_brut = tosz$
+
+                            if f_ent_cir = 0, f_ent_cir = f_base
+                            if f_int_hel = 0, f_int_hel = f_ent_cir
+                            if f_spiral  = 0, f_spiral = f_int_hel
+                            if f_int_fin = 0, f_int_fin = f_spiral
+                            if f_sor_cir = 0, f_sor_cir = f_int_fin
+                            #pvoir_variable
+
+                            abs_inc = 1 # defini si les cercle sont incremental ou absolue
+
+
+
+                            if (dia_final <> dia_ebauche) &  (nbe_tr_fin = 0) & (nbe_tr_retour =0) , nbe_tr_fin = 1
+                            hauteur_hel_debfin = (nb_tr_debut + nb_tr_fin)* pas_Z_deb_fin
+                            hauteur_hel = z_dessus_brut - z_profondeur
+
+                            ray_ebauche = (dia_ebauche - tldia$) / 2
+                            if ava_opp = 0, sens_usi = -1
+                            else, sens_usi = 1
+
+                            ptest_variable   # on test si toutes les variable sont OK 
+
+                            cycle_heli_spiral = 1
+                            xabs = x$         # reprendre les positions xyz avant le dégagement
+                            yabs = y$
+                            zabs = z$
+
+
+
+                            ray_ent_cir = ( ent_perp + ((dia_ebauche - tldia$)/2))/2
+                            ray_sor_cir = ((dia_final - tldia$) /2 )/2
+
+                            i_eb_cir = ray_ebauche
+                            #nbe_pas_z = hauteur_hel/pas_max_z
+                            #if frac(nbe_pas_z), nbe_pas_z = int(nbe_pas_z) + 1
+                            #pas_z = hauteur_hel/nbe_pas_z
+                            if dia_final <> dia_ebauche,
+                                    [
+                                    nbe_pas_xy = (dia_final-dia_ebauche)/(2*pas_max_xy)
+                                    if frac(nbe_pas_xy), nbe_pas_xy = int(nbe_pas_xy) + 1
+                                    pas_xy = (dia_final-dia_ebauche)/(2*nbe_pas_xy)
+                                    nbe_demi_cercle = ( 2 * nbe_pas_xy ) - 1
+                                    ]
+                            rapport_ray_sortie = (2/3)
+                            angle_ray_sortie = 120
+                            ray_cercle_sortie = ((dia_final - tldia$)/4) * rapport_ray_sortie
+                            ray_cercle_ebauche = ((dia_ebauche - tldia$)/4) * rapport_ray_sortie
+
+
+
+
+
+ptest_variable        # test sur les valeures rentrées et sortie du pp si pas ok                
+                         if ava_opp <> 0 & ava_opp <> 1,
+                                [
+
+                                serreur_visu = serreur1 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                         if dia_final <=0,
+                                [
+                                serreur_visu = serreur2 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                         if hauteur_hel <= 0,
+                        [
+                                serreur_visu = serreur20 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                         if dia_ebauche <= 0,
+                                [
+                                serreur_visu = serreur3 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+                        if dia_ebauche > dia_final,
+                                [
+                                serreur_visu = serreur4 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if dia_final < tldia$,
+                                [
+                                serreur_visu = serreur5 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if dia_ebauche < tldia$,
+                                [
+                                serreur_visu = serreur24 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        #if pas_max_z > hauteur_hel,
+                            #   [   
+                            #   serreur_visu = serreur6 + no2str(numop) 
+                            #   *serreur_visu, e$
+                            #   result = mprint(serreur_visu)
+                            #    exitpost$ # abandonner 
+                            #   ]          
+
+                        if pas_max_z <= 0,
+                                [
+                                serreur_visu = serreur7 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if pas_max_xy < 0 | ( pas_max_xy = 0  &  dia_ebauche <> dia_final ) ,
+                                [
+                                serreur_visu = serreur8 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if nbe_tr_fin < 0,
+                                [
+                                serreur_visu = serreur9 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if f_ent_cir < 0,
+                                [
+                                serreur_visu = serreur10 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if f_int_hel < 0,
+                                [
+                                serreur_visu = serreur11 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if f_spiral < 0,
+                                [
+                                serreur_visu = serreur12 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if f_int_fin < 0,
+                                [
+                                serreur_visu = serreur13 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if f_sor_cir < 0,
+                                [
+                                serreur_visu = serreur14 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if ent_perp > ray_ebauche,
+                                [
+                                serreur_visu = serreur15 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if ent_perp = 0 & cor_ray = 1,
+                                [
+                                serreur_visu = serreur16 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                         if cor_ray <> 1 & cor_ray <> 0,
+                                [
+                                serreur_visu = serreur17 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if nbe_tr_retour < 0,
+                                [
+                                serreur_visu = serreur18 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if dia_ebauche < tldia$,
+                                [
+                                serreur_visu = serreur19 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if z_dessus_brut > z_retraction,
+                                [
+                                serreur_visu = serreur21 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if z_retraction > z_plan_securite,
+                                [
+                                serreur_visu = serreur21 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                        if drl_prm9$ < 0,
+                                [
+                                serreur_visu = serreur25 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+                        if drl_prm10$ < 0,
+                                [
+                                serreur_visu = serreur26 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+                        if hauteur_hel_debfin >= hauteur_hel ,
+                                [
+
+                                serreur_visu = serreur27 + no2str(numop)
+                                *serreur_visu, e$
+                                *nb_tr_debut, e$
+                                *nb_tr_fin, e$
+                                *pas_Z_deb_fin, e$
+                                *hauteur_hel_debfin, " donc superieur a l'", hauteur_hel, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+
+
+
+                        if dia_ebauche > ( 2 * tldia$ ) & cycle_heli_spiral = 0 ,
+                                [
+                                serreur_visu = serreur23 + no2str(numop)
+                                result = mprint(serreur_visu,2)
+                                if result = 1,  n$, sdcom, "ATTENTION : RISQUE DE CAROTTE", sfcom, e$
+                                if result = 2,  *serreur_visu, exitpost$ # abandonner   
+                                ]
+
+
+pf_base             # ecriture que si sup a 0
+                        if f_base > 0, avance = f_base, avance
+
+pf_ent_cir          # ecriture que si sup a 0
+                        if f_ent_cir > 0, avance = f_ent_cir, avance
+
+pf_int_hel          # ecriture que si sup a 0
+                        if f_int_hel > 0, avance = f_int_hel, avance
+
+pf_spiral           # ecriture que si sup a 0
+                        if f_spiral > 0, avance = f_spiral, avance
+
+pf_int_fin          # ecriture que si sup a 0
+                        if f_int_fin > 0, avance = f_int_fin, avance
+
+pf_sor_cir          # ecriture que si sup a 0
+                        if f_sor_cir > 0, avance = f_sor_cir, avance
+
+
+
+
+
+
+pcor_ray_on         # ecriture d'un G41 ou G42 si besoin
+                        if cor_ray = 1,
+                        [
+                        if sens_usi = 1, "G42"
+                        else, "G41"
+                        ]
+pcor_ray_on_inv         # ecriture d'un G41 ou G42 si besoin sur la finition contraire
+                        if cor_ray = 1,
+                        [
+                        if sens_usi = 1, "G41"
+                        else, "G42"
+                        ]
+
+pcor_ray_off            # ecriture d'un G41 ou G42 si besoin
+                        if cor_ray = 1, "G40"
+
+
+phase_1                 # ecriture mouvement d'entre du cycle soit l'approche en Z, ligne d'entre pour correcteur + rayon d'entre
+                        yp_chs = yabs
+                        yinc_abs = yp_chs * abs_inc
+                        jp_chs = yinc_abs
+
+                        gcode$ = 0
+                        n$, sdcom, "MOUVEMENT APPROCHE", sfcom, e$
+                        n$, sgcode, *z_retraction, e$
+                        gcode$ = 1
+                        n$, sgcode, *z_dessus_brut, pf_base,  e$
+
+                        if sens_usi = 1,
+                                [
+                                xp_chs = xabs + ent_perp
+                                n$, sgcode, *xp_chs, pf_ent_cir, pcor_ray_on,  e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs - (ray_ent_cir * 2)
+                                ip_chs = (ray_ent_cir * -1) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposiion
+                                n$, sgcode,xp_chs,yp_chs, ip_chs, jp_chs, e$
+                                ]
+                        else,
+                                [
+                                xp_chs = xabs - ent_perp
+                                n$, sgcode, *xp_chs, pf_ent_cir, pcor_ray_on,  e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs + (ray_ent_cir*2)
+                                ip_chs = (ray_ent_cir) + xinc_abs
+                                gcode$ = 3   # G02 car on est en opposiion
+                                n$, sgcode,xp_chs,yp_chs, ip_chs, jp_chs, e$
+                                ]
+
+phase_1_2               #   ecriture de l'entree en debut de deuxieme finition
+                            gcode$ = 0
+                            n$, sgcode, *z_retraction, e$
+                            gcode$ = 1
+                            n$, sgcode, *z_dessus_brut, pf_base,  e$
+                            #pcor_ray_on
+                            n$, sdcom, "ENTREE GOUTTE D EAU EN APPROCHE", sfcom, e$
+                            jp_chs = 0
+                            zp_chs = z_dessus_brut
+                            if sens_usi = 1,
+                                [
+
+                                xp_chs = xabs - ( (dia_ebauche - tldia$) /2) + ray_cercle_ebauche -  (ray_cercle_ebauche * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs - (ray_cercle_ebauche * sin(angle_ray_sortie))
+                                gcode$ = 1
+
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pf_ent_cir, pcor_ray_on, e$
+                                gcode$ = 2
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs - ( (dia_ebauche - tldia$) /2)
+                                ip_chs = (ray_cercle_ebauche * cos(angle_ray_sortie)) + xinc_abs
+                                jp_chs = (ray_cercle_ebauche * sin(angle_ray_sortie)) + yinc_abs
+                                n$, *sgcode, *xp_chs,*yp_chs, *zp_chs, *ip_chs, *jp_chs, pf_ent_cir , e$
+                                ]
+                            else,
+                                [
+
+                                xp_chs = xabs + ( (dia_ebauche - tldia$) /2) - ray_cercle_ebauche +  (ray_cercle_ebauche * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs - (ray_cercle_ebauche * sin(angle_ray_sortie))
+                                gcode$ = 1
+
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pf_ent_cir, pcor_ray_on,e$
+                                gcode$ = 3
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs + (( dia_ebauche - tldia$) /2)
+                                ip_chs = (ray_cercle_ebauche * cos(angle_ray_sortie) * -1 )+ xinc_abs
+                                jp_chs = (ray_cercle_ebauche * sin(angle_ray_sortie)) + yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_ent_cir , e$
+                                ]
+
+
+
+
+
+phase_2                 #   ecriture de l'helice pour ebauche
+                            n$, sdcom, "EBAUCHE HELICOIDALE", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_dessus_brut
+                            nbe_pas_actu = 0
+
+                        while nbe_pas_actu < nbe_pas_z,   # on cree des helices tant que l'on est pas a la profondeur finale via le nombre de tours
+                        [
+                            if sens_usi = 1,
+                                [
+                                nbe_pas_actu = nbe_pas_actu + 1
+                                gcode$ = 2   # G02 car on est en opposiion
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs + ( ray_ebauche * 2 )
+                                ip_chs = i_eb_cir + xinc_abs
+                                zp_chs = zp_chs - ( pas_z / 2)
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_hel, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue   
+                                xp_chs = xp_chs - ( ray_ebauche * 2 )
+                                ip_chs = (i_eb_cir * -1) + xinc_abs
+                                if nbe_pas_actu = nbe_pas_z, zp_chs = z_profondeur
+                                else, zp_chs = zp_chs - ( pas_z / 2)
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_hel, e$
+
+                                ]
+                            else,
+                                [
+                                nbe_pas_actu = nbe_pas_actu + 1
+                                gcode$ = 3   # G03 car on est en avalant
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue
+                                xp_chs = xp_chs - ( ray_ebauche * 2 )
+                                ip_chs = (i_eb_cir * -1) + xinc_abs
+                                zp_chs = zp_chs - ( pas_z / 2)
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_hel, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs + ( ray_ebauche * 2 )
+                                ip_chs = i_eb_cir + xinc_abs
+                                if nbe_pas_actu = nbe_pas_z, zp_chs = z_profondeur
+                                else, zp_chs = zp_chs - ( pas_z / 2)
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_hel, e$
+                                ]
+                            ]
+
+
+phase_3                 #   ecriture de la spirale d'ebauche au fond du trou 
+                            n$, sdcom, "EBAUCHE SPIRALE", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_profondeur
+
+                            nbe_pas_actu = 1
+
+                            if sens_usi = 1,  # premier cercle de la spirale 
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue     
+                                xp_chs_max = xabs + ( (dia_final - tldia$) /2)
+                                gcode$ = 2   # G02 car on est en opposiion
+                                diam_cercle = ((xabs-xp_chs)*2) + (pas_xy)
+                                xp_chs = xp_chs + diam_cercle
+                                ip_chs = (diam_cercle/2) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs_max = xabs - ( (dia_final - tldia$) /2)
+                                gcode$ = 3   # G02 car on est en opposiion
+                                diam_cercle = ((xp_chs-xabs)*2) + (pas_xy)
+                                xp_chs = xp_chs - diam_cercle
+                                ip_chs = ((diam_cercle/2) * -1) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                                ]
+
+                        while nbe_pas_actu < nbe_pas_xy,   # on cree la spirale tant que l'on est pas au diam de finition via le nombre de tours
+                        [
+                            if sens_usi = 1,
+                                [
+                        # premier demi-tour 
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue         
+                                nbe_pas_actu = nbe_pas_actu + 1
+                                diam_cercle = ((xp_chs-xabs)*2) #+ (pas_xy/2)
+                                xp_chs = xp_chs - diam_cercle
+                                ip_chs = ((diam_cercle/2) * -1) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                        # deuxieme demi-tour
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue         
+                                #nbe_pas_actu = nbe_pas_actu + 1    
+                                diam_cercle = ((xabs-xp_chs)*2) + (pas_xy)
+                                old_xp_chs = xp_chs
+                                xp_chs = xp_chs + diam_cercle
+                                if xp_chs > xp_chs_max,  # on depasse le point max a cause des cumuls des arrondis donc on rajuste
+                                    [
+                                    diam_cercle = xp_chs_max - old_xp_chs
+                                    xp_chs = xp_chs_max
+                                    ]
+                                ip_chs = (diam_cercle/2) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                                ]
+                            else,
+                                [
+                                # premier demi-tour 
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue         
+                                nbe_pas_actu = nbe_pas_actu + 1
+                                diam_cercle = ((xabs- xp_chs)*2) #+ (pas_xy/2)
+                                xp_chs = xp_chs + diam_cercle
+                                ip_chs = (diam_cercle/2) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                                # deuxieme demi-tour
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue         
+                                #nbe_pas_actu = nbe_pas_actu + 1    
+                                diam_cercle = ((xp_chs-xabs)*2) + (pas_xy)
+                                old_xp_chs = xp_chs
+                                xp_chs = xp_chs - diam_cercle
+                                if xp_chs < xp_chs_max,  # on depasse le point max a cause des cumuls des arrondis donc on rajuste
+                                    [
+                                    diam_cercle = old_xp_chs - xp_chs_max
+                                    xp_chs = xp_chs_max
+                                    ]
+                                ip_chs = ((diam_cercle/2) * -1) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_spiral, e$
+                                ]
+                            ]
+
+phase_4             #   ecriture des 1 er passes de finition au fond du trou
+                            n$, sdcom, "1ERE SERIE DE FINITION", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_profondeur
+                            nbe_pas_actu = 1
+
+                    while nbe_pas_actu <= nbe_tr_fin,   # on cree la spirale tant que l'on est pas au diam de finition via le nombre de tours
+                        [
+                        nbe_pas_actu = nbe_pas_actu + 1
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                gcode$ = 3   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+                                gcode$ = 3   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                        ]
+
+phase_4_2               #   ecriture des 1 er passes de finition au fond du trou quand il n'y a pas d'ebauche
+                            n$, sdcom, "1ERE SERIE DE FINITION SANS EBAUCHE SPIRALE", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_profondeur
+                            nbe_pas_actu = 1
+
+                    while nbe_pas_actu <= nbe_tr_fin,   # on cree la spirale tant que l'on est pas au diam de finition via le nombre de tour
+                        [
+                        nbe_pas_actu = nbe_pas_actu + 1
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2)  + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+                                gcode$ = 3   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                gcode$ = 3   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                        ]
+
+phase_5             #   ecriture de la sortie en fin de finition
+                            n$, sdcom, "1ERE SORTIE GOUTTE D EAU", sfcom, e$
+
+
+                            zp_chs = z_profondeur
+
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs - ray_cercle_sortie  + (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = (ray_cercle_sortie * -1) + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = ray_cercle_sortie  + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+                                ]
+
+phase_5_2               #   ecriture de la sortie en fin de finition quand il n'y a pas d'ebauche
+                            n$, sdcom, "1ERE SORTIE GOUTTE D EAU SANS EBAUCHE", sfcom, e$
+
+
+                            zp_chs = z_profondeur
+
+                            if sens_usi <> 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs - ray_cercle_sortie  + (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = (ray_cercle_sortie * -1) + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xp_chs + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = ray_cercle_sortie + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+                                ]
+
+
+phase_6                 #   ecriture de l'entree en debut de deuxieme finition
+                            n$, sdcom, "ENTREE GOUTTE D EAU", sfcom, e$
+
+                            zp_chs = z_profondeur
+                            if sens_usi = 1,
+                                [
+                                xp_chs = xabs - ( (dia_final - tldia$) /2) + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                gcode$ = 1
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pcor_ray_on_inv, pf_sor_cir, e$
+                                gcode$ = 3
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs - ( (dia_final - tldia$) /2)
+                                ip_chs = ((ray_cercle_sortie * cos(angle_ray_sortie))) + xinc_abs
+                                jp_chs = ((ray_cercle_sortie * sin(angle_ray_sortie)) * -1) + yinc_abs
+                                n$, *sgcode, *xp_chs,*yp_chs, *zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                ]
+                            else,
+                                [
+                                xp_chs = xabs + ( (dia_final - tldia$) /2) - ray_cercle_sortie +  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                gcode$ = 1
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pcor_ray_on_inv, pf_sor_cir, e$
+                                gcode$ = 2
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs + ( (dia_final - tldia$) /2)
+                                ip_chs = (ray_cercle_sortie * cos(angle_ray_sortie) * -1) + xinc_abs
+                                jp_chs = (ray_cercle_sortie * sin(angle_ray_sortie) * -1) + yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                ]
+
+phase_6_2               #   ecriture de l'entree en debut de deuxieme finition quand il n'y a pas d'ebauche
+                            n$, sdcom, "ENTREE GOUTTE D EAU SANS EBAUCHE", sfcom, e$
+
+                            zp_chs = z_profondeur
+                            if sens_usi <> 1,
+                                [
+                                xp_chs = xabs - ( (dia_final - tldia$) /2) + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                gcode$ = 1
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pcor_ray_on_inv, pf_sor_cir, e$
+                                gcode$ = 2
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs - ( (dia_final - tldia$) /2)
+                                ip_chs = (ray_cercle_sortie * cos(angle_ray_sortie)) + xinc_abs
+                                jp_chs = (ray_cercle_sortie * sin(angle_ray_sortie)) + yinc_abs
+                                n$, *sgcode, *xp_chs,*yp_chs, *zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                ]
+                            else,
+                                [
+                                xp_chs = xabs + ( (dia_final - tldia$) /2) - ray_cercle_sortie +  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é )  
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                gcode$ = 1
+                                n$, *sgcode, *xp_chs,*yp_chs, zp_chs, pcor_ray_on_inv, pf_sor_cir, e$
+                                gcode$ = 3
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                yp_chs = yabs
+                                xp_chs = xabs + ( (dia_final - tldia$) /2)
+                                ip_chs = (ray_cercle_sortie * cos(angle_ray_sortie) * -1) + xinc_abs
+                                jp_chs = ((ray_cercle_sortie * sin(angle_ray_sortie) * -1) * -1) + yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                ]
+
+phase_7                 #           #   ecriture des deuxiemes passes de finition au fond du trou
+                            n$, sdcom, "2EME SERIE DE FINITION", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_profondeur
+                            nbe_pas_actu = 1
+
+                    while nbe_pas_actu <= nbe_tr_retour,   # on cree la spirale tant que l'on est pas au diam de finition via le nombre de tour
+                        [
+                        nbe_pas_actu = nbe_pas_actu + 1
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                gcode$ = 3   # G03 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                        ]
+
+phase_7_2                   #           #   ecriture des deuxieme passes de finition au fond du trou
+                            n$, sdcom, "2EME SERIE DE FINITION SANS EBAUCHE", sfcom, e$
+                            yp_chs = yabs
+                            yinc_abs = yp_chs * abs_inc
+                            jp_chs = yinc_abs
+                            zp_chs = z_profondeur
+                            nbe_pas_actu = 1
+
+                    while nbe_pas_actu <= nbe_tr_retour,   # on cree la spirale tant que l'on est pas au diam de finition via le nombre de tour
+                        [
+                        nbe_pas_actu = nbe_pas_actu + 1
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2)* -1) + xinc_abs
+                                gcode$ = 3   # G03 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs + ((dia_final - tldia$)/2)
+                                ip_chs = ((dia_final - tldia$)/2) + xinc_abs
+                                gcode$ = 2   # G02 car on est en opposition
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue 
+                                xp_chs = xabs - ((dia_final - tldia$)/2)
+                                ip_chs = (((dia_final - tldia$)/2) * -1 ) + xinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_int_fin, e$
+                                ]
+                        ]
+
+
+phase_8             #   ecriture de la sortie en fin de deuxieme finition
+                            n$, sdcom, "2EME SORTIE GOUTTE D EAU", sfcom, e$
+
+                            zp_chs = z_profondeur
+
+                            if sens_usi = 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue     
+                                gcode$ = 3   # G03 car on est en opposition
+                                xp_chs = xp_chs + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = ray_cercle_sortie  + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue     
+                                gcode$ = 2   # G02 car on est en opposition
+                                xp_chs = xp_chs - ray_cercle_sortie  + (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs - (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = (ray_cercle_sortie * -1) + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+
+                                ]
+
+phase_8_2               #   ecriture de la sortie en fin de deuxieme finition
+                            n$, sdcom, "2EME SORTIE GOUTTE D EAU SANS EBAUCHE", sfcom, e$
+
+                            zp_chs = z_profondeur
+
+                            if sens_usi <> 1,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                gcode$ = 2   # G03 car on est en opposition
+                                xp_chs = xp_chs + ray_cercle_sortie -  (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = ray_cercle_sortie + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+
+                                ]
+                            else,
+                                [
+                                xinc_abs = xp_chs * abs_inc  # en cas de ij absolue
+                                yinc_abs = yp_chs * abs_inc  # en cas de ij absolue 
+                                gcode$ = 3   # G02 car on est en opposition
+                                xp_chs = xp_chs - ray_cercle_sortie  + (ray_cercle_sortie * cos(angle_ray_sortie)) # position X sur une ouverture de 120é ) 
+                                yp_chs = yabs + (ray_cercle_sortie * sin(angle_ray_sortie))
+                                ip_chs = (ray_cercle_sortie * -1) + xinc_abs
+                                jp_chs = yinc_abs
+                                n$, *sgcode,xp_chs,yp_chs, zp_chs, *ip_chs, *jp_chs, pf_sor_cir , e$
+                                gcode$ = 1
+                                n$, *sgcode, *xabs,*yabs, zp_chs, pcor_ray_off, pf_sor_cir, e$
+
+                                ]
+
+
+# ------------------------ FIN CYCLE SPECIAL HELICOIDO-SPIRAL -------------------------
+
+# ------------------------ debut  CYCLE SPECIAL percage decompose -------------------------
+
+#-------- ecriture des format -------------
+
+fmt "F" 4 avance_1
+fmt "F" 4 avance_2
+fmt "F" 4 avance_3
+fmt "F" 4 avance_4
+fmt "F" 4 avance_5
+fmt "Z" 13 prof_1
+fmt "Z" 13 prof_2
+fmt "Z" 13 prof_3
+fmt "Z" 13 prof_4
+fmt "Z" 13 prof_5
+fmt "Z" 13 prof_1_rel
+fmt "Z" 13 prof_2_rel
+fmt "Z" 13 prof_3_rel
+fmt "Z" 13 prof_4_rel
+fmt "Z" 13 prof_5_rel
+fmt "G4 F" 14 tempo_1
+fmt "G4 F" 14 tempo_2
+fmt "G4 F" 14 tempo_3
+fmt "G4 F" 14 tempo_4
+fmt "G4 F" 14 tempo_5
+fmt "ABS_REL" 4 abso_rel
+fmt "sortie" 4 sortie_cycle_prof
+
+
+serreur100 : "Erreur dans le cycle de perçage décomposé à avance contrôlée, il ne faut pas entrer de valeur négative sur les avances - Opération n°"
+serreur101 : "Erreur dans le cycle de perçage décomposé à avance contrôlée, il faut entrer 0 ou 1 sur le paramétre Absolu(0) - Relatif(1) - Opération n°"
+serreur102 : "Erreur dans le cycle de perçage décomposé à avance contrôlée, bon... là, il faut être trés con pour mettre 9999 dés la premiére profondeur ! :-) - Opération n°"
+
+
+
+
+pvoirvariable_2   # voir les varialble apres mise a jour
+                            "voir avance_1 = ",avance_1, e$
+                            "voir avance_2 = ",avance_2, e$
+                            "voir avance_3  = ",avance_3, e$
+                            "voir avance_4 = ",avance_4, e$
+                            "voir avance_5 = ",avance_5, e$
+                            "voir prof_1 = ",prof_1, e$
+                            "voir prof_2 = ",prof_2, e$
+                            "voir prof_3 = ",prof_3, e$
+                            "voir prof_4 = ",prof_4, e$
+                            "voir prof_5 = ",prof_5, e$
+                            "voir tempo_1 = ",*tempo_1, e$
+                            "voir tempo_2 = ",*tempo_2, e$
+                            "voir tempo_3 = ",*tempo_3, e$
+                            "voir tempo_4 = ",*tempo_4, e$
+                            "voir tempo_5 = ",*tempo_5, e$
+                            "voir abso_rel = ",abso_rel, e$
+                            "voir z_retraction = ",z_retraction, e$
+
+
+pcalcule_variable_2       # mise a jour des variables 
+                            avance_1 = int(drl_prm6$)
+                            avance_2 = int(drl_prm7$)
+                            avance_3  = int(drl_prm8$)
+                            avance_4 = int(drl_prm9$)
+                            avance_5 = int(drl_prm10$)
+                            prof_1 = drl_prm1$
+                            prof_2 = drl_prm2$
+                            prof_3 = drl_prm3$
+                            prof_4 = drl_prm4$
+                            prof_5 = drl_prm5$
+                            tempo_1 = (frac(drl_prm6$)) * 10
+                            tempo_2 = (frac(drl_prm7$)) * 10
+                            tempo_3 = (frac(drl_prm8$)) * 10
+                            tempo_4 = (frac(drl_prm9$)) * 10
+                            tempo_5 = (frac(drl_prm10$)) * 10
+                            abso_rel = peck1$
+                            zabs = refht$
+                            sortie_cycle_prof = 0
+                            prof_1_rel =  prof_1 + tosz$
+                            prof_2_rel = prof_2 + prof_1_rel
+                            prof_3_rel = prof_3 + prof_2_rel
+                            prof_4_rel = prof_4 + prof_3_rel
+                            prof_5_rel = prof_5 + prof_4_rel
+
+                            #pvoirvariable_2
+
+
+                            @avance_1, @avance_2, @avance_3, @avance_4, @avance_5
+
+                            if avance_1 < 0 | avance_2 < 0 | avance_3 < 0 | avance_4 < 0 | avance_5 < 0,
+                                [
+                                serreur_visu = serreur100 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+                            if abso_rel <> 0 & abso_rel <> 1,
+                               [
+                                serreur_visu = serreur101 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                               ]
+
+                            if prof_1 = 9999,
+                                [
+                                serreur_visu = serreur102 + no2str(numop)
+                                *serreur_visu, e$
+                                result = mprint(serreur_visu)
+                                exitpost$ # abandonner 
+                                ]
+
+                                if avance_1 = 0, avance_1 = frplunge$
+                                @avance_1
+                                if avance_2 = 0, avance_2 = avance_1
+                                @avance_2
+                                if avance_3 = 0, avance_3 = avance_2
+                                @avance_3
+                                if avance_4 = 0, avance_4 = avance_3
+                                @avance_4
+                                if avance_5 = 0, avance_5 = avance_4
+                                @avance_5
+
+
+
+percage_avance_controle_2
+
+                                gcode$ = 0
+
+                                xabs = x$
+                                yabs = y$
+                                zabs = initht$
+                                n$, *sgcode, *zabs, e$
+                                n$, sdcom, " POSITIONNEMENT TROU SUIVANT", sfcom, e$
+                                n$, *xabs, *yabs, e$
+                                percage_avance_controle
+
+percage_avance_controle    # premiere passage pour ecriture du cycle 
+                                cycle_heli_spiral = 1
+
+                            n$, sdcom, "APPROCHE DESSUS DU TROU", sfcom, e$
+                            pcalcule_variable_2
+                            gcode$ = 0
+                            n$, sgcode, zabs, e$
+                            gcode$ = 1
+
+                            if abso_rel = 0,  # mode absolue
+                                    [
+                                n$, sdcom, "PREMIERE PROFONDEUR", sfcom, e$
+                                fr_pos$ = avance_1
+                                n$, sgcode, prof_1, pfr,  e$
+                                if tempo_1 > 0, n$, *tempo_1, e$
+
+                                if prof_2 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "DEUXIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_2
+                                        n$, sgcode, prof_2, pfr,  e$
+                                        if tempo_2 > 0, n$, *tempo_2, e$
+                                        ]
+                                if prof_3 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "TROIXIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_3
+                                        n$, sgcode, prof_3, pfr,  e$
+                                        if tempo_3 > 0, n$, *tempo_3, e$
+                                        ]
+                                if prof_4 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "QUATRIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_4
+                                        n$, sgcode, prof_4, pfr,  e$
+                                        if tempo_4 > 0, n$, *tempo_4, e$
+                                        ]
+                                if prof_5 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "CINQUIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_5
+                                        n$, sgcode, prof_5, pfr,  e$
+                                        if tempo_5 > 0, n$, *tempo_5, e$
+                                        ]
+
+                                 ]
+                         if abso_rel = 1,  # mode relatif
+                                 [
+
+
+                                n$, sdcom, "PREMIERE PROFONDEUR", sfcom, e$
+                                fr_pos$ = avance_1
+
+                                n$, sgcode, prof_1_rel, pfr,  e$
+                                if tempo_1 > 0, n$, *tempo_1, e$
+
+                                if prof_2 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "DEUXIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_2
+                                        n$, sgcode, prof_2_rel, pfr,  e$
+                                        if tempo_2 > 0, n$, *tempo_2, e$
+                                        ]
+                                if prof_3 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "TROIXIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_3
+                                        n$, sgcode, prof_3_rel, pfr,  e$
+                                        if tempo_3 > 0, n$, *tempo_3, e$
+                                        ]
+                                if prof_4 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "QUATRIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_4
+                                        n$, sgcode, prof_4_rel, pfr,  e$
+                                        if tempo_4 > 0, n$, *tempo_4, e$
+                                        ]
+                                if prof_5 = 9999, sortie_cycle_prof = 1
+                                if sortie_cycle_prof <> 1,
+                                        [
+                                        n$, sdcom, "CINQUIEME PROFONDEUR", sfcom, e$
+                                        fr_pos$ = avance_5
+                                        n$, sgcode, prof_5_rel, pfr,  e$
+                                        if tempo_5 > 0, n$, *tempo_5, e$
+                                        ]
+
+                                 ]
+
+
+
+
+pdrlcst$     # cycle speciaux premier passage
+
+
+                if drl_cycle$ = 9,
+                [
+                n$, sdcom, " DEBUT CYCLE DECOMPOSE A AVANCE CONTROLEE", sfcom, e$
+                        percage_avance_controle
+                        !x$, !y$, !z$, !xr$, !yr$, !zr$
+                ]
+
+
+
+
+
+pdrlcst_2$     # cycle speciaux deuxieme passage
+                if drl_cycle$ = 9,
+                [
+                percage_avance_controle_2
+                !x$, !y$, !z$, !xr$, !yr$, !zr$
+                ]
+
+
+
+
+ptooltbl$    # Tool table line format
+             "( OUTIL:", t$, "UTILISE)", e$
+
+# --------------------------------------------------------------------------
+# Numbered questions for Mastercam Version 8
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 2000.0
+1538. Rapid feedrate (metric)? 10000.0
+
+#76. Configuration file name? 
+80. Communications port number for receive and transmit (1 or 2) ? 1
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 9600
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+90. Drive and subdirectory for NC files?
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name? RPFAN
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+103. Maximum spindle speed? 5000
+107. Average time for tool change (seconds)? 2.0
+#110. Default tool library? TOOLS.TL8
+161. Enable Home Position button? y
+162. Enable Reference Point button? y
+163. Enable Misc. Values button? y
+164. Enable Rotary Axis button? y
+165. Enable Tool Plane button? y
+166. Enable Construction Plane button? y
+167. Enable Tool Display button? y
+168. Check tplane during automatic work origin creation? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. Default miscellaneous real variable 1 (mr1)? 0.0
+202. Default miscellaneous real variable 2 (mr2)? 0.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. Default miscellaneous real variable 8 (mr8)? 0.0
+209. Default miscellaneous real variable 9 (mr9)? 0.0
+210. Default miscellaneous real variable 10 (mr10)? 0.0
+
+# --------------------------------------------------------------------------
+# Valeurs réelles par défaut (METRIQUE)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables réelles
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. E60000 mi1 ? 1099403
+302. E61000 mi2 ? 693276
+303. E62000 mi3 ? -280550
+304. Miscellaneous integer variable 4 (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. Miscellaneous integer variable 8 (mi8)? 0
+309. Miscellaneous integer variable 9 (mi9)? 0
+310. Miscellaneous integer variable 10 (mi10)? 0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables entiéres
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file? 
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? n
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? y
+414. Read START/EXIT section? y
+415. Read SCREEN section? y
+416. Read FILE NAMES section? y
+
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? n
+1502. Write operation information to binary file (.ops)? n
+
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+# Do NOT manually change the answer for Q.1999 !
+1999. Product major version number that post supports? 9
+
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+
+[CTRL_MILL|DEFAULT]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2013_09]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2013_11]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2015_01]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2015_03]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2015_04]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2015_09]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_MILL|3X_9102_2016_12]
+[misc integers]
+1. "Val E60000="//1099403
+2. "Val E61000="//693276
+3. "Val E62000="//-280550
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "POINTAGE G81 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "PERCAGE TEMPO G82"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "PERCAGE DEBOURAGE G83"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+11. ""
+[tap]
+1. "TARAUDAGE G84"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "ALESAGE G85 "
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[bore2]
+1. "ALESAGE G86 (stop br./sort.rap)"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. ""
+8. ""
+9. ""
+10. ""
+[misc1]
+1. "PERCAGE BRISE COP. G87"
+2. "Avance"
+4. "Plan de dégagement"
+5. "Plan de sécurité"
+7. "Valeur de recul 1er debourage"
+8. "Valeur de recul 2em debourage        "
+9. ""
+10. ""
+[misc2]
+1. "Perçage CAQ"
+2. "Avance initiale"
+3. "Pas maxi XY spirale"
+4. "Plan de sécurité"
+5. "Garde"
+6. ""
+7. "Avalant=0 Oppo=1"
+8. "Diamètre final"
+9. "Diamètre ebauche"
+10. "Pas maxi hélice en Z"
+11. "Nbe tours de finition"
+[drill cycle 9]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 10]
+1. "Perçage décomposé"
+2. "Avance initiale"
+3. ""
+4. "Plan de sécurité"
+5. "Garde"
+7. "Absolu(0) - Relatif(1)"
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 12]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 13]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 14]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 15]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 16]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 17]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 18]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 19]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[drill cycle 20]
+2. "Avance"
+3. "Tempo."
+5. "Garde"
+7. "1er Débour."
+8. "Déb. suivant"
+[simple drill custom parameters]
+1. "Paramètres de cycle spécial 1"
+[peck drill custom parameters]
+1. "Paramètres de cycle spécial 2"
+[chip break drill custom parameters]
+1. "Paramètres de cycle spécial 3"
+[tap custom parameters]
+1. "Paramètres de cycle spécial 4"
+[bore1 custom parameters]
+1. "Paramètres de cycle spécial 5"
+[bore2 custom parameters]
+1. "Paramètres de cycle spécial 6"
+[misc1 custom parameters]
+1. "Paramètres de cycle spécial 7"
+[misc2 custom parameters]
+1. "Paramètres de cycle Hélicoédo-spiral"
+2. "f entrée circulaire"
+3. "f interpo. hélicoïdale"
+4. "f spirale"
+5. "f interpo. finale"
+6. "f sortie circulaire"
+7. "Dist. en Perp. -1=cercle"
+8. "Cor. ray. usure=1"
+9. "Nbe tours de retour"
+10. "Pas en Z debut/fin"
+11. "Nb tours debut/fin"
+[drill cycle 9 custom parameters]
+1. "Paramètres de cycle spécial 9"
+[drill cycle 10 custom parameters]
+1. "Perçage décomposé"
+2. "Profondeur n°1"
+3. "Profondeur n°2"
+4. "Profondeur n°3"
+5. "Profondeur n°4"
+6. "Profondeur n°5"
+7. "F:n°1.Tempo(1/10)"
+8. "F:n°2.Tempo(1/10)"
+9. "F:n°3.Tempo(1/10)"
+10. "F:n°4.Tempo(1/10)"
+11. "F:n°5.Tempo(1/10)"
+[drill cycle 11 custom parameters]
+1. "Paramètres de cycle spécial 11"
+[drill cycle 12 custom parameters]
+1. "Paramètres de cycle spécial 12"
+[drill cycle 13 custom parameters]
+1. "Paramètres de cycle spécial 13"
+[drill cycle 14 custom parameters]
+1. "Paramètres de cycle spécial 14"
+[drill cycle 15 custom parameters]
+1. "Paramètres de cycle spécial 15"
+[drill cycle 16 custom parameters]
+1. "Paramètres de cycle spécial 16"
+[drill cycle 17 custom parameters]
+1. "Paramètres de cycle spécial 17"
+[drill cycle 18 custom parameters]
+1. "Paramètres de cycle spécial 18"
+[drill cycle 19 custom parameters]
+1. "Paramètres de cycle spécial 19"
+[drill cycle 20 custom parameters]
+1. "Paramètres de cycle spécial 20"
+[drill cycle descriptions]
+7. "Divers 1"
+8. "Divers 2"
+9. "Cycle #9"
+10. "Cycle #10"
+11. "Cycle #11"
+12. "Cycle #12"
+13. "Cycle #13"
+14. "Cycle #14"
+15. "Cycle #15"
+16. "Cycle #16"
+17. "Cycle #17"
+18. "Cycle #18"
+19. "Cycle #19"
+20. "Cycle #20"
+[canned text]
+1. "Texte 1"
+2. "Texte 2"
+3. "Texte 3"
+4. "Texte 4"
+5. "Texte 5"
+6. "Texte 6"
+7. "Texte 7"
+8. "Texte 8"
+9. "Texte 9"
+10. "Texte 10"
+[CTRL_TEXT_END]
+

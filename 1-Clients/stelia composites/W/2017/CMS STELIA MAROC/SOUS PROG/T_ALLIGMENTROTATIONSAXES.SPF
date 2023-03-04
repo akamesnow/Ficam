@@ -1,0 +1,38 @@
+;ALLIGMENT ROTATIONS AXES 
+;CMS MACHINES
+;TRAINING CENTER 03/08/2011 
+;ULTIMA MODIFICA 04/04/2013
+;****************************
+DEF REAL _LUNG
+;********TS27********
+_VALD=1;NUMERO D
+;****************************
+;(_LASER_BROKEN = 1 ;LASER 1 BREAK) 
+;(_LASER_BROKEN = 2 ;LASER 2 BREAK) 
+;(_LASER_TS30 = LASER=1 TS30=2)
+;********************************* 
+;CONTROLE PIGE PAR LA LONGUEUR
+_LUNG=166.00
+;
+IF (($TC_DP3[$P_TOOLNO,1] > _LUNG+1) AND ($TC_DP3[$P_TOOLNO,1] <  _LUNG-1)) GOTOF GO
+;
+IF ($TC_DP3[$P_TOOLNO,1] < _LUNG-1) OR ($TC_DP3[$P_TOOLNO,1] > _LUNG+1) GOTOF ERREUR
+;
+GO:
+;********************************* 
+_LASER_BROKEN=0 _LASER_TS30=2
+POS_LASER_TS30
+;(LINE PARAMETERS)
+;(******************) 
+RIQUALIF_AXES
+;(******************) 
+M30
+;
+;--------ERREUR---------
+ERREUR:
+LOOP
+MSG("LONGUEUR PIGE PAS OK!!!! VERIFIER!!!")
+M00
+ENDLOOP
+;
+

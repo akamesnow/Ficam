@@ -1,0 +1,289 @@
+PROC PALPBAGUE SAVE ;DISPLOF SBLOF
+;------------------------------------------------
+; Palpage d'une bague de l'outillage
+; avec les cycles Siemens 
+; Origine XY est le centre de la bague
+; Origine Z est le dessus de la bague
+; MD 11420 = 15 pour créer des fichiers max de 15ko
+; MD 28080 = 8 pour utiliser les décalages G50x
+;------------------------------------------------
+; INITIALISATION DES VARIABLES
+; DIAMETRE ; mm / Diamètre de la bague
+DEF REAL TOL_PALP ; mm / Tolerance du palpage
+DEF REAL RESULT_X,RESULT_Y,RESULT_Z ; mm / Résultat du palpage
+DEF REAL X_SETVAL,Y_SETVAL,Z_SETVAL,DIAMETRE,DECENTRE,ANGLE,PROF_Z
+DEF INT TMP=4    ; Temps d'arret en secondes / =-1 pour M0
+DEF INT RESULTAT ; VARIABLE DE STATUS
+DEF string[160] NOM="/_N_WKS_DIR/_N_RAPPORT_WPD/_N_BAGUE_MPF"
+DEF string[350] LIGNE
+;
+X_SETVAL=R10
+Y_SETVAL=R11
+Z_SETVAL=R12
+DIAMETRE=R15
+DECENTRE=R16
+ANGLE=R17
+PROF_Z=R18
+;
+IF $A_IN[9] == 0 GOTOF _SET_NOPARA
+IF $A_IN[12]== 1 GOTOF _SET_ZONA1
+IF $A_IN[12]== 0 GOTOF _SET_ZONA2
+LOOP
+MSG(????? SETTING MACHINE NOT CORRECT !!!!!)
+M00
+ENDLOOP 
+_SET_NOPARA:
+;Z1+Z2 active All Zona 
+   _PRNUM=1 ; Numero du palpeur
+   ERR_X_Z1=0
+   ERR_Y_Z1=0
+   ERR_Z_Z1=0
+GOTOF _FINE
+STOPRE
+_SET_ZONA1:
+;Z1 active Zona1
+   _PRNUM=1 ; Numero du palpeur
+   ERR_X_Z1=0
+   ERR_Y_Z1=0
+   ERR_Z_Z1=0
+GOTOF _FINE
+STOPRE
+_SET_ZONA2:
+;Z2 active Zona2
+   _PRNUM=1 ; Numero du palpeur
+   ERR_X_Z2=0
+   ERR_Y_Z2=0
+   ERR_Z_Z2=0
+STOPRE
+_FINE:
+_KNUM=0   ; 0: aucune correction / >0 : avec correction automatique de décalage d'origine
+_VMS=0    ; mm/min / Vitesse de mesure variable
+; Si _VMS=0, vitesse par défaut 150 mm/min lorsque _FA=1
+;            vitesse par défaut 300 mm/min lorsque _FA>1
+_NMSP=1   ; Mesure multiple au même endroit
+;------------------------------------------------
+; CONTROLE DES VARIABLES
+;
+IF ANGLE>=360
+   ANGLE=0
+ENDIF
+IF ANGLE<0
+   ANGLE=0
+ENDIF
+IF DECENTRE>10
+   LOOP
+      MSG("La valeur de R16 :  "<<DECENTRE<<" est trop grande : maxi 10 mm -> RESET")
+      M0
+   ENDLOOP 
+ENDIF
+IF DECENTRE<0
+   LOOP
+      MSG("La valeur de R16 :  "<<DECENTRE<<" est inferieur a 0 -> RESET")
+      M0
+   ENDLOOP 
+ENDIF
+IF DIAMETRE<0
+   $P_UIFR[1,X,FI]=0
+   $P_UIFR[1,Y,FI]=0
+   $P_UIFR[1,Z,FI]=0
+   ERR_X_Z1=0
+   ERR_Y_Z1=0
+   ERR_Z_Z1=0
+   ERR_X_Z2=0
+   ERR_Y_Z2=0
+   ERR_Z_Z2=0
+   GOTOF FIN
+ENDIF
+IF DIAMETRE<10
+   LOOP
+      MSG("Le Ø"<<DIAMETRE<<" de la bague est trop petit : Ø mini >= 10 mm -> RESET")
+      M0
+   ENDLOOP   
+ENDIF
+;------------------------------------------------
+IF (($P_SEARCH==1) OR ($P_SIM==1) OR ($P_DRYRUN==1)) GOTOF FIN
+STOPRE
+;------------------------------------------------
+ROT
+GOTOF CYCLE
+STOPRE
+TEMPO:
+IF TMP==-1
+   M0
+ELSE
+   G04 F=TMP
+ENDIF
+FINTEMPO:
+;
+ERRORX:
+LOOP
+   MSG("Decalage X "<<RESULT_X<<" hors tolerance "<<TOL_PALP<<"  -> RESET")
+   M0
+ENDLOOP
+FINERRORX:
+;
+ERRORY:
+LOOP
+   MSG("Decalage Y "<<RESULT_Y<<" hors tolerance "<<TOL_PALP<<"  -> RESET")
+   M0
+ENDLOOP
+FINERRORY:
+;
+ERRORZ:
+LOOP
+   MSG("Decalage Z "<<RESULT_Z<<" hors tolerance "<<TOL_PALP<<"  -> RESET")
+   M0
+ENDLOOP
+FINERRORZ:
+;
+MOVE:
+IF R24==9999.9
+   R24=$AA_IW[X]
+ENDIF
+IF R25==9999.9
+   R25=$AA_IW[Y]
+ENDIF
+IF R26==9999.9
+   R26=$AA_IW[Z]
+ENDIF
+;------------------------------------------------
+REPEAT
+M46; (M CODE ON)
+UNTIL $A_PROBE[ABS(2)]<>1
+STOPRE
+MEAS=2 G1 X=R24 Y=R25 Z=R26 F=R9
+STOPRE
+IF $AC_MEA[2]==1
+   MSG("DEVIATION PALPEUR INATTENDUE ...")
+   M0
+   GOTOF FIN
+ENDIF
+FINMOVE:
+;
+CYCLE:
+IF $TC_DP1[$P_TOOLNO,$P_TOOL] <> 710
+   LOOP
+      MSG("Outil "<<$TC_DP1[$P_TOOLNO,$P_TOOL]<< n est pas PALPEUR_3D TYPE 710 -> RESET")
+      M0
+   ENDLOOP
+ENDIF
+;------------------------------------------------
+D1
+;------------------------------------------------
+MSG("Palpage en cours ...")
+;M154
+LIGNE="#################################################################"
+;WRITE(RESULTAT,NOM,LIGNE)
+IF ISVAR ("_QZONA1") OR ISVAR ("_QZONA2") 
+LIGNE="Prog:"<<$P_PROG[1]
+ELSE
+LIGNE="Prog:"<<$P_PROG[0]
+ENDIF
+;WRITE(RESULTAT,NOM,LIGNE)
+LIGNE="Date:"<<$A_DAY<<"-"<<$A_MONTH<<"-"<<$A_YEAR<<", Time:"<<$A_HOUR<<":"<<$A_MINUTE<<":"<<$A_SECOND
+;WRITE(RESULTAT,NOM,LIGNE)
+;
+;-------------------------------------------------
+; Palpage de la surface superieur en Z de la bague
+MSG("Palpage de la surface superieur en Z de la bague")
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL+50) R9=5000
+REPEAT MOVE FINMOVE
+R24=(X_SETVAL+((DIAMETRE/2)+DECENTRE)*COS(ANGLE)) R25=(Y_SETVAL+((DIAMETRE/2)+DECENTRE)*SIN(ANGLE)) R26=9999.9 R9=5000
+REPEAT MOVE FINMOVE
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL+20) R9=2000
+REPEAT MOVE FINMOVE
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL+10) R9=1000
+REPEAT MOVE FINMOVE
+;
+_MVAR=100 ; Détermination DO sur surface avec correction DO
+_SETVAL=Z_SETVAL ; Valeur consigne par rapport à l'origine pièce
+_MA=3 ; Numéro de l'axe de mesure
+_KNUM=0 ; 0: aucune correction / >0 : avec correction automatique de décalage d'origine 
+_FA=20 ; mm / Course de mesure = 2*_FA
+_TSA=20 ; Zone de fiabilité
+_EVNUM=0  ; Valeur empirique, valeur moyenne
+TOL_PALP=2
+;
+CYCLE978
+RESULT_Z=_OVR[19]
+IF ABS(RESULT_Z)>TOL_PALP
+   REPEAT ERRORZ FINERRORZ
+ENDIF
+;
+;-------------------------------------------------
+; Palpage du centre XY de la bague Ø15
+MSG("Mesure centre XY de la bague Ø"<<DIAMETRE)
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL+20) R9=2000
+REPEAT MOVE FINMOVE
+R24=X_SETVAL R25=Y_SETVAL R26=9999.9 R9=5000
+REPEAT MOVE FINMOVE
+R24=9999.9 R25=9999.9 R26=Z_SETVAL R9=2000
+REPEAT MOVE FINMOVE
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL-PROF_Z) R9=1000
+REPEAT MOVE FINMOVE
+
+;
+_MVAR=101 ; Détermination DO dans alésage avec correction DO
+_SETVAL=DIAMETRE 
+_KNUM=0 ; 0: aucune correction / >0 : avec correction automatique de décalage d'origine  
+_FA=5   ; mm / Course de mesure = 2*_FA
+_TSA=1  ; Zone de fiabilité
+TOL_PALP=2
+;
+CYCLE977
+;
+RESULT_X=_OVR[17]
+RESULT_Y=_OVR[18]
+;
+IF ABS(RESULT_X)>TOL_PALP
+   REPEAT ERRORX FINERRORX
+ENDIF
+IF ABS(RESULT_Y)>TOL_PALP
+   REPEAT ERRORY FINERRORY
+ENDIF
+
+IF $A_IN[9] == 0 GOTOF _SET_NOPARA
+IF $A_IN[12]== 1 GOTOF _SET_ZONA1
+IF $A_IN[12]== 0 GOTOF _SET_ZONA2
+LOOP
+MSG("????? SETTING MACHINE NOT CORRECT !!!!!")
+M00
+ENDLOOP 
+
+_SET_NOPARA:
+;Z1+Z2 active All Zona 
+   ERR_X_Z1=RESULT_X
+   ERR_Y_Z1=RESULT_Y
+   ERR_Z_Z1=RESULT_Z
+GOTOF _FINE
+STOPRE
+_SET_ZONA1:
+;Z1 active Zona1   
+   ERR_X_Z1=RESULT_X
+   ERR_Y_Z1=RESULT_Y
+   ERR_Z_Z1=RESULT_Z
+GOTOF _FINE
+STOPRE
+_SET_ZONA2:
+;Z2 active Zona
+   ERR_X_Z2=RESULT_X
+   ERR_Y_Z2=RESULT_Y
+   ERR_Z_Z2=RESULT_Z
+STOPRE
+_FINE:
+;
+R24=9999.9 R25=9999.9 R26=(Z_SETVAL+50) R9=5000
+REPEAT MOVE FINMOVE
+;
+FINCYCLE:
+;
+LIGNE="Date:"<<$A_DAY<<"-"<<$A_MONTH<<"-"<<$A_YEAR<<", Time:"<<$A_HOUR<<":"<<$A_MINUTE<<":"<<$A_SECOND
+;WRITE(RESULTAT,NOM,LIGNE)
+;M155
+;
+FIN:
+MSG("")
+
+M17
+RET
+;END

@@ -1,0 +1,155 @@
+; SAFE_CHECKSUM = 0006e3abH
+; ==============================================================
+; File:           safe.spf
+; Company:        CMS spa - ZOGNO (Italy)
+; Author:         Ufficio Automazione
+; Creation date:  21.06.2013 
+; -------------------------------------------------------
+;
+;Definizioni, NB, deve essere sempre la PRIMA RIGA 
+DEF INT STAT_IN, STAT_OUT, STAT_TIME
+;
+;--------------------------------------------------------
+;-----  DEFINIZIONI 
+;--------------------------------------------------------
+;--- DATI PASSATI DA LOGICA PLC
+DEFINE MACCHINA_ACCESA		AS	$A_PLCSIIN[3]
+DEFINE SIRE_Q1_TACITAZ		AS	$A_PLCSIIN[4]
+DEFINE SIRE_Q2_LIBERO		AS	$A_PLCSIIN[5]
+;
+DEFINE OPZ_APC			AS	$A_PLCSIIN[9]
+DEFINE OPZ_PARATIA		AS	$A_PLCSIIN[10]
+DEFINE OPZ_PORTA_1		AS	$A_PLCSIIN[11]
+DEFINE OPZ_PORTA_2		AS	$A_PLCSIIN[12]
+DEFINE OPZ_MONTANTE		AS	$A_PLCSIIN[13]
+DEFINE OPZ_MANDRINOCN	AS	$A_PLCSIIN[14]
+DEFINE OPZ_CORSAPOS		AS	$A_PLCSIIN[15]
+;
+;--- INGRESSI
+DEFINE ENABLING         AS $A_INSE[2]
+DEFINE SETTING_MODE     AS $A_INSE[3]
+DEFINE PULS_EMERG_OK    AS $A_INSE[5]
+;Gestione MANDRINO - decommentare quella corretta
+DEFINE MAN_FERM         AS $A_INSE[1] 
+;DEFINE MAN_FERM         AS $A_INSI[15]	
+;Nuova Gestione Porte: se ho un segnale solo assegno due volte il valore
+DEFINE PORTA_CHIUSA_1_DX   AS $A_INSE[6]
+DEFINE PORTA_CHIUSA_1_SX   AS $A_INSE[6]
+DEFINE PORTA_CHIUSA_2_DX   AS $A_INSE[7]
+DEFINE PORTA_CHIUSA_2_SX   AS $A_INSE[7]
+;
+DEFINE PARATIA_PRESENTE AS $A_INSE[8]
+DEFINE PORTA_APERTA_1   AS $A_INSE[11]
+DEFINE PORTA_APERTA_2   AS $A_INSE[11]
+DEFINE BARRIERA_OK      AS $A_INSE[11]
+DEFINE MONTANTE_BASSO   AS $A_INSE[11]
+;
+;--- MERKER (usati nel SIRELE)
+DEFINE CONDIZ_OK_POWER		AS	$A_MARKERSI[1]
+DEFINE REQ_TACITAZIONE		AS	$A_MARKERSI[2]
+DEFINE REQ_IN_SIRELE		AS	$A_MARKERSI[3]
+DEFINE OUT1_STOP_D		 	AS	$A_MARKERSI[4]
+DEFINE OUT2_STOP_A			AS	$A_MARKERSI[5]
+DEFINE OUT3_ASSI			AS	$A_MARKERSI[6]
+DEFINE OUT4_MANDR			AS	$A_MARKERSI[7]
+;
+DEFINE PORTA_1_OK       AS  $A_MARKERSI[8]
+DEFINE PORTA_2_OK       AS	$A_MARKERSI[9]
+DEFINE APC_OK			AS	$A_MARKERSI[10]
+DEFINE APC_PORTE_OK		AS	$A_MARKERSI[11]
+DEFINE PARAT_OK			AS	$A_MARKERSI[12]
+DEFINE MAC_ANT			AS	$A_MARKERSI[13]
+DEFINE MAC_POST			AS	$A_MARKERSI[14]
+DEFINE ZONA_ANT_OK		AS	$A_MARKERSI[15]
+DEFINE ZONA_POS_OK		AS	$A_MARKERSI[16]
+DEFINE ZONA_CEN_OK		AS	$A_MARKERSI[17]
+DEFINE SICUR_OK			AS	$A_MARKERSI[18]
+DEFINE MANDRINO_OK		AS	$A_MARKERSI[19]
+DEFINE MONTANTE_OK		AS	$A_MARKERSI[20]
+;
+;--- USCITE
+DEFINE ALIM_MANDRINO	AS	$A_OUTSE[1]
+DEFINE ALIM_PNEUM		AS	$A_OUTSE[2]
+DEFINE ABIL_SICUR_MAND	AS	$A_OUTSE[3]
+DEFINE ABIL_SLOCCO		AS	$A_OUTSE[4]
+DEFINE ALIM_ORGANI_AUX	AS	$A_OUTSE[5]
+;
+; prima azione sincrona statica : IDS =  aa  (MD11500[0]
+; ultima azione sincrona statica: IDS =  bb  (MD11500[1]
+N0040 MSG("SPL Start")
+;
+;--------------------------------------------------------
+;-----  Logica ZONE & PORTE
+;--------------------------------------------------------
+;
+IDS=10 DO PARAT_OK	=	OPZ_PARATIA AND PARATIA_PRESENTE
+IDS=11 DO MAC_ANT	=	NOT PARAT_OK 	OR		(	NOT OPZ_CORSAPOS 	AND 	$A_INSI[7])	OR		(OPZ_CORSAPOS 	AND  $A_INSI[8])
+IDS=12 DO MAC_POST	= 	PARAT_OK		AND		((	NOT OPZ_CORSAPOS	AND NOT $A_INSI[8]) OR 		(OPZ_CORSAPOS	AND NOT $A_INSI[7])	)
+;
+IDS=13 DO PORTA_1_OK = (PORTA_CHIUSA_1_DX AND PORTA_CHIUSA_1_SX) OR NOT OPZ_PORTA_1
+IDS=14 DO PORTA_2_OK = (PORTA_CHIUSA_2_DX AND PORTA_CHIUSA_2_SX) OR NOT OPZ_PORTA_2
+;
+IDS=15 DO ZONA_ANT_OK		=	(PARAT_OK AND MAC_ANT AND PORTA_1_OK) 	OR (NOT PARAT_OK AND PORTA_1_OK AND PORTA_2_OK)
+IDS=16 DO ZONA_POS_OK		=	(PARAT_OK AND MAC_POST AND PORTA_2_OK) 	OR (NOT PARAT_OK AND PORTA_1_OK AND PORTA_2_OK)
+IDS=17 DO ZONA_CEN_OK		= 	NOT MAC_ANT AND NOT MAC_POST AND PORTA_1_OK AND PORTA_2_OK
+;
+;--------------------------------------------------------
+;-----  Logica Tavole APC
+;--------------------------------------------------------
+IDS=20 DO APC_PORTE_OK 	= BARRIERA_OK OR NOT OPZ_APC OR ((PORTA_CHIUSA_1_DX OR PORTA_APERTA_1) AND (PORTA_CHIUSA_2_SX OR PORTA_APERTA_2))
+IDS=21 DO APC_OK    	= OPZ_APC AND MAN_FERM AND BARRIERA_OK
+;
+;
+;--------------------------------------------------------
+;-----  Logica MONTANTE
+;--------------------------------------------------------
+IDS=22 DO MONTANTE_OK    = NOT OPZ_MONTANTE OR NOT PARAT_OK OR MONTANTE_BASSO
+;
+;--------------------------------------------------------
+;-----  Logica SICUR_OK & MANDRINO
+;--------------------------------------------------------
+IDS=23 DO SICUR_OK 	= ZONA_ANT_OK OR ZONA_POS_OK OR ZONA_CEN_OK OR APC_OK
+IDS=24 DO MANDRINO_OK  	= MAN_FERM OR SICUR_OK OR OPZ_MANDRINOCN
+;
+;--------------------------------------------------------
+;-----  Gestione SI_REALAIS (NB: nel relè sono OBBLIGATO ad usare i Marker)
+;--------------------------------------------------------
+;-- Arresto Macchina: qui metto AND delle condizioni per avere la macchina accesa
+IDS=30 DO CONDIZ_OK_POWER= MACCHINA_ACCESA AND PULS_EMERG_OK AND MANDRINO_OK AND APC_PORTE_OK AND MONTANTE_OK
+
+;-- Tacitazione Rele
+IDS=31 DO REQ_TACITAZIONE=SIRE_Q1_TACITAZ
+;-- Logica Rele
+SIRELIN(1,STAT_IN,"REQ_TACITAZIONE","REQ_IN_SIRELE","CONDIZ_OK_POWER")   ;Q1,Q2,E1,E2,E3
+SIRELOUT(1,STAT_OUT,"OUT1_STOP_D","OUT2_STOP_A","OUT3_ASSI","OUT4_MANDR")  ;A0,A1,A2,A3
+SIRELTIME(1,STAT_TIME,0.8,1.5,2.0,5.0)  ;TM1,TI1,TI2,TI3
+R1=ITOR (STAT_IN) 
+R2=ITOR (STAT_OUT)
+R3=ITOR (STAT_TIME)
+IDS=32 DO $AC_MARKER[1] = SIRELAY(1); richiamo SI-RELAY 1, uso una varibile interna di appoggio 
+;
+;
+;-------------- Gestione Uscite -----------
+IDS=33 DO ALIM_PNEUM		= OUT1_STOP_D                   ;PowerOn: Aria - LuceBLU - Abil.Conv.EM (e opzionalmente Alim.Conv.CU)
+IDS=34 DO ABIL_SLOCCO		= MAN_FERM						;Assi e Mandrini fermi --> consenso apertura porte
+IDS=35 DO ALIM_MANDRINO		= OUT4_MANDR                 	;Teleruttore mandrino
+IDS=36 DO ABIL_SICUR_MAND	= OUT4_MANDR OR NOT MAN_FERM 	;Abil. Sicura convertitore, serve AND di mandrino fermo
+IDS=37 DO ALIM_ORGANI_AUX	= OUT1_STOP_D AND SICUR_OK	;Abil. Organi AUX
+;
+;----------- Gestione Assi ---------
+;NB: forzatura StopC e StopE fatte da Parametri
+;Arresto Macchina (Deselezione StopA)
+;--> Gestione assi con mandrini esterni --> Arresto dopo 1.5s 
+;--> Gestione assi con mandrino CN      --> Arresto dopo 5s
+IDS=38 DO $A_OUTSI[1] = (OUT2_STOP_A AND NOT OPZ_MANDRINOCN)  OR  (OUT4_MANDR AND OPZ_MANDRINOCN)
+IDS=39 DO $A_OUTSI[2] = OUT1_STOP_D ;Deselezione StopD
+;
+;----------- Gestione Fermo Sicuro & Velocità Sicure ---------
+; attivazione fermo sicuro solo ad assi effettivamente fermi
+IDS=40 DO $A_OUTSI[3] = SICUR_OK OR NOT OUT1_STOP_D OR NOT OUT2_STOP_A
+;attivazione velocita sicura solo con ENABLIG premuto
+IDS=41 DO $A_OUTSI[4] = ENABLING AND NOT SETTING_MODE AND NOT SICUR_OK
+;
+; -----------------------------------------------------
+N999 $A_PLCSIOUT[1]=1; SPL avviata, sempre mettere come ultima riga
+N1000 M30

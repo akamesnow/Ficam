@@ -1,0 +1,121 @@
+PROC RESETCU DISPLOF SBLOF
+;-------------------------------------------------------------
+;-------- PROGRAMMA DI RIPRISTINO CAMBIO UTENSILE  -----------
+;-------------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 30-04-2014
+;versione: 1.00
+;******
+QUOTECU
+;******
+CONTD=$P_TOOL
+G04 F0.2
+STOPRE
+M100
+SOFT
+M5 S0                           ;Arresta mandrino (verifica)
+D0
+INIZIO:
+IF $A_IN[19] == 0 GOTOB INIZIO ;Aspetta Mandrino Fermo
+IF $A_IN[22] == 0 GOTOF NO_ZERI
+IF $A_INA[8] == 1 GOTOF LAB10
+IF $A_INA[8] == 2 GOTOF LAB20
+IF $A_INA[8] == 3 GOTOF LAB30
+IF $A_INA[8] == 4 GOTOF LAB40
+GOTOF NO_ZERI
+;----------------------------------------------------
+;----- STATO=1
+;----------------------------------------------------
+LAB10:
+SUPA G0 G90 Z=(PICKUP1_CAMBIO_Z + PICKUP1_SVINCOLO_Z)
+STOPRE
+SUPA G0 G90 AX[_AXN4]=PICKUP1_SVINCOLO_4
+STOPRE
+M267
+M275
+GOTOF NO_ZERI
+;----------------------------------------------------
+;----- STATO=2
+;----------------------------------------------------
+LAB20:
+M68             ;APERT.CUFFIA
+M76             ;SBLOCCAGGIO UTENSILE
+M106            ;AZZERA TMAND
+M75             ;MAG. IMBARCATO 1 INDIETRO
+M93             ;MAG. IMBARCATO 2 INDIETRO
+M275            ;TEST MAG. IMBARCATO 1 INDIETRO
+M277            ;TEST MAG. IMBARCATO 2 INDIETRO
+SUPA G0 G90 Z=(PICKUP1_CAMBIO_Z + PICKUP1_SVINCOLO_Z)
+GOTOF NO_ZERI
+;----------------------------------------------------
+;----- STATO=3 (MAGAZZINI LATERALI FUORI)
+;----------------------------------------------------
+LAB30:
+M85             ;MAG. LATERALE 1 INDIETRO + CHIUSURA PROTEZIONI
+M87             ;MAG. LATERALE 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M281            ;MAG. DISCO 1 INDIETRO + CHIUSUSRA PROTEZIONI
+M291            ;MAG. DISCO 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M271            ;TEST MAG. LATERALE 1 INDIETRO
+M273            ;TEST MAG. LATERALE 2 INDIETRO
+M288            ;TEST MAG. DISCO 1 INDIETRO
+M298            ;TEST MAG. DISCO 2 INDIETRO
+SUPA G0 G90 Z=0
+GOTOF FINE
+;----------------------------------------------------
+;----- STATO=4 (PINZA SBLOCCATA SU MAG. LATERALI)
+;----------------------------------------------------
+LAB40:
+M68             ;APERT.CUFFIA
+M76             ;SBLOCCAGGIO UTENSILE
+M106            ;AZZERA TMAND
+G0G90 SUPA Z=0
+M85             ;MAG. LATERALE 1 INDIETRO + CHIUSURA PROTEZIONI
+M87             ;MAG. LATERALE 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M281            ;MAG. DISCO 1 INDIETRO + CHIUSUSRA PROTEZIONI
+M291            ;MAG. DISCO 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M271            ;TEST MAG. LATERALE 1 INDIETRO
+M273            ;TEST MAG. LATERALE 2 INDIETRO
+M288            ;TEST MAG. DISCO 1 INDIETRO
+M298            ;TEST MAG. DISCO 2 INDIETRO
+STOPRE 
+GOTOF FINE
+;----------------------------------------------------
+;----- FINE: ripristino attuatori -------------------
+;----------------------------------------------------
+FINE:      
+SUPA G0 G90 Z=0
+SUPA G0 G90 AX[_AXN4]=0 AX[_AXN5]=0
+NO_ZERI:
+STOPRE          ;Svuotamento buffer
+$A_OUTA[1]=0    ;Imposta ripristino CU 
+M171
+M71             ;DISAT.SOFF.CONO
+M267            ;MAG. IMBARCATO 1 INDIETRO + CHIUSURA PROTEZIONI
+M269            ;MAG. IMBARCATO 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M85             ;MAG. LATERALE 1 INDIETRO + CHIUSURA PROTEZIONI
+M87             ;MAG. LATERALE 2 INDIETRO + CHIUSUSRA PROTEZIONI
+M281            ;MAG. DISCO 1 INDIETRO + CHIUSURA PROTEZIONI
+M291            ;MAG. DISCO 2 INDIETRO + CHIUSURA PROTEZIONI
+STOPRE          ;Svuotamento buffer
+M271            ;TEST MAG. LATERALE 1 INDIETRO
+M273            ;TEST MAG. LATERALE 2 INDIETRO
+M275            ;TEST MAG. IMBARCATO 1 INDIETRO
+M277            ;TEST MAG. IMBARCATO 2 INDIETRO
+M283            ;TEST MAG. DISCO 1 INDIETRO
+M293            ;TEST MAG. DISCO 2 INDIETRO
+M77             ;BLOCCAGGIO UTENSILE
+STOPRE          ;Svuotamento buffer
+;T=R210 
+D0;disattiva correttore ID utensile (barbatrucco)
+STOPRE
+IF CONTCP == 1
+ TRAORI
+ENDIF
+D=CONTD
+M101
+WHILE $A_IN[20] == 0
+MSG("WAIT END RESET TOOL CHANGE")
+STOPRE
+ENDWHILE
+M30
+

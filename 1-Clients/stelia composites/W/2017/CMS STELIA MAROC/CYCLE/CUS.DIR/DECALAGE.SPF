@@ -1,0 +1,46 @@
+;----------------------------------------
+;---- PROGRAMMA DI SETTAGGIO ORIGINI ----
+;----------------------------------------
+;DECLARATION DES VARIABLES
+IF $A_IN[9] == 0 GOTOF _SET_NOPARA ;Paratia non presente
+IF $A_IN[12]== 1 GOTOF _SET_ZONA1  ;Macchina in zona 1
+IF $A_IN[12]== 0 GOTOF _SET_ZONA2  ;Macchina in zona 2
+LOOP
+MSG("????? SETTING MACHINE NOT CORRECT !!!!!")
+M00
+ENDLOOP
+;----------------------------
+;----Paratia non presente----
+;----------------------------
+_SET_NOPARA:
+;Z1+Z2 active All Zona 
+   $P_UIFR[1,X,FI]=ERR_X_Z1
+   $P_UIFR[1,Y,FI]=ERR_Y_Z1
+   $P_UIFR[1,Z,FI]=ERR_Z_Z1
+GOTOF _FINE
+STOPRE
+;----------------------------
+;-----Macchina in zona 1-----
+;----------------------------
+_SET_ZONA1:
+;Z1 active Zona1
+   $P_UIFR[1,X,FI]=ERR_X_Z1
+   $P_UIFR[1,Y,FI]=ERR_Y_Z1
+   $P_UIFR[1,Z,FI]=ERR_Z_Z1
+GOTOF _FINE
+STOPRE
+;----------------------------
+;-----Macchina in zona 2-----
+;----------------------------
+_SET_ZONA2:
+;Z2 active Zona2
+   $P_UIFR[1,X,FI]=ERR_X_Z2
+   $P_UIFR[1,Y,FI]=ERR_Y_Z2
+   $P_UIFR[1,Z,FI]=ERR_Z_Z2
+;----------------------------
+;-----Settaggio Completo-----
+;----------------------------
+_FINE:
+M17
+RET
+;END

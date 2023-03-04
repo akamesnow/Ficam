@@ -1,0 +1,226 @@
+PROC KINEMATICS_CALCULATION ;SBLOF DISPLOF
+;CALIBRATION HEAD CYCLE 996 REV:3.0
+;TRAINING CENTER 10/10/2013 
+;ULTIMA MODIFICA 23/09/2015 
+;****************************
+;* _OVR[60,61,62] -> measuring positions, rotary axis 1
+;* _OVR[63,64,65] -> measuring positions, rotary axis 2
+;* _OVR[66,67,68] -> active frame for 1st measurement, rotary axis 1
+;* _OVR[69] free
+;* _OVR[70] free
+;* _OVR[71] -> actual calibration ball diameter from 1st measurement, rotary axis 1
+;****************************
+;Measuring point P1 rotary axis 1(C), rotary axis 2(B)
+DEF REAL _P1[2]=SET(0,0) 
+DEF REAL _P2[2]=SET(90,0)
+DEF REAL _P3[2]=SET(-90,0)
+DEF REAL _P4[2]=SET(0,0)
+DEF REAL _P5[2]=SET(0,45)
+DEF REAL _P6[2]=SET(0,-45)
+DEF REAL _CALC,_RADS,_ORI
+STOPRE
+;*****MANUAL DATA INPUT****** 
+;R150         ;POSITION ABS MACCHINE X
+;R151         ;POSITION ABS MACCHINE Y 
+;R152         ;POSITION ABS MACCHINE Z 
+;_FEDSIC=5000 ;SPEED APPROACH
+IF ((_WOSET <= 57) AND (_WOSET >= 54))
+_ORI=ABS((_WOSET+1)-(53)) ;Origin offset adjust
+ENDIF
+IF ((_WOSET <= 599) AND (_WOSET >= 505) OR (_WOSET == 500))
+_ORI=ABS((_WOSET+1)-(500)) ;Origin offset adjust
+ENDIF
+_CALIB=1
+_VMS=300.00
+;Globally pre-assign measuring parameters
+;***********FINAL**************
+IF $MN_SCALING_SYSTEM_IS_METRIC == 0
+_TZ=(_TZ/25.4) _LENG=(_LENG/25.4) _BALL=(_BALL/25.4) _SAVB=(_SAVB/25.4) _FEDSIC=(_FEDSIC/25.4) _VMS=(_VMS/25.4)
+ENDIF
+_CALC=(R152)-(_BALL/2)
+_SAVB=(ABS(_SAVB))
+_FA=_SAVB
+_TSA=_SAVB
+;****************************
+IF _ONLYM <> 0
+D=_VALD
+GOTOF _MCA ;Only calculate kinematics _OVR[40] to _OVR[71] OK
+ENDIF
+T=_NUMPROB
+M06
+D=_VALD
+SUPA G90 G1 AX[$P_AXN3]=0 F=(_FEDSIC*4)
+SUPA G90 G1 AX[$P_AXN3]=0 AX[_AXN4]=0 AX[_AXN5]=0 F=_FEDSIC
+_RADS=$TC_DP6[$P_TOOLNO,$P_TOOL]
+;****************************
+$P_WPFR=CTRANS():CFINE():CROT():CSCALE():CMIRROR()
+$P_UIFR[0]=CTRANS():CFINE():CROT():CSCALE():CMIRROR()
+PROBON=-10
+CONTCP=$P_TRAFO_PARSET
+CONTD=$P_TOOL
+CONWO=$P_UIFRNUM
+REPEAT
+M46; (M CODE ON)
+UNTIL $A_PROBE[ABS(2)]<>1
+STOPRE
+CYCLE800()
+TRANS
+ROT
+TRAFOOF
+G710
+$P_UIFR[_ORI-1]=CTRANS($P_AXN1,R150,$P_AXN2,R151,$P_AXN3,_CALC,_AXN4,0,_AXN5,0):CFINE():CROT():CSCALE():CMIRROR()
+STOPRE
+G[8]=_ORI
+STOPRE
+G00 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0
+SUPA G00 G91 AX[$P_AXN3]=-(_BALL/2)
+MEAS=2 G01 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=(_FEDSIC*2)
+STOPRE
+IF (((ROUND(($AA_IW[$P_AXN3])*1000))/1000) <> ((ROUND(((_SAVB)+(_BALL/2))*1000))/1000)) GOTOF _ER
+D=_VALD
+STOPRE
+MSG ("CALIBATION ZERO POINT")
+M1
+;******************************
+CYCLE997(1000109,(10000+($P_UIFRNUM)),_NUMPB,_BALL,_FA,_TSA,0,45,0,0,0,5,5,5,10,10,10,0,1,,1,)
+;;NCG#M_CYC997_Kugel_ST#\CST.DIR\MZ97_kug.COM#NC0#1#*NCG;*RO*;*HD*
+;;##################55#######################################205#290#295#300#260#270#265#280#285#255##########2#2#2#2#2#2#2#2#2#2#2#2#2#2#2#2#2#2#2#S5#1#1#1#######2000#S3#S3#0#45#1.2#1#1#1#"AV1"#"AV2"#"AV3"#"AV4"#######"AV10"#"AV5"#"AV6"#"AV8"#"AV9"####"AV7"#55##7#1#0#1#1#1#1#0########0#1#0#0#0#0#0#0#0#8#0#0#0#1##*NCG;*RO*;*HD*
+;;#END#*NCG;*RO*;*HD*
+;******************************
+;Globally pre-assign measuring parameters
+;_FA=_SAVB*3
+;_TSA=_SAVB*4
+STOPRE
+G17
+G500
+STOPRE
+CYCLE800()
+ORIAXES ORIMKS
+G[8]=_ORI
+G00 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0
+TRAFOOF
+M46
+IF (NOT $P_SEARCH) AND (NOT $P_ISTEST) AND (NOT $P_SIM)
+_OVR[40]=0 ;Zero the measuring counter
+ENDIF
+MSG ("---- 1. Measurement, rotary axis 1 Pos B ="<<_P1[1]<<" POS C ="<<_P1[0]<<" ----")
+M01
+G1 G710 G90 D=_VALD AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P1[0] AX[_AXN4]=_P1[1] ;Kinematics initial state
+TOFFL=0
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;Online correction of the tool length
+;Circle around the ball
+;******************************
+CYCLE996(10101,1,_NUMPB,_BALL,45,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+MSG ("---- 2. Measurement, rotary axis 1 Pos B ="<<_P2[1]<<" POS C ="<<_P2[0]<<" ----")
+M01
+G1 G90 F=_FEDSIC D=_VALD
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P2[0] AX[_AXN4]=_P2[1]
+TOFFL=0 ;Disable online correction again
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+G1 G710 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0 FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;******************************
+CYCLE996(10102,1,_NUMPB,_BALL,45,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+MSG ("---- 3. Measurement, rotary axis 1 Pos B ="<<_P3[1]<<" POS C ="<<_P3[0]<<" ----")
+M01
+G1 G90 D=_VALD F=_FEDSIC
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P3[0] AX[_AXN4]=_P3[1]
+TOFFL=0
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+G1 G710 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0 FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;*****************************
+CYCLE996(10103,1,_NUMPB,_BALL,45,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+MSG ("----1. Measurement, rotary axis 2 Pos B ="<<_P4[1]<<" POS C ="<<_P4[0]<<" ----")
+M01
+;Initial state, 1st measurement, rotary axis 1 = 1st measurement, rotary axis 2
+_OVR[51]=_OVR[41] _OVR[52]=_OVR[42] _OVR[53]=_OVR[43]
+IF (NOT $P_SEARCH) AND (NOT $P_ISTEST) AND (NOT $P_SIM)
+_OVR[40]=_OVR[40]+10
+ENDIF
+G1 G90 F=_FEDSIC D=_VALD
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P4[0] AX[_AXN4]=_P4[1]
+TOFFL=0
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+G1 G710 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0 FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;*****************************
+CYCLE996(20101,1,_NUMPB,_BALL,45,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+MSG ("---- 2. Measurement, rotary axis 2 Pos B ="<<_P5[1]<<" POS C ="<<_P5[0]<<" ----")
+M01
+G1 G90 F=_FEDSIC D=_VALD
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P5[0] AX[_AXN4]=_P5[1]
+TOFFL=0
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+G1 G710 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0 FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;******************************
+CYCLE996(20102,1,_NUMPB,_BALL,0,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+MSG ("---- 3rd measurement, rotary axis 2 Pos B ="<<_P6[1]<<" POS C ="<<_P6[0]<<" ----")
+M01
+G1 G90 F=_FEDSIC D=_VALD
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN5]=_P6[0] AX[_AXN4]=_P6[1]
+TOFFL=0
+TOROT
+G1 G710 G90 AX[$P_AXN3]=((_SAVB)+(_BALL/2)) FFWON F=_FEDSIC
+G1 G710 G90 AX[$P_AXN1]=0 AX[$P_AXN2]=0 FFWON F=_FEDSIC
+TOROTOF
+TRAFOOF
+;******************************
+CYCLE996(20103,1,_NUMPB,_BALL,45,0,0,0,0,0,0,0,_FA,_TSA,1,,1,)
+;******************************
+STOPRE
+ENDIF
+G1 G90 F=_FEDSIC D=_VALD
+TRAORI
+TOFFL=((_SAVB)+(_BALL/2))
+AX[_AXN4]=0 AX[_AXN5]=0
+TOFFL=0
+TRAFOOF
+_MCA:
+MSG ("---- Calculate kinematics ----")
+M01
+;Display data set. Save data set as protocol file
+;Normalizing rotary axis 2(C) on Z=0 -> table upper edge
+;******************************
+;CYCLE996(12301000,1,_NUMPB,_BALL,_STA1,0,0,0,0,5,0.001,22,_FA,_TSA,1,,1,1100)
+CYCLE996(12301000,1,1,10,0,0,0,0,0,0,0,45,1,1,1,,1,1100)
+;******************************
+MSG("Kinematics measurement OK")
+M30 ;end of program
+;-----------------------------------------------------

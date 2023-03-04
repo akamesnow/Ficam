@@ -1,0 +1,2150 @@
+Zip2Go_Rapport Système.TXT   (03/07/2020 09:51:20)
+
+Microsoft Windows 10 Professionnel pour les Stations de travail (10.0.18363)
+64 bits
+Langage: 1036
+Mémoire physique système totale: 15,6 Go
+Mémoire physique libre totale: 9,62 Go
+Mémoire virtuelle totale: 17,6 Go
+Espace libre total dans fichiers pagination: 1,93 Go
+Dernier boot: 30/06/2020  08:34:59
+
+Fabricant: Dell Inc.
+Modèle: Precision 5820 Tower
+
+Processeur: Intel(R) Xeon(R) W-2123 CPU @ 3.60GHz
+Description: Intel64 Family 6 Model 85 Stepping 4
+L2CacheSize: 4096 KB
+L3CacheSize: 8448 KB
+
+Carte graphique: NVIDIA Quadro P2000
+Mémoire: 3,99 Go
+Résolution: 1920 x 1200
+Pilote: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispwi.inf_amd64_32fa86f72b668bfc\nvldumdx.dll,C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispwi.inf_amd64_32fa86f72b668bfc\nvldumdx.dll,C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispwi.inf_amd64_32fa86f72b668bfc\nvldumdx.dll,C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispwi.inf_amd64_32fa86f72b668bfc\nvldumdx.dll
+Version: 26.21.14.4292
+Date: 07/04/2020  02:00:00
+
+Disque d'installation et temporaire Mastercam: 
+C:
+Capacité: 475 Go
+Espace libre: 329 Go
+
+Moniteurs:
+Description: DISPLAY1
+Primaire: False
+Largeur: 1920
+Hauteur: 1200
+Description: DISPLAY2
+Primaire: True
+Largeur: 1920
+Hauteur: 1200
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.
+ NetHASP mode = Local
+ NetHASP state = 1566369518
+ Sim Type = N
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019
+ UserDir = E:\Documents\my mcam2019\
+ SharedDir = C:\Users\Public\Documents\shared Mcam2019\
+ Directory = C:\Program Files\Mcam2019\
+ InstallTimeStamp = 5/28/2019 17:10:51
+ EULA count = 0x0000000b (11)
+ Startup-Units = M
+ Maintenance-Days = 1
+ Maintenance-Warning = Y
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Auto Cursor
+ Origin = 0x00000001 (1)
+ Center = 0x00000001 (1)
+ Endpoint = 0x00000001 (1)
+ Intersect = 0x00000001 (1)
+ Midpoint = 0x00000001 (1)
+ Point = 0x00000001 (1)
+ Quadrant = 0x00000000 (0)
+ Angle = 0x00000000 (0)
+ Tangent = 0x00000000 (0)
+ Perpendicular = 0x00000000 (0)
+ Nearest = 0x00000000 (0)
+ Horiz Vert = 0x00000001 (1)
+ TmpMidPnt = 0x00000001 (1)
+ Mesh Edge = 0x00000001 (1)
+ Mesh Node = 0x00000001 (1)
+ Angle Value = 15.000000
+ FastPoint Default = 0x00000001 (1)
+ Use Power Keys = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Change Recognition
+ Override Geometry Colors = 0x00000000 (0)
+ Current File Color = 0x00000005 (5)
+ Incoming File Color = 0x00000003 (3)
+ Up-to-date operation Color = 0x0000000b (11)
+ Affected operation Color = 0x0000000c (12)
+ Dirty operation Color = 0x0000000d (13)
+ Vis state = 0x00000003 (3)
+ Draw Selected Op = 0x00000001 (1)
+ Ignore Clean Ops = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Dialog data
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Dialog data\Control definition
+ Control name = C:\Users\Public\Documents\shared Mcam2019\CNC_MACHINES\MACHINE\MAZATROL_MATRIX_LATHE_I_und_E.mcam-control
+ Post name = C:\Users\Public\Documents\shared Mcam2019\lathe\Posts\MAZATROL_integrex_I_und_E_matrix.pst
+ Product type = 0x00000004 (4)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Dialog data\OpImport
+ OpLibrary = C:\Users\Public\Documents\shared Mcam2019\Mill\Ops\Mill_mm.mcam-operations
+ ImportGroups = 0x00000000 (0)
+ RememberSourceFile = 0x00000000 (0)
+ SpeedsAndFeeds = 0x00000000 (0)
+ AssignToolCPlanes = 0x00000000 (0)
+ ImportGeometry = 0x00000000 (0)
+ NoDupToolChecks = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Dialog data\UpdateNotify
+ ShowAlerts = 0x00000001 (1)
+ AutoCheck = 0x00000001 (1)
+ LastChecked = July 03, 202
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\NotAgain
+ mcamx = 0x00000000 (0)
+ mcamxm = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables
+ Use Classic Backplot = 0x00000001 (1)
+ Use old 2D offset = 0x00000000 (0)
+ Always Join Colinear Lines = 0x00000001 (1)
+ Use new Art regen scheme = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\BackplotMisc
+ SaveLevel = 0x000015b3 (5555)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\BackplotToggles
+  =
+ 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\Toolpaths
+ Delay EMM drop cloth MC2017 = 0x00000001 (1)
+ HMM Overlap applied to Rough tool = 0x00000000 (0)
+ 3D Smoothing arc fit distance tolerance = 0
+ 3D Smoothing gouge check against EMM = 0x00000000 (0)
+ HMM Arc Creation Style = 0x00000000 (0)
+ Use Trim Offset Surface Access Cache = 0x00000001 (1)
+ Use Old Lathe Toolpath Cutter Comp = 0x00000000 (0)
+ Update Plane = 0x00000002 (2)
+ Work Offset Warning = 0x00000001 (1)
+ Use multiaxis multithreading = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\Toolpaths\Dynamic Mill
+ bIsAssertOn = 0
+ bIsCutOrdLenBas = 0
+ bIsAirCutV3 = 0
+ bUseRateOfEng = 1
+ bOverrideMinPathRad = 0
+ dMinPathRadPctToolDia = 2.5
+ bTurnOnMoatFirst = 0
+ dStkPlaceErr = -1
+ iCallNumToMill = -1
+ bUseOldGslCutOrd = 0
+ bUseCtourGuide = 0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\Toolpaths\Util
+ bUseOldBuildSoFx = 0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Configurations\Variables\Verify
+ Initial stock source = 0x00000001 (1)
+ Stock shape = 0x00000000 (0)
+ Stock solid IDN = 0x00000000 (0)
+ Stock model IDN = 0xffffffff (4294967295)
+ Cylinder axis = 0x00000000 (0)
+ Cylinder diameter = 0
+ Cylinder centered = 0x00000001 (1)
+ Stock min X = -156.7899495
+ Stock min Y = -112.9900795
+ Stock min Z = -15
+ Stock max X = 158.8288015
+ Stock max Y = 91.7509255
+ Stock max Z = 0
+ Margin X = 0
+ Margin Y = 0
+ Margin Z = 0
+ MCX file name = T:\Clients\SAMES\CFAO\544764A\544764A-E800.mcam
+ Tolerance - curve (inch) = 0.001
+ Tolerance - curve (metric) = 0.025
+ Tolerance - STL mesh (inch) = 0.001
+ Tolerance - STL mesh (metric) = 0.025
+ Tolerance - workpiece (inch) = 0.002
+ Tolerance - workpiece (metric) = 0.05
+ Tolerance - arc curve (inch) = 0.001
+ Tolerance - arc curve (metric) = 0.025
+ Cutter compensation mode = 0x00000001 (1)
+ True Thread mode = 0x00000000 (0)
+ 3rd tab: Machine name = 
+ 3rd tab: Translate workpiece? = 0x00000000 (0)
+ 3rd tab: Translate workpiece in X = 0
+ 3rd tab: Translate workpiece in Y = 0
+ 3rd tab: Translate workpiece in Z = 0
+ STL file name = 
+ Use values from options dialog = 0x00000000 (0)
+ Machine Group ent IDN = 0x00000075 (117)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Customer Feedback Program
+ Enabled = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\FBM
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\FBM\Allow Drill in lathe
+ Enable = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\FBM\Allow Mill in lathe
+ Enable = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\FileTracking
+ State = 0x00000000 (0)
+ Name Method = 0x00000001 (1)
+ Folder Method = 0x00000001 (1)
+ Extension Method = 0x00000001 (1)
+ Auto Tracking = 0x00000000 (0)
+ Auto Track at Startup = 0x00000000 (0)
+ Auto Track at File-New = 0x00000000 (0)
+ Auto Track at File-Open = 0x00000001 (1)
+ Number of Files = 0x00000000 (0)
+ Number of Additional Folders = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\flags
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\flags\FirstStartupSuccess
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\flags\SWImportKey
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Change levels dialog
+ Force visibility = 0x00000000 (0)
+ Force visibility action = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\common
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Configuration
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Configuration\ConfigFileMRU
+ Config 0 = e:\documents\my mcam2019\config\mcamx.config
+ Config 1 = e:\documents\my mcam2019\config\mcamxm.config
+ Config 2 = E:\Documents\my mcam2019_old\CONFIG\mcamxm.config
+ Config 3 = E:\Documents\my mcam2019-old\CONFIG\mcamxm.config
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Configuration\TreeState
+ NodeCount = 0x00000023 (35)
+ 19 = 0x00000001 (1)
+ 15 = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Fillet/Chamfer Selection
+ multiple = 0x00000002 (2)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Insert List Control Display
+ Display Type = 0x00000000 (0)
+ Sort Type = 0x00000002 (2)
+ Popup Delay = 0x000003e8 (1000)
+ Insert Column Order 1 = 0x00000000 (0)
+ Insert Column Order 2 = 0x00000001 (1)
+ Insert Column Order 3 = 0x00000002 (2)
+ Insert Column Order 4 = 0x00000003 (3)
+ Insert Column Width 1 = 0x0000007d (125)
+ Insert Column Width 2 = 0x0000007d (125)
+ Insert Column Width 3 = 0x0000007d (125)
+ Insert Column Width 4 = 0x0000007d (125)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Lathe Axis Combo Tool Origin
+ Sort Type = 0x00000000 (0)
+ Column Order 1 = 0x00000000 (0)
+ Column Order 2 = 0x00000001 (1)
+ Column Order 3 = 0x00000002 (2)
+ Column Order 4 = 0x00000003 (3)
+ Column Width 1 = 0x000000d2 (210)
+ Column Width 2 = 0x00000050 (80)
+ Column Width 3 = 0x00000050 (80)
+ Column Width 4 = 0x00000050 (80)
+ Display Mode = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Lathe Tool Manager Display
+ Display Type = 0x00000000 (0)
+ Sort Type = 0x00000000 (0)
+ Sort Type 2 = 0x00000000 (0)
+ Sort Type 3 = 0x00000000 (0)
+ Popup Delay = 0x000003e8 (1000)
+ Part Column Order 1 = 0x00000000 (0)
+ Part Column Order 2 = 0x00000001 (1)
+ Part Column Order 3 = 0x00000002 (2)
+ Part Column Order 4 = 0x00000003 (3)
+ Part Column Order 5 = 0x00000004 (4)
+ Library Column Order 1 = 0x00000000 (0)
+ Library Column Order 2 = 0x00000001 (1)
+ Library Column Order 3 = 0x00000002 (2)
+ Library Column Order 4 = 0x00000003 (3)
+ Library Column Order 5 = 0x00000004 (4)
+ Part Column Width 1 = 0x00000000 (0)
+ Part Column Width 2 = 0x00000000 (0)
+ Part Column Width 3 = 0x00000000 (0)
+ Part Column Width 4 = 0x00000000 (0)
+ Part Column Width 5 = 0x00000000 (0)
+ Library Column Width 1 = 0x00000000 (0)
+ Library Column Width 2 = 0x00000000 (0)
+ Library Column Width 3 = 0x00000000 (0)
+ Library Column Width 4 = 0x00000000 (0)
+ Library Column Width 5 = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Lathe Tool Page Display
+ Display Type = 0x00000000 (0)
+ Sort Type = 0x00000000 (0)
+ Popup Delay = 0x000003e8 (1000)
+ Show Library = 0x00000000 (0)
+ Column Order 1 = 0x00000000 (0)
+ Column Order 2 = 0x00000001 (1)
+ Column Order 3 = 0x00000002 (2)
+ Column Order 4 = 0x00000003 (3)
+ Column Width 1 = 0x00000000 (0)
+ Column Width 2 = 0x00000000 (0)
+ Column Width 3 = 0x00000000 (0)
+ Column Width 4 = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Lathe Tool Select Display
+ Display Type = 0x00000000 (0)
+ Sort Type = 0x00000000 (0)
+ Sort Type 2 = 0x00000000 (0)
+ Sort Type 3 = 0x00000000 (0)
+ Popup Delay = 0x000003e8 (1000)
+ Part Column Order 1 = 0x00000000 (0)
+ Part Column Order 2 = 0x00000001 (1)
+ Part Column Order 3 = 0x00000002 (2)
+ Part Column Order 4 = 0x00000003 (3)
+ Part Column Order 5 = 0x00000004 (4)
+ Library Column Order 1 = 0x00000000 (0)
+ Library Column Order 2 = 0x00000001 (1)
+ Library Column Order 3 = 0x00000002 (2)
+ Library Column Order 4 = 0x00000003 (3)
+ Library Column Order 5 = 0x00000004 (4)
+ Part Column Width 1 = 0x00000045 (69)
+ Part Column Width 2 = 0x0000006e (110)
+ Part Column Width 3 = 0x000000e1 (225)
+ Part Column Width 4 = 0x00000058 (88)
+ Part Column Width 5 = 0x00000034 (52)
+ Library Column Width 1 = 0x00000000 (0)
+ Library Column Width 2 = 0x00000000 (0)
+ Library Column Width 3 = 0x00000000 (0)
+ Library Column Width 4 = 0x00000000 (0)
+ Library Column Width 5 = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\MD Menu Manager
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\MD Menu Manager\Lathe MD List
+ Lathe MD #1 = C:\Users\Public\Documents\shared Mcam2019\CNC_MACHINES\MACHINE\MAZATROL_FUSION_LATHE_t6m.mcam-lmd
+ Lathe MD #2 = C:\Users\Public\Documents\shared Mcam2019\CNC_MACHINES\MACHINE\MAZATROL_LATHE_MATRIX-INTEGREX.mcam-lmd
+ Lathe MD #3 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\MAZATROL_MATRIX_E.mcam-lmd
+ Lathe MD #4 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\MAZATROL_MATRIX_E - TOURNAGE VERTICAL.mcam-lmd
+ Lathe MD #5 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\LATHE DEFAULT MM.MCAM-LMD
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\MD Menu Manager\Mill MD List
+ Mill MD #1 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\INTEGREX-400-IVS-5X.mcam-mmd
+ Mill MD #2 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\INTEGREX-e-800V.mcam-mmd
+ Mill MD #3 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\MAZAK.mcam-mmd
+ Mill MD #4 = C:\Users\Public\Documents\shared Mcam2019\CNC_Machines\R_ROVER-22_BIESSE_VMCHH_BC.mcam-mmd
+ Mill MD #5 = C:\Users\Public\Documents\shared Mcam2019\CNC_MACHINES\MACHINE\MAZATROL_M32.mcam-mmd
+ Mill MD #6 = C:\Users\Public\Documents\shared Mcam2019\CNC_MACHINES\MACHINE\MAZATROL_M64.mcam-mmd
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\MD Menu Manager\Mill-Turn MD List
+ Mill-Turn MD #1 = C:\Users\Public\Documents\shared Mcam2019\Mill Turn\machines\DMG Mori Seiki CTX beta 1250 TC 4A.machine
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Display
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Display\FBM Pocket Tool List Settings
+ List Style = 0x00000001 (1)
+ DisplayMode0  SortInfo = 0x00000002 (2)
+ DisplayMode0  Column0Order = 0x00000000 (0)
+ DisplayMode0  Column0Visible = 0x00000000 (0)
+ DisplayMode0  Column0Width = 0x00000000 (0)
+ DisplayMode0  Column1Order = 0x0000000c (12)
+ DisplayMode0  Column1Visible = 0x00000001 (1)
+ DisplayMode0  Column1Width = 0x00000019 (25)
+ DisplayMode0  Column2Order = 0x00000005 (5)
+ DisplayMode0  Column2Visible = 0x00000001 (1)
+ DisplayMode0  Column2Width = 0x00000028 (40)
+ DisplayMode0  Column3Order = 0x00000003 (3)
+ DisplayMode0  Column3Visible = 0x00000000 (0)
+ DisplayMode0  Column3Width = 0x00000000 (0)
+ DisplayMode0  Column4Order = 0x00000001 (1)
+ DisplayMode0  Column4Visible = 0x00000001 (1)
+ DisplayMode0  Column4Width = 0x00000050 (80)
+ DisplayMode0  Column5Order = 0x00000002 (2)
+ DisplayMode0  Column5Visible = 0x00000000 (0)
+ DisplayMode0  Column5Width = 0x00000000 (0)
+ DisplayMode0  Column6Order = 0x00000004 (4)
+ DisplayMode0  Column6Visible = 0x00000001 (1)
+ DisplayMode0  Column6Width = 0x00000032 (50)
+ DisplayMode0  Column7Order = 0x00000006 (6)
+ DisplayMode0  Column7Visible = 0x00000001 (1)
+ DisplayMode0  Column7Width = 0x00000032 (50)
+ DisplayMode0  Column8Order = 0x00000007 (7)
+ DisplayMode0  Column8Visible = 0x00000001 (1)
+ DisplayMode0  Column8Width = 0x00000032 (50)
+ DisplayMode0  Column9Order = 0x00000008 (8)
+ DisplayMode0  Column9Visible = 0x00000001 (1)
+ DisplayMode0  Column9Width = 0x00000032 (50)
+ DisplayMode0  Column10Order = 0x00000009 (9)
+ DisplayMode0  Column10Visible = 0x00000001 (1)
+ DisplayMode0  Column10Width = 0x00000032 (50)
+ DisplayMode0  Column11Order = 0x0000000a (10)
+ DisplayMode0  Column11Visible = 0x00000001 (1)
+ DisplayMode0  Column11Width = 0x00000032 (50)
+ DisplayMode0  Column12Order = 0x0000000b (11)
+ DisplayMode0  Column12Visible = 0x00000000 (0)
+ DisplayMode0  Column12Width = 0x00000000 (0)
+ DisplayMode1  SortInfo = 0x00000002 (2)
+ DisplayMode1  Column0Order = 0x00000000 (0)
+ DisplayMode1  Column0Visible = 0x00000000 (0)
+ DisplayMode1  Column0Width = 0x00000000 (0)
+ DisplayMode1  Column1Order = 0x0000000c (12)
+ DisplayMode1  Column1Visible = 0x00000001 (1)
+ DisplayMode1  Column1Width = 0x00000019 (25)
+ DisplayMode1  Column2Order = 0x00000001 (1)
+ DisplayMode1  Column2Visible = 0x00000001 (1)
+ DisplayMode1  Column2Width = 0x00000028 (40)
+ DisplayMode1  Column3Order = 0x00000002 (2)
+ DisplayMode1  Column3Visible = 0x00000001 (1)
+ DisplayMode1  Column3Width = 0x00000050 (80)
+ DisplayMode1  Column4Order = 0x00000003 (3)
+ DisplayMode1  Column4Visible = 0x00000001 (1)
+ DisplayMode1  Column4Width = 0x00000050 (80)
+ DisplayMode1  Column5Order = 0x00000004 (4)
+ DisplayMode1  Column5Visible = 0x00000001 (1)
+ DisplayMode1  Column5Width = 0x00000050 (80)
+ DisplayMode1  Column6Order = 0x00000005 (5)
+ DisplayMode1  Column6Visible = 0x00000001 (1)
+ DisplayMode1  Column6Width = 0x00000032 (50)
+ DisplayMode1  Column7Order = 0x00000006 (6)
+ DisplayMode1  Column7Visible = 0x00000001 (1)
+ DisplayMode1  Column7Width = 0x00000032 (50)
+ DisplayMode1  Column8Order = 0x00000007 (7)
+ DisplayMode1  Column8Visible = 0x00000001 (1)
+ DisplayMode1  Column8Width = 0x00000032 (50)
+ DisplayMode1  Column9Order = 0x00000008 (8)
+ DisplayMode1  Column9Visible = 0x00000001 (1)
+ DisplayMode1  Column9Width = 0x00000032 (50)
+ DisplayMode1  Column10Order = 0x00000009 (9)
+ DisplayMode1  Column10Visible = 0x00000001 (1)
+ DisplayMode1  Column10Width = 0x00000032 (50)
+ DisplayMode1  Column11Order = 0x0000000a (10)
+ DisplayMode1  Column11Visible = 0x00000001 (1)
+ DisplayMode1  Column11Width = 0x00000032 (50)
+ DisplayMode1  Column12Order = 0x0000000b (11)
+ DisplayMode1  Column12Visible = 0x00000000 (0)
+ DisplayMode1  Column12Width = 0x00000000 (0)
+ DisplayMode2  SortInfo = 0x00000002 (2)
+ DisplayMode2  Column0Order = 0x00000000 (0)
+ DisplayMode2  Column0Visible = 0x00000000 (0)
+ DisplayMode2  Column0Width = 0x00000000 (0)
+ DisplayMode2  Column1Order = 0x0000000c (12)
+ DisplayMode2  Column1Visible = 0x00000001 (1)
+ DisplayMode2  Column1Width = 0x00000019 (25)
+ DisplayMode2  Column2Order = 0x00000001 (1)
+ DisplayMode2  Column2Visible = 0x00000001 (1)
+ DisplayMode2  Column2Width = 0x00000028 (40)
+ DisplayMode2  Column3Order = 0x00000002 (2)
+ DisplayMode2  Column3Visible = 0x00000001 (1)
+ DisplayMode2  Column3Width = 0x00000050 (80)
+ DisplayMode2  Column4Order = 0x00000003 (3)
+ DisplayMode2  Column4Visible = 0x00000001 (1)
+ DisplayMode2  Column4Width = 0x00000050 (80)
+ DisplayMode2  Column5Order = 0x00000004 (4)
+ DisplayMode2  Column5Visible = 0x00000001 (1)
+ DisplayMode2  Column5Width = 0x00000050 (80)
+ DisplayMode2  Column6Order = 0x00000005 (5)
+ DisplayMode2  Column6Visible = 0x00000001 (1)
+ DisplayMode2  Column6Width = 0x00000032 (50)
+ DisplayMode2  Column7Order = 0x00000006 (6)
+ DisplayMode2  Column7Visible = 0x00000001 (1)
+ DisplayMode2  Column7Width = 0x00000032 (50)
+ DisplayMode2  Column8Order = 0x00000007 (7)
+ DisplayMode2  Column8Visible = 0x00000001 (1)
+ DisplayMode2  Column8Width = 0x00000032 (50)
+ DisplayMode2  Column9Order = 0x00000008 (8)
+ DisplayMode2  Column9Visible = 0x00000001 (1)
+ DisplayMode2  Column9Width = 0x00000032 (50)
+ DisplayMode2  Column10Order = 0x00000009 (9)
+ DisplayMode2  Column10Visible = 0x00000001 (1)
+ DisplayMode2  Column10Width = 0x00000032 (50)
+ DisplayMode2  Column11Order = 0x0000000a (10)
+ DisplayMode2  Column11Visible = 0x00000001 (1)
+ DisplayMode2  Column11Width = 0x00000032 (50)
+ DisplayMode2  Column12Order = 0x0000000b (11)
+ DisplayMode2  Column12Visible = 0x00000000 (0)
+ DisplayMode2  Column12Width = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Display\Tool List Settings
+ List Style = 0x00000001 (1)
+ DisplayMode0  SortInfo = 0x00000002 (2)
+ DisplayMode0  Column0Order = 0x00000000 (0)
+ DisplayMode0  Column0Visible = 0x00000000 (0)
+ DisplayMode0  Column0Width = 0x00000000 (0)
+ DisplayMode0  Column1Order = 0x0000000b (11)
+ DisplayMode0  Column1Visible = 0x00000001 (1)
+ DisplayMode0  Column1Width = 0x00000019 (25)
+ DisplayMode0  Column2Order = 0x0000000c (12)
+ DisplayMode0  Column2Visible = 0x00000001 (1)
+ DisplayMode0  Column2Width = 0x00000028 (40)
+ DisplayMode0  Column3Order = 0x00000005 (5)
+ DisplayMode0  Column3Visible = 0x00000000 (0)
+ DisplayMode0  Column3Width = 0x00000000 (0)
+ DisplayMode0  Column4Order = 0x00000003 (3)
+ DisplayMode0  Column4Visible = 0x00000001 (1)
+ DisplayMode0  Column4Width = 0x00000050 (80)
+ DisplayMode0  Column5Order = 0x00000001 (1)
+ DisplayMode0  Column5Visible = 0x00000000 (0)
+ DisplayMode0  Column5Width = 0x00000000 (0)
+ DisplayMode0  Column6Order = 0x00000002 (2)
+ DisplayMode0  Column6Visible = 0x00000001 (1)
+ DisplayMode0  Column6Width = 0x00000032 (50)
+ DisplayMode0  Column7Order = 0x00000004 (4)
+ DisplayMode0  Column7Visible = 0x00000001 (1)
+ DisplayMode0  Column7Width = 0x00000032 (50)
+ DisplayMode0  Column8Order = 0x00000006 (6)
+ DisplayMode0  Column8Visible = 0x00000001 (1)
+ DisplayMode0  Column8Width = 0x00000032 (50)
+ DisplayMode0  Column9Order = 0x00000007 (7)
+ DisplayMode0  Column9Visible = 0x00000001 (1)
+ DisplayMode0  Column9Width = 0x00000032 (50)
+ DisplayMode0  Column10Order = 0x00000008 (8)
+ DisplayMode0  Column10Visible = 0x00000001 (1)
+ DisplayMode0  Column10Width = 0x00000032 (50)
+ DisplayMode0  Column11Order = 0x00000009 (9)
+ DisplayMode0  Column11Visible = 0x00000000 (0)
+ DisplayMode0  Column11Width = 0x00000000 (0)
+ DisplayMode0  Column12Order = 0x0000000a (10)
+ DisplayMode0  Column12Visible = 0x00000000 (0)
+ DisplayMode0  Column12Width = 0x00000000 (0)
+ DisplayMode1  SortInfo = 0x00000002 (2)
+ DisplayMode1  Column0Order = 0x00000000 (0)
+ DisplayMode1  Column0Visible = 0x00000000 (0)
+ DisplayMode1  Column0Width = 0x00000000 (0)
+ DisplayMode1  Column1Order = 0x0000000b (11)
+ DisplayMode1  Column1Visible = 0x00000001 (1)
+ DisplayMode1  Column1Width = 0x00000019 (25)
+ DisplayMode1  Column2Order = 0x0000000c (12)
+ DisplayMode1  Column2Visible = 0x00000001 (1)
+ DisplayMode1  Column2Width = 0x00000028 (40)
+ DisplayMode1  Column3Order = 0x00000001 (1)
+ DisplayMode1  Column3Visible = 0x00000001 (1)
+ DisplayMode1  Column3Width = 0x00000050 (80)
+ DisplayMode1  Column4Order = 0x00000002 (2)
+ DisplayMode1  Column4Visible = 0x00000001 (1)
+ DisplayMode1  Column4Width = 0x00000050 (80)
+ DisplayMode1  Column5Order = 0x00000003 (3)
+ DisplayMode1  Column5Visible = 0x00000001 (1)
+ DisplayMode1  Column5Width = 0x00000050 (80)
+ DisplayMode1  Column6Order = 0x00000004 (4)
+ DisplayMode1  Column6Visible = 0x00000001 (1)
+ DisplayMode1  Column6Width = 0x00000032 (50)
+ DisplayMode1  Column7Order = 0x00000005 (5)
+ DisplayMode1  Column7Visible = 0x00000001 (1)
+ DisplayMode1  Column7Width = 0x00000032 (50)
+ DisplayMode1  Column8Order = 0x00000006 (6)
+ DisplayMode1  Column8Visible = 0x00000001 (1)
+ DisplayMode1  Column8Width = 0x00000032 (50)
+ DisplayMode1  Column9Order = 0x00000007 (7)
+ DisplayMode1  Column9Visible = 0x00000001 (1)
+ DisplayMode1  Column9Width = 0x00000032 (50)
+ DisplayMode1  Column10Order = 0x00000008 (8)
+ DisplayMode1  Column10Visible = 0x00000001 (1)
+ DisplayMode1  Column10Width = 0x00000032 (50)
+ DisplayMode1  Column11Order = 0x00000009 (9)
+ DisplayMode1  Column11Visible = 0x00000000 (0)
+ DisplayMode1  Column11Width = 0x00000000 (0)
+ DisplayMode1  Column12Order = 0x0000000a (10)
+ DisplayMode1  Column12Visible = 0x00000000 (0)
+ DisplayMode1  Column12Width = 0x00000000 (0)
+ DisplayMode2  SortInfo = 0x00000002 (2)
+ DisplayMode2  Column0Order = 0x00000000 (0)
+ DisplayMode2  Column0Visible = 0x00000000 (0)
+ DisplayMode2  Column0Width = 0x00000000 (0)
+ DisplayMode2  Column1Order = 0x0000000b (11)
+ DisplayMode2  Column1Visible = 0x00000001 (1)
+ DisplayMode2  Column1Width = 0x00000019 (25)
+ DisplayMode2  Column2Order = 0x0000000c (12)
+ DisplayMode2  Column2Visible = 0x00000001 (1)
+ DisplayMode2  Column2Width = 0x0000002a (42)
+ DisplayMode2  Column3Order = 0x00000001 (1)
+ DisplayMode2  Column3Visible = 0x00000001 (1)
+ DisplayMode2  Column3Width = 0x00000050 (80)
+ DisplayMode2  Column4Order = 0x00000002 (2)
+ DisplayMode2  Column4Visible = 0x00000001 (1)
+ DisplayMode2  Column4Width = 0x000000bb (187)
+ DisplayMode2  Column5Order = 0x00000004 (4)
+ DisplayMode2  Column5Visible = 0x00000001 (1)
+ DisplayMode2  Column5Width = 0x00000050 (80)
+ DisplayMode2  Column6Order = 0x00000005 (5)
+ DisplayMode2  Column6Visible = 0x00000001 (1)
+ DisplayMode2  Column6Width = 0x00000032 (50)
+ DisplayMode2  Column7Order = 0x00000003 (3)
+ DisplayMode2  Column7Visible = 0x00000001 (1)
+ DisplayMode2  Column7Width = 0x00000032 (50)
+ DisplayMode2  Column8Order = 0x00000006 (6)
+ DisplayMode2  Column8Visible = 0x00000001 (1)
+ DisplayMode2  Column8Width = 0x00000032 (50)
+ DisplayMode2  Column9Order = 0x00000007 (7)
+ DisplayMode2  Column9Visible = 0x00000001 (1)
+ DisplayMode2  Column9Width = 0x00000032 (50)
+ DisplayMode2  Column10Order = 0x00000008 (8)
+ DisplayMode2  Column10Visible = 0x00000001 (1)
+ DisplayMode2  Column10Width = 0x00000032 (50)
+ DisplayMode2  Column11Order = 0x00000009 (9)
+ DisplayMode2  Column11Visible = 0x00000000 (0)
+ DisplayMode2  Column11Width = 0x00000000 (0)
+ DisplayMode2  Column12Order = 0x0000000a (10)
+ DisplayMode2  Column12Visible = 0x00000000 (0)
+ DisplayMode2  Column12Width = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Library Selection
+ Tool Manager Display Mode = 0x00000002 (2)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Library Selection\Tool List Settings
+ List Style = 0x00000001 (1)
+ DisplayMode0  SortInfo = 0x00000002 (2)
+ DisplayMode0  Column0Order = 0x00000000 (0)
+ DisplayMode0  Column0Visible = 0x00000000 (0)
+ DisplayMode0  Column0Width = 0x00000000 (0)
+ DisplayMode0  Column1Order = 0x0000000c (12)
+ DisplayMode0  Column1Visible = 0x00000001 (1)
+ DisplayMode0  Column1Width = 0x00000019 (25)
+ DisplayMode0  Column2Order = 0x00000005 (5)
+ DisplayMode0  Column2Visible = 0x00000001 (1)
+ DisplayMode0  Column2Width = 0x00000028 (40)
+ DisplayMode0  Column3Order = 0x00000003 (3)
+ DisplayMode0  Column3Visible = 0x00000000 (0)
+ DisplayMode0  Column3Width = 0x00000000 (0)
+ DisplayMode0  Column4Order = 0x00000001 (1)
+ DisplayMode0  Column4Visible = 0x00000001 (1)
+ DisplayMode0  Column4Width = 0x00000050 (80)
+ DisplayMode0  Column5Order = 0x00000002 (2)
+ DisplayMode0  Column5Visible = 0x00000000 (0)
+ DisplayMode0  Column5Width = 0x00000000 (0)
+ DisplayMode0  Column6Order = 0x00000004 (4)
+ DisplayMode0  Column6Visible = 0x00000001 (1)
+ DisplayMode0  Column6Width = 0x00000032 (50)
+ DisplayMode0  Column7Order = 0x00000006 (6)
+ DisplayMode0  Column7Visible = 0x00000001 (1)
+ DisplayMode0  Column7Width = 0x00000032 (50)
+ DisplayMode0  Column8Order = 0x00000007 (7)
+ DisplayMode0  Column8Visible = 0x00000001 (1)
+ DisplayMode0  Column8Width = 0x00000032 (50)
+ DisplayMode0  Column9Order = 0x00000008 (8)
+ DisplayMode0  Column9Visible = 0x00000001 (1)
+ DisplayMode0  Column9Width = 0x00000032 (50)
+ DisplayMode0  Column10Order = 0x00000009 (9)
+ DisplayMode0  Column10Visible = 0x00000001 (1)
+ DisplayMode0  Column10Width = 0x00000032 (50)
+ DisplayMode0  Column11Order = 0x0000000a (10)
+ DisplayMode0  Column11Visible = 0x00000001 (1)
+ DisplayMode0  Column11Width = 0x00000032 (50)
+ DisplayMode0  Column12Order = 0x0000000b (11)
+ DisplayMode0  Column12Visible = 0x00000000 (0)
+ DisplayMode0  Column12Width = 0x00000000 (0)
+ DisplayMode1  SortInfo = 0x00000002 (2)
+ DisplayMode1  Column0Order = 0x00000000 (0)
+ DisplayMode1  Column0Visible = 0x00000000 (0)
+ DisplayMode1  Column0Width = 0x00000000 (0)
+ DisplayMode1  Column1Order = 0x0000000c (12)
+ DisplayMode1  Column1Visible = 0x00000001 (1)
+ DisplayMode1  Column1Width = 0x00000019 (25)
+ DisplayMode1  Column2Order = 0x00000001 (1)
+ DisplayMode1  Column2Visible = 0x00000001 (1)
+ DisplayMode1  Column2Width = 0x00000028 (40)
+ DisplayMode1  Column3Order = 0x00000002 (2)
+ DisplayMode1  Column3Visible = 0x00000001 (1)
+ DisplayMode1  Column3Width = 0x00000050 (80)
+ DisplayMode1  Column4Order = 0x00000003 (3)
+ DisplayMode1  Column4Visible = 0x00000001 (1)
+ DisplayMode1  Column4Width = 0x00000050 (80)
+ DisplayMode1  Column5Order = 0x00000004 (4)
+ DisplayMode1  Column5Visible = 0x00000001 (1)
+ DisplayMode1  Column5Width = 0x00000050 (80)
+ DisplayMode1  Column6Order = 0x00000005 (5)
+ DisplayMode1  Column6Visible = 0x00000001 (1)
+ DisplayMode1  Column6Width = 0x00000032 (50)
+ DisplayMode1  Column7Order = 0x00000006 (6)
+ DisplayMode1  Column7Visible = 0x00000001 (1)
+ DisplayMode1  Column7Width = 0x00000032 (50)
+ DisplayMode1  Column8Order = 0x00000007 (7)
+ DisplayMode1  Column8Visible = 0x00000001 (1)
+ DisplayMode1  Column8Width = 0x00000032 (50)
+ DisplayMode1  Column9Order = 0x00000008 (8)
+ DisplayMode1  Column9Visible = 0x00000001 (1)
+ DisplayMode1  Column9Width = 0x00000032 (50)
+ DisplayMode1  Column10Order = 0x00000009 (9)
+ DisplayMode1  Column10Visible = 0x00000001 (1)
+ DisplayMode1  Column10Width = 0x00000032 (50)
+ DisplayMode1  Column11Order = 0x0000000a (10)
+ DisplayMode1  Column11Visible = 0x00000001 (1)
+ DisplayMode1  Column11Width = 0x00000032 (50)
+ DisplayMode1  Column12Order = 0x0000000b (11)
+ DisplayMode1  Column12Visible = 0x00000000 (0)
+ DisplayMode1  Column12Width = 0x00000000 (0)
+ DisplayMode2  SortInfo = 0x00000004 (4)
+ DisplayMode2  Column0Order = 0x00000000 (0)
+ DisplayMode2  Column0Visible = 0x00000000 (0)
+ DisplayMode2  Column0Width = 0x00000000 (0)
+ DisplayMode2  Column1Order = 0x0000000c (12)
+ DisplayMode2  Column1Visible = 0x00000001 (1)
+ DisplayMode2  Column1Width = 0x00000019 (25)
+ DisplayMode2  Column2Order = 0x00000001 (1)
+ DisplayMode2  Column2Visible = 0x00000001 (1)
+ DisplayMode2  Column2Width = 0x00000028 (40)
+ DisplayMode2  Column3Order = 0x00000002 (2)
+ DisplayMode2  Column3Visible = 0x00000001 (1)
+ DisplayMode2  Column3Width = 0x00000050 (80)
+ DisplayMode2  Column4Order = 0x00000004 (4)
+ DisplayMode2  Column4Visible = 0x00000001 (1)
+ DisplayMode2  Column4Width = 0x000000ec (236)
+ DisplayMode2  Column5Order = 0x00000005 (5)
+ DisplayMode2  Column5Visible = 0x00000001 (1)
+ DisplayMode2  Column5Width = 0x00000091 (145)
+ DisplayMode2  Column6Order = 0x00000003 (3)
+ DisplayMode2  Column6Visible = 0x00000001 (1)
+ DisplayMode2  Column6Width = 0x00000032 (50)
+ DisplayMode2  Column7Order = 0x00000006 (6)
+ DisplayMode2  Column7Visible = 0x00000001 (1)
+ DisplayMode2  Column7Width = 0x00000032 (50)
+ DisplayMode2  Column8Order = 0x00000007 (7)
+ DisplayMode2  Column8Visible = 0x00000001 (1)
+ DisplayMode2  Column8Width = 0x00000032 (50)
+ DisplayMode2  Column9Order = 0x00000008 (8)
+ DisplayMode2  Column9Visible = 0x00000001 (1)
+ DisplayMode2  Column9Width = 0x00000032 (50)
+ DisplayMode2  Column10Order = 0x00000009 (9)
+ DisplayMode2  Column10Visible = 0x00000001 (1)
+ DisplayMode2  Column10Width = 0x00000032 (50)
+ DisplayMode2  Column11Order = 0x0000000a (10)
+ DisplayMode2  Column11Visible = 0x00000001 (1)
+ DisplayMode2  Column11Width = 0x00000032 (50)
+ DisplayMode2  Column12Order = 0x0000000b (11)
+ DisplayMode2  Column12Visible = 0x00000000 (0)
+ DisplayMode2  Column12Width = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Manager
+ Tool Manager Mode = 0x00000000 (0)
+ Tool Manager Display Mode = 0x00000002 (2)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Manager\Lib Tool List
+ List Style = 0x00000001 (1)
+ DisplayMode0  SortInfo = 0x00000002 (2)
+ DisplayMode0  Column0Order = 0x00000000 (0)
+ DisplayMode0  Column0Visible = 0x00000000 (0)
+ DisplayMode0  Column0Width = 0x00000000 (0)
+ DisplayMode0  Column1Order = 0x0000000c (12)
+ DisplayMode0  Column1Visible = 0x00000001 (1)
+ DisplayMode0  Column1Width = 0x00000019 (25)
+ DisplayMode0  Column2Order = 0x00000005 (5)
+ DisplayMode0  Column2Visible = 0x00000001 (1)
+ DisplayMode0  Column2Width = 0x00000028 (40)
+ DisplayMode0  Column3Order = 0x00000003 (3)
+ DisplayMode0  Column3Visible = 0x00000000 (0)
+ DisplayMode0  Column3Width = 0x00000000 (0)
+ DisplayMode0  Column4Order = 0x00000001 (1)
+ DisplayMode0  Column4Visible = 0x00000001 (1)
+ DisplayMode0  Column4Width = 0x00000050 (80)
+ DisplayMode0  Column5Order = 0x00000002 (2)
+ DisplayMode0  Column5Visible = 0x00000000 (0)
+ DisplayMode0  Column5Width = 0x00000000 (0)
+ DisplayMode0  Column6Order = 0x00000004 (4)
+ DisplayMode0  Column6Visible = 0x00000001 (1)
+ DisplayMode0  Column6Width = 0x00000032 (50)
+ DisplayMode0  Column7Order = 0x00000006 (6)
+ DisplayMode0  Column7Visible = 0x00000001 (1)
+ DisplayMode0  Column7Width = 0x00000032 (50)
+ DisplayMode0  Column8Order = 0x00000007 (7)
+ DisplayMode0  Column8Visible = 0x00000001 (1)
+ DisplayMode0  Column8Width = 0x00000032 (50)
+ DisplayMode0  Column9Order = 0x00000008 (8)
+ DisplayMode0  Column9Visible = 0x00000001 (1)
+ DisplayMode0  Column9Width = 0x00000032 (50)
+ DisplayMode0  Column10Order = 0x00000009 (9)
+ DisplayMode0  Column10Visible = 0x00000001 (1)
+ DisplayMode0  Column10Width = 0x00000032 (50)
+ DisplayMode0  Column11Order = 0x0000000a (10)
+ DisplayMode0  Column11Visible = 0x00000001 (1)
+ DisplayMode0  Column11Width = 0x00000032 (50)
+ DisplayMode0  Column12Order = 0x0000000b (11)
+ DisplayMode0  Column12Visible = 0x00000000 (0)
+ DisplayMode0  Column12Width = 0x00000000 (0)
+ DisplayMode1  SortInfo = 0x00000002 (2)
+ DisplayMode1  Column0Order = 0x00000000 (0)
+ DisplayMode1  Column0Visible = 0x00000000 (0)
+ DisplayMode1  Column0Width = 0x00000000 (0)
+ DisplayMode1  Column1Order = 0x0000000c (12)
+ DisplayMode1  Column1Visible = 0x00000001 (1)
+ DisplayMode1  Column1Width = 0x00000019 (25)
+ DisplayMode1  Column2Order = 0x00000001 (1)
+ DisplayMode1  Column2Visible = 0x00000001 (1)
+ DisplayMode1  Column2Width = 0x00000028 (40)
+ DisplayMode1  Column3Order = 0x00000002 (2)
+ DisplayMode1  Column3Visible = 0x00000001 (1)
+ DisplayMode1  Column3Width = 0x00000050 (80)
+ DisplayMode1  Column4Order = 0x00000003 (3)
+ DisplayMode1  Column4Visible = 0x00000001 (1)
+ DisplayMode1  Column4Width = 0x00000050 (80)
+ DisplayMode1  Column5Order = 0x00000004 (4)
+ DisplayMode1  Column5Visible = 0x00000001 (1)
+ DisplayMode1  Column5Width = 0x00000050 (80)
+ DisplayMode1  Column6Order = 0x00000005 (5)
+ DisplayMode1  Column6Visible = 0x00000001 (1)
+ DisplayMode1  Column6Width = 0x00000032 (50)
+ DisplayMode1  Column7Order = 0x00000006 (6)
+ DisplayMode1  Column7Visible = 0x00000001 (1)
+ DisplayMode1  Column7Width = 0x00000032 (50)
+ DisplayMode1  Column8Order = 0x00000007 (7)
+ DisplayMode1  Column8Visible = 0x00000001 (1)
+ DisplayMode1  Column8Width = 0x00000032 (50)
+ DisplayMode1  Column9Order = 0x00000008 (8)
+ DisplayMode1  Column9Visible = 0x00000001 (1)
+ DisplayMode1  Column9Width = 0x00000032 (50)
+ DisplayMode1  Column10Order = 0x00000009 (9)
+ DisplayMode1  Column10Visible = 0x00000001 (1)
+ DisplayMode1  Column10Width = 0x00000032 (50)
+ DisplayMode1  Column11Order = 0x0000000a (10)
+ DisplayMode1  Column11Visible = 0x00000001 (1)
+ DisplayMode1  Column11Width = 0x00000032 (50)
+ DisplayMode1  Column12Order = 0x0000000b (11)
+ DisplayMode1  Column12Visible = 0x00000000 (0)
+ DisplayMode1  Column12Width = 0x00000000 (0)
+ DisplayMode2  SortInfo = 0x00000002 (2)
+ DisplayMode2  Column0Order = 0x00000000 (0)
+ DisplayMode2  Column0Visible = 0x00000000 (0)
+ DisplayMode2  Column0Width = 0x00000000 (0)
+ DisplayMode2  Column1Order = 0x00000003 (3)
+ DisplayMode2  Column1Visible = 0x00000001 (1)
+ DisplayMode2  Column1Width = 0x00000019 (25)
+ DisplayMode2  Column2Order = 0x0000000c (12)
+ DisplayMode2  Column2Visible = 0x00000001 (1)
+ DisplayMode2  Column2Width = 0x00000028 (40)
+ DisplayMode2  Column3Order = 0x00000001 (1)
+ DisplayMode2  Column3Visible = 0x00000000 (0)
+ DisplayMode2  Column3Width = 0x00000000 (0)
+ DisplayMode2  Column4Order = 0x00000002 (2)
+ DisplayMode2  Column4Visible = 0x00000001 (1)
+ DisplayMode2  Column4Width = 0x000000c6 (198)
+ DisplayMode2  Column5Order = 0x00000004 (4)
+ DisplayMode2  Column5Visible = 0x00000001 (1)
+ DisplayMode2  Column5Width = 0x00000050 (80)
+ DisplayMode2  Column6Order = 0x00000005 (5)
+ DisplayMode2  Column6Visible = 0x00000001 (1)
+ DisplayMode2  Column6Width = 0x00000032 (50)
+ DisplayMode2  Column7Order = 0x00000006 (6)
+ DisplayMode2  Column7Visible = 0x00000001 (1)
+ DisplayMode2  Column7Width = 0x00000032 (50)
+ DisplayMode2  Column8Order = 0x00000007 (7)
+ DisplayMode2  Column8Visible = 0x00000001 (1)
+ DisplayMode2  Column8Width = 0x00000032 (50)
+ DisplayMode2  Column9Order = 0x00000008 (8)
+ DisplayMode2  Column9Visible = 0x00000001 (1)
+ DisplayMode2  Column9Width = 0x00000032 (50)
+ DisplayMode2  Column10Order = 0x00000009 (9)
+ DisplayMode2  Column10Visible = 0x00000001 (1)
+ DisplayMode2  Column10Width = 0x00000032 (50)
+ DisplayMode2  Column11Order = 0x0000000a (10)
+ DisplayMode2  Column11Visible = 0x00000001 (1)
+ DisplayMode2  Column11Width = 0x00000032 (50)
+ DisplayMode2  Column12Order = 0x0000000b (11)
+ DisplayMode2  Column12Visible = 0x00000000 (0)
+ DisplayMode2  Column12Width = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Mill Tool Manager\Part Tool List
+ List Style = 0x00000001 (1)
+ DisplayMode0  SortInfo = 0x00000002 (2)
+ DisplayMode0  Column0Order = 0x00000000 (0)
+ DisplayMode0  Column0Visible = 0x00000000 (0)
+ DisplayMode0  Column0Width = 0x00000000 (0)
+ DisplayMode0  Column1Order = 0x0000000c (12)
+ DisplayMode0  Column1Visible = 0x00000001 (1)
+ DisplayMode0  Column1Width = 0x00000019 (25)
+ DisplayMode0  Column2Order = 0x00000005 (5)
+ DisplayMode0  Column2Visible = 0x00000001 (1)
+ DisplayMode0  Column2Width = 0x00000028 (40)
+ DisplayMode0  Column3Order = 0x00000003 (3)
+ DisplayMode0  Column3Visible = 0x00000000 (0)
+ DisplayMode0  Column3Width = 0x00000000 (0)
+ DisplayMode0  Column4Order = 0x00000001 (1)
+ DisplayMode0  Column4Visible = 0x00000001 (1)
+ DisplayMode0  Column4Width = 0x00000050 (80)
+ DisplayMode0  Column5Order = 0x00000002 (2)
+ DisplayMode0  Column5Visible = 0x00000000 (0)
+ DisplayMode0  Column5Width = 0x00000000 (0)
+ DisplayMode0  Column6Order = 0x00000004 (4)
+ DisplayMode0  Column6Visible = 0x00000001 (1)
+ DisplayMode0  Column6Width = 0x00000032 (50)
+ DisplayMode0  Column7Order = 0x00000006 (6)
+ DisplayMode0  Column7Visible = 0x00000001 (1)
+ DisplayMode0  Column7Width = 0x00000032 (50)
+ DisplayMode0  Column8Order = 0x00000007 (7)
+ DisplayMode0  Column8Visible = 0x00000001 (1)
+ DisplayMode0  Column8Width = 0x00000032 (50)
+ DisplayMode0  Column9Order = 0x00000008 (8)
+ DisplayMode0  Column9Visible = 0x00000001 (1)
+ DisplayMode0  Column9Width = 0x00000032 (50)
+ DisplayMode0  Column10Order = 0x00000009 (9)
+ DisplayMode0  Column10Visible = 0x00000001 (1)
+ DisplayMode0  Column10Width = 0x00000032 (50)
+ DisplayMode0  Column11Order = 0x0000000a (10)
+ DisplayMode0  Column11Visible = 0x00000001 (1)
+ DisplayMode0  Column11Width = 0x00000032 (50)
+ DisplayMode0  Column12Order = 0x0000000b (11)
+ DisplayMode0  Column12Visible = 0x00000000 (0)
+ DisplayMode0  Column12Width = 0x00000000 (0)
+ DisplayMode1  SortInfo = 0x00000002 (2)
+ DisplayMode1  Column0Order = 0x00000000 (0)
+ DisplayMode1  Column0Visible = 0x00000000 (0)
+ DisplayMode1  Column0Width = 0x00000000 (0)
+ DisplayMode1  Column1Order = 0x0000000c (12)
+ DisplayMode1  Column1Visible = 0x00000001 (1)
+ DisplayMode1  Column1Width = 0x00000019 (25)
+ DisplayMode1  Column2Order = 0x00000001 (1)
+ DisplayMode1  Column2Visible = 0x00000001 (1)
+ DisplayMode1  Column2Width = 0x00000028 (40)
+ DisplayMode1  Column3Order = 0x00000002 (2)
+ DisplayMode1  Column3Visible = 0x00000001 (1)
+ DisplayMode1  Column3Width = 0x00000050 (80)
+ DisplayMode1  Column4Order = 0x00000003 (3)
+ DisplayMode1  Column4Visible = 0x00000001 (1)
+ DisplayMode1  Column4Width = 0x00000050 (80)
+ DisplayMode1  Column5Order = 0x00000004 (4)
+ DisplayMode1  Column5Visible = 0x00000001 (1)
+ DisplayMode1  Column5Width = 0x00000050 (80)
+ DisplayMode1  Column6Order = 0x00000005 (5)
+ DisplayMode1  Column6Visible = 0x00000001 (1)
+ DisplayMode1  Column6Width = 0x00000032 (50)
+ DisplayMode1  Column7Order = 0x00000006 (6)
+ DisplayMode1  Column7Visible = 0x00000001 (1)
+ DisplayMode1  Column7Width = 0x00000032 (50)
+ DisplayMode1  Column8Order = 0x00000007 (7)
+ DisplayMode1  Column8Visible = 0x00000001 (1)
+ DisplayMode1  Column8Width = 0x00000032 (50)
+ DisplayMode1  Column9Order = 0x00000008 (8)
+ DisplayMode1  Column9Visible = 0x00000001 (1)
+ DisplayMode1  Column9Width = 0x00000032 (50)
+ DisplayMode1  Column10Order = 0x00000009 (9)
+ DisplayMode1  Column10Visible = 0x00000001 (1)
+ DisplayMode1  Column10Width = 0x00000032 (50)
+ DisplayMode1  Column11Order = 0x0000000a (10)
+ DisplayMode1  Column11Visible = 0x00000001 (1)
+ DisplayMode1  Column11Width = 0x00000032 (50)
+ DisplayMode1  Column12Order = 0x0000000b (11)
+ DisplayMode1  Column12Visible = 0x00000000 (0)
+ DisplayMode1  Column12Width = 0x00000000 (0)
+ DisplayMode2  SortInfo = 0x00000002 (2)
+ DisplayMode2  Column0Order = 0x00000000 (0)
+ DisplayMode2  Column0Visible = 0x00000000 (0)
+ DisplayMode2  Column0Width = 0x00000000 (0)
+ DisplayMode2  Column1Order = 0x0000000c (12)
+ DisplayMode2  Column1Visible = 0x00000001 (1)
+ DisplayMode2  Column1Width = 0x00000019 (25)
+ DisplayMode2  Column2Order = 0x00000001 (1)
+ DisplayMode2  Column2Visible = 0x00000001 (1)
+ DisplayMode2  Column2Width = 0x00000028 (40)
+ DisplayMode2  Column3Order = 0x00000002 (2)
+ DisplayMode2  Column3Visible = 0x00000001 (1)
+ DisplayMode2  Column3Width = 0x00000050 (80)
+ DisplayMode2  Column4Order = 0x00000003 (3)
+ DisplayMode2  Column4Visible = 0x00000001 (1)
+ DisplayMode2  Column4Width = 0x00000050 (80)
+ DisplayMode2  Column5Order = 0x00000004 (4)
+ DisplayMode2  Column5Visible = 0x00000001 (1)
+ DisplayMode2  Column5Width = 0x00000050 (80)
+ DisplayMode2  Column6Order = 0x00000005 (5)
+ DisplayMode2  Column6Visible = 0x00000001 (1)
+ DisplayMode2  Column6Width = 0x00000032 (50)
+ DisplayMode2  Column7Order = 0x00000006 (6)
+ DisplayMode2  Column7Visible = 0x00000001 (1)
+ DisplayMode2  Column7Width = 0x00000032 (50)
+ DisplayMode2  Column8Order = 0x00000007 (7)
+ DisplayMode2  Column8Visible = 0x00000001 (1)
+ DisplayMode2  Column8Width = 0x00000032 (50)
+ DisplayMode2  Column9Order = 0x00000008 (8)
+ DisplayMode2  Column9Visible = 0x00000001 (1)
+ DisplayMode2  Column9Width = 0x00000032 (50)
+ DisplayMode2  Column10Order = 0x00000009 (9)
+ DisplayMode2  Column10Visible = 0x00000001 (1)
+ DisplayMode2  Column10Width = 0x00000032 (50)
+ DisplayMode2  Column11Order = 0x0000000a (10)
+ DisplayMode2  Column11Visible = 0x00000001 (1)
+ DisplayMode2  Column11Width = 0x00000032 (50)
+ DisplayMode2  Column12Order = 0x0000000b (11)
+ DisplayMode2  Column12Visible = 0x00000000 (0)
+ DisplayMode2  Column12Width = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\MT Mill Setup Page
+ Display Mode = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Page setup
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Page setup\Microsoft Print to PDF
+ Num copies = 0x00000001 (1)
+ Orientation = 0x00000002 (2)
+ Line width type = 0x000062b6 (25270)
+ Line width = 0x00000001 (1)
+ Pen colors = 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d
+ Pen widths = 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
+ Margins = 0.166000,0.166000,0.166000,0.166000
+ Scaling = 0x00000000 (0)
+ Scale factor = 0.668845779418
+ Dash scale percentage = 0x00000064 (100)
+ Color = 0x00000001 (1)
+ Header = 0x00000000 (0)
+ Screen info = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Page setup\Srv-dc
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Page setup\Srv-dc\KONICA MINOLTA C308SeriesPCL
+ Num copies = 0x00000001 (1)
+ Orientation = 0x00000002 (2)
+ Line width type = 0x000062b6 (25270)
+ Line width = 0x00000001 (1)
+ Pen colors = 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d
+ Pen widths = 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
+ Margins = 0.166000,0.166000,0.166000,0.166000
+ Scaling = 0x00000000 (0)
+ Scale factor = 1.34399994225
+ Dash scale percentage = 0x00000064 (100)
+ Color = 0x00000001 (1)
+ Header = 0x00000001 (1)
+ Screen info = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\BoundingBox-Height
+ NumValues = 0x00000002 (2)
+ Input0 = 150.000000000000000
+ Input1 = 100.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\BoundingBox-Radius
+ NumValues = 0x00000002 (2)
+ Input0 = 50.000000000000000
+ Input1 = 31.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\BoundingBox-SizeX
+ NumValues = 0x0000000a (10)
+ Input0 = 220.000000000000000
+ Input1 = 85.000000000000000
+ Input2 = 55.000000000000000
+ Input3 = 146.000000000000000
+ Input4 = 145.000000000000000
+ Input5 = 605.000000000000000
+ Input6 = 365.000000000000000
+ Input7 = 180.000000000000000
+ Input8 = 135.000000000000000
+ Input9 = 166.036744884844012
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\BoundingBox-SizeY
+ NumValues = 0x0000000a (10)
+ Input0 = 60.000000000000000
+ Input1 = 100.000000000000000
+ Input2 = 359.999999999998977
+ Input3 = 365.000000000000000
+ Input4 = 600.000000000000000
+ Input5 = 605.000000000000000
+ Input6 = 140.000000000000000
+ Input7 = 83.000000000000000
+ Input8 = 85.000000000000000
+ Input9 = 213.254101318153005
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\BoundingBox-SizeZ
+ NumValues = 0x0000000a (10)
+ Input0 = 21.000000000000000
+ Input1 = 390.000000000000000
+ Input2 = 385.000000000000000
+ Input3 = 360.000000000000000
+ Input4 = 365.000000000000000
+ Input5 = 230.000000000000000
+ Input6 = 97.500000000000000
+ Input7 = 52.000000000000000
+ Input8 = 80.000000000000000
+ Input9 = 6.150000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\DraftingNote-Height
+ NumValues = 0x00000001 (1)
+ Input0 = 10.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\DraftingSmartDimensions-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\DraftingXHatch-Angle
+ NumValues = 0x00000005 (5)
+ Input0 = 45.000000000000000
+ Input1 = 0.000000000000000
+ Input2 = 0.001000000000000
+ Input3 = 1.000000000000000
+ Input4 = 0.200000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\DraftingXHatch-Spacing
+ NumValues = 0x00000006 (6)
+ Input0 = 5.000000000000000
+ Input1 = 0.000100000000000
+ Input2 = 0.001000000000000
+ Input3 = 0.000050000000000
+ Input4 = 1.000000000000000
+ Input5 = 0.200000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\FileMergePattern-Rotate
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\FileMergePattern-Scale
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Cutting Plane Offset
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-End Clearance Angle
+ NumValues = 0x00000002 (2)
+ Input0 = 4.800000000000000
+ Input1 = 0.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Holder Boundary Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Home Position X
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Home Position Z
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Insert Boundary Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Insert Corner Radius
+ NumValues = 0x00000002 (2)
+ Input0 = 0.400000000000000
+ Input1 = 0.100000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Machine Connection Offset
+ NumValues = 0x00000003 (3)
+ Input0 = 2.000000000000000
+ Input1 = 20.000000000000000
+ Input2 = 0.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Shank Diameter
+ NumValues = 0x00000003 (3)
+ Input0 = 80.000000000000000
+ Input1 = 40.000000000000000
+ Input2 = 12.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Shank Thickness
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Shank Width
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Side Clearance Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Tool Clearance Height
+ NumValues = 0x00000002 (2)
+ Input0 = 4.800000000000000
+ Input1 = 0.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\Lathe3DTooling-ToolDesigner-Tool Clearance Width
+ NumValues = 0x00000002 (2)
+ Input0 = 3.100000381469727
+ Input1 = 3.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\PrimitiveCylinder-Height
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\PrimitiveCylinder-Radius
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\PrimitiveCylinder-SweepAngleEnd
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\PrimitiveCylinder-SweepAngleStart
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SilhouetteBoundary-FilterTolerance
+ NumValues = 0x00000001 (1)
+ Input0 = 0.002000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SilhouetteBoundary-LookAhead
+ NumValues = 0x00000001 (1)
+ Input0 = 200.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SilhouetteBoundary-SmoothAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SilhouetteBoundary-TessellationTolerance
+ NumValues = 0x00000001 (1)
+ Input0 = 0.002000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsExtrude-Distance
+ NumValues = 0x00000001 (1)
+ Input0 = 100.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsExtrude-DraftAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsExtrude-ThinWallInwardDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsExtrude-ThinWallOutwardDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsFillet-ConstantRadius
+ NumValues = 0x00000003 (3)
+ Input0 = 2.000000000000000
+ Input1 = 1.000000000000000
+ Input2 = 0.200000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsHole-Axis-Bottom
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsHole-Axis-Top
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsHole-Operation-VectorLength
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsModifySolidFillets-Radius
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsRevolve-EndAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsRevolve-StartAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsRevolve-ThinWallInwardDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SolidsRevolve-ThinWallOutwardDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceDraft-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceDraft-Length
+ NumValues = 0x0000000a (10)
+ Input0 = 112.000000000000000
+ Input1 = 113.000000000000000
+ Input2 = 114.000000000000000
+ Input3 = 115.000000000000000
+ Input4 = 116.000000000000000
+ Input5 = 117.000000000000000
+ Input6 = 118.000000000000000
+ Input7 = 119.000000000000000
+ Input8 = 120.000000000000000
+ Input9 = 121.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceDraft-RunningLength
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceExtend-Distance
+ NumValues = 0x00000004 (4)
+ Input0 = 5.000000000000000
+ Input1 = 1.000000000000000
+ Input2 = 0.500000000000000
+ Input3 = 2.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceRevolved-EndAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceRevolved-StartAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\SurfaceTrimToCurves-MaxDistanceToSurface
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-Clearance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-Depth
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-Dwell
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-FeedRate
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-JumpHeight
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-ChangeAtPoint-Retract
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-SortAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\ToolpathHoleDefinition-Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeArcEndpoints-Diameter
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeArcEndpoints-Radius
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeArcTangent-Diameter
+ NumValues = 0x0000000a (10)
+ Input0 = 4.000000000000000
+ Input1 = 16.000000000000000
+ Input2 = 36.000000000000000
+ Input3 = 100.000000000000000
+ Input4 = 20.000000000000000
+ Input5 = 30.000000000000000
+ Input6 = 10.500000000000000
+ Input7 = 125.000000000000000
+ Input8 = 130.000000000000000
+ Input9 = 120.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeArcTangent-Radius
+ NumValues = 0x0000000a (10)
+ Input0 = 18.000000000000000
+ Input1 = 15.000000000000000
+ Input2 = 8.000000000000000
+ Input3 = 12.000000000000000
+ Input4 = 5.250000000000000
+ Input5 = 10.000000000000000
+ Input6 = 5.000000000000000
+ Input7 = 62.500000000000000
+ Input8 = 3.000000000000000
+ Input9 = 65.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBoltCircle-Angle
+ NumValues = 0x00000001 (1)
+ Input0 = 45.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBoltCircle-ArcDiameter
+ NumValues = 0x00000001 (1)
+ Input0 = 10.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBoltCircle-Diameter
+ NumValues = 0x00000001 (1)
+ Input0 = 200.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBoltCircle-StartAngle
+ NumValues = 0x00000001 (1)
+ Input0 = 0.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBreakManyPieces-ExactDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBreakManyPieces-RoundedDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeBreakManyPieces-Tolerance
+ NumValues = 0x00000004 (4)
+ Input0 = 0.050000000000000
+ Input1 = 0.080000000000000
+ Input2 = 0.100000000000000
+ Input3 = 0.020000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeChamferEntities-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeChamferEntities-Distance1
+ NumValues = 0x00000001 (1)
+ Input0 = 0.200000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeChamferEntities-Distance2
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeChamferEntities-Width
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCircleCenterpoint-Diameter
+ NumValues = 0x0000000a (10)
+ Input0 = 10.000000000000000
+ Input1 = 8.000000000000000
+ Input2 = 7.000000000000000
+ Input3 = 21.000000000000000
+ Input4 = 3.900000000000000
+ Input5 = 4.000000000000000
+ Input6 = 57.500000000000000
+ Input7 = 63.500000000000000
+ Input8 = 44.600000000000001
+ Input9 = 1.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCircleCenterpoint-Radius
+ NumValues = 0x00000003 (3)
+ Input0 = 3.000000000000000
+ Input1 = 135.619517943815993
+ Input2 = 8.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCircleEdgePoint-Diameter
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCircleEdgePoint-Radius
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCreateLetters-Height
+ NumValues = 0x00000005 (5)
+ Input0 = 3.000000000000000
+ Input1 = 10.000000000000000
+ Input2 = 3.500000000000000
+ Input3 = 2.000000000000000
+ Input4 = 4.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCreateLetters-Radius
+ NumValues = 0x00000003 (3)
+ Input0 = 255.999708189577746
+ Input1 = 252.999708189578001
+ Input2 = 1.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCreateLetters-Spacing
+ NumValues = 0x00000006 (6)
+ Input0 = 0.575569358178054
+ Input1 = 0.600000000000000
+ Input2 = 2.000000000000000
+ Input3 = 0.700000000000000
+ Input4 = 0.400000000000000
+ Input5 = 0.575569358178054
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveConstantParameter-ChordHeightTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveDynamic-ChordHeightTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveFlowline-ChordHeight
+ NumValues = 0x00000005 (5)
+ Input0 = 1.000000000000000
+ Input1 = 0.100000000000000
+ Input2 = 10.000000000000000
+ Input3 = 5.000000000000000
+ Input4 = 0.020000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveFlowline-ChordHeightTolerance
+ NumValues = 0x00000001 (1)
+ Input0 = 0.020000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveFlowline-Distance
+ NumValues = 0x00000002 (2)
+ Input0 = 5.000000000000000
+ Input1 = 30.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveOnAllEdges-BreakAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveOnAllEdges-EdgeAngleTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveOnAllEdges-OpenEdgesTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveOnOneEdge-BreakAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeCurveOnOneEdge-EdgeAngleTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeFilletEntities-ClearanceDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeFilletEntities-Radius
+ NumValues = 0x0000000a (10)
+ Input0 = 10.000000000000000
+ Input1 = 6.000000000000000
+ Input2 = 2.000000000000000
+ Input3 = 1.600000000000000
+ Input4 = 1.800000000000000
+ Input5 = 1.500000000000000
+ Input6 = 1.100000000000000
+ Input7 = 0.200000000000000
+ Input8 = 1.000000000000000
+ Input9 = 0.500000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLineEndpoints-Angle
+ NumValues = 0x0000000a (10)
+ Input0 = 260.000000000000000
+ Input1 = 330.000000000000000
+ Input2 = 358.000000000000000
+ Input3 = 30.000000000000000
+ Input4 = 40.000000000000000
+ Input5 = 301.445164840287077
+ Input6 = 355.000000000000000
+ Input7 = 75.000000000000000
+ Input8 = 135.000000000000000
+ Input9 = 125.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLineEndpoints-AxisOffset
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLineEndpoints-Length
+ NumValues = 0x00000006 (6)
+ Input0 = 100.000000000000000
+ Input1 = 150.000000000000000
+ Input2 = 210.000000000000000
+ Input3 = 180.000000000000000
+ Input4 = 14.949999999999999
+ Input5 = 0.641952941580130
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLineParallel-OffsetDistance
+ NumValues = 0x00000001 (1)
+ Input0 = 2.453051721736530
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLinePerpendicular-Length
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeLineTangentThroughPoint-Length
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframePointSegment-Distance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframePointSmallArcs-MaximumRadius
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeRectangle-Height
+ NumValues = 0x0000000a (10)
+ Input0 = 250.000000000000000
+ Input1 = 89.950000000000003
+ Input2 = 450.000000000000000
+ Input3 = 39.899999999999999
+ Input4 = 12.832336156422024
+ Input5 = 33.000000000000000
+ Input6 = 18.728705917513452
+ Input7 = 26.000000000000000
+ Input8 = 29.929206515242083
+ Input9 = -243.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeRectangle-Width
+ NumValues = 0x0000000a (10)
+ Input0 = 450.000000000000000
+ Input1 = 400.000000000000000
+ Input2 = 89.950000000000003
+ Input3 = -104.000000000000000
+ Input4 = 245.884118610151006
+ Input5 = 54.899999999999999
+ Input6 = 256.646723128439987
+ Input7 = 28.250000000000000
+ Input8 = 26.000000000000000
+ Input9 = 695.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineAutomatic-EndEndpointCondition
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineAutomatic-StartEndpointCondition
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineBlended-Entity1-Magnitude
+ NumValues = 0x00000004 (4)
+ Input0 = 0.500000000000000
+ Input1 = 2.000000000000000
+ Input2 = 1.000000000000000
+ Input3 = 1.500000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineBlended-Entity2-Magnitude
+ NumValues = 0x00000004 (4)
+ Input0 = 0.500000000000000
+ Input1 = 2.000000000000000
+ Input2 = 1.000000000000000
+ Input3 = 1.500000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineCurves-BlendDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineCurves-SharpCornerDetectionAngle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeSplineCurves-Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeTrimBreakExtend-ExtensionLength
+ NumValues = 0x0000000a (10)
+ Input0 = 200.000000000000000
+ Input1 = 20.000000000000000
+ Input2 = 28.000000000000000
+ Input3 = 10.000000000000000
+ Input4 = 5.000000000000000
+ Input5 = 6.000000000000000
+ Input6 = 0.500000000000000
+ Input7 = 2.000000000000000
+ Input8 = 50.000000000000000
+ Input9 = 8.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\WireframeTurnProfile-SpinTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformMirror-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformMirror-XOffset
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformMirror-YOffset
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetChains-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetChains-Depth
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetChains-Distance
+ NumValues = 0x00000006 (6)
+ Input0 = 26.100000000000001
+ Input1 = 24.000000000000000
+ Input2 = 15.000000000000000
+ Input3 = 1.000000000000000
+ Input4 = 0.050000000000000
+ Input5 = 2.900000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetChains-MaxDepth
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetChains-Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformOffsetEntity-Distance
+ NumValues = 0x0000000a (10)
+ Input0 = 1.000000000000000
+ Input1 = 5.000000000000000
+ Input2 = 65.000000000000000
+ Input3 = 125.000000000000000
+ Input4 = 62.500000000000000
+ Input5 = 31.250000000000000
+ Input6 = 15.625000000000000
+ Input7 = 26.250000000000000
+ Input8 = 13.125000000000000
+ Input9 = 10.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformProject-Distance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformProject-JoinTolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformProject-LineLength
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformProject-MaximumDistance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformProject-Tolerance
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformRoll-Angle
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformRoll-AngleTolerance
+ NumValues = 0x00000001 (1)
+ Input0 = 0.020000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformRoll-Diameter
+ NumValues = 0x00000001 (1)
+ Input0 = 360.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformRotate-Angle
+ NumValues = 0x0000000a (10)
+ Input0 = -222.000000000000000
+ Input1 = -223.000000000000000
+ Input2 = -224.000000000000000
+ Input3 = -225.000000000000000
+ Input4 = -226.000000000000000
+ Input5 = -227.000000000000000
+ Input6 = 0.054000000000000
+ Input7 = 3.100000000000000
+ Input8 = 90.000000000000000
+ Input9 = 180.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformScale-Scale
+ NumValues = 0x0000000a (10)
+ Input0 = 10.000000000000000
+ Input1 = 0.500000000000000
+ Input2 = 5.000000000000000
+ Input3 = 12.000000000000000
+ Input4 = 6.000000000000000
+ Input5 = 2.000000000000000
+ Input6 = 3.000000000000000
+ Input7 = 4.000000000000000
+ Input8 = 15.000000000000000
+ Input9 = 8.000000000000000
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformScale-X
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformScale-Y
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformScale-Z
+ NumValues = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformTranslate-Angle
+ NumValues = 0x0000000a (10)
+ Input0 = 270.101502613506966
+ Input1 = 224.826972907728646
+ Input2 = 44.826977976746740
+ Input3 = 74.641727677027689
+ Input4 = 138.968121886257165
+ Input5 = 90.000000000000014
+ Input6 = 269.891890338774260
+ Input7 = 270.000000000000057
+ Input8 = 0.000000000000000
+ Input9 = 82.903130325354340
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformTranslate-Length
+ NumValues = 0x0000000a (10)
+ Input0 = 2.812524912750425
+ Input1 = 5.250000238418579
+ Input2 = 0.777864283418999
+ Input3 = 1.722135954999580
+ Input4 = 0.000641858961899
+ Input5 = 0.000641860104498
+ Input6 = 90.900000000000006
+ Input7 = 59.695000000000000
+ Input8 = 0.000000000000000
+ Input9 = 5.459560878220448
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformTranslate-X
+ NumValues = 0x0000000a (10)
+ Input0 = -42.999999999999986
+ Input1 = 0.000000000000398
+ Input2 = 0.017190933227539
+ Input3 = -0.498528668641677
+ Input4 = 0.331250217821539
+ Input5 = 4.268447875976563
+ Input6 = -2.121612548828125
+ Input7 = -0.000001211105563
+ Input8 = 0.000000000000000
+ Input9 = 0.674513792835545
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformTranslate-Y
+ NumValues = 0x0000000a (10)
+ Input0 = 1.846363067626953
+ Input1 = -5.250000238418579
+ Input2 = 0.777864283418999
+ Input3 = 1.722135954999580
+ Input4 = 0.000641858961899
+ Input5 = -0.000641858961899
+ Input6 = -90.900000000000006
+ Input7 = -59.695000000000000
+ Input8 = 0.000000000000000
+ Input9 = 5.417733486087133
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Panel AutoComplete History\XformTranslate-Z
+ NumValues = 0x0000000a (10)
+ Input0 = 20.000000000000000
+ Input1 = 0.000000000000002
+ Input2 = -2.000000000000002
+ Input3 = -7.638680934906006
+ Input4 = -0.000000133107584
+ Input5 = 224.099999999999994
+ Input6 = 84.599999999999994
+ Input7 = 0.000000000000000
+ Input8 = 92.700000000000003
+ Input9 = 15.000000000000007
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Plane Selection
+ Column 0 width = 0x00000118 (280)
+ Column 1 width = 0x0000006f (111)
+ Column 2 width = 0x00000070 (112)
+ Number of columns = 0x00000003 (3)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Prompt Wnd
+ font size = MEDIUM
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Recent File Edit List
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Recent File List
+ File1 = E:\Bureau\TEST-FICAM.mcam
+ File2 = T:\Clients\ZALKIN\CFAO\CAME BRAS DE TRANSFERT\552402-USINAGE-FR12.mcam
+ File3 = T:\Clients\ZALKIN\CFAO\CAME BRAS DE TRANSFERT\552402-USINAGE.mcam
+ File4 = T:\Clients\BOMBARDIER\CFAO\Protection galet\GALET ETANCHE\100301006-TOURNAGE-FRAISE-BOULE-D3.mcam
+ File5 = T:\Clients\BOMBARDIER\CFAO\Protection galet\GALET ETANCHE\100301006.STEP
+ File6 = T:\Clients\BOMBARDIER\CFAO\Protection galet\GALET ETANCHE\100301006.mcam
+ File7 = T:\Clients\SAMES\CFAO\544764A\544764A-E800.mcam
+ File8 = T:\Clients\SAMES\CFAO\544764A\544764A.mcam
+ File9 = T:\Clients\BAYLE\PLANS DFT - DXF\34506_0 - Rail de retour droit moteur.DWG
+ File10 = T:\Clients\BAYLE\PLANS DFT - DXF\34505_0 - Rail de retour gauche moteur.DWG
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Rendering
+ Type = 4
+ Hidden flags = 1
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Settings
+ Solids Prototyping Enabled = 0x00000000 (0)
+ EnglishMetricPrompt = 0x00000000 (0)
+ LoadAllSettings = 0x00000001 (1)
+ Include Entity Selection when suppressing AutoCursor = 0x00000001 (1)
+ ImportExportToolsText = 0x00000000 (0)
+ Draw toolpaths in thumbnail = 0x00000001 (1)
+ Hardware Acceleration = 0x00000001 (1)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Settings\ControlBars-Summary
+ Bars = 0x00000000 (0)
+ ScreenCX = 0x00000780 (1920)
+ ScreenCY = 0x000004b0 (1200)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-3007
+ Input0 = 3000.0
+ Input1 = 2000.0
+ Input2 = 2020.0
+ Input3 = 2050.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-3009
+ Input0 = 500.0
+ Input1 = 1000.0
+ Input2 = 1010.0
+ Input3 = 1020.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-3012
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-3014
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-7002
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-101-7004
+ Input0 = 2.5
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-105-4007
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-105-4009
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-105-4015
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-105-4036
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-105-7006
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1924
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1925
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1926
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1927
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1928
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1929
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1933
+ Input0 = 1.41421
+ Input1 = 0.0
+ Input2 = 1.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-1934
+ Input0 = 45.0
+ Input1 = 0.0
+ Input2 = -0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-3419
+ Input0 = 1.0
+ Input1 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-3420
+ Input0 = 1.0
+ Input1 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-3421
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-3428
+ Input0 = 0.0
+ Input1 = -14.5
+ Input2 = 14.5
+ Input3 = 30.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-608-3430
+ Input0 = 0.0
+ Input1 = 1.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-612-1366
+ Input0 = 60.0
+ Input1 = 90.0
+ Input2 = 15.0
+ Input3 = 25.71428
+ Input4 = 3.33333
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-612-1537
+ Input0 = 360.0
+ Input1 = 90.0
+ Input2 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-612-3419
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-612-3420
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-612-3421
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1924
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1925
+ Input0 = -2.0
+ Input1 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1926
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1927
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1928
+ Input0 = 2.0
+ Input1 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-1929
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-3276
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-3277
+ Input0 = 0.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-614-3278
+ Input0 = 45.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Sketcher History\CMB-806-2681
+ Input0 = 1.5
+ Input1 = 1.0
+ Input2 = 2.0
+ Input3 = 10.0
+ Input4 = 2.5
+ Input5 = 20.0
+ Input6 = 6.0
+ Input7 = 8.0
+ Input8 = 4.0
+ Input9 = 25.0
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Surface
+ Backside draw = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Surface rendering
+ Render surfaces during tessellation = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\GUI\Viewsheets
+ Don't Ask Again = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\License Search
+ Startup License Search = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Machine Definition
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Machine Definition\Replace Post Dialog
+ Current setting = 0x00000002 (2)
+ Initial dialog value = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\MP Post
+ Enable Product Type Check = 0x00000000 (0)
+ Enable UTF-8 NCI = 0x00000000 (0)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Multi-Threading
+ MaxThreads = 0x00000004 (4)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Nesting
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Post Debugger
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Post Debugger\Settings
+ Enable Post Debugger = 0x00000001 (1)
+ Path = C:\Users\Public
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Reports
+ ImageFolder = C:\Users\Public\Documents\shared Mcam2019\Common\Reports\IMG\
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\StartUp
+ Splash = 0x00000001 (1)
+ UserCfg = e:\documents\my mcam2019\config\mcamxm.config
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Window Positions
+ Mastercam, Dialog 25513 = 0.356250,0.217500,552,637
+ Mastercam, Dialog 9900 = 0.334896,0.380000,634,246
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Window Positions_1_of_2
+ Mastercam, Dialog 514 = 0.400521,0.209167,92,22
+ Mastercam, Dialog 4146 = 0.000000,0.155833,489,203
+ Mastercam, Dialog 286 = 0.000000,0.000000,247,65
+ Mastercam, Dialog 1136 = 0.000000,0.155833,697,478
+ Mastercam, Dialog 72954 = 1.000000,0.155000,231,661
+ Mastercam, Dialog 593 = 1.000000,0.155833,391,513
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Window Positions_2_of_2
+ Mastercam, Dialog 514 = 0.301042,0.219167,218,20
+ Mastercam, Dialog 1136 = 0.000000,0.155000,697,478
+ Mastercam, Dialog 286 = 0.000000,0.000000,247,65
+ Mastercam, Dialog 1112 = 0.000000,0.155833,316,241
+ Mastercam, Dialog 1247 = 0.000000,0.155000,543,431
+ Mastercam, Dialog 72954 = 0.063542,0.235000,231,593
+ Mastercam, Dialog 6001 = 0.388542,0.419167,429,154
+ Mastercam, Dialog 14000 = 0.000000,0.155000,449,162
+ Mastercam, MCMSurfRes.dll Sheet 2192 = 0.213542,0.131667,704,594
+ Mastercam, Dialog 6518 = 0.117188,0.186667,231,592
+ Mastercam, Dialog 114 = 0.000000,0.155000,253,432
+ Mastercam, Dialog 25518 = 0.000000,0.182500,294,439
+ Mastercam, Dialog 6544 = 0.197917,0.160000,1198,807
+ Mastercam, Dialog 6410 = 0.072917,0.152500,900,610
+ Mastercam, Dialog 282 = 0.051042,0.165000,1035,522
+ Mastercam, Dialog 593 = 0.000000,0.155000,391,513
+ Mastercam, Dialog 1155 = 0.000000,0.155000,252,770
+ Mastercam, Dialog 501 = 0.000000,0.155000,328,167
+ Mastercam, Dialog 806 = 0.000000,0.155000,258,273
+ Mastercam, Dialog 10293 = 0.000000,0.155000,385,229
+ Mastercam, Dialog 1099 = 0.000000,0.155000,916,608
+ Mastercam, Dialog 977 = 0.000000,0.155000,490,293
+ Mastercam, Dialog 1218 = 0.000000,0.155000,364,133
+ Mastercam, Dialog 1177 = 0.278125,0.175000,868,640
+ Mastercam, Dialog 1204 = 0.000000,0.155000,577,239
+ Mastercam, Dialog 103 = 0.000000,0.155000,742,450
+ Mastercam, Dialog 379 = 0.000000,0.155833,390,159
+ Mastercam, Dialog 2665 = 0.307292,0.171667,279,297
+ Mastercam, Dialog 101 = 0.353125,0.201667,204,184
+ Mastercam, OpmanRes.dll Sheet 2572 = 0.000000,0.155000,584,703
+ Mastercam, Dialog 1236 = 0.000000,0.155833,621,215
+ Mastercam, OpmanRes.dll Sheet 3994 = 0.000000,0.155000,638,703
+ Mastercam, Dialog 25612 = 0.000000,0.155000,321,356
+ Mastercam, Dialog 1639 = 0.000000,0.155000,283,158
+ Mastercam, Dialog 773 = 0.520833,0.560000,199,119
+ Mastercam, Dialog 842 = 0.000000,0.155000,628,635
+ Mastercam, MCCoreRes.dll Sheet 76857 = 0.000000,0.155000,593,765
+ Mastercam, Dialog 754 = 0.000000,0.155000,283,296
+ Mastercam, MCLatheRes.dll Sheet 4927 = 0.000000,0.155000,741,571
+ Mastercam, Dialog 300 = 0.000000,0.155000,366,377
+ Mastercam, Dialog 243 = 0.000000,0.155000,813,661
+ Mastercam, Dialog 20000 = 0.000000,0.155833,297,169
+ Mastercam, Dialog 25671 = 0.000000,0.155000,258,657
+ Mastercam, Dialog 816 = 0.370313,0.155000,943,548
+ Mastercam, MCLatheRes.dll Sheet 4906 = 0.126563,0.154167,741,622
+ Mastercam, MCLatheRes.dll Sheet 9272 = 0.000000,0.155000,749,636
+ Mastercam, Dialog 1072 = 0.000000,0.182500,231,275
+ Mastercam, Dialog 6561 = 0.000000,0.182500,429,284
+ Mastercam, MCLatheRes.dll Sheet 4960 = 0.000000,0.155833,726,644
+ Mastercam, Dialog 1178 = 0.000000,0.155000,636,699
+ Mastercam, Dialog 25514 = 0.000000,0.155000,724,413
+ Mastercam, Dialog 2443 = 0.000000,0.155000,631,605
+ Mastercam, Dialog 2450 = 0.000000,0.155000,271,203
+ Mastercam, Dialog 2441 = 0.000000,0.155000,750,873
+ Mastercam, Dialog 1640 = 0.000000,0.155000,214,179
+ Mastercam, Dialog 872 = 0.163021,0.205000,1240,731
+ Mastercam, Dialog 2542 = 0.000000,0.155000,771,634
+ Mastercam, MCMillRes.dll Sheet 1238 = 0.000000,0.155000,735,514
+ Mastercam, MCMillRes.dll Sheet 1232 = 0.000000,0.155000,735,514
+ Mastercam, Dialog 116 = 0.000000,0.155000,253,432
+ Mastercam, MCMSurfRes.dll Sheet 1331 = 0.051042,0.136667,726,594
+ Mastercam, Dialog 1353 = 0.000000,0.155000,618,561
+ Mastercam, Dialog 1051 = 0.000000,0.155000,309,336
+ Mastercam, Dialog 183 = 0.000000,0.155000,325,369
+ Mastercam, Dialog 177 = 0.000000,0.155000,540,397
+ Mastercam, Dialog 310 = 0.000000,0.155833,405,223
+ Mastercam, Dialog 134 = 0.000000,0.155000,193,119
+ Mastercam, OpmanRes.dll Sheet 13850 = 0.025521,0.152500,600,703
+ Mastercam, MCLatheRes.dll Sheet 11819 = 0.000000,0.155000,741,636
+ Mastercam, Dialog 6499 = 0.000000,0.155000,306,536
+ Mastercam, Dialog 2425 = 0.000000,0.155000,565,406
+ Mastercam, MCLatheRes.dll Sheet 5344 = 0.000000,0.155000,456,534
+ Mastercam, Dialog 2456 = 0.000000,0.155000,522,535
+ Mastercam, MCLatheRes.dll Sheet 8912 = 0.000000,0.155000,734,644
+ Mastercam, MCLatheRes.dll Sheet 8909 = 0.000000,0.155000,711,622
+ Mastercam, Dialog 25608 = 0.000000,0.155000,496,380
+ Mastercam, MCLatheRes.dll Sheet 8908 = 0.000000,0.155000,711,571
+ Mastercam, Dialog 2449 = 0.000000,0.155000,279,206
+ Mastercam, Dialog 631 = 0.000000,0.155000,346,161
+ Mastercam, Dialog 2476 = 0.000000,0.155000,550,192
+ Mastercam, MCLatheRes.dll Sheet 13862 = 0.000000,0.155000,731,661
+ Mastercam, MCLatheRes.dll Sheet 8917 = 0.000000,0.155000,728,571
+ Mastercam, Dialog 2484 = 0.000000,0.155833,280,270
+ Mastercam, Dialog 2426 = 0.000000,0.155833,565,406
+ Mastercam, Dialog 2610 = 0.000000,0.155833,273,182
+ Mastercam, Dialog 6461 = 0.000000,0.155000,823,426
+ Mastercam, Dialog 6465 = 0.000000,0.155000,348,180
+ Mastercam, Dialog 9986 = 0.000000,0.155833,360,267
+ Mastercam, Dialog 190 = 0.000000,0.155833,411,699
+ Mastercam, Dialog 102 = 0.000000,0.155000,199,310
+ Mastercam, Dialog 807 = 0.000000,0.155000,599,718
+ Mastercam, Dialog 195 = 0.000000,0.155000,403,226
+ Mastercam, Dialog 171 = 0.000000,0.155000,339,322
+ Mastercam, Dialog 182 = 0.000000,0.155000,304,536
+ Mastercam, MCMSurfRes.dll Sheet 2151 = 0.000000,0.155000,704,594
+ Mastercam, Dialog 232 = 0.000000,0.155000,276,211
+ Mastercam, Dialog 1503 = 0.000000,0.155000,294,306
+ Mastercam, Dialog 1314 = 0.000000,0.155000,258,218
+ Mastercam, Dialog 25613 = 0.000000,0.155000,316,241
+ Mastercam, Dialog 1085 = 0.000000,0.155000,231,491
+ Mastercam, Dialog 10496 = 0.728125,0.042500,481,303
+ Mastercam, Dialog 1223 = 0.000000,0.155833,616,647
+ Mastercam, Dialog 1237 = 0.000000,0.155833,462,268
+ Mastercam, Dialog 1000 = 0.000000,0.155833,747,583
+ Mastercam, MCMillRes.dll Sheet 1236 = 0.000000,0.155000,735,514
+ Mastercam, Dialog 302 = 0.000000,0.155833,829,575
+ Mastercam, Dialog 5340 = 0.000000,0.155000,466,362
+ Mastercam, Dialog 783 = 0.000000,0.155833,259,153
+ Mastercam, Dialog 3090 = 0.000000,0.155000,231,608
+ Mastercam, Dialog 18007 = 0.000000,0.155000,867,588
+ Mastercam, Dialog 410 = 0.000000,0.155000,241,361
+ Mastercam, Dialog 100 = 0.000000,0.155000,207,185
+ Mastercam, MCMSurfRes.dll Sheet 2190 = 0.000000,0.155000,704,594
+ Mastercam, Dialog 821 = 0.000000,0.155833,519,491
+ Mastercam, Dialog 563 = 0.000000,0.155000,481,475
+ Mastercam, Dialog 122 = 0.000000,0.155000,253,432
+ Mastercam, MCMSurfRes.dll Sheet 2703 = 0.153125,0.146667,704,594
+ Mastercam, Dialog 18000 = 0.000000,0.155000,346,153
+ Mastercam, Dialog 516 = 0.000000,0.155000,210,323
+ Mastercam, Dialog 10269 = 0.000000,0.155000,573,479
+ Mastercam, Dialog 6481 = 0.000000,0.155000,321,356
+ Mastercam, MCLatheRes.dll Sheet 2452 = 0.000000,0.155000,741,571
+ Mastercam, Dialog 448 = 0.000000,0.155000,412,315
+ Mastercam, Dialog 150 = 0.000000,0.155833,253,218
+ Mastercam, MCMSurfRes.dll Sheet 2186 = 0.000000,0.155000,704,594
+ Mastercam, Dialog 493 = 0.000000,0.155833,340,221
+ Mastercam, Dialog 998 = 0.000000,0.155833,273,273
+ Mastercam, Dialog 230 = 0.000000,0.155833,276,198
+ Mastercam, Dialog 175 = 0.000000,0.155000,409,497
+ Mastercam, Dialog 25614 = 0.000000,0.155000,375,223
+ Mastercam, Dialog 25621 = 0.000000,0.155000,774,639
+ Mastercam, Dialog 120 = 0.000000,0.155000,253,432
+ Mastercam, MCMSurfRes.dll Sheet 2191 = 0.000000,0.155000,704,594
+ Mastercam, Dialog 1007 = 0.000000,0.155833,466,424
+ Mastercam, Dialog 228 = 0.000000,0.155833,490,296
+ Mastercam, Dialog 2545 = 0.000000,0.155833,813,629
+ Mastercam, MCNestingRes.dll Sheet 206 = 0.226042,0.276667,666,547
+ Mastercam, Dialog 213 = 0.267188,0.259167,415,354
+ Mastercam, Dialog 205 = 0.000000,0.155000,970,738
+ Mastercam, Dialog 457 = 0.000000,0.155000,351,367
+ Mastercam, Dialog 428 = 0.000000,0.155000,330,192
+ Mastercam, Dialog 2444 = 0.000000,0.155833,460,479
+ Mastercam, Dialog 170 = 0.000000,0.155833,340,184
+ Mastercam, Dialog 1428 = 0.000000,0.155833,552,185
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Zip2Go
+ frmZip2Go_X = 0x00000221 (545)
+ frmZip2Go_Y = 0x0000006c (108)
+ frmZip2Go_Width = 0x0000033e (830)
+ frmZip2Go_Height = 0x000003af (943)
+ frmZip2Go__WindowState = 0x00000000 (0)
+ frmZip2Go_listView_X = 0x00000000 (0)
+ frmZip2Go_listView_Y = 0x00000000 (0)
+ frmZip2Go_listView_Width = 0x0000032e (814)
+ frmZip2Go_listView_Height = 0x00000222 (546)
+ frmZip2Go_listView_Column_Width0 = 0x000000c8 (200)
+ frmZip2Go_listView_Column_Order0 = 0x00000000 (0)
+ frmZip2Go_listView_Column_Width1 = 0x00000064 (100)
+ frmZip2Go_listView_Column_Order1 = 0x00000001 (1)
+ frmZip2Go_listView_Column_Width2 = 0x00000064 (100)
+ frmZip2Go_listView_Column_Order2 = 0x00000002 (2)
+ frmZip2Go_listView_Column_Width3 = 0x00000064 (100)
+ frmZip2Go_listView_Column_Order3 = 0x00000003 (3)
+ frmZip2Go_listView_Column_Width4 = 0x0000003c (60)
+ frmZip2Go_listView_Column_Order4 = 0x00000004 (4)
+ frmZip2Go_listView_Column_Width5 = 0x0000003c (60)
+ frmZip2Go_listView_Column_Order5 = 0x00000005 (5)
+
+HKEY_CURRENT_USER\Software\CNC Software, Inc.\Mastercam 2019\Zip2Go\Recent File List
+

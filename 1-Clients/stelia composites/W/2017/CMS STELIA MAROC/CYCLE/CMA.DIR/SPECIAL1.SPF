@@ -1,0 +1,160 @@
+PROC SPECIAL1 DISPLOF SBLOF
+;********************************
+;Gestione Attrezzaggio AUTOMATICO - Mag n1
+;Uff. Automazione  -    15/12/2014 
+;
+; Variabili Usate
+; R180 --> numero posizioni magazzino
+; R181 --> manina sulla quale opero
+; R155 --> riposta interrogazion OpPanel
+;********************************
+STOPRE
+IF ($A_IN[38] == 1) GOTOF FINECICLO
+G04 F0.2
+MSG("AUTOMATIC EQUIPMENT PROGRAM")
+R180=16  ;Num. posizioni magazzino
+R181=0   ;Num. manina del ciclo
+;
+G04 F0.2
+IF (R210 == 0)
+	;T0 in mandrino --> procedo con attrezzaggio
+	GOTOF INIZIO
+ELSE
+    MSG("T0 REQUIRED: PLEASE DEPOSIT TOOL")
+    M0
+	GOTOF FINEPROGRAMMA
+ENDIF
+GOTOF INIZIO
+;
+;------------------------------
+;-- INIZIO CICLO ATTREZZAGG. --
+;------------------------------
+INIZIO:
+STOPRE
+M330  ;START CICLO ATTREZZ.
+M83   ;DISCO MOB A SX
+M279  ;TEST DISCO A SX
+STOPRE
+$A_OUTA[4]  = 0
+IF (($A_IN[33] == 0) AND ($A_IN[34] == 0)) GOTOF FINE
+;
+CICLO:
+IF ($A_IN[37] == 1)	 GOTOF ERRORE
+IF (R181  < R180) 
+	R181 =(R181  +1)
+	$A_OUTA[4] = R181
+    STOPRE
+	G04 F0.2
+	M104	;POSIZ.DISCO X LETTURA 
+	STOPRE
+    G04 F0.2
+	M108	;START POS.DISCO
+    STOPRE
+	G04 F0.5
+;----------------------------------------------
+;------------POSIZIONO MAGAZZINI  -------------
+;----------------------------------------------
+	IF (($A_IN[33] == 1) AND ($A_IN[34] == 0))
+		MSG("AUTOMATIC EQUIPMENT: DISC=1, CRIB= "<<R181<<" ")
+		M289	;TEST CU1 POSIZIONATO
+	ENDIF
+	IF (($A_IN[33] == 0) AND ($A_IN[34] == 1))
+		MSG("AUTOMATIC EQUIPMENT: DISC=2, CRIB= "<<R181<<" ")
+		M299	;TEST CU2 POSIZIONATO
+	ENDIF
+	IF (($A_IN[33] == 1) AND ($A_IN[34] == 1))
+		MSG("AUTOMATIC EQUIPMENT: DISC=1-2, CRIB= "<<R181<<" ")
+		M289	;TEST CU1 POSIZIONATO
+        G04 F0.5
+        M299	;TEST CU2 POSIZIONATO
+	ENDIF
+	STOPRE
+	G04 F0.2
+	M109		;RESET POSIZ.DISCO
+;----------------------------------------------
+;------------ CICLO LETTURA  ------------------
+;----------------------------------------------
+    ;-------------- SOLO DISCO 1
+    IF (($A_IN[33] == 1) AND ($A_IN[34] == 0)) 
+        G04 F0.3
+        M333	;DISCESA BALLUFF 1
+        IF ($A_IN[35]==1)
+		    ;Utensile presente --> Avvio lettura
+            ;M333	;DISCESA BALLUFF 1 VECHCIA GESTIONE
+            M334	;ACQUISIZ.COD.BALLUFF 1
+	    ELSE
+		    ;Utensile NON presente
+            M334	;ACQUISIZ.COD.BALLUFF --> DICO CHE NON C E
+	    ENDIF
+        G04 F0.3
+	    M332	;SALITA BALLUFF
+        G04 F0.5
+    ENDIF
+    ;-------------- SOLO DISCO 2
+    IF (($A_IN[33] == 0) AND ($A_IN[34] == 1)) 
+        IF ($A_IN[36]==1)
+		    ;Utensile presente --> Avvio lettura
+            M335	;DISCESA BALLUFF 2
+            M336	;ACQUISIZ.COD.BALLUFF 2
+	    ELSE
+		    ;Utensile NON presente
+            M336	;ACQUISIZ.COD.BALLUFF --> DICO CHE NON C E
+	    ENDIF
+        G04 F0.3
+	    M332	;SALITA BALLUFF
+        G04 F0.5
+    ENDIF
+    ;-------------- DISCO 1+2
+    IF (($A_IN[33] == 1) AND ($A_IN[34] == 1)) 
+        IF ($A_IN[35]==1)
+		    ;Utensile presente --> Avvio lettura
+            M333	;DISCESA BALLUFF 1
+            M334	;ACQUISIZ.COD.BALLUFF
+            STOPRE
+	    ELSE
+		    ;Utensile NON presente
+            M334	;ACQUISIZ.COD.BALLUFF --> DICO CHE NON C E
+            STOPRE
+	    ENDIF
+        G04 F2.0
+        ;
+        IF ($A_IN[36]==1)
+		    ;Utensile presente --> Avvio lettura
+            M335	;DISCESA BALLUFF
+            M336	;ACQUISIZ.COD.BALLUFF
+            STOPRE
+	    ELSE
+		    ;Utensile NON presente
+            M336	;ACQUISIZ.COD.BALLUFF --> DICO CHE NON C E
+            STOPRE
+	    ENDIF
+        G04 F0.3
+	    M332	;SALITA BALLUFF
+        G04 F0.5        
+    ENDIF
+    ;
+    GOTOB CICLO 
+ENDIF
+GOTOF FINE
+;------------------------------
+;--	 ERRORE ATTREZZ.AUTO  --
+;------------------------------
+ERRORE:
+	M133	;SALITA BALLUFF
+GOTOF FINE
+;------------------------------
+;-- FINE CICLO ATTREZZAGGIO  --
+;------------------------------
+FINE:
+REPEAT	;Attesa Attuatori OK
+STOPRE
+UNTIL $A_IN[20] == 1
+STOPRE
+FINECICLO:
+M331 ;FINE CICLO ATTREZZ.
+MSG("")
+STOPRE
+FINEPROGRAMMA:
+G04 F0.2
+M30
+

@@ -1,0 +1,10 @@
+PROC PRG_M46 DISPLOF SBLOF
+;--------------------------------------------------------------------
+;----- PROGRAMMA RIQUALIFICA CON RADIO PROBE (M46) -
+;-----------------------------------------------------------------------
+;Autore  : CMS AUTOMAZIONE
+;data    : 30-10-2012;
+M446
+STOPRE
+M17
+RET

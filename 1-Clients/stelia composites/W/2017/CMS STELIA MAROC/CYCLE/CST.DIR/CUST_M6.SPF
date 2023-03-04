@@ -1,0 +1,101 @@
+PROC CUST_M6(INT _THNR,INT _MTHNR)
+;VERSION: 04.05.65.00 ;DATE: 2014-10-22
+;CHANGE : 04.04.03.00 ;DATE: 2010-10-28
+; Machine Manufacturer Cycle for Toolchange during SERUPRO
+;----------------------------------------------------------------
+; PARAMETER:
+;
+; _THNR    :  Toolholder number
+; _MTHNR   :  Mastertoolholder number
+DEF INT _T_SPI,_T_VOR,_T_AKT,_DUPLO,_MTH_AKT,_PLATZ,_TEMP
+DEF STRING[64] _IDENT
+; internal PARAMETERS:
+;
+; _T_SPI    :   Tool on Toolholder
+; _T_VOR    :   prepared Tool
+; _T_AKT    :   active Tool
+; _DUPLO    :   sister Tool No.
+; _MTH_AKT  :   actual Mastertoolholder
+; _PLATZ    :   magazin loc
+; _IDENT    :   Tool Name
+;
+;-----------------------------------------------------------------
+;
+IF $MC_TOOL_MANAGEMENT_MASK B_AND 'B1'  ; Magazin Management active  
+  ;
+  IF((_THNR<=0)OR(_MTHNR<=0))
+    IF (_THNR<=0)
+      SETAL(61019,"_THNR")  
+    ENDIF
+    
+    IF (_MTHNR<=0)
+      SETAL(61019,"_MTHNR")  
+    ENDIF
+  ENDIF
+  ;
+  IF $MC_TOOL_CHANGE_MODE==1  ; ToolChange with M-Code
+    ;
+    GETEXET(_T_AKT,_THNR)
+    GETSELT(_T_VOR,_THNR)  ; read prepared and active Tool
+    ;
+    FOR _PLATZ=1 TO $TC_MAP7[9998]
+      IF $TC_MPP1[9998,_PLATZ]==2 ;Toolholder
+        IF _THNR==$TC_MPP5[9998,_PLATZ]
+          _TEMP=$TC_MPP6[9998,_PLATZ]
+          IF _TEMP>=1 
+            IF $P_TMNOIS[_TEMP]==0 ;Multitool
+              _T_SPI=$TC_MTPP6[_TEMP,$TC_MTP_POS[_TEMP]]
+            ELSE
+              _T_SPI=_TEMP
+            ENDIF  
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDFOR  ; read Tool on programmed Toolholder
+    ;
+    IF _T_AKT<>_T_SPI  ; ToolChange necessary
+      ;
+      IF $MC_TOOL_MANAGEMENT_TOOLHOLDER>=1
+        _MTH_AKT=$AC_MTHNUM
+        IF _MTH_AKT<>_MTHNR
+          SETMTH(_MTHNR)
+        ENDIF
+      ELSE
+        _MTH_AKT=$AC_MSNUM
+        IF _MTH_AKT<>_MTHNR
+          SETMS(_MTHNR)
+        ENDIF
+      ENDIF  ; adress Mastertoolholder or Masterspindle
+      ;
+      IF _T_AKT==0
+        T[_THNR]=0
+      ELSE
+        _IDENT=$TC_TP2[_T_AKT]
+        _DUPLO=$TC_TP1[_T_AKT]
+        TCA(_IDENT,_DUPLO,_THNR)
+      ENDIF  ; prepare active Tool
+      ;
+      ;------------------------------------------------
+      ; exit for Machine-Cycle "ToolChange"
+      ;------------------------------------------------
+      ;
+      IF $MC_TOOL_MANAGEMENT_TOOLHOLDER>=1
+        IF _MTH_AKT<>_MTHNR
+          SETMTH(_MTHNR)
+        ENDIF 
+      ELSE
+        IF _MTH_AKT<>_MTHNR
+          SETMS(_MTHNR)
+        ENDIF
+      ENDIF  ; selection of the active Toolholder or Spindle
+      ;
+    ENDIF 
+  ENDIF
+  ;
+ELSE  ; ToolManagement not active
+  ;
+  SETAL(61060)  
+  ;
+ENDIF
+;
+M17

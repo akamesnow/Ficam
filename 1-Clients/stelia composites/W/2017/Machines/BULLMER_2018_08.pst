@@ -1,0 +1,1056 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V19.00 P0 E1 W19.00 T1441628876 M19.00 I0 O0     -
+#region ENTETE DE PP
+# --------------------------------------------------------------------
+# -     MASTERCAM 2107 F.I.CAM         -
+# --------------------------------------------------------------------
+# - Réalisé le      : 09/09/15  Par : JV (Création)
+# - Modifié le      : 01/10/15  par : ED (Mise à jour chez Bullmer suite aux premiers tests)
+# - Modifié le      : 29/10/15  par : Eddy Coubard - Stelia Composites (Mise à jour des n° d'outils utilisés)
+# - Modifié le      : 17/11/15  par : Eddy Coubard - Stelia Composites (Suppression de de l'avance si F=9999)
+# - Modifié le      : 23/11/15  par : ED (Mise en place de la relevée automatique de l'outil)
+# - Modifié le      : 25/11/15  par : Eddy Coubard (Suppression des commentaires de la relevée automatique + mise à jour de MR1 à 5 par défaut)
+# - Pour la société : STELIA AEROSPACE COMPOSITES 
+# - Nom MACHINE     : BULLMER
+# --------------------------------------------------------------------
+#endregion
+#region FS
+fs  1  1 1t  
+fs  2  1 1nt
+fs  3  1 0
+fs  4  1 0n
+fs  5  4 0ln
+fs  6  1 1tn
+fs  7  2 0ln
+fs  8  1.3n
+#endregion
+#region FMT
+fmt  I  2 i$
+fmt  K  2 k$
+fmt  J  2 j$
+fmt  X  2 xr$
+fmt  Y  2 yr$
+fmt  Z  2 zr$
+fmt  T  7 t$
+fmt  D  7 tloffno$
+fmt  H  7 tlngno$
+fmt  2 tldia$
+fmt  F  3 fr$
+fmt  S  3 ss$
+fmt  N  4 n$
+fmt  O  5 progno$
+fmt     3 gcode$
+fmt  G  4 cc$
+fmt     4 coolant$ 
+fmt  Z  1 depth$
+fmt  Z  1 zdrl$
+fmt  R  1 refht$
+fmt  P  6 dwell$
+fmt  Z  2 initht$
+fmt  G  4 peckclr$
+fmt  Q  2 peck1$
+fmt  F  3 frplunge$
+fmt  Q  2 peck2$
+fmt  G  4 mi1$
+fmt     3 splcode
+fmt "N" 4 compteurpiece
+fmt 3 old_op_id
+fmt "R" 1 result        # resultat de calcul
+fmt  "OPERATION "  5 numop                          # NUMERO D'OPERATION
+fmt "debut" 3 debut
+fmt "FMAX" 3 fmax
+fmt "M" 7 outil_bas
+fmt "M" 7 outil_haut
+fmt "T" 7 old_t
+fmt "F" 7 avance
+fmt "P12=" 1 long_p12
+fmt "P23=" 1 long_p23
+fmt "P13=" 1 long_p13
+fmt "Old_x=" 1 old_x
+fmt "Old_y=" 1 old_y
+fmt  "X"  1 nextx$ 
+fmt  "Y"  1 nexty$
+fmt "Cos" 8 cosangle
+fmt "Angle=" 8 angle_mov
+fmt "" 8 mr1$ 
+
+snomprog : ""
+fq 1 snomprog "NOM DU PROGRAMMEUR ?"
+
+
+#endregion
+#region PARAMETRES SPECIFIQUE machine
+
+fmax = 60000   # vitesse max avance
+serreur1 : "Erreur, il faut choisir entre outil n°6 ou n°13 pour decoupe ou outil n°5 ou n°7 pour impression, outil choisi non valide - Opération n°"
+serreur2 : "Erreur, il faut créé une operation commentaire en debut de gamme pour selection regime.xrp: OK = continuer, Annuler = sortie PP"
+serreur3 : "Erreur, seule l'opération Contournage est autorisée dans ce post-processeur, veuillez changer de startégie d'usinage - Opération n°"
+serreur4 : "Erreur, La vitesse d'avance programmée est supérieure au maximum possible de la machine - Opération n°"
+serreur_visu : ""
+
+#endregion
+#region VARIABLES
+
+
+sautligne : "*"
+sextnc$ : "ISO"
+subprg$     : no$
+mergesub$   : no$
+getnextop$  : 1
+spaces$     : 0
+no$         : 0
+progno$     : 100
+seqmax$     : 99999
+omitseq$    : no$
+breakarcs$  : 1
+arctype$    : 2
+do_full_arc$ : 0
+helix_arc$   : 1
+ncldr$      : 20
+ldrcode$    : 65
+bldnxtool$  : no$
+tooltable$  : yes$
+opcode$     : 1
+nobrk$      : no$
+gcode$      : -1
+progname$   : 1
+fastmode$   : 1
+strtool_v7$ : 1
+splcode    : 50
+compteurpiece : 1
+result : 0
+debut : 0
+
+usecandrill$ : yes$
+usecanpeck$  : yes$
+usecanchip$  : yes$
+usecantap$   : yes$
+usecanbore1$ : yes$
+usecanbore2$ : yes$
+usecanmisc1$ : yes$
+usecanmisc2$ : no$
+             
+bug1$   : 2
+bug2$   : 20
+bug3$   : 0
+bug4$   : no$
+whatno$ : yes$
+linktolvar$  : 1
+linkplnvar$  : 1
+cant_tlchng$ : 1
+newglobal$  : 0
+
+sg00    : ""
+sg01    : ""
+sg02    : ""
+sg03    : ""
+sgcode  : ""
+fstrsel  sg00 gcode$ sgcode 4 -1 
+spl00    : "G17"
+spl01    : "G19"
+spl02    : "G18"
+spl03  : ""
+splcode ??     
+fstrsel  spl00 plane$ splcode 4 -1
+
+
+
+#endregion
+#region CORPS DU PP
+
+
+poutil_bas     # descente de l'outil 
+					if t$ > 9, outil_bas = 1400 + t$
+					else, outil_bas = 140 + t$
+					outil_bas, sautligne,e$
+					
+poutil_haut     # montée de l'outil 
+					if t$ > 9, outil_haut = 1500 + t$
+					else, outil_haut = 150 + t$
+					outil_haut, sautligne,e$
+					
+					
+pleve_outil    # lève tous les outils pour securité 
+					"M155*",e$ , "M156*",e$ , "M157*", e$ , "M1513*",  e$ 
+					
+pavance         # écriture de l'avance
+			   	# avance = fr$ / 25.4
+			   	# Modification EdC le 17 nov 2015
+				if fr$ <> 9999,
+				[
+				avance = fr$
+				avance, sautligne,e$
+				]
+
+pdebut   # début de prog avec commentaires
+					q1
+					"STELIA AEROSPACE COMPOSITES", e$
+					"GENERATION PAR MASTERCAM X9 POUR MACHINE BULLMER", e$ 
+					"ETABLI LE ",date$," À ",time$,e$
+        			"PROG PAR ",snomprog,e$
+					" ", e$ 
+		
+pendline
+			 sautligne, e$
+pcomment$    
+			if (gcode$ = 1005 | gcode$ = 1006) ,
+				[
+				if debut = 0,
+						[
+						pdebut
+						"HX*G71*M20*@",scomm$,".XPR@",sautligne,e$
+						debut = 1
+						]
+				else, sautligne, e$, "M20*@",scomm$,".XPR@",sautligne,e$, sautligne, e$
+				]
+				
+
+prot0$
+prot$    
+
+
+pnumop     # numérateur opération
+				
+				numop = numop + 1
+
+perreur    # Affichage des erreurs
+
+			if t$ <> 5 & t$ <> 6 & t$ <> 7 & t$ <> 13, [
+						serreur_visu = serreur1 + no2str(numop)
+                        *serreur_visu, e$
+                         result = mprint(serreur_visu)
+                         exitpost$ # abandonner
+						 ]
+			if debut = 0, [
+						serreur_visu = serreur2
+                         result = mprint(serreur_visu,2)
+                         if result = 2, *serreur_visu, e$, exitpost$ # abandonner
+						 
+						 ]	
+			if opcode$ <> 2, [
+						serreur_visu = serreur3 + no2str(numop)
+                        *serreur_visu, e$
+                         result = mprint(serreur_visu)
+                         exitpost$ # abandonner
+						 ]
+						 
+			if fr$ > fmax, [
+						serreur_visu = serreur4 + no2str(numop)
+                        *serreur_visu, e$
+                         result = mprint(serreur_visu)
+                         exitpost$ # abandonner
+						 ]			 
+							
+						 
+
+pheader$
+           	omitseq$=1
+			spaces$ = 0
+psof0$
+           	psof$
+psof$        
+			pnumop
+			
+			perreur
+			if debut = 0,
+					[
+					pdebut
+					"HX",pendline
+					if met_tool$ = 0, "G70",pendline
+					if met_tool$ = 1, "G71",pendline
+					debut = 1
+					]
+			compteurpiece, pendline
+			pleve_outil	
+			pavance
+			n$, *xr$, *yr$,pendline
+			poutil_bas
+			old_t = t$ 
+								
+			old_op_id = op_id$
+ptlchg0$
+
+			perreur
+			if old_op_id <> op_id$,	[
+									pnumop
+									compteurpiece = compteurpiece + 1
+									poutil_haut
+									compteurpiece, pendline
+									poutil_haut	
+									pavance
+									n$, *xr$, *yr$,pendline
+									poutil_bas					
+									]
+							else,	[
+									poutil_haut	
+									n$, *xr$, *yr$,pendline
+									poutil_bas
+									]						
+			old_op_id = op_id$						
+ptlchg$
+
+				if old_t > 9, outil_haut = 1500 + old_t
+				else, outil_haut = 150 + old_t
+				outil_haut, sautligne,e$
+				pnumop
+				perreur
+				compteurpiece = compteurpiece + 1
+				sautligne, e$ 
+				compteurpiece, pendline		
+				poutil_haut	
+				pavance
+				n$, *xr$, *yr$,pendline
+				poutil_bas
+				old_op_id = op_id$
+				
+				old_t = t$ 
+				old_x = xr$ 
+				old_y = yr$
+peof0$
+           	peof$
+peof$
+           	poutil_haut
+		   	"M0",pendline
+		   	#n$, *initht$,pendline
+prapid$     # Ligne rapide  
+		   	n$, sgcode, x$, y$,`sautligne, e$    
+			old_x = x$ 
+			old_y = y$
+			
+pzrapid$    # Ligne Z rapide
+
+
+
+plin$       # Ligne travail
+		   	n$, sgcode, x$, y$, pendline			
+			#Calcul des angles             
+                long_p12 = sqrt((old_x - x$)^2 + (old_y - y$)^2)
+                long_p23 = sqrt((x$ - nextx$)^2 + (y$ - nexty$)^2)
+                long_p13 = sqrt((old_x - nextx$)^2 + (old_y - nexty$)^2)
+                if long_p12 <> 0 & long_p23 <> 0, # verifier que mouvement dans le plan et non nul
+                		[
+                		cosangle = (long_p23^2 + long_p12^2 - long_p13^2)/(2*long_p12*long_p23)
+                		!cosangle, e$
+                		if cosangle <= 1 & cosangle >= -1,
+                				[
+                				angle_mov = 180 - acos(cosangle)
+                				#"voir angle ", *angle_mov, *mr1$, e$
+               		 			if angle_mov >= mr1$ & mr1$ <> -1 & ( t$ = 13 | t$ = 6), 
+										[
+										# Suppression des commentaires.
+										# Eddy Coubard le 25 nov. 2015
+										#"M1513", "(REMONTEE DE L'OUTIL ", *t$, " CAR ANGLE SUPERIEUR A ",mr1$, "°)", pendline
+										#n$, sgcode, *x$, *y$, "(REPETER LA VALEUR DU POSITIONNEMENT)", pendline
+										#"M1413", "(DESCENTE DE L'OUTIL)", pendline
+										poutil_haut
+										n$, sgcode, *x$, *y$, pendline
+										poutil_bas										]
+                				]
+                		]
+			old_x = x$ 
+			old_y = y$
+			
+			
+pz$      	# z en avance rapide
+           	#n$, sgcode, z$, pendline
+pcir$	   	
+pdrill$          
+ppeck$        	      
+pchpbrk$
+ptap$
+pbore1$
+pbore2$
+pmisc1$
+pmisc2$ 
+pdrill_2$
+			n$, *x$, *y$, "M43",pendline
+ppeck_2$
+           	n$, *x$, *y$, "M44",pendline
+pchpbrk_2$
+ptap_2$
+pbore1_2$
+pbore2_2$
+pmisc1_2$
+pmisc2_2$
+pcanceldc$
+pcancelcc$
+pwrtt$
+			
+			
+
+#endregion
+#region CONFIG
+38. Rapid feedrate? 10000.0
+1538. Rapid feedrate (metric)? 10000.0
+
+80. Communications port number for receive and transmit (1 or 2) ? 1
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 4800
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 1
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+90. Drive and subdirectory for NC files? D:\CFAO\Fraisage9\PROG-CN
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name?
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+103. Maximum spindle speed? 5000
+107. Average time for tool change (seconds)? 2.0
+
+161. Enable Home Position button? N
+162. Enable Reference Point button? N
+163. Enable Misc. Values button? N
+164. Enable Rotary Axis button? N
+165. Enable Tool Plane button? N
+166. Enable Construction Plane button? N
+167. Enable Tool Display button? N
+168. Check tplane during automatic work origin creation? y
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. Default miscellaneous real variable 1 (mr1)? 5.0
+202. Default miscellaneous real variable 2 (mr2)? 0.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. Default miscellaneous real variable 8 (mr8)? 0.0
+209. Default miscellaneous real variable 9 (mr9)? 0.0
+210. Default miscellaneous real variable 10 (mr10)? 0.0
+# --------------------------------------------------------------------------
+# Valeurs réelles par défaut (METRIQUE)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 5.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables réelles
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? n
+1613. Enable miscellaneous real variable 3? n
+1614. Enable miscellaneous real variable 4? n
+1615. Enable miscellaneous real variable 5? n
+1616. Enable miscellaneous real variable 6? n
+1617. Enable miscellaneous real variable 7? n
+1618. Enable miscellaneous real variable 8? n
+1619. Enable miscellaneous real variable 9? n
+1620. Enable miscellaneous real variable 10? n
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. Miscellaneous integer variable 4 (mi1)? 0
+302. Miscellaneous integer variable 4 (mi2)? 0
+303. Miscellaneous integer variable 4 (mi3)? 0
+304. Miscellaneous integer variable 4 (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. Miscellaneous integer variable 8 (mi8)? 0
+309. Miscellaneous integer variable 9 (mi9)? 0
+310. Miscellaneous integer variable 10 (mi10)? 0
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables entières
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? n
+1622. Enable miscellaneous integer variable 2? n
+1623. Enable miscellaneous integer variable 3? n
+1624. Enable miscellaneous integer variable 4? n
+1625. Enable miscellaneous integer variable 5? n
+1626. Enable miscellaneous integer variable 6? n
+1627. Enable miscellaneous integer variable 7? n
+1628. Enable miscellaneous integer variable 8? n
+1629. Enable miscellaneous integer variable 9? n
+1630. Enable miscellaneous integer variable 10? n
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file? 
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? Y
+414. Read START/EXIT section? Y
+415. Read SCREEN section? Y
+416. Read FILE NAMES section? Y
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? n
+1502. Write operation information to binary file (.ops)? n
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+1999. Product major version number that post supports? 9
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+[CTRL_MILL|BULLMER_2017_03]
+[misc integers]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. "Angle mini relevée outil; -1 = sans"//5.//5.
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "DRILL"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "HELPDRILL"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[auto drill cycles]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|BULLMER_2018_08]
+[misc integers]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[misc reals]
+1. "Angle mini relevée outil; -1 = sans"//5.//5.
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+[simple drill]
+1. "DRILL"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "HELPDRILL"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[auto drill cycles]
+1. ""
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_TEXT_END]
+#endregion

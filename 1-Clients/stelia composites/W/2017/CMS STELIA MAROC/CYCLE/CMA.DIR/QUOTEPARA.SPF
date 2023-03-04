@@ -1,0 +1,28 @@
+PROC QUOTEPARA DISPLOF SBLOF
+;Autore  : CMS AUTOMAZIONE
+;data    : 15-12-2010
+;Verifica presenza Opzione Paratia
+IF (($MN_USER_DATA_HEX[6] B_AND 1) == 0) GOTOF EXIT
+;--------------------------------------------
+;---- DEFINIZIONE QUOTE GESTIONE PARATIA ----
+;--------------------------------------------
+LIM_INF=-4801.0      ;Lim. Inferiore corsa macchina
+LIM_SUP=+1.0         ;Lim. Superiore corsa macchina 
+LIM_INF_Z1=-2051.0   ;Lim. Inferiore zona 1 
+INC_INF_Z1=110       ;incremento valore inferiore zona 1
+LIM_SUP_Z1=+1.0      ;Lim. Superiore zona 1
+LIM_INF_Z2=-4801.0   ;Lim. Inferiore zona 2
+LIM_SUP_Z2=-2749.0   ;Lim. Superiore zona 2
+INC_SUP_Z2=50        ;incremento valore superiore zona 2
+QUOT_Z1=-1800.0      ;Quota Posizionamento Cambio zona 1
+QUOT_Z2=-3000.0      ;Quota Posizionamento Cambio zona 2
+CZ_SVINCOLO_Z=0.0    ;Quota svincolo Z
+CZ_SVINCOLO_Y=0.0    ;Quota svincolo Y
+CZ_SVINCOLO_4=-90.0  ;Quota svincolo B
+CZ_SVINCOLO_5=0.0    ;Quota svincolo C
+STOPRE
+INCHCONV
+STOPRE
+EXIT:
+M17
+RET

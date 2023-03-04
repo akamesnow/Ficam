@@ -1,0 +1,26 @@
+;CUTTER PROFILE CHECKING 
+;CMS MACHINES
+;TRAINING CENTER 10/03/2011 
+;ULTIMA MODIFICA 05/05/2013    
+;****************************
+_VALD=1;NUMERO DELLA D
+;****************************
+;(_LASER_BROKEN = 1 ;LASER 1 BREAK) 
+;(_LASER_BROKEN = 2 ;LASER 2 BREAK) 
+;(_LASER_TS30 = LASER=1 TS30=2)
+;********************************* 
+_LASER_BROKEN=0 _LASER_TS30=1
+;****************************
+;#END#*NCG;*RO*;*HD*
+;****************************
+;NCG#PROFILE#ren_ed.com#GCPR#*NCG;*RO*;*HD*
+;#0#1#3#1#1#1#3#1#1#4#3#1#5#1#1#1#1#9999#4#0#*NCG;*RO*;*HD*
+RNC_9865 (3,1,0.1,1.8,0,0.025,0,7,2,3000,0,0,0)
+;#END#*NCG;*RO*;*HD*
+M253
+SUPA G00 G90 Z0
+G4F0.5
+STOPRE
+M448
+G4F2
+M30

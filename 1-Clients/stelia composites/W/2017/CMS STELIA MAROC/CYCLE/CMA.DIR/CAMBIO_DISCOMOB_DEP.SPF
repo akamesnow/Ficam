@@ -1,0 +1,62 @@
+PROC Cambio_DiscoMob_dep DISPLOF SBLOF
+;-----------------------------------------------------
+;--------------- DEPOSITO DISCO MOBILE ---------------
+;-----------------------------------------------------
+M284                 ;Apertura protez. mag. disco
+SUPA G0 G90 Z=0 AX[_AXN4]=0              
+M102                ;Posizionamento disco su T montata
+M108               
+IF $A_IN[12] == 1 ;Verifica zona macchina
+  M82          ;COMANDO POSIZ. DISCO DX
+  SUPA G0 G90 X=DISCOMOB_X1_CAMBIO Y=DISCOMOB_Y1_CAMBIO AX[_AXN4]=DISCOMOB_CAMBIO_4 AX[_AXN5]=DISCOMOB_CAMBIO_5
+ELSE
+  M83          ;COMANDO POSIZ. DISCO SX
+  SUPA G0 G90 X=DISCOMOB_X2_CAMBIO Y=DISCOMOB_Y2_CAMBIO AX[_AXN4]=DISCOMOB_CAMBIO_4 AX[_AXN5]=DISCOMOB_CAMBIO_5
+ENDIF
+M68 ;APRO CUFFIA QUI PERCHE POTREI AVERE B NON IN POSIZION
+STOPRE              ;Svuota buffer
+$A_OUTA[1]=3        ;Fase ripristino CU 
+M171                ;Aggiornamnto fase ripristino CU in ingresso PLC  
+IF $A_IN[12] == 1 ;Verifica zona macchina
+  SUPA G0 G90 Z=DISCOMOB_Z1_CAMBIO
+ELSE
+  SUPA G0 G90 Z=DISCOMOB_Z2_CAMBIO
+ENDIF
+M63                 ;CONTROLLO DI CUFFIA ALTA
+;M227                ;Controllo mandrino posizionato
+M289                ;Controllo disco posizionato
+M286                ;Controllo manina libera
+M109	            ;Reset start posizionamento disco 
+IF $A_IN[12] == 1   ;Verifica zona macchina
+  M278              ;TEST DISCO A  DX
+ELSE
+  M279              ;TEST DISCO A  SX
+ENDIF
+STOP_MAND_DD:
+IF $A_IN[19] == 0 GOTOB STOP_MAND_DD  ;Aspetta mandrino fermo
+;
+M280                ;Mag. disco 1 avanti (e apertura protezione)
+STOPRE
+M287                ;Test magazzino avanti
+STOPRE              ;barbatrucco X SINCRONISMO
+IF $MN_SCALING_SYSTEM_IS_METRIC == 1
+SUPA G1 G91 F=SPEED_CAMBIO Z=0.01
+ELSE
+SUPA G1 G91 F=SPEED_CAMBIO Z=((0.01)/(25.4))
+ENDIF
+STOPRE              ;Svuota buffe
+G04 F0.200
+STOPRE              ;Svuota buffer
+$A_OUTA[1]=4        ;Fase ripristino CU 
+M171
+M76                 ;Sbloccaggio utensile
+M106                ;Azzera TMAND
+G04 F0.200
+M70                 ;Attivazione soffiatore cono
+SUPA G1 G91 F=SPEED_CAMBIO Z=DISCOMOB_Z_SVINCOLO
+STOPRE              ;Svuota buffer
+$A_OUTA[1]=4        ;Fase ripristino CU
+M171
+STOPRE
+M17
+RET

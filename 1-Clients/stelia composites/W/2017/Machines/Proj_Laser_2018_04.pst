@@ -1,0 +1,2080 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V19.00 P0 E1 W19.00 T1442758111 M19.00 I0 O0
+# ------------------------------------------
+# -   Post pro fraisage 3 axes standard    -
+# -   Version 3.0  avec SOUS PROG EN Z     -
+# ------------------------------------------
+# -     MASTERCAM 2017
+# ------------------------------------------
+# - Réalisé le      : 22/01/2013  Par : ED -
+# - Pour la société : CAQ                  -
+# - Armoire CN      : Virtek               - 
+# - Nom MACHINE     : Virtek               - 
+# - Fichier associé : .txt                 -
+# ------------------------------------------
+# - Variable workofs  origines Usinage     -
+# ------------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS        -
+# Ecriture de plusieurs fichier en .cal en mode perçage 5 axes et .ply en mode courbe 5 axes
+# 
+# ----------------------------------------
+#   DEBUG POST PRO   
+# 
+sextnc$ : "ply"     # extension des fichier nc
+sextsub$ : "CAL"
+fastmode$ : 1       # mode execution rapide du pst 0 pour utiliser les bug 1 2 3         
+bug1$     : 2       # 0 = pas noir le NC  1 = Visu du NC en lecture - 2 = visu du NC en edit
+bug2$     : 30      # numéro de colonne pour l'affichage du bloc en cour de traitement
+bug3$     : 0       # whatline 01234 etat de l'usinage0 debut prog 1 prapid 2 pzrapid 3 mouvement frplung 4 fin 
+bug4$     : no$     # numero de ligne du nci traité
+whatno$   : yes$    # Ignore whatline branches to plin1 etc.?
+linktolvar$  : 1    # Associer les variables de tolérance X aux variables V9-
+linkplnvar$  : 1    # Associer les variables spécifiques plan X aux variables V9-?
+cant_tlchng$ : 1    # Ignorer entrée de texte programmé au changement avec tlchng_aft?
+newglobal$  : 0     # Activer la vérification d'erreur pour les variables globales?
+
+#
+# - FORMATS DES VARIABLES
+#
+fs  1  1.6ltn       # force 1 chiffre avant virgule met . 3 chiffres apres virgule    
+fs  2  1.6ltn       # idem mais non modale
+fs  3  1 0          # 1 chiffre mini avant virgule  pas de virgule pas de chiffre apres
+fs  4  1 0n         # idem mais non modale
+fs  5  4 0ln        # 4 chiffres avant pas de virgule pas de chiffre apres non modal force 0 de tete
+fs  6  1 3tn        # 1 chiffre mini avant virgule  pas de virgule 3 apres force 0 de queue non modal
+fs  7  1.3l
+fs  8   1 0n
+fs  9   1.3n
+fs  10  1.1l
+# - AFFECTATION DES VARIABLES
+#
+#-------------------- Axe A --------------------------
+fmt  "A" 2 Ar_pos
+fmt  "A" 1 A_pos
+fmt  "R" 2 rotaxis$
+fmt  "D" 2 rotdia$
+fmt  "A" 2 axeA
+fmt  "E" 4 axeAcor      #variable utilisée pour écrire le bon J
+fmt  "E" 4 oldaxeAcor   #variable utilisée pour écrire le bon J
+fmt  "A" 2 old_axeA
+fmt  "A" 2 epsi
+
+fmt     3 affich_A0     # flag utilisé pour écrire AO en positionnement après un développé
+affich_A0 : -1
+
+fmt     1 op_id$        # utilisé pour écrire un M11 pour un changement d'outil nul
+fmt     1 oldop_id
+oldop_id  : -1
+op_id$     : -1
+fmt     3 tolquestion   # flag utilisé pour poser la question de tolérance de developpé q'une fois
+tolquestion : 0
+#-----------------------------------------------------
+
+fmt  "I" 2 i$           # ijk centre des arcs   
+fmt  "K" 2 k$
+fmt  "J" 2 j$
+fmt  "R" 2 arcrad$
+fmt  "X" 2 xr$          # premier mouvement en rapide
+fmt  "Y" 2 yr$
+fmt  "Z" 2 zr$
+fmt  ""  2 x$           # premier mouvement en rapide
+fmt  " "  2 y$
+fmt  " "  2 z$
+fmt  "Z" 2 zdevr
+fmt  "Z" 1 zdev
+fmt "" 1 opcode$
+
+fmt  "Y" 7 yy
+fmt  "Y" 7 yyr
+
+fmt  "Z" 7 zz
+fmt  "Z" 7 zzr
+
+fmt  "T"  4 t$            # numéro outil correct diam corec long
+fmt     4 tloffno$
+fmt  "H" 4 tlngno$
+fmt  "DIAMETRE " 2 tldia$ # diamétre outil
+fmt  "F" 10 fr$           # avance
+fmt  "F" 10 frmach        # avance sur la machine en m/min
+fmt  "F" 10 frplun
+fmt  "F" 10 memofr        # avance memo
+fmt  "S" 4 ss$            # vitesse de broche
+fmt  "S" 4 ssa
+fmt  "S" 4 old_ss
+fmt  "N" 4 n$             # numérotetion des bloc
+fmt  "%"  4 progno$       # Numéro de programe
+
+fmt "LX" 2 stck_ht$
+fmt "LY" 2 stck_wdth$
+fmt "LZ" 2 stck_thck$
+fmt "X" 2 stck_x$
+fmt "Y" 2 stck_y$
+fmt "Z" 2 stck_z$
+fmt "C" 2 stck_crnr$
+fmt "X" 2 xmin
+fmt "Y" 2 ymin
+fmt "Z" 2 zmin
+fmt "X" 2 xmax
+fmt "Y" 2 ymax
+fmt "Z" 2 zmax
+
+fmt   2 xbloc
+fmt   2 ybloc
+fmt   2 zbloc
+
+fmt   4 longueur
+fmt   4 largeur
+fmt   4 epaisseur
+
+#---------------------- Sous prog en Z ------------------------------------
+fmt  "P" 4 prognosav      # Numéro de programe
+fmt  "N" 4 nprincipal     # memo du numero de ligne en prog principal
+fmt  "O" 5 sub_prg_no$    # Numéro de sous-programme
+fmt  "O" 5 numsubprog     # Numéro de sous-programme
+fmt     4 nomsubprog      # Nom de sous-programme
+fmt  "P" 5 sub_op_id$     # appel sous-programme
+fmt  "P" 5 subprognum     # appel sous-programme
+scomentsprog  : ""
+fmt     4 sub_sec_no$     # numero de passe de sous prog
+fmt     4 sub_totl_no$    # nombre total de passes
+#--------------------------------------------------------------------------
+
+
+fmt     3 gcode$     # Gcode NCI
+fmt  "G" 4 cc$       # valeur de la corection dans NCI
+fmt     4 coolant$   # Lubrification 0 1 2 3 arret axe buse les deux 
+fmt     4 lubrif     # egal a coolant
+fmt  "Z" 1 depth$    # profondeur percage
+fmt  "Z" 1 zdrl$     # Position z du point a percer
+fmt  "Z" 1 zprvdrl   # Position z du point precedent percer
+fmt  "Z" 1 refht$    # Garde pour percage
+fmt  "P" 6 dwell$    # Tempo pour percage
+fmt  "Z" 2 initht$   # Plan de sécu percage (=zr)
+fmt  "Z" 2 prof
+fmt  "G" 4 peckclr$  # garde d'approche rapide dans les débourrage
+fmt  "Q" 2 peck1$    # Pas Z du premier débourrage
+fmt  "F" 3 frplunge$ # Avance travail en percage
+fmt  "Q" 2 peck2$    # Pas Z des débourrages suivants
+#          retr      # valeur de remonté relative en rapide dans les debourages en G1 G0
+fmt  "F" 4 pas       # valeur calculé du pas pour taraudage rigide
+fmt     2 typcycle   # variable mise a 1 lors des percage pour pouvoir annuler avec G80 
+fmt  "G" 4 workofs$  # workofs utilise pour origine d'usinage G54 a G59
+fmt  "G" 4 oldworkofs# Stocage de la valeur precedente de workofs
+fmt     3 oui        # Variable oui utilisée pour générer l'entete
+fmt     3 numerote   # Variable numerote utilisée pour numéroter ou non les lignes
+
+fmt "START Ply " 4 layer_debut
+fmt "END Ply " 4 layer_fin
+fmt "MIR" 4 mir
+fmt "MIR" 4 mir_etat
+fmt "P " 4 nbligne
+mir : 0
+mir_etat : 0
+start_base : "Ply1"
+svide : ""
+start : ""
+numpoint : 0
+fmt "T Point" 4 numpoint " "
+fmt 1 PLY
+PLY : 0
+#   ZONE de FORMULES  si : uniquement au dédut si = mise a jour systématique
+#
+sub_level$  : 2      #Enable automatic subprogram support
+subprg$     : yes$
+mergesub$   : no$
+getnextop$  : 1      # autorise la commant nextop nextccomp etc
+mill       : 1       # wire lathe ou mill pour dire le type de pst 
+spaces$     : 1      # nbr d'espace entre les trucs
+# no         : 0
+progno$     : 100
+seqmax$     : 99999  # numéro de bloc maxi 
+omitseq$    : yes$        # ne pas numéroter les blocs
+frrapid    : 300
+frmax      : 300
+ssmax      : 10000   # vitesse de broche maxi
+breakarcs$  : 2      #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+
+arctype$    : 2      # 1 pour absolu  2 delta du point de départ(incremental) 3  delta du centre(incremental inverse)
+do_full_arc$ : 0     #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 1     #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+arcoutput$  : 4
+ncldr$      : 20     # nbr de zero de queue utilisés pour la fonction "fleader" 
+ldrcode$    : 65
+bldnxtool$  : no$
+tooltable$  : no$    # creation liste outil en entete va dans pwrtt oui ou non
+#opcode$     : 1
+nobrk$      : no$    # ne pas décomposer en xy pui z les mouvements en rapid 
+gcode$      : -1
+progname$   : 1      # force le nom du nci en majuscule
+
+strtool_v7$ : 2      # autorise la lecture des commentaires de la bibiotheque outil
+
+snamenc$   : ""
+
+
+
+
+#--------------------------------------------------------------------------------------
+psub_call_s$       # appel sous prog en Z
+
+psub_st_s$    # entete sous prog en Z
+
+psub_end_s$    # fin sous prog en Z
+
+pcomment$   # 1005 va la dedan pour gcode = 1005-1007
+           scomm$ = ucase (scomm$)                  #focer en majuscules
+           scomentsprog = scomm$
+            #" voir opcode", opcode$ , e$
+            #scomm$
+
+prot0$
+
+prot$
+
+pheader$     # ENTETE DE PROGRAMME
+
+
+psof0$       # DEBUT DE PROGRAMME pour T=0
+          psof$
+
+
+psof$            # DEBUT DE PROGRAMME pour T=1   
+          layer_debut = 1
+          layer_fin = 1
+          if scomentsprog = svide, start = start_base
+          else, start = scomentsprog
+
+          if opcode$ = 16,  # operation de percage 5 axes donc sortie de mir en fichier .cal
+          [
+            clearsub$
+            newsub$
+            snamesub$ = snamenc$
+            subout$ = 1  # on ecrit dans le fichier sub 
+            mir = 1  # on previen que on fait un fichier mir
+          ]
+          else,
+          [
+		  PLY = 1
+            #layer_debut, e$
+            "LAYER START", start,e$
+            *layer_debut,e$
+            nbligne = 0  # on met le compteur a 0
+            subout$ = 2  # on ecrit en aux
+          ]
+          oldop_id = op_id$
+
+
+ptlchg0$     # CHANGEMENT D'OUTIL NUL   
+                if op_id$ <> oldop_id, ptlchg$
+                else,
+                [
+                if mir_etat = 0 & opcode$ <> 16 ,       # on vien d'une operation 5 axes et on passe a une autre
+                    [
+					PLY = 1
+                    subout$ = 0
+                    *nbligne, e$ # on ecrit le nobre de ligne
+                    mergeaux$
+                    clearaux$
+                    layer_fin, e$
+                    #"LAYER END", start, e$ 
+                    if scomentsprog = svide, start = start_base
+                    else, start = scomentsprog
+                    layer_debut = layer_debut + 1
+                    layer_fin = layer_fin + 1
+
+                   # "LAYER START", start, e$
+                    layer_debut, e$
+                    mir = 0
+                    nbligne = 0  # on met le compteur a 0
+                    subout$ = 2  # on ecrit en aux
+                    ]
+                ]
+
+
+
+
+ptlchg$      # CHANGEMENT D'OUTIL
+            mir_etat = mir
+            !mir_etat
+
+            if mir_etat = 1 & opcode$ = 16, ex$     # on continue la liste de mir 
+
+
+            if opcode$ <> 16 & mir_etat = 1,        # on a fini d'ecrire les mir, on ferme le fichier et on ecrit le .ply
+                    [
+					PLY = 1
+                    subout$ = 0
+                    if scomentsprog = svide, start = start_base
+                    else, start = scomentsprog
+                    layer_debut, e$
+                    "LAYER START", start, e$
+                    mir = 0
+                    nbligne = 0  # on met le compteur a 0
+                    subout$ = 2  # on ecrit en aux
+                    ]
+            if mir_etat = 0 & opcode$ = 16,         # operation de percage 5 axes donc sortie de mir en fichier .cal
+                    [
+                    subout$ = 0
+                    *nbligne, e$ # on ecrit le nobre de ligne
+                    mergeaux$
+                    clearaux$
+                    layer_fin, e$
+                    "LAYER END", start, e$
+                    layer_fin, e$
+                    newsub$
+                    #clearsub$
+                    snamesub$ = snamenc$
+                    subout$ = 1  # on ecrit dans le fichier sub 
+                    mir = 1  # on previent que on fait un fichier mir
+                    ]
+            if mir_etat = 0 & opcode$ <> 16 ,       # on vien d'une operation 5 axes et on passe a une autre
+                    [
+					PLY = 1
+                    subout$ = 0
+                    *nbligne, e$ # on ecrit le nobre de ligne
+                    mergeaux$
+                    clearaux$
+                    layer_fin, e$
+                    "LAYER END", start, e$
+                    if scomentsprog = svide, start = start_base
+                    else, start = scomentsprog
+                    layer_debut = 1 #layer_debut + 1
+                    layer_fin = 1 # layer_fin + 1
+
+                    "LAYER START", start, e$
+                    layer_debut, e$
+                    mir = 0
+                    nbligne = 0  # on met le compteur a 0
+                    subout$ = 2  # on ecrit en aux
+                    ]
+
+
+            oldop_id = op_id$
+
+
+
+peof0$
+           peof$
+
+
+peof$
+            if mir = 0,
+                [
+                subout$ = 0
+                *nbligne, e$ # on ecrit le nobre de ligne
+                mergeaux$
+                clearaux$
+                layer_fin, e$
+                "LAYER END", start, e$
+                "EOD", e$
+                ]
+				if PLY = 0, subout$ = 0, "IL N'Y AUCUN FICHIER PLY SORTI, SEUL UN FICHIER DE MIRES (.CAL) SE TROUVE DANS LE DOSSIER.", e$ 
+          # subout$ = 0
+          # mergeaux$        
+           #clearaux$
+
+
+ppost$
+
+		
+#-------------------------------------------------------------------------
+prapid$      # Ligne rapide
+
+
+pzrapid$     # Ligne Z rapide
+
+plin$        # point a projeter
+                spaces$ = 0
+                x$, y$, z$, e$
+                spaces$ = 1
+                nbligne = nbligne + 1
+
+pz$      # z en avance 
+
+pcir$        # Circulaire
+
+
+
+pmx$   #   Point en 5 axes
+         if fr$ <> -2, plin$
+
+
+
+#-------------------------------------------------------------------------
+phole       # trous suivants
+            pdrill$
+
+
+pdrill$      # Cycle de percage G81
+            "1", e$
+            numpoint = numpoint + 1
+            spaces$ = 0
+            numpoint, x$, y$, z$, e$
+            spaces$ = 1
+
+
+
+ppeck$      # Cycle de chambrage G82
+           pdrill$
+
+
+pchpbrk$    # Cycle de débourrage G83
+           pdrill$
+
+
+ptap$       # Cycle de taraudage G84
+           pdrill$
+
+pbore1$     # Cycle d'alésage G85
+          pdrill$
+
+pbore2$     # Cycle d'alésage indexé G76 
+           pdrill$
+
+
+pmisc1$     # Cycle 
+pmisc2$     # Cycle 
+
+
+
+
+pdrill_2$   # Percage suivant
+           phole
+ppeck_2$    # Canned Peck Drill Cycle
+           phole
+pchpbrk_2$  # Canned Chip Break Cycle
+           phole
+ptap_2$     # Canned Tap Cycle
+           phole
+pbore1_2$   # Canned Bore #1 Cycle
+           phole
+
+
+pbore2_2$   # Canned Bore #2 Cycle
+           phole
+
+pmisc1_2$   # Canned Misc #1 Cycle
+
+pmisc2_2$   # Canned Misc #2 Cycle
+
+pcanceldc$  # Cancel canned drill cycle
+
+            # gcode =0
+            # n, "G80", *sgcode, *initht, e
+
+pcancelcc$  # Cancel canned drill cycle
+
+
+pwrttparam$
+
+pwrtt$      # Lite des outil     
+
+
+#---------------------------------------------------------------------
+
+# ==========================================================================
+# Numbered post questions for Mastercam --  Used by Mill v9
+# ==========================================================================
+
+# --------------------------------------------------------------------------
+# Rapid Traverse Feedrates  (1538. is NEW for v9)
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 300.0
+1538. Rapid feedrate (metric)? 10000.0
+
+# --------------------------------------------------------------------------
+# Communications settings (if "Read from Q.80" = 'Y' in product CFG file)
+# --------------------------------------------------------------------------
+80. Communications port number for receive and transmit (1 or 2) ? 1
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 4800
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+
+90. Drive and subdirectory for NC files?
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name?
+
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+
+103. Maximum spindle speed? 15000
+107. Average time for tool change (seconds)? 2.0
+
+# --------------------------------------------------------------------------
+# Enable/Disable setting for Toolpath Paramter dialog screen buttons
+# --------------------------------------------------------------------------
+161. Enable Home Position button? n
+162. Enable Reference Point button? y
+163. Enable Misc. Values button? y
+164. Enable Rotary Axis button? y
+165. Enable Tool Plane button? y
+166. Enable Construction Plane button? y
+167. Enable Tool Display button? y
+168. Check tplane during automatic work origin creation? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. Default miscellaneous real variable 1 (mr1)? 0.0
+202. Default miscellaneous real variable 2 (mr2)? 0.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. Default miscellaneous real variable 8 (mr8)? 0.0
+209. Default miscellaneous real variable 9 (mr9)? 0.0
+210. Default miscellaneous real variable 10 (mr10)? 0.0
+
+# Metric Misc. Reals (1601. - 1610.) are NEW for v9
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values (METRIC)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. Miscellaneous integer variable 4 (mi1)? 0
+302. Miscellaneous integer variable 4 (mi2)? 0
+303. Miscellaneous integer variable 4 (mi3)? 0
+304. Miscellaneous integer variable 4 (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. Miscellaneous integer variable 8 (mi8)? 0
+309. Miscellaneous integer variable 9 (mi9)? 0
+310. Miscellaneous integer variable 10 (mi10)? 0
+
+#
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file? 
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? Y
+414. Read START/EXIT section? Y
+415. Read SCREEN section? Y
+416. Read FILE NAMES section? Y
+
+# --------------------------------------------------------------------------
+1500. Chook to execute from 'Misc. values' button?
+
+# --------------------------------------------------------------------------
+# Parameter information output configuration switches
+# --------------------------------------------------------------------------
+1501. Insert parameter information in the ascii NCI? y
+1502. Write operation information to binary file (.ops)? n
+
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+
+# These switches (1611. - 1620.) for Misc. Reals are NEW for v9
+# --------------------------------------------------------------------------
+# Enable/Disable Misc. Real entry field switches (v9+)
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+# These switches (1621. - 1630.) for Misc. Integers are NEW for v9
+# --------------------------------------------------------------------------
+# Enable/Disable Misc. Integer entry field switches (v9+)
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+# Post question 1999. is NEW for v9
+# --------------------------------------------------------------------------
+# Do NOT manually change the 'answer' to 1999 !
+1999. Product major version number that post supports? 9
+[CTRL_MILL|DEFAULT]
+[CTRL_MILL|PROJ_LASER_2013_06]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|PROJ_LASER_2015_01]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|PROJ_LASER_2015_03]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|PROJ_LASER_2015_09]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|PROJ_LASER_2016_12]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_MILL|PROJ_LASER_2018_04]
+[simple drill]
+1. "Point Mir"
+2. ""
+3. ""
+4. ""
+5. ""
+6. "Position Mir"
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[peck drill]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[chip break]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[tap]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[bore2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc1]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[misc2]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 9]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 10]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 11]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 12]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 13]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 14]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 15]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 16]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 17]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 18]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 19]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[drill cycle 20]
+1. "Non util"
+2. ""
+3. ""
+4. ""
+5. ""
+6. ""
+7. ""
+8. ""
+9. ""
+10. ""
+11. ""
+[CTRL_TEXT_END]

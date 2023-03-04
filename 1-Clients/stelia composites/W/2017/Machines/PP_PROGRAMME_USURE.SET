@@ -1,0 +1,391 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V19.00 P0 E1 W19.00 T1495453481 M19.00 I0 O0
+# ----------------------------------------------
+# -   Version M2019                              
+# ----------------------------------------------
+# - le : 01/04/2019  Par : Jocelyn VALIERE    
+# - Pour la société : STELIA COMPOSITES        
+# - Nom MACHINE     : CND                       
+# ----------------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS           
+# DERNIERE MISE AU POING LE 11 AVRIL 2014    
+# ----------------------------------------------
+#--------------------------------- FORMATS -----
+fs  1  1.3
+fs  2  1.3n
+fs  3  1 0n
+fs  4  1 0
+fs  5  1.0n
+fs  6  5 0
+fs  7  1.4n
+fs  8  1.3
+fs  9  1.9
+fs 10  1.2
+fs  11  1.3ln
+fs  12  1 0l
+fs  13  1.3ln
+fs  14  3 0n
+#--------------------------- AFFECTATIONS FORMATS ---------------------------
+fmt 9 x$
+fmt 9 y$
+fmt 9 z$
+fmt 9 u$
+fmt 9 v$
+fmt 9 w$
+fmt  "F" 4 fr$
+fmt  "S" 3 ss$
+fmt  "N" 3 n$
+fmt      3 opcode$
+fmt  "G" 4 gcode$
+fmt      3 progno$
+fmt  "OP" 3 op_id$
+subprg$    : yes$ # quand subout = 1
+auxprg$    : yes$
+extprg$    : yes$
+sextention : ".USU"
+mergesub$  : 0
+getnextop$ : 1
+spaces$    : 0
+progno$    : 100
+seqmax$    : 40000
+omitseq$   : yes$
+breakarcs$ : 2        #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+arctype$   : 2        # Arc center 1=abs, 2=inc, 3=st-cen, 4=unsigned inc.
+do_full_arc$ : 0      #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 2      #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+ncldr$     : 20       # No. of leader characters
+ldrcode$   : 65       # Leader character dec. equiv.
+bldnxtool$ : yes$     # Build next tool table
+tooltable$ : yes$
+opcode$    : 1
+nobrk$     : yes$     # Omit breakup of rapid linear motion? yes/no(xy,z or z,xy)
+x$         : 9999
+y$         : 9999
+z$         : 9999
+i$         : 0
+j$         : 0
+k$         : 0
+gcode$     :  -1
+strtool_v7$ : 1
+rotaxtyp$   : 4
+#----------------------------------------------------------------------
+fastmode$  : 1
+bug1$   : 2            # 1 = Output post to screen - 2 = output leader to screen
+bug2$   : 40           # Add postline label to each line at column 'bug2'
+bug4$   : 60           # Add nci no
+whatno$ : yes$         # Ignore whatline branches to plin1 etc.?
+cant_tlchng$   : 1     #Ignorer entrée de texte programmé au changement avec tlchng_aft?
+newglobal$     : 0     #Activer la vérification d'erreur pour les variables globales?
+#----------------------------- POSTLINES -----------------------------------
+pcomment$
+prot0$
+prot$
+pmiscparam$
+fmt ">OP "  3 numop
+numop : 0
+fmt 3 old_op_id
+old_op_id : 999999
+fmt "	OUTIL : " 3 t$
+fmt "	VARIATION HAUTEUR : " 2 variation_hauteur
+variation_hauteur : 0
+fmt 3 variation_hauteur_act
+variation_hauteur_act : 0
+fmt 9 old_x
+fmt 9 old_y
+fmt 9 old_z
+fmt 9 longvec
+longvec : 0
+fmt "	LONGUEUR DETOUREE : " 2 longparc
+longparc : 0
+fmt 9 vx
+fmt 9 vy
+fmt 9 vz
+fmt 1 debut
+debut : 0
+fmt 4 av_travail
+fmt 4 av_plonge
+fmt 4 av_retract
+fmt 2 entree
+entree : 0
+fmt "	NOMBRE DE PERCAGE : " 3 nbr_percage
+nbr_percage : -1
+pprep$
+		linarc$ = 1
+        sextnc$ = sextention
+pheader$     # Entete
+		*snamenc$, e$
+		" ", e$
+psof0$       # Debut si pas d'outil
+pnumop
+		if op_id$ <> old_op_id,	[
+								numop = numop + 1
+								*numop , e$
+								]
+psof$        # Debut si outil
+		old_x = x$
+		old_y = y$
+		old_z = z$
+		pnumop
+		if op_id$ <> old_op_id,	[
+								*t$, e$
+								if variation_hauteur_act = 0, variation_hauteur = 0
+								*variation_hauteur, e$
+								]
+		old_op_id = op_id$
+		debut = 1
+ptlchg0$     # Changement outil nul
+		pchange_op
+ptlchg$      # Changement outil
+		pchange_op		
+pchange_op
+		if op_id$ <> old_op_id,	[
+								*longparc, e$
+								if nbr_percage = -1 , nbr_percage = 0
+								*nbr_percage, e$
+								longparc = 0
+								nbr_percage = -1
+								]
+		pnumop
+		if op_id$ <> old_op_id,	[
+								*t$, e$
+								if variation_hauteur_act = 0, variation_hauteur = 0
+								*variation_hauteur, e$
+								]
+		old_op_id = op_id$
+		debut = 1
+pparameter$             # pour afficher tous les parametres		
+		#~prmcode$, "=", sparameter$, e$                # pour afficher tous les parametres
+		if prmcode$ = 41135, variation_hauteur = rpar(sparameter$, 1)
+		if prmcode$ = 41132, variation_hauteur_act = rpar(sparameter$, 1)
+		if prmcode$ = 10030, av_travail = rpar(sparameter$, 1)
+		if prmcode$ = 10031, av_plonge = rpar(sparameter$, 1)
+		if prmcode$ = 15140, av_retract = rpar(sparameter$, 1)
+pwrttparam$
+		if prmcode$ = 41135, variation_hauteur = rpar(sparameter$, 1)
+		if prmcode$ = 41132, variation_hauteur_act = rpar(sparameter$, 1)
+		if prmcode$ = 10030, av_travail = rpar(sparameter$, 1)
+		if prmcode$ = 10031, av_plonge = rpar(sparameter$, 1)
+		if prmcode$ = 15140, av_retract = rpar(sparameter$, 1)
+pcalcul_longueur_parcours
+		if debut = 1,	[
+						old_x = x$
+						old_y = y$
+						old_z = z$
+						debut = 0
+						]
+		vx = x$ - old_x
+        vy = y$ - old_y
+		vz = z$ - old_z
+		longvec = sqrt(vx*vx+vy*vy+vz*vz)
+		if av_retract = av_travail | av_retract = av_plonge, av_retract = av_travail - 1
+		if fr$ <> -2 & fr_pos$ <> av_retract, longparc = longparc + longvec
+		old_x = x$
+		old_y = y$
+		old_z = z$
+pcompteur_percage
+		nbr_percage = nbr_percage + 1
+pmx$        # 5 axes
+		#if cstart$ <> 1 & entree = 0, debut = 1
+		#if cstart$ = 1, entree = 1
+		pcalcul_longueur_parcours	
+peof0$       # Fin outil nul
+peof$        # Fin 
+		*longparc, e$
+		if nbr_percage = -1 , nbr_percage = 0
+		*nbr_percage, e$
+		longparc = 0
+		nbr_percage = -1
+prapid$     # Ligne rapide
+		pcalcul_longueur_parcours	
+pzrapid$    # Ligne Z rapide 
+		pcalcul_longueur_parcours	    
+plin$       # Ligne travail      
+		pcalcul_longueur_parcours	
+pz$         # z en avance rapide 
+		pcalcul_longueur_parcours	
+pcir$       # Circulaire
+		pcalcul_longueur_parcours	
+pdrill$      # Cycle de percage G81
+		pcompteur_percage
+ppeck$     # Cycle de lamage G82
+		pcompteur_percage
+pchpbrk$   # Cycle de debourage G83
+		pcompteur_percage
+ptap$        # Cycle de taraudage G84
+		pcompteur_percage
+pbore1$      # Cycle d'alesage G85
+		pcompteur_percage
+pbore2$      # alesage indexe G86
+		pcompteur_percage
+pmisc1$      # Cycle G87
+		pcompteur_percage
+pmisc2$      # Canned Misc #2 Cycle de poche circulaire
+		pcompteur_percage
+pdrill_2$    # Canned Drill Cycle
+		pcompteur_percage
+ppeck_2$     # Canned Peck Drill Cycle
+		pcompteur_percage
+pchpbrk_2$   # Canned Chip Break Cycle
+		pcompteur_percage
+ptap_2$      # Canned Tap Cycle
+		pcompteur_percage
+pbore1_2$    # Canned Bore #1 Cycle
+		pcompteur_percage
+pbore2_2$    # Canned Bore #2 Cycle
+		pcompteur_percage
+pmisc1_2$    # Canned Misc #1 Cycle
+		pcompteur_percage
+pmisc2_2$    # Canned Misc #2 Cycle
+		pcompteur_percage
+pcanceldc$   # Cancel canned drill cycle
+		pcompteur_percage
+pcancelcc$   # Cancel canned drill cycle
+		pcompteur_percage
+pwrtt$       # Lite des outil  
+# --------------------------------------------------------------------------
+# Numbered questions for Mastercam --  Used by Mill 7
+# --------------------------------------------------------------------------
+38. Rapid feedrate? 20000.0
+1538. Rapid feedrate (metric)? 10000.0
+
+80. Communications port number for receive and transmit (1 or 2) ? 2
+81. Data rate (110,150,300,600,1200,2400,4800,9600,14400,19200,38400)? 9600
+82. Parity (E/O/N)? E
+83. Data bits (7 or 8)? 7
+84. Stop bits (1 or 2)? 2
+85. Strip line feeds? N
+86. Delay after end of line (seconds)? 0
+87. Ascii, Eia, or Binary (A/E/B)? A
+88. Echo keyboard to screen in terminal emulation? n
+89. Strip carriage returns? N
+90. Drive and subdirectory for NC files?
+91. Name of executable post processor? MP
+92. Name of reverse post processor? RP
+93. Reverse post PST file name?
+100. Number of places BEFORE the decimal point for sequence numbers? 3
+101. Number of places AFTER the decimal point for sequence numbers? 0
+103. Maximum spindle speed? 5000
+107. Average time for tool change (seconds)? 2.0
+
+161. Enable Home Position button? y
+162. Enable Reference Point button? N
+163. Enable Misc. Values button? Y
+164. Enable Rotary Axis button? N
+165. Enable Tool Plane button? N
+166. Enable Construction Plane button? Y
+167. Enable Tool Display button? N
+168. Check tplane during automatic work origin creation? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Real Values
+# --------------------------------------------------------------------------
+201. valeur de recul en 5 axes cont (mr1)? 50.0
+202. plan de retournement en 5 axes cont (mr2)? 150.0
+203. Default miscellaneous real variable 3 (mr3)? 0.0
+204. Default miscellaneous real variable 4 (mr4)? 0.0
+205. Default miscellaneous real variable 5 (mr5)? 0.0
+206. Default miscellaneous real variable 6 (mr6)? 0.0
+207. Default miscellaneous real variable 7 (mr7)? 0.0
+208. DECALAGE X                            (mr8)? 0.0
+209. DECALAGE Y                            (mr9)? 0.0
+210. DECALAGE Z                            (mr10)? 0.0
+
+# --------------------------------------------------------------------------
+# Valeurs réelles par défaut (METRIQUE)
+# --------------------------------------------------------------------------
+1601. Default miscellaneous real variable 1 (mr1) (metric)? 0.0
+1602. Default miscellaneous real variable 2 (mr2) (metric)? 0.0
+1603. Default miscellaneous real variable 3 (mr3) (metric)? 0.0
+1604. Default miscellaneous real variable 4 (mr4) (metric)? 0.0
+1605. Default miscellaneous real variable 5 (mr5) (metric)? 0.0
+1606. Default miscellaneous real variable 6 (mr6) (metric)? 0.0
+1607. Default miscellaneous real variable 7 (mr7) (metric)? 0.0
+1608. Default miscellaneous real variable 8 (mr8) (metric)? 0.0
+1609. Default miscellaneous real variable 9 (mr9) (metric)? 0.0
+1610. Default miscellaneous real variable 10 (mr10) (metric)? 0.0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables réelles
+# --------------------------------------------------------------------------
+1611. Enable miscellaneous real variable 1? y
+1612. Enable miscellaneous real variable 2? y
+1613. Enable miscellaneous real variable 3? y
+1614. Enable miscellaneous real variable 4? y
+1615. Enable miscellaneous real variable 5? y
+1616. Enable miscellaneous real variable 6? y
+1617. Enable miscellaneous real variable 7? y
+1618. Enable miscellaneous real variable 8? y
+1619. Enable miscellaneous real variable 9? y
+1620. Enable miscellaneous real variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Default Miscellaneous Integer Values
+# --------------------------------------------------------------------------
+301. tour de plus en 5 axes continue 1 ou -1 (mi1)? 0
+302. commance en A- en 5 axes continue (mi2)? 0
+303. retournement de tete a plan secu mi2 ou sur place 0 ou 1  (mi3)? 0
+304. mode vectoriel A3 B3 C3 = 1, mode axe A et C = 0  (mi4)? 0
+305. Miscellaneous integer variable 5 (mi5)? 0
+306. Miscellaneous integer variable 6 (mi6)? 0
+307. Miscellaneous integer variable 7 (mi7)? 0
+308. decalage en x (mi8)? 0
+309. decalage en y (mi9)? 0
+310. decalage en z (mi10)? 0
+
+# --------------------------------------------------------------------------
+# Activer/désactiver les commutateurs de variables entières
+# --------------------------------------------------------------------------
+1621. Enable miscellaneous integer variable 1? y
+1622. Enable miscellaneous integer variable 2? y
+1623. Enable miscellaneous integer variable 3? y
+1624. Enable miscellaneous integer variable 4? y
+1625. Enable miscellaneous integer variable 5? y
+1626. Enable miscellaneous integer variable 6? y
+1627. Enable miscellaneous integer variable 7? y
+1628. Enable miscellaneous integer variable 8? y
+1629. Enable miscellaneous integer variable 9? y
+1630. Enable miscellaneous integer variable 10? y
+
+
+# --------------------------------------------------------------------------
+# Configuration File association parameters (default is "y")
+# --------------------------------------------------------------------------
+#400. Name of associated cfg file? 
+401. Read SYSTEM COLORS section? y
+402. Read ALLOCATIONS section? y
+403. Read TOLERANCES section? y
+404. Read DATA PATHS section? y
+405. Read COMMUNICATIONS section? y
+406. Read DRAFT SETTINGS section? y
+407. Read MISCELLANEOUS section? y
+408. Read NC SETTINGS section? y
+409. Read DIALOG SCRIPTS section? y
+410. Read DESIGN SETTINGS section? y
+411. Read PLOTTER SETTINGS section? y
+412. Read ALT-KEY ASSIGNMENTS section? y
+413. Read CAD section? Y
+414. Read START/EXIT section? Y
+415. Read SCREEN section? Y
+416. Read FILE NAMES section? Y
+
+1500. Chook to execute from 'Misc. values' button?
+1501. Insert parameter information in the ascii NCI? n
+1502. Write operation information to binary file (.ops)? n
+1520. Display a warning when cutter compensation in control simulation finds an error? n
+
+# Do NOT manually change the answer for Q.1999 !
+1999. Product major version number that post supports? 9
+
+3001. Machine acceleration? 2
+3002. timing size? .1
+
+[CTRL_MILL|DEFAULT]
+[misc reals]
+1. //50.//0.
+2. //150.//0.
+[CTRL_MILL|PP_PROGRAMME_USURE]
+[misc reals]
+1. //50.//0.
+2. //150.//0.
+[CTRL_TEXT_END]

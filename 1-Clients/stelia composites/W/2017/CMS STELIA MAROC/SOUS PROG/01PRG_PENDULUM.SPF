@@ -1,0 +1,189 @@
+;PROGRAM_PENDULUM Rev: 1.4
+;ARES SPECIALE PER STELIA_AEROSPACE_7320
+;TRAINING CENTER  17/10/2011
+;ULTIMA MODIFICA  01/02/2016
+DEF REAL _ZPSIC,_DIS
+DEF STRING[30] _PROG1ZONA1,_PROG1ZONA2
+;============================================
+;************* MANUAL DATA IMPUT ************ 
+;============================================
+;NAME PROGRAM TO BE IMPLEMENTED ZONA 1
+_PROG1ZONA1="C:\CMS\LAVORO\P1000.MPF"
+;============================================
+;NAME PROGRAM TO BE IMPLEMENTED ZONA 2
+_PROG1ZONA2="C:\CMS\LAVORO\P2000.MPF"
+;============================================
+_ZPSIC=0     ;(QUOTA SICUREZZA Z)
+_DIS=2800.0 ;(DISTANZA OFFSET ZONA 2)
+;============================================
+IF $MN_SCALING_SYSTEM_IS_METRIC == 0
+_ZPSIC=((_ZPSIC)/(25.4))
+_DIS=((_DIS)/(25.4))
+ENDIF
+STOPRE
+CYCLE800()
+CYCLE832()
+TRANS
+TOROTOF
+ROT
+TRAFOOF
+DRFOF
+POS_LASER_TS30(155)
+SUPA G90 G0 Z=_ZPSIC ;AX[_AXN4]=0
+/M64 
+;============================================
+;****** ALLARMI PRG GESTIONE PENDOLARE ******
+;============================================
+IF ($A_IN[9] <> 1) GOTOF _ALL2
+IF R296 <> 1 GOTOF _ALL3
+;============================================
+;** RESET VARIABILE PRG GESTIONE PENDOLARE **
+;============================================
+R299=1 ;STATUS MACCHINA PRONTA
+;============================================
+;******* INIZIO LAVORAZIONE PENDOLARE *******
+;============================================
+_INIZIO1:
+STOPRE 
+;() 
+M195
+;()
+STOPRE
+;============================================
+IF $A_IN[17] == 0 GOTOF _ZONA2 
+IF $A_IN[12] == 1 GOTOF _MACZONA1
+STOPRE
+IF (($MN_USER_DATA_HEX[6] B_AND 1) == 4)
+M06T0
+ENDIF
+M95
+STOPRE
+M162
+STOPRE 
+_MACZONA1:
+STOPRE
+$P_CHBFR[0]=CTRANS(X,_DIS)
+STOPRE
+G500
+M05S0
+M09
+CYCLE800()
+TRANS
+TOROTOF
+ROT
+SUPA G0 G90 Z=_ZPSIC ;AX[_AXN4]=0
+M50 
+;============================================
+N1000;***START ZONA 1***
+IF R296 <> 1 GOTOF _ALL3
+$AC_CUTTING_TIME=0
+;***FIRST PROGRAM***
+;============================================
+;***** ATTESA PRG / SET STATUS MACCHINA *****
+;============================================
+WHILE R297 == 0
+MSG("WAIT FOR PROGRAM RIGHT")
+STOPRE
+ENDWHILE
+STOPRE ;=====================================
+;****** SET STATUS INIZIO LAVORAZIONE *******
+MSG() ;======================================
+R299=4 ;STATUS INIZIO LAV. DX
+;============================================
+;CALL _PROG1ZONA1
+EXTCALL _PROG1ZONA1;SUBROUTINE CALL LOCAL DRIVE
+;============================================
+;******* SET STATUS FINE LAVORAZIONE ********
+STOPRE ;=====================================
+R299=5 ;STATUS FINE LAV. DX
+;============================================
+M05S0
+M09
+CYCLE800()
+TRANS
+TOROTOF
+ROT
+SUPA G90 G0 Z=_ZPSIC ;AX[_AXN4]=0 
+G500
+M05S0
+M09
+M81
+_ZONA2:
+STOPRE 
+M195 
+STOPRE
+;**************************
+IF $A_IN[18] == 0 GOTOF _ZONA1
+IF $A_IN[12] == 0 GOTOF _MACZONA2 
+IF (($MN_USER_DATA_HEX[6] B_AND 1) == 4)
+M06T0
+ENDIF
+STOPRE
+M95
+STOPRE
+M162
+STOPRE 
+_MACZONA2:
+STOPRE
+$P_CHBFR[0]=CTRANS(X,0)
+STOPRE
+G500
+M05S0
+M09
+CYCLE800()
+TRANS
+TOROTOF
+ROT
+SUPA G90 G0 Z=_ZPSIC ;AX[_AXN4]=0
+M49
+;============================================ 
+N2000;***START ZONA 2***
+IF R296 <> 1 GOTOF _ALL3
+$AC_CUTTING_TIME=0
+;***FIRST PROGRAM***
+;============================================
+;***** ATTESA PRG / SET STATUS MACCHINA *****
+;============================================
+WHILE R298 == 0
+MSG("WAIT FOR PROGRAM LEFT")
+STOPRE
+ENDWHILE
+STOPRE ;=====================================
+;****** SET STATUS INIZIO LAVORAZIONE *******
+MSG() ;======================================
+R299=2 ;STATUS INIZIO LAV. SX
+;============================================
+EXTCALL (_PROG1ZONA2);SUBROUTINE CALL LOCAL DRIVE
+;============================================
+;******* SET STATUS FINE LAVORAZIONE ********
+STOPRE ;=====================================
+R299=3 ;STATUS FINE LAV. SX
+;============================================
+M05S0
+M09
+CYCLE800()
+TRANS
+TOROTOF
+ROT
+SUPA G90 G0 Z=_ZPSIC ;AX[_AXN4]=0
+STOPRE
+$P_CHBFR[0]=CTRANS()
+STOPRE
+M05S0
+M09
+M81
+G500
+_ZONA1:
+STOPRE
+GOTOB _INIZIO1
+;() 
+M30
+_ALL2:
+MSG("66002,BULKHEAD PROTECTION NOT INSTALLED IN MACHINE")
+M00
+GOTOB _ALL2
+_ALL3:
+MSG("66003,PROGRAM !!!! AUT_D5 ???? NOT RUNNING")
+M00
+GOTOB _ALL3
+

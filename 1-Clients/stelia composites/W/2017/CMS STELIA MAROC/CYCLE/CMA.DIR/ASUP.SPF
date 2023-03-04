@@ -1,0 +1,21 @@
+PROC ASUP SBLOF
+;*************************************************************
+;*** ASUP.SPF: PROGRAMMA RESTART DOPO STOP PROGRAMMA *********
+;*************************************************************
+;Autore  : CMS AUTOMAZIONE
+;data    : 11-10-2013;
+STOPRE
+IF ($P_SIM == 1) OR ($P_ISTEST == 1) GOTOF _SIMON
+IF (($A_IN[26] == 0) OR ($A_IN[24] == 1) OR ($P_OPMODE == 0))
+REPOSA
+ M17
+RET
+ENDIF
+G04 F0.100
+M130
+STOPRE
+REPOSA
+_SIMON:
+M17
+RET
+;END
