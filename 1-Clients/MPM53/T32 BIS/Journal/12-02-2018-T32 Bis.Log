@@ -1,0 +1,38 @@
+I> [12/02/2018 04:59:30] Port activé avec succès.
+I> [12/02/2018 10:45:34] Appel depuis la CN de: 11270-01-01
+I> [12/02/2018 10:45:39] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\11270-01-01.MZK
+I> [12/02/2018 10:45:39] Programmes dans les fichiers demandés: Programme 739 (11270-01-01), Programme 1438 (11270-01-01), Programme 1439 (11270-01-01)
+I> [12/02/2018 10:45:45] Emission de programme: Programme 1438 (11270-01-01)
+I> [12/02/2018 10:47:22] Emission de programme: Programme 1439 (11270-01-01)
+I> [12/02/2018 10:52:30] Appel depuis la CN de: 11270 55 01
+E> [12/02/2018 10:52:37] N'a pu trouver le programme appelé depuis la CN: 11270 55 01.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+E> [12/02/2018 10:52:37] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [12/02/2018 10:52:39] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [12/02/2018 10:52:48] Appel depuis la CN de: 11270 55 01
+E> [12/02/2018 10:52:52] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [12/02/2018 10:52:52] N'a pu trouver le programme appelé depuis la CN: 11270 55 01.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+I> [12/02/2018 10:53:06] Appel depuis la CN de: 11270-55-01
+E> [12/02/2018 10:53:10] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [12/02/2018 10:53:11] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\11270-55-01.MZK
+I> [12/02/2018 10:53:11] Programmes dans les fichiers demandés: Programme 1438 (11270-55-01), Programme 1439 (11270-55-01), Programme 1440 (11270-55-01), Programme 1441 (11270-55-01)
+I> [12/02/2018 10:53:37] Appel depuis la CN de: 112705501
+I> [12/02/2018 10:53:46] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\112705501.MZK
+I> [12/02/2018 10:53:47] Programmes dans les fichiers demandés: Programme 1534 (112705501), Programme 1439 (112705501), Programme 1440 (112705501), Programme 1441 (112705501)
+I> [12/02/2018 10:53:54] Appel depuis la CN de: 112705501
+I> [12/02/2018 10:54:01] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\112705501.MZK
+I> [12/02/2018 10:54:01] Programmes dans les fichiers demandés: Programme 1534 (112705501), Programme 1439 (112705501), Programme 1440 (112705501), Programme 1441 (112705501)
+I> [12/02/2018 10:54:08] Emission de programme: Programme 1534 (112705501)
+I> [12/02/2018 10:57:40] Réception: programme 1534 (11270-01-01)
+I> [12/02/2018 10:58:58] Réception: programme 1438 (11270-01-01)
+I> [12/02/2018 11:00:34] Réception: programme 1439 (11270-01-01)
+I> [12/02/2018 11:00:47] Réception: programme 739 (11270-01-01)
+I> [12/02/2018 11:01:12] Fichier reçu: C:\machines\T32 Bis\Programmes\11270-01-01.MZK
+I> [12/02/2018 11:01:12] Programmes dans les fichiers demandés: Programme 1534 (11270-01-01), Programme 1438 (11270-01-01), Programme 1439 (11270-01-01), Programme 739 (11270-01-01)
+I> [12/02/2018 11:02:26] Appel depuis la CN de: 10270090201
+E> [12/02/2018 11:02:31] N'a pu émettre le fichier: C:\machines\T32 Bis\Programmes\11270-01-01.MZK [Le système ne peut pas lire le périphérique indiqué]
+I> [12/02/2018 11:02:31] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\10270090201.MZK
+I> [12/02/2018 11:02:31] Programmes dans les fichiers demandés: Programme 302 (10270090201), Programme 303 (10270090201), Programme 304 (10270090201), Programme 336 (10270090201)
+I> [12/02/2018 11:02:36] Emission de programme: Programme 302 (10270090201)
+I> [12/02/2018 11:02:45] Emission de programme: Programme 303 (10270090201)
+I> [12/02/2018 11:03:02] Emission de programme: Programme 304 (10270090201)
+I> [12/02/2018 11:03:32] Emission de programme: Programme 336 (10270090201)

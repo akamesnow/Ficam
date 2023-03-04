@@ -1,0 +1,47 @@
+I> [01/02/2016 04:55:30] Port activé avec succès.
+I> [01/02/2016 09:09:28] Appel depuis la CN de: 9001-04-01
+E> [01/02/2016 09:09:33] N'a pu émettre le fichier: C:\machines\T32 Bis\Programmes\21270080201.MZK [Le système ne peut pas lire le périphérique indiqué]
+E> [01/02/2016 09:09:33] N'a pu trouver le programme appelé depuis la CN: 9001-04-01.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+E> [01/02/2016 09:09:34] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [01/02/2016 09:09:35] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [01/02/2016 09:10:43] Appel depuis la CN de: 9001-04-01L
+E> [01/02/2016 09:10:47] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [01/02/2016 09:10:47] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\9001-04-01L.MZK
+I> [01/02/2016 09:10:47] Programmes dans les fichiers demandés: Programme 1546 (9001-04-01L), Programme 1548 (9001-04-01L), Programme 1550 (9001-04-01L), Programme 1553 (9001-04-01L)
+I> [01/02/2016 09:11:19] Appel depuis la CN de: 9004-04-02G
+E> [01/02/2016 09:11:26] N'a pu trouver le programme appelé depuis la CN: 9004-04-02G.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+E> [01/02/2016 09:11:26] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [01/02/2016 09:11:28] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [01/02/2016 09:11:29] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [01/02/2016 09:11:46] Appel depuis la CN de: 9001-04-02G
+I> [01/02/2016 09:11:51] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\9001-04-02G.MZK
+I> [01/02/2016 09:11:51] Programmes dans les fichiers demandés: Programme 1545 (9001-04-02G), Programme 1547 (9001-04-02G), Programme 1549 (9001-04-02G), Programme 1551 (9001-04-02G), Programme 1552 (9001-04-02G)
+I> [01/02/2016 09:12:02] Emission de programme: Programme 1545 (9001-04-02G)
+I> [01/02/2016 12:48:37] Appel depuis la CN de: 113500103L
+I> [01/02/2016 12:48:44] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\113500103L.MZK
+I> [01/02/2016 12:48:44] Programmes dans les fichiers demandés: Programme 1000 (113500103L), Programme 1435 (113500103L), Programme 1001 (113500103L), Programme 1002 (113500103L), Programme 1003 (113500103L)
+I> [01/02/2016 12:48:52] Emission de programme: Programme 1435 (113500103L)
+I> [01/02/2016 12:48:57] Emission de programme: Programme 1001 (113500103L)
+I> [01/02/2016 12:50:11] Emission de programme: Programme 1002 (113500103L)
+I> [01/02/2016 12:50:35] Emission de programme: Programme 1003 (113500103L)
+I> [01/02/2016 12:53:05] Réception: programme 1000 (113500103L)
+I> [01/02/2016 12:53:12] Réception: programme 1435 (113500103L)
+I> [01/02/2016 12:53:17] Réception: programme 1001 (113500103L)
+I> [01/02/2016 12:54:31] Réception: programme 1002 (113500103L)
+I> [01/02/2016 12:54:55] Réception: programme 1003 (113500103L)
+I> [01/02/2016 12:55:27] Fichier reçu: C:\machines\T32 Bis\Programmes\113500103L.MZK
+I> [01/02/2016 12:55:27] Programmes dans les fichiers demandés: Programme 1000 (113500103L), Programme 1435 (113500103L), Programme 1001 (113500103L), Programme 1002 (113500103L), Programme 1003 (113500103L)
+I> [01/02/2016 12:57:02] Appel depuis la CN de: 9001-04-01L
+I> [01/02/2016 12:57:07] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\9001-04-01L.MZK
+I> [01/02/2016 12:57:07] Programmes dans les fichiers demandés: Programme 1546 (9001-04-01L), Programme 1548 (9001-04-01L), Programme 1550 (9001-04-01L), Programme 1553 (9001-04-01L)
+I> [01/02/2016 12:57:15] Emission de programme: Programme 1546 (9001-04-01L)
+I> [01/02/2016 12:57:26] Emission de programme: Programme 1548 (9001-04-01L)
+I> [01/02/2016 12:57:31] Emission de programme: Programme 1550 (9001-04-01L)
+I> [01/02/2016 12:57:55] Emission de programme: Programme 1553 (9001-04-01L)
+I> [01/02/2016 12:59:27] Appel depuis la CN de: 9001-04-02G
+I> [01/02/2016 12:59:31] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\LA CALHENE\9001-04-02G.MZK
+I> [01/02/2016 12:59:31] Programmes dans les fichiers demandés: Programme 1545 (9001-04-02G), Programme 1547 (9001-04-02G), Programme 1549 (9001-04-02G), Programme 1551 (9001-04-02G), Programme 1552 (9001-04-02G)
+I> [01/02/2016 13:00:10] Emission de programme: Programme 1547 (9001-04-02G)
+I> [01/02/2016 13:00:19] Emission de programme: Programme 1549 (9001-04-02G)
+I> [01/02/2016 13:00:24] Emission de programme: Programme 1551 (9001-04-02G)
+I> [01/02/2016 13:00:57] Emission de programme: Programme 1552 (9001-04-02G)

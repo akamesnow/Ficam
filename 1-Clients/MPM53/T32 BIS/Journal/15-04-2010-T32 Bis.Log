@@ -1,0 +1,69 @@
+I> [15/04/2010 07:30:52] Port activé avec succès.
+I> [15/04/2010 10:52:46] Appel depuis la CN de: 4802907A
+I> [15/04/2010 10:52:53] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\FLOWSERVE\4802907A.MZK
+I> [15/04/2010 10:52:53] Programmes dans les fichiers demandés: Programme 84 (4802907A), Programme 85 (4802907A)
+I> [15/04/2010 10:55:45] Appel depuis la CN de: 4802907A
+I> [15/04/2010 10:55:51] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\4802907A.MZK
+I> [15/04/2010 10:55:51] Programmes dans les fichiers demandés: Programme 4630 (4802907A), Programme 4632 (4802907A)
+I> [15/04/2010 10:59:48] Appel depuis la CN de: 4802907A
+I> [15/04/2010 10:59:54] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\4802907A.MZK
+I> [15/04/2010 10:59:55] Programmes dans les fichiers demandés: Programme 17, Données d'outil, Programme 11, Données d'outil
+I> [15/04/2010 11:02:18] Appel depuis la CN de: 4802907A
+I> [15/04/2010 11:02:25] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\4802907A.MZK
+I> [15/04/2010 11:02:25] Programmes dans les fichiers demandés: Programme 15, Données d'outil, Programme 11, Données d'outil
+I> [15/04/2010 11:05:07] Emission de programme: Programme 15
+I> [15/04/2010 11:05:11] Emission de programme: Données d'outil
+I> [15/04/2010 11:05:12] Emission de programme: Programme 11
+I> [15/04/2010 11:05:15] Emission de programme: Données d'outil
+I> [15/04/2010 12:45:52] Appel depuis la CN de: 4802907A
+I> [15/04/2010 12:45:58] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\FLOWSERVE\4802907A.MZK
+I> [15/04/2010 12:45:58] Programmes dans les fichiers demandés: Programme 84 (4802907A), Programme 85 (4802907A)
+I> [15/04/2010 12:46:04] Emission de programme: Programme 84 (4802907A)
+I> [15/04/2010 12:46:15] Emission de programme: Programme 85 (4802907A)
+I> [15/04/2010 14:26:16] Réception: programme 84 (4802907A)
+I> [15/04/2010 14:26:27] Réception: programme 85 (4802907A)
+I> [15/04/2010 14:26:35] Réception: programme 829 (4802907A)
+I> [15/04/2010 14:26:43] Réception: programme 830 (4802907A)
+I> [15/04/2010 14:26:51] Fichier reçu: C:\machines\T32 Bis\Programmes\4802907A.MZK
+I> [15/04/2010 14:26:51] Programmes dans les fichiers demandés: Programme 84 (4802907A), Programme 85 (4802907A), Programme 829 (4802907A), Programme 830 (4802907A)
+I> [15/04/2010 14:27:36] Appel depuis la CN de: 4802907A
+E> [15/04/2010 14:27:42] N'a pu émettre le fichier: C:\machines\T32 Bis\Programmes\4802907A.MZK [Le système ne peut pas lire le périphérique indiqué]
+I> [15/04/2010 14:27:43] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\FLOWSERVE\4802907A.MZK
+I> [15/04/2010 14:27:43] Programmes dans les fichiers demandés: Programme 84 (4802907A), Programme 85 (4802907A), Programme 829 (4802907A), Programme 830 (4802907A)
+I> [15/04/2010 14:27:48] Appel depuis la CN de: 4802907A
+I> [15/04/2010 14:27:54] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\FLOWSERVE\4802907A.MZK
+I> [15/04/2010 14:27:54] Programmes dans les fichiers demandés: Programme 84 (4802907A), Programme 85 (4802907A), Programme 829 (4802907A), Programme 830 (4802907A)
+I> [15/04/2010 14:31:05] Appel depuis la CN de: CDM075 EBAU
+E> [15/04/2010 14:31:14] N'a pu trouver le programme appelé depuis la CN: CDM075 EBAU.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+I> [15/04/2010 14:31:19] Appel depuis la CN de: CDM075 EBAU
+E> [15/04/2010 14:31:25] N'a pu trouver le programme appelé depuis la CN: CDM075 EBAU.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+E> [15/04/2010 14:31:30] N'a pu émettre le fichier. [Previous remote request failed.]
+I> [15/04/2010 14:31:36] Appel depuis la CN de: CDM075 EBAU
+E> [15/04/2010 14:31:42] N'a pu émettre le fichier. [Previous remote request failed.]
+E> [15/04/2010 14:31:43] N'a pu trouver le programme appelé depuis la CN: CDM075 EBAU.MZK [Premier répertoire recherché : C:\machines\T32 Bis\Programmes]
+I> [15/04/2010 14:32:22] Appel depuis la CN de: DCM075 EBAU
+I> [15/04/2010 14:32:28] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\DCM075 EBAU.MZK
+I> [15/04/2010 14:32:28] Programmes dans les fichiers demandés: Programme 3972 (DCM075 EBAU), Programme 3973 (DCM075 EBAU)
+I> [15/04/2010 14:32:33] Emission de programme: Programme 3972 (DCM075 EBAU)
+I> [15/04/2010 14:32:52] Emission de programme: Programme 3973 (DCM075 EBAU)
+I> [15/04/2010 14:54:25] Appel depuis la CN de: 3980209-D
+E> [15/04/2010 14:54:31] N'a pu émettre le fichier: C:\machines\T32 Bis\Programmes\DCM075 EBAU.MZK [Le système ne peut pas lire le périphérique indiqué]
+I> [15/04/2010 14:54:32] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\3980209-D.MZK
+I> [15/04/2010 14:54:32] Programmes dans les fichiers demandés: Programme 17, Données d'outil, Programme 31, Données d'outil, Programme 21, Données d'outil, Programme 35, Données d'outil
+I> [15/04/2010 14:54:37] Appel depuis la CN de: 3980209-D
+I> [15/04/2010 14:54:45] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\3980209-D.MZK
+I> [15/04/2010 14:54:45] Programmes dans les fichiers demandés: Programme 17, Données d'outil, Programme 31, Données d'outil, Programme 21, Données d'outil, Programme 35, Données d'outil
+I> [15/04/2010 14:55:30] Emission de programme: Programme 17
+I> [15/04/2010 14:55:34] Emission de programme: Données d'outil
+I> [15/04/2010 14:55:35] Emission de programme: Programme 31
+I> [15/04/2010 14:55:42] Emission de programme: Données d'outil
+I> [15/04/2010 14:55:43] Emission de programme: Programme 21
+I> [15/04/2010 14:55:48] Emission de programme: Données d'outil
+I> [15/04/2010 14:55:49] Emission de programme: Programme 35
+E> [15/04/2010 14:59:25] Transmission avortée. [Délai de réponse dépassé, interruption de la transmission]
+I> [15/04/2010 18:32:13] Appel depuis la CN de: DCM693A
+I> [15/04/2010 18:32:19] Le programme appelé depuis la CN est trouvé: C:\machines\T32 Bis\Programmes\DCM693A.MZK
+I> [15/04/2010 18:32:20] Programmes dans les fichiers demandés: Programme 5116 (DCM693A), Programme 5117 (DCM693A), Programme 5126 (DCM693A), Programme 5127 (DCM693A)
+I> [15/04/2010 18:32:28] Emission de programme: Programme 5116 (DCM693A)
+I> [15/04/2010 18:32:43] Emission de programme: Programme 5117 (DCM693A)
+I> [15/04/2010 18:33:13] Emission de programme: Programme 5117 (DCM693A)
