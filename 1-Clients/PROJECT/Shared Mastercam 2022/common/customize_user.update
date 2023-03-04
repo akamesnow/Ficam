@@ -1,0 +1,84 @@
+// UPDATE POST SCRIPT - USER/DEALER SCRIPT
+// LAST UPDATE: 01/15/2020
+//______________________________________________________________________________________________________________
+//
+// General Rules:
+// --------------
+//
+// The double back slash in the first column indicates a comment.
+//
+// The function starts with the header, first column required, [POST FILE REPLACE LINE] and follows with the ordered parameters
+//
+// Comments are not allowed between the ordered numbered parameters.
+//
+// Parameters are read from the '.' delimiting the parameter number to the end of the line (cr/lf).
+//
+// A line can be PATH_MAX characters long. Only single line supported.
+//
+// All tabs are converted to spaces, don't use tabs.
+//
+// TRUE or FALSE for boolean parameters.
+// ______________________________________________________________________________________________________________
+//
+// Post File Changes:
+// ------------------
+//
+// This modifies the post text file before parsing.
+//
+// The disadvantage here is the text must match exactly (any user modification can break this).
+//
+// An exact match is required, white space is stripped for the comparison.
+//
+// To replace a line in the post file, use the following parameters:
+// 1.The string to match and replace - Source line - String
+// 2.The replacement string            Target line - String
+// 3.Strip white space with comparison  - Boolean TRUE or FALSE
+// 4.Ignore case                        - Boolean TRUE or FALSE
+// 5.Replace first occurence only       - Boolean TRUE or FALSE
+// ______________________________________________________________________________________________________________
+//
+// Post type/version scope:
+// ------------------------
+//
+// Tags similar to the function header are used to select which sections in this file to process.
+//
+// Enter the tag(s) that will use the function(s) following the tag(s). Any type/version match will enable reading the function.
+//   Tags define the version the post is being updated from.
+//
+// Enter the [BREAK] tag after the last parameter of the last function in the tagged section.
+//
+// Multiple tags may be entered on a single line and multiple lines of tags are allowed.
+//
+// Enter any combination of the following tags, The first tag is required in the first column.
+// [MILL|ALL]
+// [ROUTER|ALL]
+// [LATHE|ALL]
+// [MILL_TURN|ALL]
+// [WIRE|ALL]
+// [MILL|X_1][MILL|X_2][MILL|X_3][MILL|X_4][MILL|X_5][MILL|X_6][MILL|X_7][MILL|X_8][MILL|X_9][MILL|2017][MILL|2018][MILL|2019][MILL|2020][MILL|2021][MILL|2022]
+// [ROUTER|X_1][ROUTER|X_2][ROUTER|X_3][ROUTER|X_4][ROUTER|X_5][ROUTER|X_6][ROUTER|X_7][ROUTER|X_8][ROUTER|X_9][ROUTER|2017][ROUTER|2018][ROUTER|2019][ROUTER|2020][ROUTER|2021][ROUTER|2022]
+// [LATHE|X_1][LATHE|X_2][LATHE|X_3][LATHE|X_4][LATHE|X_5][LATHE|X_6][LATHE|X_7][LATHE|X_8][LATHE|X_9][LATHE|2017][LATHE|2018][LATHE|2019][LATHE|2020][LATHE|2021][LATHE|2022]
+// [MILL_TURN|X_1][MILL_TURN|X_2][MILL_TURN|X_3][MILL_TURN|X_4][MILL_TURN|X_5][MILL_TURN|X_6][MILL_TURN|X_7][MILL_TURN|X_8][MILL_TURN|X_9][MILL_TURN|2017][MILL_TURN|2018]
+//   [MILL_TURN|2019][MILL_TURN|2020][MILL_TURN|2021][MILL_TURN|2022]
+// [WIRE|X_1][WIRE|X_2][WIRE|X_3][WIRE|X_4][WIRE|X_5][WIRE|X_6][WIRE|X_7][WIRE|X_8][WIRE|X_9][WIRE|2017][WIRE|2018][WIRE|2019][WIRE|2020][WIRE|2021][WIRE|2022]
+// All above combinations can have an optional third parameter for the post type.
+//   The 3rd parameter functions as a file extension filter, and allows for processing either .set files or post files.
+//   There are two valid settings for the 3rd parameter: SET or PST.  Note: The PST setting includes .pst, .psm, .mcpost, and .mcdpost
+//   If the 3rd parameter is ommited, all file types are processed.
+//   Examples: [LATHE|X_7|SET] [MILL|X_7|PST] [MILL|ALL|PST] [ROUTER|ALL|SET]
+// [BREAK]
+// ______________________________________________________________________________________________________________
+//
+// Example (all lines begin in first column):
+// ------------------------------------------
+// [MILL|X_1][ROUTER|X_1][LATHE|X_1][MILL_TURN|X_1][WIRE|X_1]
+// [POST FILE REPLACE LINE]
+// 1.            if tool_typ = 13 | tool_typ = 17, tldia_meta = tldia + (2 *(flute_len * tan(tip_angle))
+// 2.            if tool_typ = 13 | tool_typ = 17, tldia_meta = tldia + (2 *(flute_len * tan(tip_angle)))
+// 3.TRUE
+// 4.TRUE
+// 5.FALSE
+// [BREAK]
+// ______________________________________________________________________________________________________________
+// Enter customization below
+

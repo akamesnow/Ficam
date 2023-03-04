@@ -1,0 +1,3802 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V24.00 P4 E1 W24.00 T1648225312 M24.00 I0 O0
+# -----------------------------------------
+# -   Post pro TOURNAGE MONO TOURELLE     -
+# -      MONO BROCHE  avec AXE C          -
+# -           Version 1.0                 -
+# -----------------------------------------
+# -     MASTERCAM VX     F.I.CAM          -
+# -----------------------------------------
+# - Réalisé le      : 07/07/06  Par : VM  -
+# - MODIFIE le      : 30/03/11  Par : BRT -
+# - Pour la société : PROJECT VENDOME     -
+# - Armoire CN      : U100L               -
+# - Nom MACHINE     : LB200M              -
+# -----------------------------------------
+# - Variable mi1    :                     -
+# -----------------------------------------
+# -   DESCRIPTION DES MODIFICATIONS       -
+#
+# -----------------------------------------
+
+
+
+
+fastmode$  : 1
+bug1$      : 2         # 1 = Output post to screen - 2 = output leader to screen
+bug2$      : 0        # Add postline label to each line at column 'bug2'
+#CNC<<ECHEC>>bug3$      : 0         # Add whatline to each line
+#CNC<<MSG -ERREUR(27)>> The variable, postblock, or other keyword is no longer supported
+bug4$      : 0         # Add -.nci line no. to each line? yes/no
+whatno$    : yes$       # Ignore whatline branches to plin1 etc.?
+linktolvar$    : 1     #Associer les variables de tolérance X aux variables V9-
+linkplnvar$    : 1     #Associer les variables spécifiques plan X aux variables V9-?
+linklvar$      : 1     #Associer les variables spécifiques X Tournage aux variables V9-
+cant_tlchng$   : 1     #Ignorer entrée de texte programmé au changement avec tlchng_aft?
+newglobal$     : 0     #Activer la vérification d'erreur pour les variables globales?
+
+#-------------------------- DECLARATION DES FORMATS -----------------------
+fs  1  1.3l
+fs  2  1.3ln
+fs  3  1 0
+fs  4  1 0n
+fs  5  4 0ln
+fs  6  0 2t
+fs  7  1.5t
+fs  8  6 0ln
+fs  9  4 0ln
+#fs  10 1.2
+#fs 11  2 0ln
+fs 12  1.3ln
+fs 13  1 3tn
+fs 14  1 4tn
+
+
+# pour filletages
+
+fs 10  2 0ln
+fs 11  0 3tn
+
+fs 15  1 3tn
+fs 16  1^3
+fs 17  1 4tn
+fs 18  1 5tn
+
+#--------------------------- AFFECTATION FORMATS ----------------------------
+fmt  "S" 2 vitessm29
+fmt  "X" 2 xr$
+fmt  "Y" 2 yr$
+fmt  "Z" 2 zr$
+fmt  "Z" 2 ztr
+
+fmt  "X" 1 x$
+fmt  "Y" 1 y$
+fmt  "Z" 1 z$
+#fmt  x  1 prv_x$
+#fmt  y  1 prv_y$
+#fmt  z  1 prv_z$
+
+
+fmt  "Z" 1 zt
+
+fmt  "X" 2 xr2
+fmt  "X" 1 x2
+fmt  "X" 1 xrd
+
+fmt  "X" 1 z_dev
+fmt  "X" 1 zr_dev
+
+fmt     1 xr_Bout
+fmt     1 yr_Bout
+fmt     1 zr_Bout
+fmt  "X" 1 x_Bout
+fmt  "C" 1 y_Bout
+fmt  "Z" 1 z_Bout
+
+fmt  "X" 1 xh_Bout
+fmt  "Y" 1 yh_Bout
+fmt  "Z" 1 zh_Bout
+
+fmt  "X" 1 xr_Bout_d
+fmt  "Y" 1 yr_Bout_d
+fmt  "Z" 1 zr_Bout_d
+fmt  "X" 1 x_Bout_d
+fmt  "Y" 1 y_Bout_d
+fmt  "Z" 1 z_Bout_d
+
+fmt  "X" 1 xh_Bout_d
+fmt  "Y" 1 yh_Bout_d
+fmt  "Z" 1 zh_Bout_d
+fmt  "X" 1 x_Bout_perce_d
+
+fmt  "X" 1 x_Bout_perce
+fmt "G12.1" 1 g112
+fmt  "Z" 2 xr_Dessus
+fmt  "Y" 2 yr_Dessus
+fmt  "X" 2 zr_Dessus
+fmt  "Z" 1 x_Dessus
+fmt  "Y" 1 y_Dessus
+fmt  "X" 1 z_Dessus
+
+fmt  "X" 2 xh$
+fmt  "X" 2 xh2
+fmt  "X" 2 xfin  # memo du pt chgt outil pour bug peof
+fmt  "Z" 2 zh$
+fmt  "Z" 2 zth
+fmt  "Z" 2 zfin # memo du pt chgt outil pour bug peof
+
+fmt  "R" 2 arcrad$
+fmt  "I" 2 i$
+fmt  "K" 2 j$
+
+fmt  "C" 1 axec
+fmt  "C" 1 old_axec
+fmt  "C" 1 axee
+fmt  "C" 1 old_axee
+fmt  "C" 1 Cr_pos
+fmt  "C" 1 C_pos
+fmt  "C" 1 C_posbis
+fmt  "R" 2 rotaxis$
+fmt  "R" 2 rotdia$
+
+fmt  "N" 4 n$
+fmt  "N" 4 num
+num : 0
+num = num + 1
+
+fmt "G4U" 1 dwell$
+
+fmt  "G" 4 cc$
+fmt  "G" 4 old_cc
+fmt  "G" 3 correc
+fmt  "G" 4 old_correc
+
+fmt     3 gcode$
+fmt  "C" 4 coolant$
+fmt     4 lubrif
+
+fmt  "O"  5 progno$
+
+fmt  "O"  5 numprog
+
+fmt  "F" 1 fr_tour
+fmt  "F" 1 fr$
+fmt  "F" 16 fr_taraud
+fmt  "F" 1 avance
+fmt  "F" 1 avance1
+fmt  "F" 1 avance_r
+fmt  "F" 1 frplunge$
+
+fmt  "G" 3 avtr
+fmt     4 ss$
+fmt     4 old_ss
+fmt     4 old_spdir
+fmt     4 chgoutil
+fmt  "S" 4 Vcc
+fmt  "S" 4 Vccf
+fmt  "S" 4 Vccf1
+fmt  "S" 4 maxss$
+fmt  "S" 4 oldmaxss
+
+fmt  "S" 4 vitchgt     #variable utilisée pour écrire un G97 avec une vitesse pas trop écartée de la vitesse constante au diam. d'attaque
+
+fmt  "T" 4 t$
+fmt     9 tloffno$
+fmt     9 tlngno$
+fmt     1 old_tloffno
+
+fmt  "T" 9 outil_broche # numero outil en broche
+fmt  "T" 9 old_outil_broche# memo numero outil en broche
+fmt  "T" 9 annuloutil
+fmt  "T" 9 firstannuloutil
+fmt     4 first_tool$
+
+fmt  "R " 12 tcr$
+fmt "DIAM " 2 tldia$
+
+fmt  "Op" 4 opcode$
+
+fmt     2 dessus
+fmt     2 old_dessus
+
+fmt     1 broche
+fmt     1 old_broche               # memo broche active
+
+fmt     1 changement
+
+fmt     1 recupcs
+
+fmt     1 frein
+
+#------- FILETAGES -----------
+fmt    7 thdx1$     # ray majeur au z accostage
+fmt    7 thdx2$     # ray mineur au z accostage
+fmt    7 thdx3$     # ray mineur au z de fin
+fmt    7 thdz1$     # z de debut filet
+fmt    7 thdz2$     # z de fin filet (avec surusinage)
+
+fmt    7 thdtaper$  # angle de filetage conique
+fmt "P" 17 thddepth$
+fmt "Q" 17 thdfirst$# 1ere passe
+fmt "Q" 18 thdlast$ # derniere passe
+fmt   11 nspring$   # nbr de passes a vide
+fmt    7 thdzclr$   # garde d'approche en Z
+fmt    7 thda1$     # angle de depat du filet
+fmt    7 thda2$     # angle d'ouverture du filet
+fmt "R" 2 thdfinish$# tol de finition
+fmt    7 thdpulloff$    # degagenemt anticipe
+fmt    7 thdangle$
+fmt   10 thdang
+fmt   10 thdpull
+
+fmt "P" 10 passefinition
+fmt   10 sortiefiltage
+fmt   10 anglefilet
+fmt "Q" 2 copeaumini
+fmt "R" 2 lastpasse
+#fmt X 2 diamfinal
+fmt "Z" 1 longfilet
+fmt "P" 2 hauteurfilet
+fmt "Q" 2 firstpasse
+#fmt F 1 pas
+fmt  "Z" 1 zdeb
+fmt  "X" 1 xdeb
+fmt  "R" 1 cone
+fmt   1 filetage
+fmt "Z" 1 finitionfiletage
+fmt  "R" 2  thdrdlt     #Thread R delta G92 and G76
+#------- CYCLES MACHINES --------
+fmt "Z" 2 initht$
+fmt "Z" 2 refht$
+fmt "Z" 1 depth$
+fmt "Q" 14 peck1$
+fmt "H" 4 peck2$
+fmt "F" 2 peckclr$
+fmt "R" 2 retr$
+fmt "P" 15 tempo
+
+fmt "F" 1 pas
+fmt "R" 1 garde
+fmt "Z" 1 garde1
+fmt "D" 1 garde2
+fmt "S" 1 garde3
+fmt "X" 1 garde4
+fmt "R" 1 gardeR
+fmt     2 typecycle
+
+fmt  "Z" 2 degageanticip                                       #  - eap 12/17/02
+fmt  "F" 2 n_tap_thds$                                          #  - eap 12/17/02
+fmt  "X" 2 diamajeur                                           #  - eap 12/17/02
+fmt  "X" 2 gardefiletage                                              #  - eap 12/17/02
+fmt  "F" 2 thdlead$
+fmt  "X" 2 Diamfinal
+fmt  "Z" 2 Zfinal
+fmt  "P" 10 Npasse                                         #  - eap 12/17/02
+
+
+
+#--------- BRICOLAGE -------------------
+
+fmt "TXT" 1 texte         # flag pour ecrire des commentaire
+fmt "REVERS" 1 reverse    # 0 pour broche gauche -1 pour droite
+fmt "INVERSER" 1 inverser # 1 SI XCP + Z       -1 si xcp = -z
+
+fmt     7 pi$
+
+fmt     1 recul
+fmt     1 contrepointe
+fmt  "Z" 1 debcontrepointe
+fmt  "Z" 1 fincontrepointe
+
+fmt  "Z" 1 stck_final_z$
+fmt  "Z" 1 stck_init_z$
+fmt  "Z" 1 tlstck_on$
+
+fmt     1 avancebrut
+
+fmt     1 m10
+
+fmt     1 g80             #variable utilisée pour écrire (débourrage et taraudage) ou non (brise-copeaux) le G80 de fin
+
+fmt  "G" 4 workofs$
+fmt  "G" 4 oldworkofs
+
+fmt  "X" 1 xdegage
+fmt  "Z" 1 zdegage
+
+fmt  "X" 1 oldxdegage
+fmt  "Z" 1 oldzdegage
+
+#________________________Configuration du brut SYL____________________
+fmt     1 configbrut
+fmt  "D" 1 diamextbrut
+fmt  "E" 1 diaminterbrut
+fmt  "L" 1 longubrut
+fmt  "K" 1 surepface
+#______________________Fin configuration du brut SYL_________________
+
+#--------------- Questions ----------------------
+fq 1 maxss$ "Vitesse de broche maxi pour //scomm0$//"
+
+fq 3 workofs$ "ATTENTION !!!!!! PAS D'ORIGINE DECLAREE !!!!!! NOUVELLE ORIGINE POUR //t$//"
+
+diamextbrut : 0
+fq 4 diamextbrut "Indiquez diametre exter du brut svp"
+
+diaminterbrut : 0
+fq 5 diaminterbrut "Indiquez diametre inter du brut svp"
+
+longubrut : 0
+fq 6 longubrut    "Indiquez longueur du brut svp"
+
+surepface : 0
+fq 7 surepface   "Indiquez surep. du brut sur la face svp"
+
+configbrut : 0
+fq 8 configbrut  "Configurer le brut ? 1 pour Oui et 0 pour Non"
+
+fq 10 vtol$ "TOLERANCE CORDALE POUR LES ARCS AVEC //t$//"
+
+fq 11 xdegage "X de dégagement"
+
+zdegage : 350
+fq 12 zdegage "Z de dégagement"
+
+fq 27 numprog "Numero de programme svp ?"
+
+sclient : ""
+fq 28 sclient "Client ?"
+
+embarrage : 0
+fq 29 embarrage "Utilisez vous l'embarreur ? 1 = Oui"
+fq 30 lpcs "Longueur de pièce svp"
+fq 31 numtronc "Numéro d'outil à tronçonner ?"
+fq 32 numbut "Numéro outil butée ?"
+fq 33 vtronc "Vitesse de broche pour le tronçonnage ?"
+fq 34 xbrut "Diametre de la barre?"
+
+
+
+#------------------------------ FORMULES ------------------------------------
+rotaxtyp$  : 3
+omitseq$   : 1        # ne pas numeroter les lignes
+texte     : 1        # autorise les comentaires
+
+
+get_1004$   : 1     #Find gcode 1004 with getnextop?
+skp_lead_flgs$ : 1   #Do not use v9 style contour flags
+rpd_typ_v7$ : 1     #Use Version 7 style contour flags?
+lathe      : 1
+spaces$    : 1
+seqmax$    : 9999   # Max. sequence no.
+seqout    : yes$    # Output sequence no.?
+frrapid   : 300    # Rapid feedrate? 300.0
+frmax     : 300    # Maximum feedrate? 300.0
+maxss$     : 4500   # Maximum spindle speed? 3000
+breakarcs$ : 2      #Break arcs, 0 = no, 1 = quadrants, 2 = 180deg. max arcs
+do_full_arc$ : 0     #Allow full circle output? 0=no, 1=yes
+helix_arc$   : 1     #Support helix arc output, 0=no, 1=all planes, 2=XY plane only
+
+arctype$   : 4      # Arc center 1=abs, 2=inc, 3=st-cen, 4=unsigned inc.
+ncldr$     : 20     # No. of leader characters
+ldrcode$   : 65     # Leader character dec. equiv.
+bldnxtool$ : yes$
+tooltable$ : no$     # Build tool table
+
+subprg$    : 1
+auxprg$    : 1
+extprg$    : 1
+
+mergesub$  : 1
+mergeaux$  : 1
+mergext   : 1
+
+progname$  : 1
+
+strtool_v7$: 2
+
+vtol$      : 0.01
+old_ss    : 0     # variable de test de changement de vitesse pour chg outil nul TT
+zt : 9999
+
+avance_r  : 6000  # avance rapide de fraisage en bout
+scomm0$ : ""
+
+oldmaxss  : 0
+
+#pi$ = 3.141592654
+
+g80 : 0             #variable utilisée pour écrire (débourrage) ou non (brise-copeaux) le G80 de fin
+
+#Plane/axis sign modifier (always 1 or -1)  # eap 12/17/02
+pl_ax_m0x   : 1
+pl_ax_m0y   : 1
+pl_ax_m0z   : 1
+pl_ax_m1x   : 1
+pl_ax_m1y   : 1
+pl_ax_m1z   : 1
+pl_ax_m2x   : 1
+pl_ax_m2y   : 1
+pl_ax_m2z   : 1
+
+#Threading variables - eap 12/17/02
+nstart_cnt  : 0     #Counter for multiple threads
+thd_vlen    : 0     #Incremental X move for G76 mult starts
+xmaj_thd    : 0     #X major dia. from parameters
+zstrt_thd   : 0     #Z start from parameters
+zend_thd    : 0     #Z end from parameters
+face_thd    : 0     #Face thread from parameters
+
+
+
+# =========== Formules savantes ...
+x$ :  -9999999
+y$ :  -9999999
+z$ :  -9999999
+
+
+
+xr2       = xr$ * 2
+x2        = x$  * 2
+xh2       = xh$ * 2
+zt         = z$
+ztr        = zr$
+zth        = zh$
+
+reverse = (spindle_no$ *  -2) + 1
+
+xr_Bout   = xr$ * 2 * reverse
+yr_Bout   = yr$
+zr_Bout   = zr$
+
+x_Bout    = x$ * 2 * reverse
+y_Bout    = y$
+z_Bout    = z$
+
+xh_Bout   = xh$ * 2 * reverse
+yh_Bout   = yh$
+zh_Bout   = zh$
+
+x_Bout_perce = (sqrt ((abs(x$)^2)+(abs(y$)^2)))* 2
+x_Dessus_perce  = x$  #* reverse * inverser
+
+xr_Bout_d   = xr$ * 2 * reverse
+yr_Bout_d   = yr$
+zr_Bout_d   = zr$ * -1
+
+x_Bout_d   = x$ * 2 * reverse
+y_Bout_d    = y$
+z_Bout_d    = z$ * -1
+
+xh_Bout_d   = xh$ * 2 * reverse
+yh_Bout_d   = yh$
+zh_Bout_d   = zh$ * -1
+
+x_Bout_perce_d = (sqrt ((abs(x$)^2)+(abs(y$)^2)))* 2
+
+
+xr_Dessus = xr$ #* reverse * inverser
+yr_Dessus = yr$ *  -1
+zr_Dessus = zr$ * 2
+x_Dessus  = x$ * reverse * inverser
+y_Dessus  = y$  *  -1
+z_Dessus  = z$  * 2
+
+zr_dev    = zr$ * 2 #+ rotdia
+z_dev     = z$  * 2 + rotdia$
+
+
+#C_pos     = (y$ * 360 / (pi$ * rotdia$))
+C_posbis = atan2(-m8$,m9$) + 90
+
+
+
+prof = depth$ *2
+degagement = initht$ *2
+reference = refht$ *2
+
+#---------------------------- CYCLES UTILISES -------------------------------
+sfr00 : ""
+sfr01   : "" # frein fort
+sfr02   : "M13" # frein faible
+sfr03   : "M13" # frein debloqué
+
+sfrein : ""
+
+fstrsel  sfr00 frein sfrein 4 -1
+
+
+
+sg00       : "G0"
+sg01       : "G1"
+sg02       : "G2"
+sg03       : "G3"
+sg04 : ""
+sg05 : ""
+sg06       : "G78"
+sg07       : "G76"
+sg08       : "G92"
+
+sgcode : ""
+
+fstrsel  sg00 gcode$ sgcode 9 -1
+
+
+sgd00       : "G0"
+sgd01       : "G1"
+sgd02       : "G3"
+sgd03       : "G2"
+sgd04 : ""
+sgd05 : ""
+sgd06       : "G33"
+sgd07       : "G76"
+sgd08       : "G92"
+
+sgcode_d : ""
+
+fstrsel  sgd00 gcode$ sgcode_d 9 -1
+
+#          M3 M4 TOURNAGE
+sm01    : "M4"
+sm02    : "M5"
+sm03    : "M3"
+sm04    : "M103"
+sm05    : "M105"
+sm06    : "M84"
+spdlon : ""
+
+spdlsel = fsg3(spdir$) + (3 * spindle_no$)
+fstrsel  sm01 spdlsel spdlon 6 -1
+
+#    M3 M4 FRAISAGE
+sm11       : "M84"
+sm12       : "M105"
+sm13       : "M103"
+spdlon_f : ""
+
+
+spdlself = fsg3(spdir$)
+fstrsel  sm11 spdlself spdlon_f 3 -1
+
+
+# TYPES D4USINAGE
+
+sty0    : "(FRAISAGE AXIAL)"
+sty1    : "(FRAISAGE RADIAL POSITION)"
+sty2    : "(FRAISAGE RADIAL DEVELOPPE)"
+sty3    : "(TOURNAGE)"
+stypeusi : ""
+
+fstrsel  sty0 dessus stypeusi 4 -1
+# -------------- DIVRES ---------------------
+svide : ""       # strig vide
+space : " "   # pour ajouter un espace
+sinsert : ""     # strinq pour recup de la desi de plaquette
+scorps : ""      # string pour recup desi de porte outil
+snomoutil : ""   # string pour recup du nom d'outil
+
+
+pprep$
+
+        fastmode$ = 0
+        #bug2$ = 60
+        err_file$ = 4
+
+
+pparameter$
+
+         if prmcode$ = 20103, sinsert = sparameter$
+
+
+pchgt_outil_fin
+
+
+        #n$, "G28", "U0", e$
+         #n$, old_outil_broche, e$
+         n$, "G0", *xh2, *zh$, e$
+         n$, "T0", "M67", e$
+         #n$, "G0" , *zdegage, e$
+                 #n$, "G28", "B0", e$
+
+                 chgoutil = 1
+
+
+pchgt_outil  # POINT DE CHG OUTIL
+
+         #n$, "M05", e$
+         #n$, "G28", "U0", e$
+         #n$, old_outil_broche, e$
+         n$, "G0 ", *xh2, *zh$, e$
+         if recupcs = 1, [
+                  n$, "M74", e$
+                  recupcs = 0
+                  ]
+         #n$, "G0" , *zdegage, e$
+         n$, "T0 M67", e$
+                  chgoutil = 1
+
+
+                if changement = 1, [
+                    zfin = zth
+                                    changement = 2
+                    ]
+
+pchgt_outil1  # POINT DE CHG OUTIL
+
+
+                # n$, "G28", "U0", e$
+                n$, "G0", *xh2, *zh$, e$
+               #n$, "G0" , *zdegage, e$
+                n$, "T0 M67", e$
+pwrtt$      #  Liste outils
+
+         if texte = 0, ex$
+
+             strtool$ = ucase (strtool$)
+
+            if t$ > 0 & tldia$ > 0, n$, "(", t$, strtool$, tldia$,")",e$
+            if t$ > 0 & tldia$ = 0, n$, "(", t$, strtool$, tcr$, ")",e$
+
+
+
+pscomm0$     # pre commentaire
+
+
+pcomment$     # Commentaires
+
+            scomm$ = ucase (scomm$)
+
+             if gcode$ = 1005 & texte = 1, n$, scomm$, e$
+             if gcode$ = 1006 & texte = 1, scomm$, e$
+             if gcode$ = 1007 & texte = 1, "(", scomm$, ")", e$
+             if gcode$ = 1008 & texte = 1, "(", scomm$, ")", e$
+
+
+pfr_tournage # Ecriture avances tournage
+
+             fr_tour = abs(fr$)
+             if chgoutil = 1, pavtr, *fr_tour
+             pavtr, fr_tour
+             chgoutil = 0
+
+pfr_fraisage # Ecriture avances fraisage
+
+             #if fr$ >= 0, fr$
+             #avance = fr_pos$ * Vccf1
+             avance = fr_pos$
+
+             avance
+
+pfr_fraisage1 # Avance cycle
+
+        avance1 = frplunge$ * Vccf1
+        *avance1
+
+plubrifon    # Mise en marche lubrifiant
+             lubrif = coolant$
+             if lubrif = 0, "M9", e$
+             if lubrif = 1, "M8", e$
+             if lubrif = 2, "M18", e$
+             if lubrif = 3, "M8",e$
+
+plubrifoff   # arret lubrifiant
+
+             if lubrif <> 0 ,n$, "M9"
+
+pcord_tour     # Correction armoire pour tournage
+
+
+           if cc$ = 41 , correc = 41
+           if cc$ = 42 , correc = 42
+           if cc$ = 140, correc = 40
+
+           old_cc = correc
+
+pcord_fraisage
+           if cc$ = 41, cc$
+           if cc$ = 42, cc$
+           if cc$ = 140, "G40"
+
+#-------------------------------------------------
+fmt     1  transfertbroche
+fmt  "B" 1 stck_chuk_end_dz$
+
+
+fmt   "T" 9 miscops_mi1$
+fmt   "T" 9 outillibre
+fmt   "B" 1 approche
+fmt  "B-/////" 1 miscops_mr1$
+fmt  "B-/////" 1 miscops_mr2$
+
+ptransfertbrut
+           " ", e$
+           if stck_spindle$ = 0, n$, "G100 A0 B0 (TRANSFERT BRUT DANS BROCHE DROITE)",e$
+           if stck_spindle$ = 1, n$, "G104 A0 B0 (TRANSFERT BRUT DANS BROCHE GAUCHE)",e$
+           n$, "M01 ", e$
+               transfertbroche = 2
+
+pstck_trans$    #deuxieme broche
+               transfertbroche = 1
+
+
+#-----------------------------------------------------------------------------------
+pstck_flip$     # retourner le brut
+
+              n$, "retourner le brut",e$
+              stck_spindle$, stck_init_z$, stck_final_z$, stck_chuk_st_z$,e$
+              stck_chuk_st_x$, stck_chuk_end_z$, stck_chuk_end_x$,e$
+
+#----------------------------AvanceBrut---------------------------
+pstck_bar_fd$   # Avance du brut
+
+             avancebrut = 1
+
+           #   n,  "Avance du brut", e
+           # stck_spindle, stck_op, stck_clear, stck_grip, stck_init_z, stck_final_z
+           # stck_chuk_st_z, stck_chuk_st_x, stck_chuk_end_z, stck_chuk_end_x
+
+pavancebrut
+           " ", e$
+           n$, "G103 A0 B0 D0 (TIRE BARRE)", e$
+           " ", e$
+           avancebrut = 2
+#----------------------------Lunette---------------------------
+psteadyrest$  # Lunette
+
+            "(PAS DE LUNETTE SUR T21)",e$
+       #        n, "Lunette", e
+       #        stck_init_z, stck_final_z
+
+#----------------------------Mors---------------------------
+pchuck$    # mors
+
+             n$, "mors", e$
+
+              clmp_spindle$, clmp_op$, stck_chuk_st_z$,e$
+              stck_chuk_st_x$, stck_chuk_end_z$, stck_chuk_end_x$,e$
+
+
+#----------------------------Contre pointe---------------------------
+ptailstock$ # Contre pointe
+
+            #  n, "contre pointe", e
+            #  tlstck_on, stck_init_z, stck_final_z
+
+            contrepointe = 1
+            if tlstck_on$ = 0, [recul = 0, e$
+                               debcontrepointe = stck_init_z$, e$
+                               fincontrepointe = stck_final_z$, e$]
+
+
+            if tlstck_on$ = 1, [recul = 1, e$
+                               debcontrepointe = stck_init_z$, e$
+                               fincontrepointe = stck_final_z$, e$]
+
+pcontrepointe
+
+           if recul = 0 , "M27 (RECUL CONTREPOINTE)", e$
+           if recul = 1 , "M26 (AVANCE CONTREPOINTE)", e$
+
+           contrepointe = 2
+
+# ------------------ VITESSES -------------------------
+
+pvits       # Selection du type de mode de vitesse de broche
+                  if ss$ > 0, pvitmin
+                  if ss$ < 0, pvitVcc
+
+
+pvitmin         # Vitesse en tours/minute G97
+
+                old_ss = ss$
+                old_spdir = spdir$
+                Vcc = abs(ss$)
+
+                "G97", Vcc, *spdlon, e$
+
+pvitVcc         # Vitesse en coupe constante G96
+
+                old_ss = ss$
+                old_spdir = spdir$
+                Vcc = abs(ss$)
+
+                "G96", Vcc, *spdlon, e$
+
+
+pavtr           # Mode d'avance en tour mm/mn ou mm /tr  G94 G99
+
+                if fr$ > 0, avtr = 94
+                if fr$ < 0, avtr = 95
+
+                 avtr
+
+# ---------------- ROTATIONS ---------------------
+
+prot0$
+prot$
+prot_calc_cote
+
+              axec = atan2(m3$,m2$)
+
+prot_calc_cote_d
+
+              axee = atan2(m3$,-m2$)
+
+prot_affich_nul_cote
+               @axec, @old_axec, e$
+               if axec <> old_axec, n$, *axec, e$ #, n$, "M90", e$, n$, "M91", e$,
+               old_axec = axec
+
+prot_affich_nul_cote_d
+               @axee, @old_axee
+               if axee <> old_axee, n$, *axee, e$ #n$, "M91", e$, , n$, "M90", e$
+               old_axee = axee
+
+prot_calc       # Calcul de l'angle de rotation du mandrin axe C
+                 if spindle_no$ = 0, [
+                axec = atan2(m8$,m9$)* -1+90
+                if abs(axec) > 180, axec = axec + 360
+                                     ]
+
+                 if spindle_no$ = 1, [
+                axee = atan2(m8$,-m9$)* -1+90
+
+                if abs(axec) > 180, axee = axee + 360
+                                     ]
+prot_affich_T   # Affichage de la rotation du mandrin au changements d'outils
+            frein = 3
+                 if spindle_no$ = 0, [
+                            #n$, sfrein, e$
+                    n$, *axec, e$
+                                     old_axec = axec
+                    ]
+
+                 if spindle_no$ = 1, [
+                            #n$, sfrein, e$
+                    n$, *axee, e$
+                                     old_axee = axee
+                    ]
+
+prot_affich_nul # Affichage de la rotation du mandrin au changements d'outils
+
+                  if spindle_no$ = 0, [
+                  @old_axec, @axec, e$
+                if axec <> old_axec, frein = 3, n$, *axec, e$   #n$, sfrein, e$, , frein = 1, n$, sfrein, e$
+                old_axec = axec
+                                      ]
+
+                 if spindle_no$ = 1, [
+                 @old_axee, @axee, e$
+                if axee <> old_axee, frein = 3, n$, *axee, e$   #n$, sfrein, e$, , frein = 1, n$, sfrein, e$
+                old_axee = axee
+                                      ]
+
+#------------------------Gestion des origines---------------------------------------
+poriusi
+       if workofs$ < 54, workofs$ = 54
+       n$, *workofs$
+
+
+       oldworkofs = workofs$
+poriusinul
+       if workofs$ < 54, workofs$ = 54
+       if oldworkofs <> workofs$, n$, workofs$
+       oldworkofs = workofs$
+
+#======================== APPELS DES DIFFERENTS OUTILS ==============================
+
+ptype_usi     # choix du mode d'usinage courant
+
+              dessus = 0
+
+          if m2$ = 1,               dessus = 0      # fraisage en bout broche gauche
+          if m2$ =  -1,             dessus = 0      # fraisage en bout broche droite
+
+          if m1$ = 1 & rotaxis$ = 0, dessus = 1      # fraisage vertical
+          if m1$ =  -1& rotaxis$ = 0, dessus = 1     # fraisage vertical
+
+          if m1$ = 1 & rotaxis$ = 2, dessus = 2      # fraisage vertical en developpe
+          if m1$ =  -1& rotaxis$ = 2, dessus = 2      # fraisage vertical en developpe
+
+              if m1$ =  -1& opcode$ <=99, inverser =  -1   # pour fraisage vertical
+              if m1$ = 1 & opcode$ <=99, inverser = 1
+
+
+              if opcode$ > 99         , dessus = 3      # tournage
+
+              if (dessus = 0) | (dessus = 1) | (dessus = 2), pusecanmill
+              if (dessus = 3)                              , pusecanlathe
+
+
+             !reverse
+              #"--------------(", *spindle_no$, *dessus,  *m1, *m2, *reverse,")",  e$
+
+
+p_Calc_num_outil    #Calcul du numero d'outil en fonction du numero outil correcteur et broche
+
+
+                  snomoutil = ucase (strtool$)
+                  sinsert = ucase (sinsert)
+                  scorps = ucase (scorps)
+                  annuloutil = t$ * 100
+
+                  if spindle_no$ = 0, outil_broche = t$ * 100 + tloffno$
+                  if spindle_no$ = 1, outil_broche = t$ * 100 + tloffno$ + 50    #tlngno$
+
+p_Calc_num_outil1   #Calcul du numero d'outil en fonction du numero outil correcteur et broche
+
+
+                  snomoutil = ucase (strtool$)
+                  sinsert = ucase (sinsert)
+                  scorps = ucase (scorps)
+                  annuloutil = t$ * 100
+
+                  if spindle_no$ = 0, outil_broche = t$ * 100 + tloffno$ #+ t$
+                  if spindle_no$ = 1, outil_broche = t$ * 100 + tloffno$ + 50 #+ t$
+
+p_Outil         # affichage de l'outil
+
+            n$, "G0 ", outil_broche, " ", plubrifon , e$
+            if snomoutil <> svide, n$, "(", snomoutil, ")", e$
+            if sinsert <> svide, n$, "(", "PLAQUETTE", sinsert ")", e$
+            if scorps <> svide, n$, "(", "SUPPORT", scorps ")", e$
+
+            snomoutil = svide
+            sinsert = svide
+            scorps = svide
+            old_outil_broche = outil_broche - tloffno$
+
+p_Outil1            # affichage de l'outil
+
+            n$,  "G0 ", outil_broche," ", plubrifon , e$
+            if snomoutil <> svide, n$, "(", snomoutil, ")", e$
+            if sinsert <> svide, n$, "(", "PLAQUETTE", sinsert ")", e$
+            if scorps <> svide, n$, "(", "SUPPORT", scorps ")", e$
+
+            snomoutil = svide
+            sinsert = svide
+            scorps = svide
+            old_outil_broche = outil_broche - t$
+
+
+
+p_Appel_T_T  # Appel outil de tournage
+
+
+          x$ = xr$
+                  z$ = zr$
+        avtr = 0
+        !avtr
+
+
+        if omitseq$ = 1, num, e$
+        n$, stypeusi, e$
+
+
+                  comment$
+                  Vcc = abs(ss$)
+
+        p_Calc_num_outil    # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+        p_Outil         # affichage de l'outil
+
+
+                  n$, "G0", pavtr, "G18", e$
+         #if broche = 0, n$, "M40", "(MODE TOURNAGE)", e$
+         if broche = 1, n$, "M140", "(MODE TOURNAGE)", e$
+         #n$, "M110", "(VALIDATION ROTATION BROCHE)", e$
+
+        #n$, first_tool$, e$
+        #n$, t$, e$
+        #   n$, *op_id$, e$
+
+                  if num = 1, n$, "G92", maxss$, e$
+                  #oldmaxss = maxss$
+
+           #if tool_op$ = 67, [
+           #n$, "M73 (RECUPERATEUR DE PCS)", e$
+           #recupcs = 1
+           #]
+
+
+
+                  #n$, poriusi, e$
+
+         #if broche = 0, n$, "M54", "(BROCHE GAUCHE EN VCC)", e$        #
+         #if broche = 1, n$, "M55", "(BROCHE DROITE EN VCC)", e$
+
+                  gcode$ = 0
+                  pvits
+
+                   if opcode$ <> 104, n$, *sgcode, *x2, *zt, !xr$, !zr$,!x$, !z$, e$
+
+                  pcord_tour
+
+                  old_broche = broche
+                  old_tloffno = tloffno$
+
+p_Appel_T_B # Appel outil de fraisage en bout (DESSUS = 0)
+
+        gcode$ = 0
+                  fr$ = avance_r
+          x$ = xr$
+                  z$ = zr$
+                  y$ = yr$
+
+        avtr = 0
+        !avtr
+
+        if omitseq$ = 1, num, e$
+        n$, stypeusi, e$
+
+                  comment$
+                  Vcc = abs(ss$)
+
+        p_Calc_num_outil1   # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+        p_Outil1            # affichage de l'outil
+                 frein = 3  # frein debloqué
+
+
+                  n$, "G0", "G18", "G94", e$
+
+         if broche = 0, n$, "M14", "(ACTIVATION DE LAXE C)", e$, n$, "G0 G28 C0", e$  #n$, sfrein, e$,
+         if broche = 1, n$, "M143", "(MODE FRAISAGE)", e$
+
+
+         #n$, "M111", "(VALIDATION ROTATION OUTIL TOURNANT)", e$
+         #n$, "M118", "(FERMETURE MORS BROCHE DROITE)", e$
+
+
+
+
+                  #n$, poriusi, e$
+            @tool_typ$
+
+            #n$, tool_typ$, e$
+                 Vccf = abs(ss$)
+                 # Vccf = (ss$*1000)/(3.14159*tldia$)
+          Vccf1 = abs(Vccf)
+
+
+
+                  if tool_typ$ = 4 | tool_typ$ = 5 , [
+                            n$, "G97", *Vccf, *spdlon_f, e$
+                            ]
+                        else,   [
+                            n$, "G97", *Vccf, *spdlon_f, e$
+                            ]
+
+
+
+             if opcode$ <> 3 & spindle_no$ = 0, [
+                        g112 = 1, e$
+                        prot_calc_cote
+
+                        n$, *sgcode, *axec, e$
+                        frein = 3   # frein debloqué
+                        #n$, sfrein, e$
+                        old_axec = axec
+
+                        n$, *sgcode, *z_Bout, !z$, e$  #plubrifon,
+                        n$, "G12.1", "(MODE POLAIRE XC)", e$
+
+                        #n$, sgcode, *x_Bout, !x$, plubrifon, e$
+
+                                             ]   #
+
+            if opcode$ <> 3 & spindle_no$ = 1, [
+                        g112 = 1, e$
+                        prot_calc_cote_d
+
+                        n$, *sgcode, *axee, e$
+                        frein = 3   # frein debloqué
+                        #n$, sfrein, e$
+
+                        old_axee = axee
+
+                        n$, *sgcode, *z_Bout_d, !z$, e$ #plubrifon,
+                        n$, "G12.1", "(MODE POLAIRE XC)", e$
+                        #n$, sgcode, *x_Bout_d, !x$, plubrifon, e$
+
+                                             ]
+
+
+             if opcode$  = 3 & spindle_no$ = 0, [g112 = 2, e$          # en percage G1 G0
+
+                                             #  n, "M70", e
+                                               axec = atan2(y$,x$), e$
+                                               old_axec = axec
+                                               n$, *sgcode, *x_Bout_perce, !y_Bout, *z_Bout, *axec, !x$, !y$, !z$, e$]   #plubrifon,
+
+             if opcode$  = 3 & spindle_no$ = 1, [
+                        g112 = 2, e$          # en percage G1 G0
+
+                                             #  n, "M70", e
+                                               axee = atan2(y$,-x$), e$
+                                               old_axee = axee
+                                               n$, *sgcode, *x_Bout_perce_d, !y_Bout_d, *z_Bout_d, *axee, !x$, !y$, !z$, e$]   #plubrifon,
+
+
+
+
+                  old_broche = broche
+                  old_tloffno = tloffno$
+
+        #"------------------------------------------------", e$
+
+p_Appel_T_D # Appel outil de fraisage dessus (DESSUS = 1)
+
+                  gcode$ = 0
+          x$ = xr$
+                  z$ = zr$
+                  y$ = yr$
+
+        avtr = 0
+        !avtr
+
+        if omitseq$ = 1, num, e$
+        n$, stypeusi, e$
+
+                  comment$
+                  Vcc = abs(ss$)
+
+        p_Calc_num_outil1   # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+        p_Outil1            # affichage de l'outil
+
+                  frein = 3 # frein debloqué
+
+                  n$, "G0", "G18 G94", e$
+
+         if broche = 0, n$, "M14", "(ACTIVATION DE LAXE C)", e$, n$, "G0 G28 C0", e$  #n$, sfrein, e$,
+
+         if broche = 1, n$, "M143", "(MODE FRAISAGE)", e$
+
+
+
+         #n$, "M111", "(VALIDATION ROTATION OUTIL TOURNANT)", e$
+         #n$, "M118", "(FERMETURE MORS BROCHE DROITE)", e$
+
+
+
+
+                  #n$, poriusi, e$
+
+        Vccf = abs(ss$)
+                  Vccf = (ss$*1000)/(3.14159*tldia$)
+         # Vccf1 = abs(Vccf)
+          Vccf1 = abs(ss$)
+
+                  if tool_typ$ = 4 | tool_typ$ = 5 , [
+                            n$, "G97", *Vccf1, *spdlon_f, e$
+                            ]
+                        else,   [
+                            n$, "G97", *Vccf1, *spdlon_f, e$
+                            ]
+                  prot_calc
+
+        prot_affich_T
+
+        frein = 1   # frein fort
+        #n$, sfrein, e$
+                  n$, *sgcode, *x_Dessus,  !x$, !y$, e$   #y_Dessus,   plubrifon,
+                  n$,  sgcode, *z_Dessus, !z$, e$
+
+
+
+
+                  old_broche = broche
+                  old_tloffno = tloffno$
+
+p_Appel_T_Dev # Appel outil de fraisage en developpe (DESSUS = 2)
+
+                  q10
+                  linarc$ = 1
+                  gcode$ = 0
+          x$ = xr$
+                  z$ = zr$
+                  y$ = yr$
+
+        avtr = 0
+        !avtr
+
+        if omitseq$ = 1, num, e$
+        n$, stypeusi, e$
+
+                  comment$
+                  Vcc = abs(ss$)
+
+        p_Calc_num_outil1   # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+        p_Outil1            # affichage de l'outil
+
+
+
+                  n$, "G0", "G18 G94", e$
+                  frein = 3 # frein debloqué
+         if broche = 0, n$, "M14", "(ACTIVATION DE LAXE C)", e$, n$, "G0 G28 C0", e$  #n$, sfrein, e$,
+         if broche = 1, n$, "M143", "(MODE FRAISAGE)", e$
+
+
+         #n$, "M111", "(VALIDATION ROTATION OUTIL TOURNANT)", e$
+         #n$, "M118", "(FERMETURE MORS BROCHE DROITE)", e$
+
+
+
+
+                  #n$, poriusi, e$
+
+
+                  Vccf = abs(ss$)
+                 # Vccf = (ss$*1000)/(3.14159*tldia$)
+                  Vccf1 = abs(Vccf)
+
+                  n$, "G97", *Vccf, *spdlon_f, e$
+                  frein = 3 # frein debloqué
+                  #n$, sfrein, e$
+
+                  n$, *sgcode, *x_Dessus, *C_pos, e$
+                  n$, sgcode, *z_dev, e$  #plubrifon,
+                  frein = 3 # fein faible
+          #n$, sfrein, e$
+
+                  !x$, !y$, !z$
+                  old_broche = broche
+                  old_tloffno = tloffno$
+
+#========== TRANSITIONS ENTRE TYPES D'USINAGES POUR CHGT D'OUTILS ==============
+
+pBB     # bout vers bout
+
+        PBT
+
+
+PBT     # Bout vers tour
+
+        if g112 = 1, [
+            n$, "G13.1", "(ANNULATION DU G12.1)", e$
+            g112 = 0
+            frein = 3   # frein debloqué
+            #n$, sfrein, e$
+            n$, "G0", "H0", "(REMISE EN POSITION C0)", e$
+            ]
+        plubrifoff, e$
+        n$, "M105", "(ARRET BROCHE OUTIL TOURNANT)", e$
+        n$, "G0 G28 H0", e$
+        n$, "M15", "(DESACTIVER LAXE C)", e$
+        n$, "G95", e$
+
+        #if old_broche = 0, n$, "M40", "(MODE TOURNAGE)", e$
+        if old_broche = 1, n$, "M140", "(MODE TOURNAGE)", e$
+        pchgt_outil, e$
+        n$, "M01", e$
+
+
+
+pBD     # Bout vers dessus
+            PBT
+
+pBDev   # Bout vers developpe
+            PBT
+
+pDD     # Dessus vers dessus
+
+            pDT
+
+pDT     # Dessus vers tour
+
+        gcode$=0
+        frein = 3   # frein debloqué
+            #n$, sfrein, e$
+        n$, *sgcode, "C0", "(REMISE EN POSITION C0)", e$
+
+        plubrifoff, e$
+        n$, "M105", "(ARRET BROCHE OUTIL TOURNANT)", e$
+        n$, "G0 G28 H0", e$
+        n$, "M15", "(DESACTIVER LAXE C)", e$
+        n$, "G95", e$
+
+        #if old_broche = 0, n$, "M40", "(MODE TOURNAGE)", e$
+        if old_broche = 1, n$, "M140", "(MODE TOURNAGE)", e$
+        pchgt_outil, e$
+        n$, "M01", e$
+
+pDB     # Dessus vers bout
+
+            pDT
+
+pDDev   # Dessus vers developpe
+
+            pDT
+
+pDevD   # Developpe vers dessus
+
+            pDevT
+
+pDevT   # Developpe vers tour
+
+        gcode$=0
+        frein = 3   # frein debloqué
+            #n$, sfrein, e$
+        n$, *sgcode, "C0", "(REMISE EN POSITION C0)", e$
+
+        plubrifoff, e$
+        n$, "M105", "(ARRET BROCHE OUTIL TOURNANT)", e$
+        n$, "G0 G28 H0", e$
+        n$, "M15", "(DESACTIVER LAXE C)", e$
+        n$, "G95", e$
+
+        #if old_broche = 0, n$, "M40", "(MODE TOURNAGE)", e$
+        if old_broche = 1, n$, "M140", "(MODE TOURNAGE)", e$
+        pchgt_outil, e$
+        n$, "M01", e$
+
+
+pDevB   # Developpe vers bout
+
+            pDevT
+
+pDevDev # Developpe vers developpe
+
+            pDevT
+
+pTB     # Tour vers bout
+        if (old_cc = 41 | old_cc = 42), n$, "G40", e$
+        gcode$ = 0
+        plubrifoff, e$
+        pchgt_outil
+        if old_broche = 0, n$, "M5", "(ARRET BROCHE GAUCHE)", e$
+        if old_broche = 1, n$, "M115", "(ARRET BROCHE DROITE)", e$
+
+        n$, "M01", e$
+
+
+
+pTD     # Tour vers dessus
+        pTB
+
+pTDev   # Tour vers developpe
+        pTB
+
+pTT     # Tour vers tour
+
+                  if (old_cc = 41 | old_cc = 42), correc = 40
+                  if (old_cc = 41 | old_cc = 42), n$, correc, e$
+
+                  pcord_tour
+                  plubrifoff, e$
+                  gcode$ = 0
+
+                  @spdir$
+
+                  if old_broche = 0 & old_spdir <> spdir$, n$, "M5", "(ARRET BROCHE GAUCHE)", e$
+                  if old_broche = 1 & old_spdir <> spdir$, n$, "M115", "(ARRET BROCHE GAUCHE)", e$
+
+                  pchgt_outil
+
+                  n$, "M01", e$
+
+
+#======= TRANSITIONS ENTRE TYPES D'USINAGES POUR CHGT D'OUTILS NULS ==========
+
+pBB_nul     # bout vers bout
+
+    gcode$ = 0
+
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil1   # Affichage de l'outil
+    #poriusinul
+
+            if spindle_no$ = 0, [
+                prot_calc_cote
+                prot_affich_nul_cote
+                ]
+            if spindle_no$ = 1, [
+                prot_calc_cote_d
+                prot_affich_nul_cote_d
+                ]
+
+pBT_nul     # Bout vers tour
+
+pBD_nul     # Bout vers dessus
+
+pBDev_nul   # Bout vers developpe
+
+pDD_nul     # Dessus vers dessus
+
+            gcode$ = 0
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil1   # Affichage de l'outil
+    #poriusinul
+            prot_calc
+            prot_affich_nul
+
+pDT_nul     # Dessus vers tour
+
+pDB_nul     # Dessus vers bout
+
+pDDev_nul   # Dessus vers developpe
+
+            gcode$ = 0
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil1   # Affichage de l'outil
+    #poriusinul
+            prot_calc
+            prot_affich_nul
+
+pDevD_nul   # Developpe vers dessus
+
+            gcode$ = 0
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil1   # Affichage de l'outil
+    #poriusinul
+            prot_calc
+            prot_affich_nul
+
+pDevT_nul   # Developpe vers tour
+
+pDevB_nul   # Developpe vers bout
+
+pDevDev_nul # Developpe vers developpe
+
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil1   # Affichage de l'outil
+    #poriusinul
+              linarc$ = 1
+
+pTT_nul     # Tour vers tour
+
+            if (old_cc <> 0), correc = 40
+            if (old_cc <> 0), n$, correc, e$
+
+
+
+            if texte = 1, comment$
+
+             pcord_tour
+    p_Calc_num_outil                # Calcul du numero d'outil en fonction du numero outil correcteur et broche
+    if outil_broche <> old_outil_broche, p_Outil    # Affichage de l'outil
+    #poriusinul
+                  if ss$ <> old_ss, pvits
+                  if old_spdir <> spdir$, pvits
+
+pTB_nul     # Tour vers bout
+
+pTD_nul     # Tour vers dessus
+
+pTDev_nul   # Tour vers developpe
+
+#=========== CHOIX DES MODES DE TRANSITION ========================
+
+p_transition  # choix du mode de transition entre deux usinages
+
+              if old_dessus = 0 & dessus = 0  , pBB
+              if old_dessus = 0 & dessus = 3  , PBT
+              if old_dessus = 0 & dessus = 1  , pBD
+              if old_dessus = 0 & dessus = 2  , pBDev
+
+              if old_dessus = 1 & dessus = 1  , pDD
+              if old_dessus = 1 & dessus = 3  , pDT
+              if old_dessus = 1 & dessus = 0  , pDB
+              if old_dessus = 1 & dessus = 2  , pDDev
+
+              if old_dessus = 2 & dessus = 1  , pDevD
+              if old_dessus = 2 & dessus = 3  , pDevT
+              if old_dessus = 2 & dessus = 0  , pDevB
+              if old_dessus = 2 & dessus = 2  , pDevDev
+
+              if old_dessus = 3 & dessus = 3  , pTT
+              if old_dessus = 3 & dessus = 0  , pTB
+              if old_dessus = 3 & dessus = 1  , pTD
+              if old_dessus = 3 & dessus = 2  , pTDev
+
+p_transition_nul  # choix du mode de transition en chgt outil nul
+
+              if old_dessus = 0 & dessus = 0  , pBB_nul
+              if old_dessus = 0 & dessus = 3  , pBT_nul
+              if old_dessus = 0 & dessus = 1  , pBD_nul
+              if old_dessus = 0 & dessus = 2  , pBDev_nul
+
+              if old_dessus = 1 & dessus = 1  , pDD_nul
+              if old_dessus = 1 & dessus = 3  , pDT_nul
+              if old_dessus = 1 & dessus = 0  , pDB_nul
+              if old_dessus = 1 & dessus = 2  , pDDev_nul
+
+              if old_dessus = 2 & dessus = 1  , pDevD_nul
+              if old_dessus = 2 & dessus = 3  , pDevT_nul
+              if old_dessus = 2 & dessus = 0  , pDevB_nul
+              if old_dessus = 2 & dessus = 2  , pDevDev_nul
+
+              if old_dessus = 3 & dessus = 3  , pTT_nul
+              if old_dessus = 3 & dessus = 0  , pTB_nul
+              if old_dessus = 3 & dessus = 1  , pTD_nul
+              if old_dessus = 3 & dessus = 2  , pTDev_nul
+
+pconfigbrut
+           q4, q5, q6, q7
+
+           n$ "G1900", *diamextbrut,  *diaminterbrut, *longubrut, *surepface, e$
+
+#============ DEBUT CODE ISO ===================
+
+pheader$       # Entete de programme
+
+              seqno$ = 10
+              seqinc$ = 10
+              n$ = seqno$
+              smcname$ = ucase(smcname$)
+
+              @spindle_no$
+       q27, q28  #, q29
+         sclient = ucase (sclient)
+              "%", e$
+             spaces$ = 0, *numprog, "(/", sclient, "/", numprog, ")", e$
+             spaces$ = 1
+              n$, "(", smcname$, ")", e$
+              n$, "(MACHINE : CTX410)",  e$
+              n$, "(", spaces$ = 0, date$, " A ", time$, " )", e$
+
+        #n$, "(", spaces$ = 0, date$, " A ", time$, " )", spaces$ = old_spaces, e$
+              changement = 1
+
+fmt "W" 2 lpcs
+fmt "S" 2 vtronc
+fmt "X" 2 xbrut
+fmt "T" 10 numtronc
+fmt "T" 10 numbut
+fmt     10 numtroncd
+fmt     10 numbutd
+pembarrage
+            q30, q31, q33, q32, q34
+            numtroncd = numtronc
+            numbutd = numbut
+            n$, "G92S3000", e$
+            n$, "/2M101", *xbrut, *vtronc, "M3", *lpcs, spaces$ = 0, *numtronc, *numtroncd, e$
+            spaces$ = 1
+            n$, "M100", *lpcs, spaces$ = 0, *numbut, *numbutd, e$
+
+            n$, "M01", e$
+
+pembarrage_fin
+
+            n$, "M0", e$
+            n$, "/3M102", e$
+
+
+pdebprog # INIT MACHINE
+
+             #n$, "G28", "C0", e$   # retour origine axe B (z de la contre broche)
+             #n$, "M118", "(FERMETURE MORS CONTRE BROCHE)", e$      # fermeture mandrin contre broche
+             n$, "G40", "G80", "G95", e$ # init CN
+
+             n$, "M17", e$
+
+lsof$          # Premier outil tournage
+
+          #[
+       #if configbrut = 1, pconfigbrut
+      n$ "G1900D0.E0.L0.K0.", e$  # else,
+          #]
+      if embarrage = 1, pembarrage
+             broche = spindle_no$
+             old_broche = broche
+
+             ptype_usi
+             old_dessus = dessus
+             firstannuloutil = t$ * 100
+
+             if transfertbroche = 1, ptransfertbrut
+             if avancebrut = 1, pavancebrut
+
+
+
+             #pchgt_outil1
+
+             pdebprog
+              " ",e$
+             p_Appel_T_T
+
+
+msof$          # Premier outil fraisage
+
+             broche = spindle_no$
+             old_broche = broche
+
+             ptype_usi
+             old_dessus = dessus
+             firstannuloutil = t$ * 100
+
+
+
+             if transfertbroche = 1, ptransfertbrut
+             if avancebrut = 1, pavancebrut
+
+
+
+             #pchgt_outil1
+
+             pdebprog
+
+              " ",e$
+             if dessus = 0, p_Appel_T_B
+             if dessus = 1, p_Appel_T_D
+             if dessus = 2, p_Appel_T_Dev
+
+ltlchg0$       # Changement d'outil nul tournage
+
+
+
+              broche = spindle_no$
+
+
+
+              if broche <> old_broche, [
+            ltlchg$
+            ex$
+                    ]
+
+              linarc$ = 0
+
+
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+
+        ptype_usi
+
+
+
+
+              #p_transition_nul
+
+
+
+              old_dessus = dessus
+
+
+
+
+
+mtlchg0$       # Changement d'outil nul fraisage
+
+              broche = spindle_no$
+
+
+
+
+               if broche <> old_broche, [
+            ltlchg$
+            ex$
+                    ]
+
+              linarc$ = 0
+              ptype_usi
+
+             # p_transition_nul
+
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+
+              old_dessus = dessus
+
+
+
+ltlchg$        # Changement d'outil tournage
+
+              gcode$ = 0
+              broche = spindle_no$
+
+              linarc$ = 0
+              ptype_usi
+
+              p_transition
+              chgoutil = 1
+              old_dessus = dessus
+
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+
+              " ",e$
+
+              p_Appel_T_T
+
+
+mtlchg$        # Changement d'outil fraisage
+              broche = spindle_no$
+
+              linarc$ = 0
+              ptype_usi
+
+              p_transition
+              old_dessus = dessus
+
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+
+              " ",e$
+
+              if dessus = 0, p_Appel_T_B
+              if dessus = 1, p_Appel_T_D
+              if dessus = 2, p_Appel_T_Dev
+
+
+leof0$         # Fin de programme tournage outil zero
+              leof$
+
+meof0$         # Fin de programme fraisage outil zero
+              meof$
+
+leof$          # Fin de programme tournage
+
+              linarc$ = 0
+
+
+                  if (old_cc = 41 | old_cc = 42), correc = 40
+                  if (old_cc = 41 | old_cc = 42), n$, correc, e$
+
+
+                 plubrifoff, e$
+                  gcode$ = 0
+
+                  @spdir$
+
+                  if old_broche = 0 & old_spdir <> spdir$, n$, "M5", "(ARRET BROCHE GAUCHE)", e$
+                  if old_broche = 1 & old_spdir <> spdir$, n$, "M115", "(ARRET BROCHE GAUCHE)", e$
+
+                  pchgt_outil_fin
+                  #if recupcs = 1, [
+                  #n$, "M74", e$
+                  #recupcs = 0
+                  #]
+              if contrepointe = 1, pcontrepointe
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+             # n$, "M201", e$
+        comment$
+
+              if embarrage = 1, pembarrage_fin
+              n$, "M05", e$
+              n$, "M16", e$
+              n$, "M30",e$
+              "%",e$
+
+meof$          # Fin de programme fraisage
+              linarc$ = 0
+
+    if dessus = 0, [    # fin pour fraisage en bout
+        if g112 = 1, [
+            n$, "G13.1", "(ANNULATION DU G12.1)", e$
+            g112 = 0
+            frein = 3   # frein debloqué
+            #n$, sfrein, e$
+            n$, "G0", "H0", "(REMISE EN POSITION C0)", e$
+            ]
+
+                ]
+
+    else, [
+        gcode$=0
+        #n$, "M91", "(DEBLOCAGE DE L AXE C)", e$
+        frein = 3   # frein debloqué
+            #n$, sfrein, e$
+        n$, *sgcode, "C0", "(REMISE EN POSITION C0)", e$
+        ]
+
+        plubrifoff, e$
+        n$, "M105", "(ARRET BROCHE OUTIL TOURNANT)", e$
+        n$, "G0 G28 H0", e$
+        n$, "M15", "(DESACTIVER LAXE C)", e$
+        n$, "G95", e$
+
+        #if old_broche = 0, n$, "M40", "(MODE TOURNAGE)", e$
+        if old_broche = 1, n$, "M140", "(MODE TOURNAGE)", e$
+        pchgt_outil_fin, e$
+
+
+              if contrepointe = 1, pcontrepointe
+              if transfertbroche = 1, ptransfertbrut
+              if avancebrut = 1, pavancebrut
+
+          #n$, "M201", e$
+        comment$
+              n$, "M05", e$
+              n$, "M30",e$
+              "%",e$
+
+
+#============================================ CONTOURS ================================================
+pdwl_spd$     # Tempo
+
+           if dwell$ <> 0, n$, *dwell$, e$
+
+
+
+lrapid$        # Mouvement rapide lineaire tournage
+          pcord_tour
+
+              n$, sgcode, correc, x2, zt, !x$, !z$,e$
+
+pzrapid$    # Mouvement rapide Z fraisage
+
+        if dessus = 0, frein = 3
+        pligne_rapid
+
+mrapid$        # Mouvement rapide lineaire fraisage
+
+        if dessus = 0, frein = 3
+        pligne_rapid
+
+pligne_rapid    # Mouvement travail lineaire fraisage
+
+
+
+            #n$, "attention flag pour verifier dessus    ", dessus, e$
+
+    if opcode$ = 3 & dessus = 0, [
+              if spindle_no$ = 0, [
+            axec = atan2(y$,x$)
+
+                  n$, sgcode, x_Bout_perce, axec, z_Bout, e$
+                            ]
+
+              if spindle_no$ = 1, [
+            axee = atan2(y$,-x$)
+            n$, sgcode,*x_Bout_perce_d, axee, z_Bout_d, e$
+                ]
+                    ]
+
+    else, [
+
+              if dessus = 0, gcode$ = 1
+              if dessus = 0, avance = avance_r
+
+
+              if dessus = 0 & spindle_no$ = 0,  n$, sgcode, x_Bout, y_Bout, z_Bout,  avance, e$   #n$, sfrein, e$,
+              if dessus = 0 & spindle_no$ = 1,  n$, sgcode, x_Bout_d, y_Bout_d, z_Bout_d, e$  #n$, sfrein, e$,
+
+              if dessus = 1,  n$, C_posbis, e$, n$, sgcode, x_Dessus, z_Dessus, e$  #y_Dessus,  "attention pour rotation",  *m3$,
+              if dessus = 2,  n$, sgcode, x_Dessus, C_pos, z_dev, e$
+            ]
+
+        !x$, !y$, !z$
+
+llin$          # Mouvement travail lineaire tournage
+
+              pcord_tour
+
+              n$, sgcode, correc, x2, zt, pfr_tournage, !x$, !z$, e$
+
+
+
+mlin$          # Mouvement travail lineaire fraisage
+
+        if dessus = 0, [
+            frein = 1
+            if mi1$ <> 0, frein = 3
+              @x$
+              @y$
+
+            if prv_x$ = x$ & prv_y$ = y$, frein = 1
+
+            ]
+
+        pligne_travail
+
+
+pligne_travail  # Mouvement travail lineaire fraisage
+
+    if opcode$ = 3 & dessus = 0, [
+              n$, sgcode,  *x_Bout_perce, *z_Bout, pfr_fraisage, e$
+                            ]
+    else, [
+
+              if dessus = 0 & spindle_no$ = 0, n$, pcord_fraisage, sgcode, x_Bout, y_Bout, z_Bout, pfr_fraisage, e$  #n$, sfrein, e$,
+              if dessus = 0 & spindle_no$ = 1, n$, pcord_fraisage, sgcode, x_Bout_d, y_Bout_d, z_Bout_d, pfr_fraisage, e$  #n$, sfrein, e$,
+
+
+              if dessus = 1, n$, pcord_fraisage, sgcode, x_Dessus, z_Dessus, pfr_fraisage, e$ #y_Dessus
+              if dessus = 2, n$, pcord_fraisage, sgcode, x_Dessus, C_pos, z_dev, pfr_fraisage, e$  #n$, sfrein, e$
+        ]
+
+
+              !x$, !y$, !z$
+
+
+
+pz$            # Mouvement travail Z fraisage
+
+        if dessus = 0, frein = 1
+
+        pligne_travail
+
+
+
+lcir$          # Interpolation circulaire tournage
+              !reverse
+
+              pcord_tour
+
+              if reverse = 1, n$, sgcode, correc, *x2, *zt, arcrad$, pfr_tournage, !x$, !z$,e$
+              if reverse =  -1,n$, sgcode, correc, *x2, *zt, arcrad$, pfr_tournage, !x$, !z$,e$
+
+
+mcir$          # Interpolation circulaire fraisage
+
+              !spindle_no$ , !m2$
+              if dessus = 0, frein = 1
+              if dessus = 0 & mi1$ <> 0, frein = 3
+              #n$, sfrein, e$
+
+    if dessus = 0 & spindle_no$ = 0, n$, sgcode, *x_Bout, *y_Bout, z_Bout, arcrad$, pfr_fraisage,e$ # fraisage en bout
+    if dessus = 0 & spindle_no$ = 1, n$, sgcode_d, *x_Bout_d, *y_Bout_d, z_Bout_d, arcrad$, pfr_fraisage,e$ # fraisage en bout
+
+    #if dessus = 1, n$, sgcode, *x_Dessus, *y_Dessus, z_Dessus, arcrad$, pfr_fraisage,e$
+
+    #if dessus = 2, ["PAS D'ARCS EN DEVELOPPE", e$]
+
+              !x$, !y$, !z$
+
+#============================================ CYCLES ====================================================
+#-----------------------TOURNAGE---------------------------------------------
+fmt "Z" 1 depth_d
+
+ldrill$        # Cycle de pointage en tournage
+                 gcode$ = 0
+
+             if spindle_no$ = 0, [
+                 garde = refht$ - initht$
+                 fr_tour = abs (fr$)
+                 if dwell$ = 0, n$, "G83", *x$, *depth$, *garde, *fr_tour, e$
+                         else, n$, "G83", *x$, *depth$, *garde, *tempo, *fr_tour, e$
+                 n$, *sgcode, "G80", e$
+                                 ]
+
+             if spindle_no$ = 1, [
+                 garde = (refht$ - initht$)* -1
+                 depth_d = depth$ * -1
+                 fr_tour = abs (fr$)
+                 if dwell$ = 0, n$, "G83", *x$, *depth_d, *garde, *fr_tour, e$
+                         else, n$, "G83", *x$, *depth_d, *garde, *tempo, *fr_tour, e$
+                 n$, "G0 G80", e$
+                                 ]
+
+
+lpeck$     # Cycle de debourrage en tournage
+                 gcode$ = 0
+
+             if spindle_no$ = 0, [
+                 garde = refht$ - initht$
+                 fr_tour = abs (fr$)
+                 if dwell$ = 0, n$, "G83", *x$, *depth$, *garde, *peck1$, *fr_tour, e$        #pfr_tournage
+                         else, n$, "G83", *x$, *depth$, *garde, *peck1$, *tempo, *fr_tour, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                                 ]
+
+             if spindle_no$ = 1, [
+                 garde = (refht$ - initht$)* -1
+                 fr_tour = abs (fr$)
+                 depth_d = depth$ * -1
+                 if dwell$ = 0, n$, "G83", *x$, *depth_d, *garde, *peck1$, *fr_tour, e$        #pfr_tournage
+                         else, n$, "G83", *x$, *depth_d, *garde, *peck1$, *tempo, *fr_tour, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                                 ]
+
+
+lchpbrk$  # Cycle de brise-copeaux en tournage
+                 gcode$ = 0
+
+             if spindle_no$ = 0, [
+                 garde = refht$ - initht$
+                 fr_tour = abs (fr$)
+                 n$, "G76", *x$, *depth$, *peck1$, *garde, pfr_tournage , e$
+                 n$, "G0 G80", e$
+                                ]
+
+             if spindle_no$ = 1, [
+                 garde = (refht$ - initht$)* -1
+                 fr_tour = abs (fr$)
+                 depth_d = depth$ * -1
+                 n$, "G76", *x$, *depth_d, *peck1$, *garde, pfr_tournage , e$
+                 n$, "G0 G80", e$
+                                ]
+
+ltap$      # Cycle de taraudage en tournage
+                 gcode$ = 0
+              vitessm29 = ss$
+
+             n$, "M29", *vitessm29, e$
+             if spindle_no$ = 0, [
+                 garde = refht$ - initht$
+                 fr_taraud = n_tap_thds$ #* abs (ss$)
+                 if dwell$ = 0, n$, "G84", *x$, *depth$, *garde, *fr_taraud, e$                 #pfr_tournage
+                         else, n$, "G84", *x$, *depth$, *garde, *tempo, *fr_taraud, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                                ]
+
+             if spindle_no$ = 1, [
+                 garde = (refht$ - initht$)* -1
+                 fr_taraud = n_tap_thds$  #* abs (ss$)
+                 depth_d = depth$ * -1
+                 if dwell$ = 0, n$, "G84", *x$, *depth_d, *garde, *fr_taraud, e$        #pfr_tournage
+                         else, n$, "G84", *x$, *depth_d, *garde, *tempo, *fr_taraud, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                                ]
+
+
+lbore1$    # Cycle d'alésage en tournage
+                 gcode$ = 0
+
+             if spindle_no$ = 0, [
+                 garde = refht$ - initht$
+                 fr_tour = abs (fr$)
+                 if dwell$ = 0, n$, "G85", *x$, *depth$, *garde, *fr_tour, e$         #pfr_tournage
+                         else, n$, "G85", *x$, *depth$, *garde, *tempo, *fr_tour, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                              ]
+
+
+             if spindle_no$ = 1, [
+                 garde = (refht$ - initht$)* -1
+                 fr_tour = abs (fr$)
+                 depth_d = depth$ * -1
+                 if dwell$ = 0, n$, "G85", *x$, *depth_d, *garde, *fr_tour, e$         #pfr_tournage
+                         else, n$, "G85", *x$, *depth_d, *garde, *tempo, *fr_tour, e$         #pfr_tournage
+                 n$, "G0 G80", e$
+                              ]
+
+#------------------CYCLES VENANT DE RABOUTET -----------------
+
+pusecanmill
+
+ usecandrill$ = 0
+ usecanpeck$  = 0
+ usecanchip$  = 0
+ usecantap$   = 1
+ usecanbore1$ = 0
+ usecanbore2$ = 0
+ usecanmisc1$ = 0
+ usecanmisc2$ = 0
+
+pusecanlathe
+ usecandrill$ = 0
+ usecanpeck$  = 0
+ usecanchip$  = 0
+ usecantap$   = 1
+ usecanbore1$ = 0
+ usecanbore2$ = 0
+ usecanmisc1$ = 0
+ usecanmisc2$ = 0
+
+fmt  "X" 1 prof        #Variable utilisée pour ecrire la profondeur de perçage en perçage dessus
+fmt  "X" 1 degagement  #Variable utilisée pour ecrire le degagement de perçage en perçage dessus
+fmt  "R" 2 reference
+fmt  "X" 2 gardedessus
+
+
+
+
+#------------------------------------------------------------------------
+
+
+mdrill$        # Cycle de pointage en fraisage
+
+              if dessus = 0, pdrillB
+              if dessus = 1, pdrillD
+              if dessus = 2, pdrillDev
+
+mdrill_2$  # Canned Drill Cycle
+
+              if dessus = 0, pdrillB_2
+              if dessus = 1, pdrillD_2
+              if dessus = 2, pdrillDev_2
+
+pdrillB       # Cycle de percage en fraisage en bout
+
+              if spindle_no$ = 0, [
+                garde = refht$ - initht$
+               # axec = atan2(m3,m2), e
+                axec = atan2(y$,x$), e$
+        frein = 1
+                if dwell$ = 0, n$, "G83", x_Bout_perce, axec, *depth$, *garde, pfr_fraisage1, e$ #*frplunge$, e$  #sfrein,
+                        else, n$, "G83", x_Bout_perce, axec, *depth$, *garde, *tempo, pfr_fraisage1, e$ # *frplunge$, sfrein, e$
+                                  ]
+
+              if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+               # axec = atan2(m3,m2), e
+                axee = atan2(y$,-x$), e$
+                depth_d = depth$ * -1
+            frein = 1
+                if dwell$ = 0, n$, "G83", x_Bout_perce_d, axee, *depth_d, *garde, pfr_fraisage1, e$ # *frplunge$, e$   #sfrein,
+                        else, n$, "G83", x_Bout_perce_d, axee, *depth_d, *garde, *tempo, pfr_fraisage1 # *frplunge$, e$  #sfrein,
+                                  ]
+
+pdrillB_2      # Cycle de percage en fraisage en bout
+                if spindle_no$ = 0, [
+                garde = refht$ - initht$
+                axec = atan2(y$,x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axec, x_Bout_perce, depth$, garde, e$
+                                   ]
+
+                if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+                depth_d = depth$ * -1
+                axee = atan2(y$,-x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axee, x_Bout_perce_d, depth_d, garde, e$
+                                   ]
+
+pdrillD       # Cycle de percage en fraisage en dessus
+        frein = 1
+                 garde = (refht$ - initht$)
+                 if dwell$ = 0, n$, "G87", *x_Dessus, *prof, *garde, pfr_fraisage1, e$ #*frplunge$, sfrein,
+                         else, n$, "G87", *x_Dessus, *prof, *garde, pfr_fraisage1, e$ #*tempo, *frplunge$, sfrein,
+
+pdrillD_2       # Cycle de percage en fraisage en dessus
+
+            pcanceldc$
+                  prot_calc
+
+        prot_affich_T
+        pdrillD
+
+
+pdrillDev
+
+
+pdrillDev_2
+
+
+#------------------------------------------------------------------------
+mpeck$     # Cycle de debourrage en fraisage
+
+              if dessus = 0, ppeckB
+              if dessus = 1, ppeckD
+              if dessus = 2, ppeckDev
+
+mpeck_2$   # Canned Peck Drill Cycle
+
+              if dessus = 0, ppeckB_2
+              if dessus = 1, ppeckD_2
+              if dessus = 2, ppeckDev_2
+
+ppeckB       # Cycle de percage en fraisage en bout
+
+              if spindle_no$ = 0, [
+                garde = refht$ - initht$
+               # axec = atan2(m3,m2), e
+                axec = atan2(y$,x$), e$
+                        frein = 1
+                if dwell$ = 0, n$, "G83", x_Bout_perce, axec, *depth$, *garde, *peck1$, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                        else, n$, "G83", x_Bout_perce, axec, *depth$, *garde, *peck1$, *tempo,  pfr_fraisage1, e$ #*frplunge$, sfrein, e$
+                                  ]
+
+              if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+               # axec = atan2(m3,m2), e
+                axee = atan2(y$,-x$), e$
+                depth_d = depth$ * -1
+                        frein = 1
+                if dwell$ = 0, n$, "G83", x_Bout_perce_d, axee, *depth_d, *garde, *peck1$, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                        else, n$, "G83", x_Bout_perce_d, axee, *depth_d, *garde, *peck1$, *tempo,  pfr_fraisage1, e$  #*frplunge$, sfrein, e$
+                                  ]
+
+ppeckB_2      # Cycle de percage en fraisage en bout
+                if spindle_no$ = 0, [
+                garde = refht$ - initht$
+                axec = atan2(y$,x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axec, x_Bout_perce, *peck1$, depth$, garde, e$
+                                   ]
+
+                if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+                depth_d = depth$ * -1
+                axee = atan2(y$,-x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axee, x_Bout_perce_d, *peck1$, depth_d, garde, e$
+                                   ]
+
+ppeckD       # Cycle de percage en fraisage en dessus
+
+                 garde = (refht$ - initht$)
+                 frein = 1
+                 if dwell$ = 0, n$, "G87", *x_Dessus, *prof, *garde, *peck1$, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                         else, n$, "G87", *x_Dessus, *prof, *garde, *peck1$, *tempo,  pfr_fraisage1, e$ #*frplunge$, sfrein, e$
+
+ppeckD_2       # Cycle de percage en fraisage en dessus
+
+            pcanceldc$
+                  prot_calc
+
+        prot_affich_T
+        ppeckD
+
+
+ppeckDev
+
+         garde = (refht$ - initht$)
+                 frein = 1
+                 if dwell$ = 0, n$, "G87", *x_Dessus, *prof, *garde, *peck1$, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                         else, n$, "G87", *x_Dessus, *prof, *garde, *peck1$, *tempo,  pfr_fraisage1, e$ #*frplunge$, sfrein, e$
+ppeckDev_2
+
+       pcanceldc$
+                  prot_calc
+
+        prot_affich_T
+             ppeckDev
+#--------------------------------------------------------------------------
+
+
+mchpbrk$   # Cycle de brise copeau en fraisage
+
+              if dessus = 0, ppeckB
+              if dessus = 1, ppeckD
+              if dessus = 2, ppeckDev
+
+mchpbrk_2$ # Canned Chip Break Cycle
+
+              if dessus = 0, ppeckB_2
+              if dessus = 1, ppeckD_2
+              if dessus = 2, ppeckDev_2
+
+#------------------------------------------------------------------------
+
+mtap$      # Cycle de taraudage en fraisage
+
+           fr_taraud = fr$  #n_tap_thds$
+
+              if dessus = 0, ptapB
+              if dessus = 1, ptapD
+              if dessus = 2, ptapDev
+
+mtap_2$    # Taraudages suivants en fraisage
+
+              if dessus = 0, ptapB_2
+              if dessus = 1, ptapD_2
+              if dessus = 2, ptapDev_2
+
+ptapB     # Cycle de taraudage en fraisage en bout
+
+            if spindle_no$ = 0, [
+        !initht$, !depth$
+                garde = refht$ - initht$
+        #garde1 = refht$ - depth$
+        garde1 = depth$
+        garde2 = Vccf
+        garde3 = Vccf
+        gardeR = initht$ - refht$
+                #axec = atan2(m3,m2), e
+                axec = atan2(y$,x$), e$
+                frein = 1
+             vitessm29 = ss$
+             n$, "M29", *vitessm29, e$
+             fr_taraud = fr_pos$
+                if dwell$ = 0, n$, "G84",  axec, *garde1, *gardeR, *fr_taraud, !garde3,  !garde2, "M12", e$
+                        else, n$, "G84",  axec, *garde1, *gardeR, *fr_taraud, !garde3,  !garde2, "M12", e$
+
+                        !x$, !y$, !z$
+                                ]
+
+            if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+                #axec = atan2(m3,m2), e
+                axee = atan2(y$,-x$), e$
+                frein = 1
+
+                depth_d = depth$ * -1
+                if dwell$ = 0, n$, "G84",  *garde1, *fr_taraud, !garde3,  !garde2, "M12", e$
+                        else, n$, "G84",  *garde1, *fr_taraud, !garde3,  !garde2, "M12", e$
+                ]
+            #n$, "M13", e$
+
+ptapB_2
+
+        garde = refht$ - initht$
+
+            if spindle_no$ = 0, [
+        !initht$, !depth$
+        garde = refht$ - initht$
+        garde1 = depth$
+        garde2 = Vccf
+        garde3 = Vccf
+        gardeR = initht$ - refht$
+                #axec = atan2(m3,m2), e
+                axec = atan2(y$,x$), e$
+                frein = 1
+       fr_taraud = fr_pos$
+
+
+                if dwell$ = 0, n$, axec, e$   #"G84",  garde1, gardeR, *fr_taraud, !garde3, !garde2,  "M12",
+                        else, n$, axec, e$  #"G84",  garde1, gardeR, *fr_taraud, !garde3, !garde2, "M12",
+                         !x$, !y$, !z$
+
+                                ]
+
+                if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+                depth_d = depth$ * -1
+                axee = atan2(y$,-x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, "G84", axee, x_Bout_perce_d, depth_d, n$, "M12", e$ e$
+                                   ]
+
+              #n$, "M13", e$
+ptapD     # Cycle de taraudage en fraisage en dessus
+
+             !initht$, !depth$
+                garde = refht$ - initht$
+        #garde1 = refht$ - depth$
+        garde4 = depth$
+        garde2 = Vccf
+        garde3 = Vccf
+        gardeR = initht$ - refht$
+        frein = 1
+        vitessm29 = ss$
+             n$, "M29", *vitessm29, e$
+             if dwell$ = 0, n$, "G88",  *garde4, *gardeR, *fr_taraud, !garde3,  !garde2, e$  #"M12",
+                     else, n$, "G88",  *garde4, *gardeR, *fr_taraud, !garde3,  !garde2, e$  #"M12",
+
+                      !x$, !y$, !z$
+            #n$, "M13", e$
+ptapD_2       # Cycle de taraudage en fraisage en dessus
+
+            #pcanceldc$
+                  prot_calc
+
+        prot_affich_T
+        #ptapD
+
+
+ptapDev
+
+
+ptapDev_2
+
+
+#--------------------------------------------------------------------
+mbore1$        # Cycle d'alesage en fraisage
+
+              if dessus = 0, pbore1B
+              if dessus = 1, pbore1D
+              if dessus = 2, pbore1Dev
+
+mbore1_2$  # Cycle d'alesage en fraisage
+
+              if dessus = 0, pbore1B_2
+              if dessus = 1, pbore1D_2
+              if dessus = 2, pbore1Dev_2
+
+pbore1B       # Cycle d'alesage en fraisage en bout
+
+              if spindle_no$ = 0, [
+                garde = refht$ - initht$
+               # axec = atan2(m3,m2), e
+                axec = atan2(y$,x$), e$
+                frein = 1
+                if dwell$ = 0, n$, "G85", x_Bout_perce, axec, *depth$, *garde, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                        else, n$, "G85", x_Bout_perce, axec, *depth$, *garde, *tempo, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                                  ]
+
+              if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+               # axec = atan2(m3,m2), e
+                axee = atan2(y$,-x$), e$
+                depth_d = depth$ * -1
+                                frein = 1
+                if dwell$ = 0, n$, "G85", x_Bout_perce_d, axee, *depth_d, *garde, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                        else,  n$, "G85", x_Bout_perce_d, axee, *depth_d, *garde, *tempo, pfr_fraisage1, e$ #*frplunge$, sfrein,  e$
+                                  ]
+
+pbore1B_2      # Cycle d'alesage en fraisage en bout
+                if spindle_no$ = 0, [
+                garde = refht$ - initht$
+                axec = atan2(y$,x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axec, x_Bout_perce, depth$, garde, e$
+                                   ]
+
+                if spindle_no$ = 1, [
+                garde = (refht$ - initht$)* -1
+                depth_d = depth$ * -1
+                axee = atan2(y$,-x$)        # Calcul de l'angle de rotation du mandrin axe C
+                n$, axee, x_Bout_perce_d, depth_d, garde, e$
+                                   ]
+
+pbore1D       # Cycle d'alesage en fraisage en dessus
+
+                 garde = (refht$ - initht$)
+                 frein = 1
+                 if dwell$ = 0, n$, "G89", *x_Dessus, *prof, *garde, *frplunge$, e$  #sfrein,
+                         else, n$, "G89", *x_Dessus, *prof, *garde, *tempo, pfr_fraisage1, e$ #*frplunge$, sfrein,  pe$
+
+pbore1D_2       # Cycle d'alesage en fraisage en dessus
+
+            pcanceldc$
+                  prot_calc
+
+        prot_affich_T
+        pbore1D
+
+
+pbore1Dev
+
+
+pbore1Dev_2
+
+
+#----------------------------------------------------------------------
+pcanceldc$ # Cancel canned drill cycle
+        z$ = initht$
+
+    if n_tap_thds$ <> 0, n$, "G0", "G80"
+
+
+               else, n$, "G0", "G80"
+
+
+    if dessus = 0, [
+            if spindle_no$ = 0, *z_Bout, e$
+            if spindle_no$ = 1, *z_Bout_d, e$
+            ]
+    if dessus = 1, [
+            if spindle_no$ = 0, *z_Dessus, e$
+            if spindle_no$ = 1, *z_Dessus, e$
+            ]
+    if dessus = 2, [
+            if spindle_no$ = 0, *z_dev, e$
+            if spindle_no$ = 1, *z_dev, e$
+            ]
+
+
+
+#----------------- FILETAGE ------------------------------------------
+
+pthdext$   # exter
+
+
+pthdint$   # inter
+
+pthread0$ # pre calcule
+      thdrdlt = (((thdx2$ - thdx3$) / (thdz1$ - thdz2$)) * thdzclr$)
+      # Add to the original thread 'X' difference calculation
+      thdrdlt = (thdrdlt + (thdx2$ - thdx3$)) * pl_ax_m0x
+
+    xdeb = x2
+    zdeb = zt
+
+
+pval
+
+        "------" , *thdtype$, e$
+        "------", *thddepth$, e$
+        *pi$
+             "angle de filetage conique", *thdtaper$,e$
+             "nbr de filets", *nstarts$,e$
+             "angle d'entree", *thdangle$,e$
+             "angle de depat du filet", *thda1$,e$
+             "angle d'ouverture du filet", *thda2$,e$
+             "nbr de passes a vide", *nspring$,e$
+             "tol de finition", *thdfinish$,e$
+             "degagenemt anticipe", thdpulloff$,e$
+             "1ere passe", thdfirst$,e$
+             "derniere passe", thdlast$,e$
+             "passes egales(meme prof)", thdequcut$,e$
+             "garde sur brut en x", thdxclr$,e$
+             "garde d'approche en Z", *thdzclr$,e$
+             "nombre de passes", *thdncuts$, e$
+             "ray majeur au z accostage", *thdx1$,e$
+             "ray mineur au z accostage", *thdx2$,e$
+             "ray mineur au z de fin", *thdx3$,e$
+             "z de debut filet",*thdz1$,e$
+             "z de fin filet (avec surusinage)", *thdz2$,e$
+             "Pas (positif si mm/tour)",  *thdlead$, e$
+
+
+
+
+
+pthd_end$   # fin d'un filetage Code long - Cycle fixe - Cube
+
+    gcode$ = 0
+    n$, sgcode,  *xdeb, *zdeb, !x$, !z$, e$
+
+pg32$       # Code long - Cube
+
+            pas = thdlead$
+            cone = thdx3$ - thdx2$
+
+pthrg32_1$  # Code long - Alternative
+
+    gcode$ = 0
+   # n$, sgcode,  x2, zt, !x$, !z$,e$
+   n$, *sgcode,  x2, !x$,
+   # !x$, !z$
+
+pthrg32_2$  # Code long - Alternative
+
+    gcode$ = 0
+    #n$, sgcode,  x2, zt, !x$, !z$,e$
+    zt, !z$,e$
+    !x$, !z$
+
+pthrg32_3$  # Code long - Alternative
+
+    gcode$ = 6
+    n$, sgcode,  *x2, zt, *pas, !x$, !z$,e$
+
+pthrg32_4$  # Code long - Alternative
+
+    gcode$ = 0
+    #n$, sgcode,  x2, zt, !x$, !z$,e$
+   #  n$, *sgcode,  x2, !x$,
+   # !x$, !z$
+
+pg76$    # Cycle fixe
+            spaces$ = 0
+            thdlast$ = thdlast$ / 10
+            thdang = rad2deg$ * thda2$
+            Diamfinal = thdx3$ * 2
+            Zfinal = thdz2$
+            Npasse = nspring$
+
+            n$, "G76 ", *Npasse, *thdpull, *thdang, " ", *thdlast$, " ", *thdfinish$, e$
+            spaces$ = 1
+            n$, "G76", *Diamfinal, *Zfinal, *thdrdlt, *thddepth$, *thdfirst$, *thdlead$, e$
+
+
+
+
+pthrg92_1$  # Cube position en rapide au demarrage
+    gcode$ = 0
+
+    #n$, "---", sgcode,  *x2, *zt, !x$, !z$,e$
+    !x$, !z$
+
+
+pthrg92_2$  # Cube position de prise de passe
+    gcode$ = 0
+    #n$, sgcode,  x2, zt,!x$, !z$,e$
+    !x$, !z$
+pthrg92_3$  # Cube Cycle de filetage
+    gcode$ = 8
+    n$, sgcode,  x2, zt, cone, pas, !x$, !z$,e$
+pthrg92_4$  # Cube degagement
+    gcode$ = 0
+    #n$, sgcode,  x2, zt,!x$, !z$,e$
+    !x$, !z$, !x2
+
+
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_MT_MILL|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>0 pour frein faible 1 pour frein debloqué</text>
+			</misc_1>
+		</misc_integers>
+		<simple_drill>
+			<description>
+				<text>Perçage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Débourage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>""</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+<control>
+		<control_label>CTRL_MT_LATHE|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage G81</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourage G83</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux G76</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise Copeaux G76</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_MILL|KIA STK 15 LMBS</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Débourage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>""</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_LATHE|KIA STK 15 LMBS</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage G81</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourage G83</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux G76</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise Copeaux G76</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_MILL|CMZTBI520MC</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Débourage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>""</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_LATHE|CMZTBI520MC</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage G81</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourage G83</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux G76</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise Copeaux G76</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_MILL|CTX</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Débourage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage</text>
+			</peck_drill>
+			<chip_break>
+				<text>""</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+	<control>
+		<control_label>CTRL_MT_LATHE|CTX</control_label>
+		<language>fr-FR</language>
+		<simple_drill>
+			<description>
+				<text>Perçage G81</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<description>
+				<text>Debourage G83</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Brise-copeaux G76</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>Incrément</text>
+			</first_peck>
+		</chip_break>
+		<tap>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Alésage</text>
+			</description>
+			<dwell>
+				<text>Tempo</text>
+			</dwell>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore1>
+		<drill_cycle_descriptions>
+			<simple_drill>
+				<text>Percage G81</text>
+			</simple_drill>
+			<peck_drill>
+				<text>Débourrage G83</text>
+			</peck_drill>
+			<chip_break>
+				<text>Brise Copeaux G76</text>
+			</chip_break>
+			<tapping>
+				<text>Taraudage</text>
+			</tapping>
+			<boring_1>
+				<text>Alésage</text>
+			</boring_1>
+			<boring_2>
+				<text>""</text>
+			</boring_2>
+			<misc_drill_1>
+				<text>""</text>
+			</misc_drill_1>
+			<misc_drill_2>
+				<text>""</text>
+			</misc_drill_2>
+			<custom_drill_9>
+				<text>""</text>
+			</custom_drill_9>
+			<custom_drill_10>
+				<text>""</text>
+			</custom_drill_10>
+			<custom_drill_11>
+				<text>""</text>
+			</custom_drill_11>
+			<custom_drill_12>
+				<text>""</text>
+			</custom_drill_12>
+			<custom_drill_13>
+				<text>""</text>
+			</custom_drill_13>
+			<custom_drill_14>
+				<text>""</text>
+			</custom_drill_14>
+			<custom_drill_15>
+				<text>""</text>
+			</custom_drill_15>
+			<custom_drill_16>
+				<text>""</text>
+			</custom_drill_16>
+			<custom_drill_17>
+				<text>""</text>
+			</custom_drill_17>
+			<custom_drill_18>
+				<text>""</text>
+			</custom_drill_18>
+			<custom_drill_19>
+				<text>""</text>
+			</custom_drill_19>
+			<custom_drill_20>
+				<text>""</text>
+			</custom_drill_20>
+		</drill_cycle_descriptions>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]

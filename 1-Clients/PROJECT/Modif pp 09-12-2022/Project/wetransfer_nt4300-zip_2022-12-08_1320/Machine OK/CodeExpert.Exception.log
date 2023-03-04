@@ -1,0 +1,332 @@
+----------------------------------------
+Timestamp: 29/11/2022 11:28:54
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275.machine
+Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> Machine.Serialization.MachineSerializationException: Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> System.UnauthorizedAccessException: L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   à System.IO.Directory.InternalCreateDirectoryHelper(String path, Boolean checkHost)
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   --- Fin de la trace de la pile d'exception interne ---
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   à Machine.Serialization.ExternalFileSerializer.DeserializeFiles(BaseFormatSerializer serializer, MachineSolution machine, String filePath)
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 1992
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 9688
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 11:30:14
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275.machine
+Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> Machine.Serialization.MachineSerializationException: Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> System.UnauthorizedAccessException: L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   à System.IO.Directory.InternalCreateDirectoryHelper(String path, Boolean checkHost)
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   --- Fin de la trace de la pile d'exception interne ---
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   à Machine.Serialization.ExternalFileSerializer.DeserializeFiles(BaseFormatSerializer serializer, MachineSolution machine, String filePath)
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 5432
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12452
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 11:31:09
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275.machine
+Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> Machine.Serialization.MachineSerializationException: Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> System.UnauthorizedAccessException: L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   à System.IO.Directory.InternalCreateDirectoryHelper(String path, Boolean checkHost)
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   --- Fin de la trace de la pile d'exception interne ---
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   à Machine.Serialization.ExternalFileSerializer.DeserializeFiles(BaseFormatSerializer serializer, MachineSolution machine, String filePath)
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 12864
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 10264
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 11:39:45
+Message: MastercamExtensions.ImportExport.FileImportException: Échec d'ouverture en Fichier Machine :
+\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275.machine
+Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> Machine.Serialization.MachineSerializationException: Le répertoire des fichiers Mastercam ne peut pas être créé. Vérifiez que le répertoire du fichier machine est bien accessible en lecture, ou déplacez le fichier machine dans un autre répertoire.
+
+Autres informations : L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé. ---> System.UnauthorizedAccessException: L'accès au chemin d'accès '\\srv-mastercam\Mastercam\Shared Mastercam 2022\Mill Turn\machines\DMG Mori Seiki NTX2500 PJT275' est refusé.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.Directory.InternalCreateDirectory(String fullPath, String path, Object dirSecurityObj, Boolean checkHost)
+   à System.IO.Directory.InternalCreateDirectoryHelper(String path, Boolean checkHost)
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   --- Fin de la trace de la pile d'exception interne ---
+   à Machine.Serialization.ExternalFileSerializer.ࠀ(String )
+   à Machine.Serialization.ExternalFileSerializer.DeserializeFiles(BaseFormatSerializer serializer, MachineSolution machine, String filePath)
+   à Machine.Serialization.MachineSerializer.Deserialize(Stream stream, String filePath)
+   à Machine.Serialization.ImportExport.MachineFileImporter.Import(String filePath, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   --- Fin de la trace de la pile d'exception interne ---
+   à MastercamExtensions.ImportExport.FileImportExportService.Import(String filePath, IFileImporter importer, IImportExportOptionProvider optionProvider)
+   à MastercamExtensions.Infrastructure.ViewModels.DocumentWorkspaceViewModel.(String , IFileImporter , Boolean , Boolean , IImportExportOptionProvider )
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 10248
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 356
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 13:28:52
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 10000
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 10912
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 13:55:26
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 11296
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 11964
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 29/11/2022 13:56:45
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 6028
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 10612
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 30/11/2022 11:16:27
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 9396
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 11028
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 01/12/2022 08:20:32
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 8332
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 13656
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 01/12/2022 08:27:39
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 10784
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2900
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/12/2022 13:46:04
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 8132
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 10956
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/12/2022 13:34:48
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 9844
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 1704
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 07/12/2022 15:06:41
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 13036
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 2996
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/12/2022 08:13:15
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 7588
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 12712
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/12/2022 08:15:01
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 8352
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 11048
+Thread Name: 
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 08/12/2022 08:20:30
+Message: Impossible de charger la DLL 'CfpCommandTracker.Interop.dll': Le module spécifié est introuvable. (Exception de HRESULT : 0x8007007E)
+Category: Exception
+Priority: 1
+EventId: 1
+Severity: Information
+Title:
+Machine: GPAO141
+Application Domain: CodeExpert.exe
+Process Id: 6808
+Process Name: C:\Program Files\Mastercam 2022\Mastercam\Extensions\CodeExpert.exe
+Win32 Thread Id: 13096
+Thread Name: 
+Extended Properties: 
+----------------------------------------

@@ -1,0 +1,1300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MtMiscOpMgr>
+	<Version>4</Version>
+	<MtMiscOpList>
+		<MtPickoffArray>
+			<StrategyName>Pickoff (Upper Stream)</StrategyName>
+			<StrategyComment>Pickoff, ops are output in upper stream</StrategyComment>
+			<m_tpGroupName>Pickoff - Upper Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffArray>
+		<MtPickoffArray>
+			<StrategyName>Pickoff (Lower Stream)</StrategyName>
+			<StrategyComment>Pickoff, ops are output in lower stream</StrategyComment>
+			<m_tpGroupName>Pickoff - Lower Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffArray>
+		<MtPickoffCutoffArray>
+			<StrategyName>Pickoff, Cutoff (Upper Turret)</StrategyName>
+			<StrategyComment>Pickoff, Cutoff with tool in upper turret</StrategyComment>
+			<m_tpGroupName>Pickoff, Cutoff - Upper Turret</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtPointPrm>
+				<m_comment>Pre-position cutoff tool</m_comment>
+				<m_preposnX>
+					<Metric>150</Metric>
+					<Inch>6</Inch>
+				</m_preposnX>
+				<m_uid>Default</m_uid>
+			</MtPointPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckClamp>
+				<m_comment>Pickoff spindle - Clamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckClamp>
+			<MtCutoffPrm>
+				<m_comment>Cut off the part</m_comment>
+				<m_opId>
+					<Metric>8</Metric>
+					<Inch>43</Inch>
+				</m_opId>
+				<m_uid>
+					<Metric>Default</Metric>
+					<Inch>Default</Inch>
+				</m_uid>
+				<m_suppressRetract>1</m_suppressRetract>
+			</MtCutoffPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Upper Turret Home</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>E359D319-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffCutoffArray>
+		<MtPickoffCutoffArray>
+			<StrategyName>Pickoff, Cutoff (Lower Turret)</StrategyName>
+			<StrategyComment>Pickoff, Cutoff with tool in lower turret</StrategyComment>
+			<m_tpGroupName>Pickoff, Cutoff - Lower Turret</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtPointPrm>
+				<m_comment>Pre-position cutoff tool</m_comment>
+				<m_preposnX>
+					<Metric>150</Metric>
+					<Inch>6</Inch>
+				</m_preposnX>
+				<m_uid>Default</m_uid>
+			</MtPointPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckClamp>
+				<m_comment>Pickoff spindle - Clamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckClamp>
+			<MtCutoffPrm>
+				<m_comment>Cut off the part</m_comment>
+				<m_opId>
+					<Metric>194</Metric>
+					<Inch>77</Inch>
+				</m_opId>
+				<m_uid>
+					<Metric>Default</Metric>
+					<Inch>Default</Inch>
+				</m_uid>
+				<m_suppressRetract>1</m_suppressRetract>
+			</MtCutoffPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffCutoffArray>
+		<MtPickoffPullCutoffArray>
+			<StrategyName>Pickoff, Stock Pull, Cutoff (Upper Turret)</StrategyName>
+			<StrategyComment>Pickoff, Stock Pull, Cutoff with tool in upper turret</StrategyComment>
+			<m_tpGroupName>Pickoff, Stock Pull, Cutoff - Upper Turret</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtPointPrm>
+				<m_comment>Pre-position cutoff tool</m_comment>
+				<m_preposnX>
+					<Metric>125</Metric>
+					<Inch>5</Inch>
+				</m_preposnX>
+				<m_uid>Default</m_uid>
+			</MtPointPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtDstChuckPull>
+				<m_comment>Pickoff spindle - Pull stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_computePullDist>1</m_computePullDist>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckPull>
+			<MtSrcChuckXfer>
+				<m_comment>Stock spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckXfer>
+			<MtCutoffPrm>
+				<m_comment>Cut off the part</m_comment>
+				<m_opId>
+					<Metric>8</Metric>
+					<Inch>43</Inch>
+				</m_opId>
+				<m_uid>
+					<Metric>Default</Metric>
+					<Inch>Default</Inch>
+				</m_uid>
+				<m_suppressRetract>1</m_suppressRetract>
+			</MtCutoffPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Upper Turret Home</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>E359D319-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffPullCutoffArray>
+		<MtPickoffPullCutoffArray>
+			<StrategyName>Pickoff, Stock Pull, Cutoff (Lower Turret)</StrategyName>
+			<StrategyComment>Pickoff, Stock Pull, Cutoff with tool in lower turret</StrategyComment>
+			<m_tpGroupName>Pickoff, Stock Pull, Cutoff - Lower Turret</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtPointPrm>
+				<m_comment>Pre-position cutoff tool</m_comment>
+				<m_preposnX>
+					<Metric>150</Metric>
+					<Inch>6</Inch>
+				</m_preposnX>
+				<m_uid>Default</m_uid>
+			</MtPointPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtDstChuckPull>
+				<m_comment>Pickoff spindle - Pull stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_computePullDist>1</m_computePullDist>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckPull>
+			<MtSrcChuckXfer>
+				<m_comment>Stock spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckXfer>
+			<MtCutoffPrm>
+				<m_comment>Cut off the part</m_comment>
+				<m_opId>
+					<Metric>194</Metric>
+					<Inch>77</Inch>
+				</m_opId>
+				<m_uid>
+					<Metric>Default</Metric>
+					<Inch>Default</Inch>
+				</m_uid>
+				<m_suppressRetract>1</m_suppressRetract>
+			</MtCutoffPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtPickoffPullCutoffArray>
+		<MtStockPullArray>
+			<StrategyName>Stock Pull (Upper Stream)</StrategyName>
+			<StrategyComment>Stock Pull, ops are output in upper stream</StrategyComment>
+			<m_tpGroupName>Stock Pull - Upper Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtDstChuckPull>
+				<m_comment>Pickoff spindle - Pull stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_computePullDist>1</m_computePullDist>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckPull>
+			<MtSrcChuckXfer>
+				<m_comment>Stock spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckXfer>
+			<MtDstChuckUnClamp>
+				<m_comment>Pickoff spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtStockPullArray>
+		<MtStockPullArray>
+			<StrategyName>Stock Pull (Lower Stream)</StrategyName>
+			<StrategyComment>Stock Pull, ops are output in lower stream</StrategyComment>
+			<m_tpGroupName>Stock Pull - Lower Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Pickoff spindle - Unclamp and eject part</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckClearance>
+				<m_comment>Pickoff spindle - Move to clearance distance</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckClearance>
+			<MtDstChuckApproach>
+				<m_comment>Pickoff spindle - Move to grip position</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Pickoff spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Stock spindle - Unclamp</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtDstChuckPull>
+				<m_comment>Pickoff spindle - Pull stock</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_computePullDist>1</m_computePullDist>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtDstChuckPull>
+			<MtSrcChuckXfer>
+				<m_comment>Stock spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckXfer>
+			<MtDstChuckUnClamp>
+				<m_comment>Pickoff spindle - Unclamp</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtDstChuckRetract>
+				<m_comment>Pickoff spindle - Retract</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtDstChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtStockPullArray>
+		<MtRLPickoffArray>
+			<StrategyName>Right To Left Pickoff (Upper Stream)</StrategyName>
+			<StrategyComment>Right To Left Pickoff, ops are output in upper stream</StrategyComment>
+			<m_tpGroupName>Right To Left Pickoff - Upper Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Left spindle - Unclamp and eject part</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSrcChuckClearance>
+				<m_comment>Right spindle - Move to clearance distance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtSrcChuckClearance>
+			<MtSrcChuckApproach>
+				<m_comment>Right spindle - Move to grip position</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtSrcChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Left spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Right spindle - Unclamp</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSrcChuckRetract>
+				<m_comment>Right spindle - Retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtSrcChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtRLPickoffArray>
+		<MtRLPickoffArray>
+			<StrategyName>Right To Left Pickoff (Lower Stream)</StrategyName>
+			<StrategyComment>Right To Left Pickoff, ops are output in lower stream</StrategyComment>
+			<m_tpGroupName>Right To Left Pickoff - Lower Stream</m_tpGroupName>
+			<MtTurretParkPrm>
+				<m_comment>Park Upper Turret Above Left Spindle</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>FCDD1639-6C5A-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtTurretParkPrm>
+				<m_comment>Park Lower Turret Under Left Spindle</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>1</m_doToolCall>
+				<m_station>10</m_station>
+				<m_motion_type>1</m_motion_type>
+				<m_uid>45E23E16-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+			<MtDstChuckEject>
+				<m_comment>Left spindle - Unclamp and eject part</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckEject>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSpindleSyncPrm>
+				<m_comment>Sync spindles</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_type>1</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>100</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>1</m_doSpindle>
+				<m_Spindle>1</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSrcChuckClearance>
+				<m_comment>Right spindle - Move to clearance distance</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_clearance>
+					<Metric>25</Metric>
+					<Inch>1</Inch>
+				</m_clearance>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtSrcChuckClearance>
+			<MtSrcChuckApproach>
+				<m_comment>Right spindle - Move to grip position</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>0</IsMotionRapid>
+				<m_feedrate>
+					<Metric>500</Metric>
+					<Inch>20</Inch>
+				</m_feedrate>
+			</MtSrcChuckApproach>
+			<MtDstChuckXfer>
+				<m_comment>Left spindle - Clamp and transfer stock</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtDstChuckXfer>
+			<MtSrcChuckUnClamp>
+				<m_comment>Right spindle - Unclamp</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_dwell>0.5</m_dwell>
+			</MtSrcChuckUnClamp>
+			<MtSpindleSyncPrm>
+				<m_comment>Cancel Spindle Sync</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_type>2</m_type>
+				<m_leftAngle>0</m_leftAngle>
+				<m_rightAngle>0</m_rightAngle>
+				<m_rapid>1</m_rapid>
+				<m_rotaryFeed>0</m_rotaryFeed>
+				<m_rpm>0</m_rpm>
+				<m_rotaryDir>0</m_rotaryDir>
+				<m_doRotary>0</m_doRotary>
+				<m_doSpindle>0</m_doSpindle>
+				<m_Spindle>0</m_Spindle>
+			</MtSpindleSyncPrm>
+			<MtSrcChuckRetract>
+				<m_comment>Right spindle - Retract</m_comment>
+				<m_streamID>1</m_streamID>
+				<IsMotionRapid>1</IsMotionRapid>
+				<m_feedrate>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_feedrate>
+			</MtSrcChuckRetract>
+			<MtTurretParkPrm>
+				<m_comment>Send Lower Turret Home</m_comment>
+				<m_streamID>1</m_streamID>
+				<m_doToolCall>0</m_doToolCall>
+				<m_station>0</m_station>
+				<m_motion_type>0</m_motion_type>
+				<m_uid>45E23E17-6C5C-11E1-AF7B-00218641BAB7</m_uid>
+			</MtTurretParkPrm>
+		</MtRLPickoffArray>
+	</MtMiscOpList>
+</MtMiscOpMgr>

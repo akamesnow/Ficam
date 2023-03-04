@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<machine_definition>
+    <machine_data name="5AxHeadHead_2Spindles" version="1.7" units="metric" />
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                    <axis id="B" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                        <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="tool" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="tablereflection.bmp" objtype="tool" cuttr="1.00000000" cuttg="0.50196081" cuttb="0.00000000" cutta="0.00000000" cuttrefl="0.10000000" noncuttr="0.75294119" noncuttg="0.75294119" noncuttb="0.75294119" noncutta="0.00000000" noncuttrefl="0.10000000" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" arbora="0.00000000" arborrefl="0.10000000" holderr="0.00000000" holderg="0.50196081" holderb="1.00000000" holdera="0.00000000" holderrefl="0.10000000" />
+                        </transform>
+                    </axis>
+                </axis>
+            </axis>
+        </axis>
+    </axis>
+     <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+        <axis id="LSp" type="rotation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+            <axis id="LChuck" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <geometry name="fixture" geo="fixture.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+            </axis>
+            <axis id="LStock" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <transform id="workpiece_adapter_shell" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <transform id="workpiece_adapter" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000"/>
+            <geometry name="toolpath" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+                </transform>
+            </axis>
+        </axis>
+    </transform>
+    <transform id="workpiece_transform2" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+            <axis id="RChuck" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <geometry name="fixture2" geo="fixture2.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+            </axis>
+            <axis id="TLSK" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <geometry name="tailstock" geo="fixture2.stl" clrr="1.0000" clrg="0.000000" clrb="1.0000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+            </axis>
+            <axis id="STDR" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <geometry name="steadyrest" geo="fixture2.stl" clrr="0.5000" clrg="1.000000" clrb="0.850000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="fixture" />
+            </axis>
+            <axis id="RStock" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                <transform id="workpiece_adapter_shell2" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <transform id="workpiece_adapter2" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000"/>
+            <geometry name="toolpath2" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="toolpath" />
+                </transform>
+            </axis>
+    </transform>
+    <transform id="head_adapter_Wire_EDM_Upper" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000"/>
+    <transform id="head_adapter_Wire_EDM_Lower" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000"/>
+
+    <collcheck id="cc1" group1="tool" dynamic1="true" dynamic2="false" active="true" group2="fixture,fixture2" />
+    <collcheck id="cc11" name="cc11" group1="head_adapter_Wire_EDM_Upper,head_adapter_Wire_EDM_Lower" dynamic1="true" dynamic2="true" active="true" group2="workpiece_adapter" />
+    <collcheck id="cc2" name="cc2" group1="workpiece_adapter,workpiece_adapter2" dynamic1="true" dynamic2="true" active="true" group2="tool" />
+
+    <magazine>
+        <head name="workpiece_stock">
+            <geometry name="initialstock" geo="stock.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+            <geometry name="LeftStock" geo="stock.stl" clrr="0.00000000" clrg="0.60000002" clrb="0.20000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="workpiece" geo="werkstueck.stl" clrr="0.75294107" clrg="0.75294107" clrb="0.75294107" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="tablereflection.bmp" objtype="workpiece" />
+        </head>
+        <head name="workpiece_stock2">
+            <geometry name="initialstock2" geo="stock2.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+            <geometry name="RightStock" geo="stock2.stl" clrr="0.00000000" clrg="0.60000002" clrb="0.20000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="workpiece2" geo="werkstueck2.stl" clrr="0.75294107" clrg="0.75294107" clrb="0.75294107" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="tablereflection.bmp" objtype="workpiece" />
+        </head>
+        <head name="workpiece_stock_ini">
+            <geometry name="initialstock_ini" geo="stock.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.8" reflectivity="0.0" reflectivityBitmapFileName="" objtype="initialstock" />
+            <geometry name="stock_ini" geo="stock.stl" clrr="0.00000000" clrg="0.60000002" clrb="0.20000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="workpiece_ini" geo="werkstueck.stl" clrr="0.75294107" clrg="0.75294107" clrb="0.75294107" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="tablereflection.bmp" objtype="workpiece" />
+        </head>
+	<head name="WireEDM_Upper_Head">
+	    <axis id="U" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+        	<axis id="V" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+	            <axis id="Z__" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+        	      <axis id="C__" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+              	         <axis id="B__" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                             <axis id="LSp__" type="rotation" order="third" pos="table" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+                        	<transform id="holder_transform3" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+	                            <geometry name="tool3" geo="tool.stl" alpha="0.0" reflectivity="0.1" reflectivityBitmapFileName="tablereflection.bmp" objtype="tool" cuttr="1.00000000" cuttg="0.50196081" cuttb="0.00000000" cutta="0.00000000" cuttrefl="0.10000000" noncuttr="0.75294119" noncuttg="0.75294119" noncuttb="0.75294119" noncutta="0.00000000" noncuttrefl="0.10000000" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" arbora="0.00000000" arborrefl="0.10000000" holderr="0.00000000" holderg="0.50196081" holderb="1.00000000" holdera="0.00000000" holderrefl="0.10000000" />
+        	                </transform>
+                	        <geometry name="wireedmupperhead" geo="wireedmhead.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="wireedmhead" associatedheadname="wireedmlowerhead" />
+	                    </axis>
+	                </axis>
+        	    </axis>
+	        </axis>
+	    </axis>
+	</head>
+	<head name="WireEDM_Lower_Head">
+	    <axis id="X_" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+	       	 <axis id="Y_" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+        	    	<axis id="Z_" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000">
+                	   <axis id="C_" type="rotation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+               	     	    <axis id="B_" type="rotation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.000000" maxvalue="100000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+                                  <axis id="LSp_" type="rotation" order="third" pos="table" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+                        	<geometry name="wireedmlowerhead" geo="wireedmhead.stl" clrr="0.43137255" clrg="0.65882355" clrb="1.00000000" alpha="0.0" reflectivity="0.0" reflectivityBitmapFileName="" objtype="geometry" />
+                	    </axis>
+	                </axis>
+        	    </axis>
+	        </axis>
+	    </axis>
+	</head>
+    </magazine>
+    <post_definition>
+        <post_settings id="">
+            <post_data detection_mode="manual_mode" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X" type="translation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="C" type="rotation" order="first" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <axis id="B" type="rotation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <axis id="LSp" type="rotation" order="third" pos="table" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <use tool_name="tool" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="LSp_rot">
+            <post_data detection_mode="manual_mode" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" tool_change_time="5.00" />
+            <axis id="tool" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X" type="translation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="Y" type="translation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="Z" type="translation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" />
+            <axis id="LSp" type="rotation" order="first" pos="table" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <axis id="B" type="rotation" order="second" pos="head" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-100000.00000000" maxvalue="100000.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <axis id="C" type="rotation" order="third" pos="head" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000" />
+            <use tool_name="tool" workpiece_name="workpiece" />
+        </post_settings>
+    </post_definition>
+</machine_definition>

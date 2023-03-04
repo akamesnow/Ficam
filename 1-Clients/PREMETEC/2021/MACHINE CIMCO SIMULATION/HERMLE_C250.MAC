@@ -1,0 +1,639 @@
+
+[INIFILEVERSION]
+VERSION                      = 200
+
+
+[GENERAL]
+DESCRIPTION                  = HERMLE_C250
+BASICTYPE                    = 1
+COLINDICATOR                 = 0
+HIDEASSIST                   = Yes
+LOADORDER                    = 3
+PRINTCOL                     = 2
+LANGUAGE	= fr-FR
+VERSION		= 80818
+TYPENAME	= 27B6EE42
+LASTLOADPATH	= D:\Users\Mastercam\Documents\My Mastercam 2021\Mastercam\MILL\NC
+LASTSAVEPATH	= C:\CIMCO\CIMCOEditMachineSim8\Samples
+LASTLOADEXT	= H
+LASTSAVEEXT	= 
+LOADINSERTWS	= No
+
+
+[RENUM]
+AUTOINDENT	= Yes
+UNDOLARGE	= No
+INSERTSPACE	= 1
+STARTNEXT	= No
+RENUMEMPTY	= No
+SHOWQUICK	= No
+FORMAT		= 0
+INTERVAL	= 0
+START		= 0
+FROM		= 0
+TO		= 0
+RESTART		= 0
+RENUMCANNED	= No
+PRECEEDESTR	=
+STARTTRIG	=
+SKIP		= Q
+SKIPCONTAIN	=
+
+
+[FILECOMPARE]
+SINGLESTEP	= Yes
+IGNORECASE	= Yes
+IGNOREBLOCK	= Yes
+IGNORETNUMERIC	= Yes
+IGNOREWHITESPACE= Yes
+MARKCHANGEONLY	= Yes
+TABSWITCH	= Yes
+SMARTMARK	= Yes
+AUTONEXT	= Yes
+SHOWALL		= Yes
+IGNORECOMMENTS	= Yes
+PRNDIFFONLY	= Yes
+
+
+[LOADSAVE]
+AUTOSAVETIME	= 0
+DIFFLOADSAVE	= No
+REGDEFAULTEXT	= Yes
+REGOTHEREXT	= Yes
+LOADPATH	= 
+SAVEPATH	= 
+SAVEEXT		= H
+LOADEXT		= HH,HNC,I,HH,HNC,I
+LINEFEEDTYPE	= 0
+UNIMSG		= Yes
+UNIPROMPT	= No
+UNINEVER	= No
+UNIALWAYS	= No
+
+
+[MACHINETYPE]
+BLOCKSKIP	= /
+COMMENTSTART	= ;
+COMMENTEND	= 
+DECIMAL		= .
+FEED		= F
+SPEED		= S
+TOOLCHANGE	= TOOL CALL
+TOOLLOAD	= 
+PATHUNIT	= 0
+FEEDUNIT	= 0
+BLOCKSKIPAFTER	= No
+RAPIDRATE	= 1000
+DECIMALGRAYKEY	= Yes
+PATHUNITS	= 0
+FEEDUNITS	= 0
+TURNPATHUNITS	= 0
+TURNFEEDUNITS	= 0
+DECIMALCOUNT	= 3
+TOOLCHANGETIME	= 10
+MLCENABLED	= No
+MLCSTART	= /*
+MLCEND		= */
+IGNORETOOLREG	= Yes
+FILTERDLLINDEX	= 0
+
+
+[BACKPLOT]
+TURNPRG		= No
+DIAPRG		= Yes
+DIAARC		= Yes
+AUTOX		= Yes
+SHOWCYCLES	= Yes
+NULLARCS	= Yes
+PRINTQUALITY	= 2
+TOOLTYPE	= 0
+PRINTLOWCOLOR	= Yes
+PRINTNOWCOLOR	= No
+PLOTMODE	= 2
+DRAWDIMMED	= Yes
+SHOWTOOL	= Yes
+SHOWRAPIDMOVES	= Yes
+SHOWDOTS	= No
+SHOWVECTORS	= No
+HIGHLIGHTARCS	= Yes
+NOPERSPECTIVE	= No
+HIDEPLOTCTRL	= No
+HIDECOORD	= No
+TOOLDIA		=
+
+
+[CNCCALC]
+ISTURN		= No
+DECIMALS	= 3
+TURNNEGATIVEX	= No
+TURNDIAMETERPRG	= Yes
+TURNDIAMETERARC	= Yes
+ARCTYPE		= 0
+GRIDON		= Yes
+AXISON		= Yes
+MODALXY		= Yes
+MODALZ		= Yes
+ALWAYSSIGN	= No
+SHOWSUBGRID	= Yes
+GRIDSIZE	= 10.000000
+TRAILZEROS	= 2
+METRICIMPERIAL	= 0
+MACROHEAD	= 
+MACROTAIL	= 
+DRAWDIR		= 
+ROTARYLINTOL = 0.010000
+DEFAULTPOSTPROCESSORFILENAME = C:\CIMCO\CIMCOEditMachineSim8\Posts\Mill\heidenhain.js
+TURNNEGATIVEZ	= No
+USEG0X		= No
+FMAX9999	= No
+MACHINETYPE	= 1
+MAXARCANGLE	= 180
+ROTARYAXIS	= C
+SPLINESUBSTITUTIONTOLERANCE= 0.001000
+AXISSUBSTITUTIONNAME= B
+AXISSUBSTITUTIONTOLERANCE= 0.001000
+
+
+[INSPECT]
+RPOSTID                      = http://www.cimco-software.com/namespace/nc/format/reverse_post/Heidenhain_iTNC530_60642x-04_SP8
+TURNPRG                      = No
+DIAPRG                       = No
+DIAARC                       = No
+AUTOX                        = Yes
+LATHEFLIP                    = 0
+SHOWCYCLES                   = Yes
+NULLARCS                     = Yes
+IS5AXIS                      = Yes
+USEMILI                      = No
+NORADIUSCOMP                 = No
+USESHORTANGLE                = No
+IGNORETOOLLOAD               = No
+IGNORETOOL0                  = Yes
+USEUVW                       = No
+SPEEDQUALITY                 = 0
+POINTSIZE                    = 1
+PATHWIDTH                    = 1
+BITMAPQUALITY                = 1
+MAPLETTERS                   = >
+STATEWCSX                    = 0.000000
+STATEWCSY                    = -480.000000
+STATEWCSZ                    = 0.000000
+STATEWCSX2                   = 0.000000
+STATEWCSY2                   = 0.000000
+STATEWCSZ2                   = 0.000000
+STATEWCSX3                   = 0.000000
+STATEWCSY3                   = 0.000000
+STATEWCSZ3                   = 0.000000
+STATEWCSX4                   = 0.000000
+STATEWCSY4                   = 0.000000
+STATEWCSZ4                   = 0.000000
+STATEWCSX5                   = 0.000000
+STATEWCSY5                   = 0.000000
+STATEWCSZ5                   = 0.000000
+STATEWCSX6                   = 0.000000
+STATEWCSY6                   = 0.000000
+STATEWCSZ6                   = 0.000000
+STATEWCSX7                   = 0.000000
+STATEWCSY7                   = 0.000000
+STATEWCSZ7                   = 0.000000
+STATETOOLLEN                 = 0.000000
+STATETOOLMODE                = 0
+STATESIMMODE                 = 2052
+STATESIMFEED                 = 500
+STATESYSX                    = 0.000000
+STATESYSY                    = -490.000000
+STATESYSZ                    = -150.000000
+STATESYSUSE                  = 1
+TOOLCOUNT                    = 0
+IGNOREBLOCKSKIP              = No
+ONLYUSEDECIMALS              = No
+ARCTYPE		= 0
+SYNTAXHIGHLIGHT	= No
+CFG5AXIS	= e9fa63ea-1b6a-4178-aa16-c126a5b31830
+IGNORECUTTERONFEED= No
+COLLISIONTOLERANCE= 0.100000
+
+
+[MACROINF]
+COUNT                        = 20
+CURRENT                      = 0
+DISABLETRANSLATE             = Yes
+
+
+[NCBASE]
+GROUPS                       = 
+STORE                        = No
+ID                           = 0
+
+
+[TOOLLIST]
+TEMPLATE                     = C:\CIMCO\CIMCOEditMachineSim8\Data\ToolList.txt
+PREFIX                       = T
+TRIGGER1                     = 
+TRIGGER2                     = 
+COMMENTFILTER                = 
+SORT                         = Yes
+IGNORE0                      = Yes
+IGNOREDUP                    = Yes
+TWOLINE                      = No
+NEXTLINE                     = No
+MULTILINEREGEX               = No
+USENEWTOOLLIST               = No
+
+
+[MULTICHANNEL]
+ENABLE                       = No
+MODE                         = 0
+SYNCUSINGCHNO                = No
+AUTOSTART                    = No
+ORDER                        = 
+PRGTRIG                      = 
+SYNCTRIG                     = 
+SYNCTRIGID                   = 
+ENDTRIG                      = 
+TESTVALUE	= O1000 P100
+
+
+[MACROGRP]
+COUNT                        = 2
+GRP000                       = Standard
+GRP001                       = Other
+
+
+
+## SCANMAIN ###################################################################
+
+[SCANMAIN]
+SCANMODE	= 0
+TOOLSREAD	= Yes
+TOOLSWRITE	= No
+TOOLSWRITEPLACEMENT= 0
+TOOLSWRITEREGEX	= 
+STOCKREAD	= Yes
+STOCKWRITE	= No
+NAVIGATIONREAD	= No
+HOLDERREAD	= No
+HOLDERWRITE	= No
+WORKOFFSETREAD	= No
+WORKOFFSETWRITE	= No
+GEOMETRIESREAD	= No
+GEOMETRIESWRITE	= No
+
+## RENUM DEFAULT ##############################################################
+
+[RENUM DEFAULT]
+STARTNEXT	= No
+RENUMEMPTY	= No
+RENUMEXISTONLY	= No
+SHOWQUICK	= No
+AUTO		= Yes
+AUTOINDENT	= Yes
+UNDOLARGE	= No
+INSERTSPACE	= 1
+STARTFROM	= 1
+SKIPOVER	= 0
+FORMAT		= 0
+INTERVAL	= 0
+START		= 0
+FROM		= 0
+TO		= 0
+RESTART		= 0
+DISABLENORMAL	= No
+PRECEEDESTR	= N
+SKIP		= 
+SKIPCONTAIN	= 
+STARTTRIG	= 
+
+## NAVIGATIONSCAN #############################################################
+
+[NAVIGATIONSCAN]
+TEMPLATEPATH	= 
+
+## TOOLSCAN ###################################################################
+
+[TOOLSCAN]
+TOOLLINETRIGGER	= TOOL
+
+## MACRO000 ###################################################################
+
+[MACRO000]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M0 Program STOP, Spindle STOP
+PARAMCOUNT	= 0
+TEXT		= ÿ# M0
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO001 ###################################################################
+
+[MACRO001]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M1 Optional program STOP
+PARAMCOUNT	= 0
+TEXT		= ÿ# M1
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO002 ###################################################################
+
+[MACRO002]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M2 Program STOP
+PARAMCOUNT	= 0
+TEXT		= ÿ# M2
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO003 ###################################################################
+
+[MACRO003]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M3 Spindle ON clockwise
+PARAMCOUNT	= 0
+TEXT		= ÿ# M3
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO004 ###################################################################
+
+[MACRO004]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M4 Spindle ON counterclockwise
+PARAMCOUNT	= 0
+TEXT		= ÿ# M4
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO005 ###################################################################
+
+[MACRO005]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M5 Spindle STOP
+PARAMCOUNT	= 0
+TEXT		= ÿ# M5
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO006 ###################################################################
+
+[MACRO006]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M8 Coolant On
+PARAMCOUNT	= 0
+TEXT		= ÿ# M8
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO007 ###################################################################
+
+[MACRO007]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M9 Coolant Off
+PARAMCOUNT	= 0
+TEXT		= ÿ# M9
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO008 ###################################################################
+
+[MACRO008]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M13 Spindle ON clockwise/Coolant ON
+PARAMCOUNT	= 0
+TEXT		= ÿ# M13
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO009 ###################################################################
+
+[MACRO009]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M14 Spindle ON counterclockwise/Coolant ON
+PARAMCOUNT	= 0
+TEXT		= ÿ# M14
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO010 ###################################################################
+
+[MACRO010]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M30 End of program and reset
+PARAMCOUNT	= 0
+TEXT		= ÿ# M30
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO011 ###################################################################
+
+[MACRO011]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M91 Machine datum coordinates
+PARAMCOUNT	= 0
+TEXT		= ÿ# M91
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO012 ###################################################################
+
+[MACRO012]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M92 Additional machine datum coordinates
+PARAMCOUNT	= 0
+TEXT		= ÿ# M92
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO013 ###################################################################
+
+[MACRO013]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M94 Reduce display value of rotary axes
+PARAMCOUNT	= 0
+TEXT		= ÿ# M94
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO014 ###################################################################
+
+[MACRO014]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M99 Blockwise cycle call
+PARAMCOUNT	= 0
+TEXT		= ÿ# M99
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO015 ###################################################################
+
+[MACRO015]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M126 Shortest-path traverse of rotary axes
+PARAMCOUNT	= 0
+TEXT		= ÿ# M126
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO016 ###################################################################
+
+[MACRO016]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M127 Reset M126
+PARAMCOUNT	= 0
+TEXT		= ÿ# M127
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO017 ###################################################################
+
+[MACRO017]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M128 Tool center point management
+PARAMCOUNT	= 0
+TEXT		= ÿ# M128
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO018 ###################################################################
+
+[MACRO018]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M129 Reset M128
+PARAMCOUNT	= 0
+TEXT		= ÿ# M129
+PICTURE		= 
+ATTACHMENT	= 
+
+## MACRO019 ###################################################################
+
+[MACRO019]
+GROUPID		= 0
+HIDEFORMULAS	= Yes
+NAME		= M140 Retraction from the contour in the tool-axis direction
+PARAMCOUNT	= 0
+TEXT		= ÿ# M140
+PICTURE		= 
+ATTACHMENT	= 
+
+## FAVORITE ###################################################################
+
+[FAVORITE]
+COUNT		= 0
+
+## GLOBALCOLORLIST ############################################################
+
+[GLOBALCOLORLIST]
+USE		= Yes
+INBLOCK		= Yes
+USEMODALCOLORS	= Yes
+COUNT		= 0
+FIXCOLOR0	= 0
+FIXCOLOR1	= 16777215
+FIXCOLOR2	= 65535
+FIXCOLOR3	= 12582912
+FIXCOLOR4	= 8388608
+FIXCOLOR5	= 192
+FIXCOLOR6	= 49152
+FIXCOLOR7	= 12582912
+FIXCOLOR8	= 12582912
+FIXCOLOR9	= 14737632
+FIXCOLOR10	= 16711935
+FIXCOLOR11	= 255
+FIXCOLOR12	= 13421772
+FIXCOLOR13	= 14277081
+FIXCOLOR14	= 16777215
+FIXCOLOR15	= 8947967
+USRCOLOR0	= 0:0:
+USRCOLOR1	= 0:0:
+USRCOLOR2	= 0:0:
+USRCOLOR3	= 0:0:
+USRCOLOR4	= 0:0:
+USRCOLOR5	= 0:0:
+USRCOLOR6	= 0:0:
+USRCOLOR7	= 0:0:
+USRCOLOR8	= 0:0:
+USRCOLOR9	= 0:0:
+USRCOLOR10	= 0:0:
+USRCOLOR11	= 0:0:
+USRCOLOR12	= 0:0:
+USRCOLOR13	= 0:0:
+USRCOLOR14	= 0:0:
+USRCOLOR15	= 0:0:
+
+## TOOLSCAN_ITEMTYPES #########################################################
+
+[TOOLSCAN_ITEMTYPES]
+BALLMILL	= END MILL SPHERE
+BULLNOSEMILL	= END MILL BULL
+CENTERDRILL	= CENTER DRILL
+CHAMFERMILL	= CHAMFER MILL
+COMMONDRILL	= DRILL
+COUNTERBORE	= COUNTER BORE
+COUNTERSINK	= COUNTER SINK
+DOVEMILL	= DOVE MILL
+FACEMILL	= FACE MILL
+FLATMILL	= END MILL FLAT
+LOLLIPOPMILL	= LOLLIPOP MILL
+RADIUSMILL	= RAD MILL
+REAMER		= REAMER
+SLOTMILL	= SLOT MILL
+SPOTDRILL	= SPOT DRILL
+TAPERMILL	= TAPER MILL
+TAPLEFTHAND	= LH TAP
+TAPRIGHTHAND	= RH TAP
+THREADMILL	= THREAD MILL
+
+## TOOLSCAN_PARAMETERS ########################################################
+
+[TOOLSCAN_PARAMETERS]
+BELLDIAMETER	= BD
+BELLTAPERANGLE	= BA
+BODYLENGTH	= BL
+CENTERDRILLTYPE	= CDT
+CENTERDRILLTYPE.BELL= CDB
+CENTERDRILLTYPE.PLAIN= CDP
+CHAMFERDISTANCE	= CD
+CORNERRADIUS	= CR
+CORNERTYPE	= CTYPE
+CORNERTYPE.CHAMFER= CTYPEC
+CORNERTYPE.ROUND= CTYPER
+DIAMETER	= D
+FLUTELENGTH	= FL
+ITEMUNITSYSTEM	= US
+ITEMUNITSYSTEM.IMPERIAL= UI
+ITEMUNITSYSTEM.METRIC= UM
+NUMBEROFTHREADTEETH= NTT
+PILOTDIAMETER	= PD
+PILOTLENGTH	= PL
+SHAFTDIAMETER	= AD
+SHOULDERDIAMETER= SD
+SHOULDERLENGTH	= SL
+TAPERANGLE	= A
+TAPERLENGTH	= TL
+THREADPITCH	= TP
+TIPANGLE	= AT
+TIPDIAMETER	= TD
+TOPCHAMFERDISTANCE= TCD
+TOPCORNERRADIUS	= CRT
+TOPCORNERTYPE	= TCTYPE
+TOPCORNERTYPE.CHAMFER= TCTYPEC
+TOPCORNERTYPE.ROUND= TCTYPER

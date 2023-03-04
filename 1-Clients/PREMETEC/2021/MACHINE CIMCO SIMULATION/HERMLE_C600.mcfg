@@ -1,0 +1,211 @@
+{
+   "MachineDefinition" : {
+      "Collision" : [
+         {
+            "GroupOne" : [ "workpiece" ],
+            "GroupTwo" : [ "tool" ],
+            "Name" : "Tool | Workpiece"
+         },
+         {
+            "GroupOne" : [ "fixture" ],
+            "GroupTwo" : [ "tool" ],
+            "Name" : "Tool | Fixture"
+         },
+         {
+            "GroupOne" : [ "A" ],
+            "GroupTwo" : [ "tool" ],
+            "Name" : "Tool | A"
+         },
+         {
+            "GroupOne" : [ "A" ],
+            "GroupTwo" : [ "Y" ],
+            "Name" : "A | Y"
+         },
+         {
+            "GroupOne" : [ "A" ],
+            "GroupTwo" : [ "X" ],
+            "Name" : "A | X"
+         },
+         {
+            "GroupOne" : [ "A" ],
+            "GroupTwo" : [ "Z" ],
+            "Name" : "A | Z"
+         },
+         {
+            "GroupOne" : [ "C" ],
+            "GroupTwo" : [ "tool" ],
+            "Name" : "Tool | C"
+         },
+         {
+            "GroupOne" : [ "C" ],
+            "GroupTwo" : [ "Y" ],
+            "Name" : "C | Y"
+         },
+         {
+            "GroupOne" : [ "C" ],
+            "GroupTwo" : [ "X" ],
+            "Name" : "C | X"
+         },
+         {
+            "GroupOne" : [ "C" ],
+            "GroupTwo" : [ "Z" ],
+            "Name" : "C | Z"
+         },
+         {
+            "GroupOne" : [ "workpiece" ],
+            "GroupTwo" : [ "Y" ],
+            "Name" : "Workpiece | Y"
+         },
+         {
+            "GroupOne" : [ "fixture" ],
+            "GroupTwo" : [ "Y" ],
+            "Name" : "Fixture | Y"
+         },
+         {
+            "GroupOne" : [ "workpiece" ],
+            "GroupTwo" : [ "X" ],
+            "Name" : "Workpiece | X"
+         },
+         {
+            "GroupOne" : [ "fixture" ],
+            "GroupTwo" : [ "X" ],
+            "Name" : "Fixture | X"
+         },
+         {
+            "GroupOne" : [ "workpiece" ],
+            "GroupTwo" : [ "Z" ],
+            "Name" : "Workpiece | Z"
+         },
+         {
+            "GroupOne" : [ "fixture" ],
+            "GroupTwo" : [ "Z" ],
+            "Name" : "Fixture | Z"
+         }
+      ],
+      "Header" : {
+         "DisplayName" : "HERMLE_C600",
+         "GUID" : "d2da42e8-348c-4eb3-bfb1-6d1cb6a7075b",
+         "Unit" : "Metric",
+         "Version" : 2
+      },
+      "MachinePartGroups" : [
+         {
+            "GUID" : "a5377479-f6a9-4c04-82eb-d6b2c4d82756",
+            "Type" : "Base"
+         },
+         {
+            "Axis" : {
+               "Axis" : {
+                  "Axis" : {
+                     "GUID" : "a70d96aa-e485-4087-9699-7b29873a92df",
+                     "Limits" : {
+                        "Max" : 500,
+                        "Min" : 0
+                     },
+                     "MaxSpeed" : 15000,
+                     "Name" : "Z",
+                     "Type" : "Translation",
+                     "Vector" : {
+                        "X" : 0,
+                        "Y" : 0,
+                        "Z" : 1
+                     }
+                  },
+                  "GUID" : "2340476c-2e8d-4775-a4da-f977a6c2e0d7",
+                  "Limits" : {
+                     "Max" : 0,
+                     "Min" : 0
+                  },
+                  "MaxSpeed" : 15000,
+                  "Name" : "X",
+                  "Type" : "Translation",
+                  "Vector" : {
+                     "X" : 1,
+                     "Y" : 0,
+                     "Z" : 0
+                  }
+               },
+               "GUID" : "43e02c76-6a19-43f5-9824-431984c22d7c",
+               "Limits" : {
+                  "Max" : 0,
+                  "Min" : 0
+               },
+               "MaxSpeed" : 15000,
+               "Name" : "Y",
+               "Type" : "Translation",
+               "Vector" : {
+                  "X" : 0,
+                  "Y" : 1,
+                  "Z" : 0
+               }
+            },
+            "GUID" : "b54c8e81-e4de-427b-95d3-aa6a9f1cc7f2",
+            "Type" : "Head"
+         },
+         {
+            "Axis" : {
+               "Axis" : {
+                  "Center" : {
+                     "X" : 0,
+                     "Y" : 0,
+                     "Z" : 0
+                  },
+                  "GUID" : "ba1614a8-9a83-42cf-8bf2-59db4603cedf",
+                  "Limits" : {
+                     "Max" : 0,
+                     "Min" : 0
+                  },
+                  "MaxSpeed" : 15000,
+                  "Name" : "C",
+                  "Type" : "Rotation",
+                  "Vector" : {
+                     "X" : 0,
+                     "Y" : 0,
+                     "Z" : -1
+                  }
+               },
+               "Center" : {
+                  "X" : 0,
+                  "Y" : 0,
+                  "Z" : 0
+               },
+               "GUID" : "a3ffe8ee-9502-4b9b-bafa-807d198f52c9",
+               "Limits" : {
+                  "Max" : 0,
+                  "Min" : 0
+               },
+               "MaxSpeed" : 1000,
+               "Name" : "A",
+               "Type" : "Rotation",
+               "Vector" : {
+                  "X" : -1,
+                  "Y" : 0,
+                  "Z" : 0
+               }
+            },
+            "GUID" : "8c612b1a-3345-46da-a711-f63fd69cb7c4",
+            "Type" : "Table"
+         }
+      ],
+      "ToolchangePositions" : [
+         {
+            "Name" : "ToolchangePos1",
+            "Position" : {
+               "A" : 0,
+               "C" : 0,
+               "X" : 0,
+               "Y" : 0,
+               "Z" : 0
+            },
+            "Sequence" : {
+               "A" : 0,
+               "C" : 0,
+               "X" : 0,
+               "Y" : 2,
+               "Z" : 1
+            }
+         }
+      ]
+   }
+}
+

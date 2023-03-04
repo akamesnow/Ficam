@@ -1,0 +1,3616 @@
+[POST_VERSION] #DO NOT MOVE OR ALTER THIS LINE# V24.00 P2 E1 W24.00 T1648225311 M24.00 I0 O0
+# Post Name           : GENERIC FANUC 2X LATHE
+# Product             : LATHE
+# Machine Name        : GENERIC FANUC
+# Control Name        : GENERIC FANUC
+# Description         : GENERIC FANUC 2 AXIS LATHE POST WITH CANNED CYCLES
+# Mill/Turn           : NO
+# 4-axis/Axis subs.   : NO
+# 5-axis              : NO
+# Subprograms         : YES
+# Canned Cycles       : YES
+# Executable          : MP 18.0
+#
+# WARNING: THIS POST IS GENERIC AND IS INTENDED FOR MODIFICATION TO
+# THE MACHINE TOOL REQUIREMENTS AND PERSONAL PREFERENCE.
+#
+# Associated File List$
+#
+# GENERIC FANUC 2X LATHE.control-9
+#
+# Associated File List$
+#
+# --------------------------------------------------------------------------
+# Revision log:
+# --------------------------------------------------------------------------
+# CNC 07/07/05  -  Initial post update for Mastercam X
+# CNC 06/26/06  -  Initial post update for Mastercam X2
+# CNC 02/26/07  -  Modified pwcs
+# CNC 04/08/08  -  X3 release - Removed check for write_ops
+# CNC 09/03/08  -  Removed breakarcs
+# CNC 01/26/09  -  Initial post update for Mastercam X4
+# CNC 07/14/09  -  Added Flag for Misc Operation when its the first operation to Post
+# CNC 12/07/09  -  Added fix for P & Q  when using Sequence number in lathe canned cycles
+# CNC 02/03/10  -  Initial post update for Mastercam X5
+# CNC 08/17/10  -  Added fix for X coolant output
+#               -  Removed CD_VAR variables
+# CNC 08/18/10  -  Improved Cutter Comp for Lathe canned turning (See New Feature for X5)
+#               -  Modified Misc Operation flag name
+# CNC 02/17/11  -  Added larctypexz$ initialization to correct arc output when CD is set to R or signed R
+# CNC 05/20/11  -  Initial post update for Mastercam X6
+# CNC 03/06/12  -  Added support for CD option 'Subprograms before / after main program'.  This includes modifications
+#                    to send lathe canned cycles to the new lcc file instead of the ext file that was previously used
+# CNC 07/24/12  -  X coolant 'With' - separated coolant 'with' logic from cantext 'with' logic to give
+#                    more control over output location of X coolant 'With',  See pcan1 and pcan1_cool
+# CNC 08/21/12  -  Added fix for pattern repeat output (G73)
+# CNC 10/16/12  -  Initial post update for Mastercam X7
+# CNC 06/03/14  -  Lathe thread cycle revisions - pfr_l, pthread0$, pg76$, psetup.  Revisions affect feed address,
+#                  R value on tapered thread, end point of tapered thread, format of Q&R on second line of G76
+# CNC 02/06/14  -  Initial post update for Mastercam X8
+# CNC 12/23/14  -  Initial post update for Mastercam X9
+#
+# --------------------------------------------------------------------------
+# Features:
+# --------------------------------------------------------------------------
+#######          TURN FUNCTIONS SUPPORTED BY THIS POST          #######
+#
+# This post supports Generic Fanuc code output for lathes.
+# It is designed to support the features of Mastercam X.
+#
+## NEW FEATURES FOR X6
+# - Sub-program support
+#     Choose the location of subprogram output using the Control Definition options
+#     'Subprograms after main program' or 'Subprograms before main program'
+#
+## NEW FEATURES FOR X5
+# - Improved algorithm for Lathe canned turning. This lets you output the Cutter Comp code
+#    for the Lead in/out move either outside or inside the canned macro. This lets you choose
+#    which method to use based on the specific machine requirements (see slcc_options below).
+#
+## NEW FEATURES FOR X
+# - Machine definition, control definition and toolpath group parameter read sections added.
+# - Variable initialization with SET_BY_MD or SET_BY_CD are overwritten in this post by parameter or
+#     variable settings from MD or CD.
+# - Enhanced tool information - Added switch for tool comments (see tool_info)
+# - Supports X comments including machine name, group name and group comment output (see pcomment2)
+# - Additional date, time and data path output options (see pheader)
+# - Support for 10 additional canned text options for X
+# - Decimal support for sequence number output (set "Increment sequence number" in CD to a decimal value
+#     for output.  I.E. "Increment sequence number" = .5, "Start sequence number" = 10 : N10, N10.5, N11, N11.5, etc...)
+# - Switch for output of M00 or M01 at tool change (3 position switch, off, M00, M01 - see prog_stop)
+# - Support for seperate XY, XZ and YZ plane/arc variables (see Arc page in CD)
+# - Support for X style coolant.  Allows up to 10 different coolants to be turned on/off before, with, or after like
+#     canned text.  Coolant output is handled by "coolant" variable and string selector for V9 style coolant,
+#     "coolantx" variable and string selector for X style coolant.
+#
+# Following Misc. Integers are used:
+#
+# mi1 - Work coordinate system: (home_type)
+#       -1 = Reference return / Tool offset positioning.
+#       0 = G50 with the X and Z home positions.
+#       1 = X and Z home positions.
+#       2 = WCS of G54, G55.... based on Mastercam settings.
+#
+# mi2 - Absolute or Incremental positioning at top level
+#       0 = absolute
+#       1 = incremental
+#
+# mi3 - Select G28 or G30 reference point return:
+#       0 = G28, 1 = G30
+#
+#Canned text:
+#  Entering cantext within Mastercam allows the following functions to
+#  enable/disable.
+#  cantext value:
+#  1 = Program Stop =  output the "M00" stop code
+#  2 = Optional Stop = output the "M01" optional stop code
+#  3 = Block Delete on = turn on block delete codes in NC lines
+#  4 = Block Delete off = turn off block delete codes in NC lines
+#  5 = Return Tailstock =  output the code to retract the tail stock
+#  6 = Advance Tailstock =  output the code to advance the tail stock
+#  7 = Return Chute =  output the code to retract the chute
+#  8 = Advance Chute =  output the code to advance the chute
+#  9 = Exact Stop on = turn on the exact stop code in the NC line
+#  10 = Exact Stop off = turn off the exact stop code in the NC line
+#  11 to 99 output the value selected
+#
+#TURN TOOLPATHS:
+#Lathe canned cycles:
+# Supports lathe canned turning cycles through Mastercam.  This post
+# is configured to process them.
+#
+#
+#Additional Notes:
+# 1) G54 calls are generated where the work offset entry of 0 = G54,
+#    1 = G55, etc.
+# 2) Metric is applied from the NCI met_tool variable.
+# 3) The variable 'absinc' is now pre-defined, set mi2 (Misc. Integer) for
+#    the 'top level' absolute/incremental program output.  Subprograms are
+#    updated through the Mastercam dialog settings for sub-programs.
+# 4) Lathe disables coordinate mirror and rotate subprograms.
+# 5) When creating tools the diameter/radius should end as even numbers
+#    relative to the machine precision. EX. Enter 1.0002 dia. and not
+#    1.0001 dia. with a machine accuracy of .0001.
+# 6) Transform subprograms are intended for use with G54... workshifts.
+# 7) Incremental motion at a toolchange is calculated from the values
+#    entered for home position.
+#
+# END_HEADER$
+#
+# --------------------------------------------------------------------------
+# Debugging and program switches
+# --------------------------------------------------------------------------
+m_one        := -1   #Define constant
+zero         := 0    #Define constant
+one          := 1    #Define constant
+two          := 2    #Define constant
+three        := 3    #Define constant
+four         := 4    #Define constant
+five         := 5    #Define constant
+six          := 6    #Define constant
+c9k          := 9999 #Define constant
+
+bug4$        : 1     #Debug output with the tilde '~'.
+                     #A value greater the zero applies the variable formatting with
+                     #debug output (default is typically FS 1 but not a guarantee).
+                     #A value of zero gets the value directly with NO formatting.
+
+linktolvar$  : 0     #Associate X tolerance variables to V9- variable?
+linkplnvar$  : 0     #Associate X plane specific variables to V9- variable?
+linklvar$    : 0     #Associate X lathe specific variables to V9- variable?
+
+skp_lead_flgs$ : 1   #Do NOT use v9 style contour flags
+get_1004$    : 0     #Find gcode 1004 with getnextop?
+rpd_typ_v7$  : 0     #Use Version 7 style contour flags/processing?
+strtool_v7$  : 2     #Use Version 7+ toolname?
+tlchng_aft$  : 2     #Delay call to toolchange until move line
+cant_tlchng$ : 1     #Ignore cantext entry on move with tlchng_aft
+newglobal$   : 1     #Error checking for global variables
+getnextop$   : 1     #Build the next variable table
+cc_1013$     : 1     #Read cc_pos on the 1013 line, lathe
+
+# --------------------------------------------------------------------------
+# General Output Settings
+# --------------------------------------------------------------------------
+maxfeedpm    : 500   #Limit for feed in inch/min
+vtol_m       : 0.0025#System tolerance, metric
+maxfeedpm_m  : 10000 #Limit for feed in mm/min
+
+force_wcs    : yes$  #Force WCS output at every toolchange?
+progname$    : 1     #Use uppercase for program name
+rotaxtyp$    : 3     #Rotary axis type for toolplane
+tooltable$   : 3     #Read for tool table and pwrtt (3 recalls pwrtt at sof)
+ref_ret      : 0     #G29 / G30 return variable from Mi3
+css_start_rpm : yes$ #Do direct RPM spindle start prior to CSS ?
+
+prog_stop    : 1     #Program stop at toolchange: 0=None, 1=M01, 2 = M00
+tool_info    : 1     #Output tool information?
+                     #0 = Off - Do not output any tool comments or toolpable
+                     #1 = Tool comments
+miscopflag   : 0     #Flag for Misc Operation when its the first operation to Post
+
+# The following initialization is used for full arc output when the CD is set to output R or signed R for arcs
+larctypexz$    : 2   #Arc center type XY plane 1=abs, 2=St-Ctr, 3=Ctr-St, 4=unsigned inc.
+
+# --------------------------------------------------------------------------
+# Machine Specific Settings
+# --------------------------------------------------------------------------
+#Machine axis switches, initial
+old_new_sw   : 1     #Switch old (6T), new (0T+) cycle formats, 0=old, 1=new
+wcs_origin   : 0     #Always use the WCS origin for coordinates
+dia_mult     : 2     #Multiplier for output on X axis (Neg. switches sign of X)
+z_mult       : 1     #Multiplier for output on Z axis (Neg. switches sign of Z)
+dia_shift    : 0     #Shift for output on X axis, radial entry
+z_shift      : 0     #Shift for output on Z axis
+map_home     : yes$  #Use home positions as entered or map to machine axis
+
+
+#Spindle switches and values
+use_gear     : 0     #Output gear selection code, 0=no, 1=yes
+cool_w_spd   : 0     #Output coolant with spindle code, 0=no, 1=yes - only available with V9 coolant option in MD
+
+# --------------------------------------------------------------------------------------
+#Lathe canned turning settings:
+#
+# Set each digit of slcc_options to 0 or 1 to activate the proper canned cycle format
+# based on where your machine expects the cutter comp codes for Lead in/out moves.
+#
+# The default value of slcc_options ("0010000100") will output the Cutter Comp codes
+# inside the canned cycle. This maintains compatibility with Pre-X5 posts.
+#
+# To output the Cutter Comp codes outside the macro, un-pound the line for the second
+# slcc_options, and comment out the first option.
+# --------------------------------------------------------------------------------------
+lcc_mov_mult : 2.    #Enter the move radius multiplier in X, Z for lathe canned cycle comp.
+
+# A - Pattern, Rough, Comp lead addition, dependent on B
+# B - Pattern, Rough, Comp before/after cycle
+# C - Pattern, Rough, Comp in profile
+#
+# D - Pattern, Finish, Comp lead addition, dependent on E
+# E - Pattern, Finish, Comp before/after profile
+#
+# F - Face/Turn, Rough, Comp lead addition, dependent on G
+# G - Face/Turn, Rough, Comp before/after cycle
+# H - Face/Turn, Rough, Comp in profile
+#
+# I - Face/Turn, Finish, Comp lead addition, dependent on J
+# J - Face/Turn, Finish, Comp before/after profile
+
+#Columns-       ABCDEFGHIJ    #Comp Output
+slcc_options : "0010000100"   #Pattern & Face/Turn inside Canned Profile
+#slcc_options : "1101111011"  #Pattern & Face/Turn outside Canned Profile
+
+# --------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------
+# Common User-defined Variable Initializations (not switches!)
+# --------------------------------------------------------------------------
+lathecc      : 0     #Flag for canned turning cycle type
+                     #1 = G71/G72 rough cycle
+                     #2 = G73 pattern repeating cycle
+                     #3 = G74/G75 groove cycle
+                     #4 = Finish pass for types 1 and 2
+                     #Neg.=rough and finish, Pos.=rough only
+
+#Cantext activated flags
+bld          : 0     #Block delete active
+exact        : 0     #Exact stop active
+chute        : 0     #Toggle for part catcher operation
+tlstk        : 0     #Toggle for tailstock operation
+
+#General user variables
+xia          : 0     #Formated absolute value for X
+yia          : 0     #Formated absolute value for Y
+zia          : 0     #Formated absolute value for Z
+copy_x       : 0     #X value copy, prevent compound operations
+copy_y       : 0     #Y value copy, prevent compound operations
+copy_z       : 0     #Z value copy, prevent compound operations
+xa           : 0     #Absolute coordinate mapped value for X
+ya           : 0     #Absolute coordinate mapped value for Y
+za           : 0     #Absolute coordinate mapped value for Z
+cfeed_x      : 0     #Absolute mapped/rotated unshifted value for X
+cfeed_y      : 0     #Absolute mapped/rotated unshifted value for Y
+cfeed_z      : 0     #Absolute mapped/rotated unshifted value for Z
+xca          : 0     #Absolute unshifted value for XC
+yca          : 0     #Absolute unshifted value for YC
+zca          : 0     #Absolute unshifted value for ZC
+sav_xa       : 0     #X saved value
+sav_ya       : 0     #Z saved value
+sav_za       : 0     #Z saved value
+sav_xh       : 0     #X saved value
+sav_yh       : 0     #Z saved value
+sav_zh       : 0     #Z saved value
+sav_cc_1013  : 1     #Capture value of cc_1013 flag
+sav_spc      : 0     #Save spaces
+
+conversion   : 12    #Unit conversion value, do not change
+result       : 0     #Return value for functions
+compok       : 1     #Flag to output cutter compensation
+toolchng     : 2     #On a toolchange flag
+plane$       : -1    #Initialize plane
+ipr_actv$    : -1    #Initialize active feed type
+mach_plane   : 0     #Plane mapped to machine
+
+sav_absinc   : 0     #Saved absolute/Incremental
+spd_rev      : 0     #Flag to reverse spindle direction
+sav_gcode    : 0     #Gcode saved
+sav_feed     : 0     #Feed saved
+sav_ipr      : 0     #IPR saved
+sav_feedcc   : 0     #Feed saved, canned cycle
+sav_iprcc    : 0     #IPR saved, canned cycle
+sav_spdir    : 0     #Spindle direction saved
+sav_omitsq   : 0     #Omitseq saved
+sav_subout   : 0     #Saved subout
+sav_frc_wcs  : 0     #Force work offset flag saved
+home_type    : 0     #Flag for type of home location, read from misc. int.
+rslt_plc     : 0     #Return value from plcval
+rslt_upd     : 0     #Return value from updstr
+subs_before  : 0     #Flag to indicate whether subprograms are to be output before or after main program
+first_sub    : 1     #Flag used to suppress blank line before first sub that gets output with subs before main
+
+#Drilling variables
+drlgsel      : -1    #Drill Select Initialize
+drillref     : -1    #Select drill reference
+zdrl_x       : 0     #Drill point, mapped X
+zdrl_y       : 0     #Drill point, mapped Y
+zdrl_z       : 0     #Drill point, mapped Z
+
+#Threading variables
+nstart_cnt   : 0     #Counter for multiple threads
+thd_vlen     : 0     #Incremental X move for G76 mult starts
+xmaj_thd     : 0     #X major dia. from parameters
+zstrt_thd    : 0     #Z start from parameters
+zend_thd     : 0     #Z end from parameters
+face_thd     : 0     #Face thread from parameters
+
+#Spindle variables
+max_speed    : 3600  #Maximum spindle speed (set by turret definition)
+min_speed    : 20    #Minimum spindle speed (set by turret definition)
+speedrpm     : 0     #Spindle calculation RPM
+g_speed      : 0     #Generic positive spindle speed (rpm or css)
+g_spdir      : 0     #Generic spindle direction
+speedx       : 0     #Test spindle calculation X position
+gear_spd     : 0     #Absolute value of gear speed
+
+# Lathe canned cycle variables
+gcodecc      : 0     #Canned turning cycle gcode
+directcc     : 0     #Direction from parameters
+dopeckcc     : 0     #Do peck from groove parameters
+foundcc      : 0     #Return found from G70 read
+cc_stop_fcc  : 0     #Stop output with rough only
+lccdirx      : 0     #Canned cycle X vector direction
+lccdirz      : 0     #Canned cycle Z vector direction
+lcc_xcst     : 0     #Lathe canned cycle contour start position
+lcc_ycst     : 0     #Lathe canned cycle contour start position
+lcc_zcst     : 0     #Lathe canned cycle contour start position
+lcc_xcend    : 0     #Lathe canned cycle contour end position
+lcc_ycend    : 0     #Lathe canned cycle contour end position
+lcc_zcend    : 0     #Lathe canned cycle contour end position
+
+lcc_compok   : 0     #Flag to output cutter compensation, lathe rough canned cycles
+                     #1 = Process enabled
+                     #2 = Allow comp output, inhibits work offset
+                     #3 = Toolchange case to allow comp output, allow work offset
+lcc_leadok   : 0     #Flag to output cutter compensation lead, lathe rough canned cycles, dependent on lcc_compok
+                     #1 = Process enabled
+                     #2 = Indicate to process the lead
+lfc_compok   : 0     #Flag to output cutter compensation, lathe canned cycle profile
+lfc_leadok   : 0     #Flag to output cutter compensation lead, lathe canned cycle profile, dependent on lcc_compok
+lfc_in_sub   : 0     #Flag LCC profile sub is active
+anglelcc     : 0     #Pattern offset angle
+ncutslcc     : 0     #Number of passes
+#Coolant variables for X style coolant
+cant_pos     : 0     #Read from current canned text (cant_pos1 - cant_pos20)
+coolant_bin  : 0     #Binary value for current coolant command
+coolant_on   : 0     #Binary value holding the sum of all coolants currently on
+coolantx     : 0     #Selector variable for coolant string selector
+local_int    : 0     #Local variable for output of coolant off commands
+result2      : 0     #Return value for functions
+suppress     : 0     #Flag used to suppress redundant coolant on commands
+all_cool_off : 0     #SET_BY_MD - First coolant off command shuts off ALL coolant options
+v9_coolant   : 0     #SET_BY_MD - Use V9 coolant options - read from General Machine Parameters
+
+#Vector Varibles for Mapp ing and Rotatary Calculations
+#Lathe - Uses top matrix - initialize here
+m1$          : 1
+m5$          : 1
+m9$          : 1
+
+#Mapping matrix
+#Home position mapping matrix
+hmtx1        : 1
+hmtx2        : 0
+hmtx3        : 0
+hmtx4        : 0
+hmtx5        : 1
+hmtx6        : 0
+hmtx7        : 0
+hmtx8        : 0
+hmtx9        : 1
+
+#Cut type mapping matrix
+mmtx1        : 1
+mmtx2        : 0
+mmtx3        : 0
+mmtx4        : 0
+mmtx5        : 1
+mmtx6        : 0
+mmtx7        : 0
+mmtx8        : 0
+mmtx9        : 1
+
+# --------------------------------------------------------------------------
+# Buffer definitions
+# --------------------------------------------------------------------------
+#Buffer 1, toolchange information
+wc1          : 1     #Initial count for write buffer 1
+rc1          : 1     #Initial count for read buffer 1
+nc1          : 2     #Initial count for read buffer 1 into next record
+size1        : 0     #Buffer 1 size
+
+# Current tool information
+c1_gcode     : 0     #Buffer 1
+c1_xh        : 0     #Buffer 1
+c1_yh        : 0     #Buffer 1
+c1_zh        : 0     #Buffer 1
+c1_tox       : 0     #Buffer 1
+c1_toy       : 0     #Buffer 1
+c1_toz       : 0     #Buffer 1
+c1_cc_pos    : 0     #Buffer 1
+c1_tool      : 0     #Buffer 1
+c1_tloffno   : 0     #Buffer 1
+c1_maxss     : 0     #Buffer 1
+c1_ss        : 0     #Buffer 1
+c1_spdir     : 0     #Buffer 1
+c1_css_actv  : 0     #Buffer 1
+c1_fr_pos    : 0     #Buffer 1
+c1_ipr_actv  : 0     #Buffer 1
+c1_coolant   : 0     #Buffer 1
+c1_nextdc    : 0     #Buffer 1
+c1_gcodecc   : 0     #Buffer 1
+c1_lathecc   : 0     #Buffer 1
+c1_x_min     : 0     #Buffer 1
+c1_x_max     : 0     #Buffer 1
+c1_op_id     : 0     #Buffer 1
+
+# Next tool information
+n1_gcode     : 0     #Buffer 1
+n1_xh        : 0     #Buffer 1
+n1_yh        : 0     #Buffer 1
+n1_zh        : 0     #Buffer 1
+n1_tox       : 0     #Buffer 1
+n1_toy       : 0     #Buffer 1
+n1_toz       : 0     #Buffer 1
+n1_cc_pos    : 0     #Buffer 1
+n1_tool      : 0     #Buffer 1
+n1_tloffno   : 0     #Buffer 1
+n1_maxss     : 0     #Buffer 1
+n1_ss        : 0     #Buffer 1
+n1_spdir     : 0     #Buffer 1
+n1_css_actv  : 0     #Buffer 1
+n1_fr_pos    : 0     #Buffer 1
+n1_ipr_actv  : 0     #Buffer 1
+n1_coolant   : 0     #Buffer 1
+n1_nextdc    : 0     #Buffer 1
+n1_gcodecc   : 0     #Buffer 1
+n1_lathecc   : 0     #Buffer 1
+n1_x_min     : 0     #Buffer 1
+n1_x_max     : 0     #Buffer 1
+n1_op_id     : 0     #Buffer 1
+
+fbuf 1 0 23 0 0      #Buffer 1
+# --------------------------------------------------------------------------
+#Buffer 2, recall lathe canned turning cycle line numbers
+wc2          : 1     #Initial count for write buffer 2
+rc2          : 1     #Initial count for read buffer 2
+size2        : 0     #Buffer 2 size
+
+fcc_subid    : 0     #Buffer 2
+fcc_ng70s    : 0     #Buffer 2
+fcc_ng70e    : 0     #Buffer 2
+fcc_compok   : 0     #Buffer 2
+fcc_leadok   : 0     #Buffer 2
+
+fbuf 2 0 5 0 0       #Buffer 2
+# --------------------------------------------------------------------------
+#Buffer 3, output strings for lathe canned turning cycles
+wc3          : 1     #Initial count for write buffer 3
+rc3          : 1     #Initial count for read buffer 3
+size3        : 0     #Buffer 3 size
+
+string3      : ""    #Buffer 3
+
+fbuf 3 0 256 1 1     #Buffer 3
+# --------------------------------------------------------------------------
+#String and string selector definitions for NC output
+# --------------------------------------------------------------------------
+#Address string definitions
+stra         : "A"   #String for address A
+strd         : "D"   #String for address D
+stre         : "E"   #String for address E
+strf         : "F"   #String for address F
+stri         : "I"   #String for address I
+strk         : "K"   #String for address K
+strm         : "M"   #String for address M
+stro         : "O"   #String for address O
+strp         : "P"   #String for address P
+strq         : "Q"   #String for address Q
+stru         : "U"   #String for address U
+strw         : "W"   #String for address W
+srad         : "R"   #String for address R (radius)
+srminus      : "R-"  #String for address R- (minus radius)
+
+#Tool note
+stinsert     : " INSERT - " #String for tool notes
+stinsert2    : ""    #String for tool notes
+
+#String definitions
+sg50         : "G50" #String for spindle clamp and work coordinate
+
+#Cantext string definitions (spaces must be padded here)
+sm00         : "M00" #String for stop
+sm01         : "M01" #String for optional stop
+strtextno    : ""    #String for cantext
+strcantext   : ""    #String for cantext
+
+sblank       : ""    #Empty string
+sw_string    : ""    #String for lathe turret type settings
+# --------------------------------------------------------------------------
+# Error message strings
+# --------------------------------------------------------------------------
+swrkserror   : "WARNING-WORK OFFSET IS CHANGED IN A SUBPROGRAM"
+stoperror    : "ERROR-AXIS SUBSTITUTION MUST USE THE TOP TOOLPLANE"
+sfccerror    : "ERROR-MATCHING G70 FINISH PROFILE WAS NOT FOUND"
+slthrmerror  : "ERROR-ROTATE/MIRROR SUBPROGRAM NOT ALLOWED WITH LATHE PATH"
+smilrmerror  : "ERROR-ROTATE/MIRROR PROGRAM ROUTINE NOT ALLOWED"
+smny50error  : "ERROR-G50 AND HOME ('mi1') DOES NOT SUPPORT MULTIPLE TOOL SUBPROGRAM"
+shomeserror  : "ERROR-HOME ('mi1') DOES NOT SUPPORT TRANSFORM SUBPROGRAM"
+
+# --------------------------------------------------------------------------
+# General G and M Code String select tables
+# --------------------------------------------------------------------------
+# Strings for switch based on planes, see psw_str_mult
+sxg02   : "G2"       #Circular interpolation CW
+sxg03   : "G3"       #Circular interpolation CCW
+# --------------------------------------------------------------------------
+# Motion G code selection
+sg00    : "G0"       #Rapid
+sg01    : "G1"       #Linear feed
+sg02    : "G2"       #Circular interpolation CW
+sg03    : "G3"       #Circular interpolation CCW
+sg04    : "G4"       #Dwell
+sgcode  : ""         #Target string
+
+fstrsel sg00 gcode$ sgcode 5 -1
+# --------------------------------------------------------------------------
+#Select english/metric code
+sg20    : "G20"      #Inch code
+sg21    : "G21"      #Metric code
+smetric : ""         #Target string
+
+fstrsel sg20 met_tool$ smetric 2 -1
+# --------------------------------------------------------------------------
+#Select reference return code
+sg28    : "G28"      #First reference point return
+sg30    : "G30"      #Second reference point return
+sg28ref : ""         #Target string
+
+fstrsel sg28 ref_ret sg28ref 2 -1
+# --------------------------------------------------------------------------
+# Strings for switch based on planes, see psw_str_mult
+sxg41   : "G41"      #Cutter compensation left
+sxg42   : "G42"      #Cutter compensation right
+# --------------------------------------------------------------------------
+# Cutter compensation G code selection, plane 0
+sg40    : "G40"      #Cancel cutter compensation
+sg41    : "G41"      #Cutter compensation left
+sg42    : "G42"      #Cutter compensation right
+sccomp  : ""         #Target string
+
+fstrsel sg40 cc_pos$ sccomp 3 -1
+# --------------------------------------------------------------------------
+# Select canned cycle type, profile is direction of finish profile vector
+sthdg32 : "G32"      #Cycle type G32
+sthdg76 : "G76"      #Cycle type G76
+sthdg92 : "G92"      #Cycle type G92
+sthdg33 : "G32"      #Cycle type G32 with alternating position
+sthdgcode : ""       #Target string
+
+fstrsel sthdg32 thdtype$ sthdgcode 4 -1
+# --------------------------------------------------------------------------
+# Select canned cycle type
+sg70    : "G70"      #Cycle type G70
+sg71    : "G71"      #Cycle type G71
+sg72    : "G72"      #Cycle type G72
+sg73    : "G73"      #Cycle type G73
+sg74    : "G74"      #Cycle type G74
+sg75    : "G75"      #Cycle type G75
+scclgcode : ""       #Target string
+
+fstrsel sg70 gcodecc scclgcode 6 -1
+# --------------------------------------------------------------------------
+# Canned drill cycle string select
+sg80_f  : "G81"      #drill face
+sg80_fd : "G82"      #drill face w/dwell
+sg81_f  : "G83"      #peck face
+sg81_fd : "G83"      #peck face w/dwell
+sg82_f  : "G83"      #chpbrk face
+sg82_fd : "G83"      #chpbrk face w/dwell
+sg83_f  : "G84"      #tap right face
+sg83_fd : "G84"      #tap left face
+sg84_f  : "G85"      #bore1 face
+sg84_fd : "G85"      #bore1 face w/dwell
+sg85_f  : "G86"      #bore2 face
+sg85_fd : "G88"      #bore2 face w/dwell
+sg86_f  : "G87"      #misc1 face
+sg86_fd : "G87"      #misc1 face w/dwell
+sg87_f  : "G8?"      #misc2 face
+sg87_fd : "G8?"      #misc2 face w/dwell
+sgdrillf : ""        #Target string
+
+fstrsel sg80_f drlgsel sgdrillf 16 -1
+# --------------------------------------------------------------------------
+# Select incremental or absolute G code
+sg90    : "G90"      #Absolute code
+sg91    : "G91"      #Incremental code
+sgabsinc : ""        #Target string
+
+fstrsel sg90 absinc$ sgabsinc 2 -1
+# --------------------------------------------------------------------------
+# RPM/CSS code selection
+sg97    : "G97"      #RPM
+sg96    : "G96"      #CSS
+sg9697  : ""         #Target string
+
+fstrsel sg97 css_actv$ sg9697 2 -1
+# --------------------------------------------------------------------------
+# Feed mode G code selection
+sg98    : "G98"      #UPM
+sg99    : "G99"      #UPR
+sgfeed  : ""         #Target string
+
+fstrsel sg98 ipr_actv$ sgfeed 2 -1
+# --------------------------------------------------------------------------
+#Canned drill cycle reference height
+sg198   : "" #G198   #Reference at initht
+sg199   : "" #G199   #Reference at refht
+sgdrlref : ""        #Target string
+
+fstrsel sg198 drillref sgdrlref 2 -1
+# --------------------------------------------------------------------------
+# Generate string for spindle, lathe
+sm04    : "M04"      #Spindle reverse - no coolant
+sm05    : "M05"      #Spindle off     - no coolant
+sm03    : "M03"      #Spindle forward - no coolant
+sm14    : "M14"      #Spindle reverse - coolant
+sm05c   : "M05"      #Spindle off     - coolant
+sm13    : "M13"      #Spindle forward - coolant
+spindle_l : ""       #Target string
+
+fstrsel sm04 g_spdir spindle_l 6 -1
+# --------------------------------------------------------------------------
+# Coolant M code selection for V9 style coolant
+# Note: To enable V9 style coolant, click on the General Machine Parameters icon
+#   in the Machine Definition Manager, Coolant tab, enable first check box
+#   Output of V9 style coolant commands in this post is controlled by scoolant
+sm09    : "M9"       #Coolant Off
+sm08    : "M8"       #Coolant Flood
+sm08_1  : "M8"       #Coolant Mist
+sm08_2  : "M8"       #Coolant Tool
+scoolant : ""        #Target string
+
+fstrsel sm09 coolant$ scoolant 4 -1
+# --------------------------------------------------------------------------
+# Coolant output code selection for X style coolant
+# Note: To enable X style coolant, click on the General Machine Parameters icon
+#   in the Machine Definition Manager, Coolant tab, disable first check box
+#   Output of X style coolant commands in this post is controlled by pcan, pcan1, & pcan2
+scool50 : "M8"                #Coolant 1 on value
+scool51 : "M9"                #Coolant 1 off value
+scool52 : "M7"                #Coolant 2 on value
+scool53 : "M9"                #Coolant 2 off value
+scool54 : "M88"               #Coolant 3 on value
+scool55 : "M89"               #Coolant 3 off value
+scool56 : "M8(Coolant4=ON)"   #Coolant 4 on value
+scool57 : "M9(Coolant4=OFF)"  #Coolant 4 off value
+scool58 : "M8(Coolant5=ON)"   #Coolant 5 on value
+scool59 : "M9(Coolant5=OFF)"  #Coolant 5 off value
+scool60 : "M8(Coolant6=ON)"   #Coolant 6 on value
+scool61 : "M9(Coolant6=OFF)"  #Coolant 6 off value
+scool62 : "M8(Coolant7=ON)"   #Coolant 7 on value
+scool63 : "M9(Coolant7=OFF)"  #Coolant 7 off value
+scool64 : "M8(Coolant8=ON)"   #Coolant 8 on value
+scool65 : "M9(Coolant8=OFF)"  #Coolant 8 off value
+scool66 : "M8(Coolant9=ON)"   #Coolant 9 on value
+scool67 : "M9(Coolant9=OFF)"  #Coolant 9 off value
+scool68 : "M8(Coolant10=ON)"  #Coolant 10 on value
+scool69 : "M9(Coolant10=OFF)" #Coolant 10 off value
+scoolantx : ""                #Target string
+
+fstrsel scool50 coolantx scoolantx 20 -1
+
+#X coolant has the option - First coolant off command shuts off ALL coolant options
+sall_cool_off : "M09" #Coolant off command output with all_cool_off
+
+# --------------------------------------------------------------------------
+# Tailstock M code selection
+sm26    : "M26"      #Tailstock retracted
+sm25    : "M25"      #Tailstock engaged
+stlstk  : ""         #Target string
+
+fstrsel sm26 tlstk stlstk 2 -1
+# --------------------------------------------------------------------------
+# Chute M code selection
+sm73    : "M73"      #Chute retracted
+sm74    : "M74"      #Chute engaged
+schute  : ""         #Target string
+
+fstrsel sm73 chute schute 2 -1
+# --------------------------------------------------------------------------
+# Month selector
+smon0   : ""
+smon1   : "JAN."
+smon2   : "FEB."
+smon3   : "MAR."
+smon4   : "APR."
+smon5   : "MAY."
+smon6   : "JUN."
+smon7   : "JUL."
+smon8   : "AUG."
+smon9   : "SEP."
+smon10  : "OCT."
+smon11  : "NOV."
+smon12  : "DEC."
+smonth  : ""         #Target string
+
+fstrsel smon0 month$ smonth 13 -1
+# --------------------------------------------------------------------------
+# Define the gear selection code
+flktbl  1       3       #Lookup table definition - table no. - no. entries
+        40      0       #Low gear range
+        41      400     #Med gear range
+        42      2250    #Hi gear range
+
+# --------------------------------------------------------------------------
+# Define coolant binary value for X style coolant
+flktbl  2       20      #Lookup table definition - table no. - no. entries
+        1       50      #Coolant 1 on value
+        2       51      #Coolant 1 off value
+        4       52      #Coolant 2 on value
+        8       53      #Coolant 2 off value
+        16      54      #Coolant 3 on value
+        32      55      #Coolant 3 off value
+        64      56      #Coolant 4 on value
+        128     57      #Coolant 4 off value
+        256     58      #Coolant 5 on value
+        512     59      #Coolant 5 off value
+        1024    60      #Coolant 6 on value
+        2048    61      #Coolant 6 off value
+        4096    62      #Coolant 7 on value
+        8192    63      #Coolant 7 off value
+        16384   64      #Coolant 8 on value
+        32768   65      #Coolant 8 off value
+        65536   66      #Coolant 9 on value
+        131072  67      #Coolant 9 off value
+        262144  68      #Coolant 10 on value
+        524288  69      #Coolant 10 off value
+
+# --------------------------------------------------------------------------
+# Format statements - n=nonmodal, l=leading, t=trailing, i=inc, d=delta
+# --------------------------------------------------------------------------
+#Default english/metric position format statements
+fs2 1   0.7 0.6     #Decimal, absolute, 7 place, default for initialize (:)
+fs2 2   0.4 0.3     #Decimal, absolute, 4/3 place
+fs2 3   0.4 0.3d    #Decimal, delta, 4/3 place
+#Common format statements
+fs2 4   1 0 1 0     #Integer, not leading
+fs2 5   2 0 2 0l    #Integer, force two leading
+fs2 6   3 0 3 0l    #Integer, force three leading
+fs2 7   4 0 4 0l    #Integer, force four leading
+fs2 9   0.1 0.1     #Decimal, absolute, 1 place
+fs2 10  0.2 0.2     #Decimal, absolute, 2 place
+fs2 11  0.3 0.3     #Decimal, absolute, 3 place
+fs2 12  0.4 0.4     #Decimal, absolute, 4 place
+fs2 13  0.5 0.5     #Decimal, absolute, 5 place
+fs2 14  0.3 0.3d    #Decimal, delta, 3 place
+fs2 15  0.2 0.1     #Decimal, absolute, 2/1 place
+fs2 16  0 4 0 4t    #No decimal, absolute, 4 trailing
+#Default english/metric feed format statements
+fs2 17  0.2 0.1     #Decimal, absolute, 2/1 place
+fs2 18  0.4 0.3     #Decimal, absolute, 4/3 place
+fs2 19  0.5 0.4     #Decimal, absolute, 5/4 place
+fs2 20  1 0 1 0n    #Integer, forced output
+
+# These formats used for 'Date' & 'Time'
+fs2 21  2.2 2.2lt   #Decimal, force two leading & two trailing (time2)
+fs2 22  2 0 2 0t    #Integer, force trailing                   (hour)
+fs2 23  0 2 0 2lt   #Integer, force leading & trailing         (min)
+
+# This format statement is used for sequence number output
+# Number of places output is determined by value for "Increment Sequence Number" in CD
+# Max depth to the right of the decimal point is set in the fs statement below
+fs2 24  0^7 0^7     #Decimal, 7 place, omit decimal if integer value
+
+# --------------------------------------------------------------------------
+# Toolchange / NC output Variable Formats
+# --------------------------------------------------------------------------
+fmt  "T" 7  toolno      #Tool number
+fmt  "G" 4  g_wcs       #WCS G address
+fmt  "P" 4  p_wcs       #WCS P address
+fmt  "S" 4  speed       #Spindle Speed
+fmt  "M" 4  gear        #Gear range
+fmt  "S" 4  maxss$      #RPM spindle speed
+# --------------------------------------------------------------------------
+fmt  "N" 4  n$          #Sequence number
+fmt  "X" 2  xabs        #X position output
+fmt  "Y" 2  yabs        #Y position output
+fmt  "Z" 2  zabs        #Z position output
+fmt  "U" 3  xinc        #X position output
+fmt  "V" 3  yinc        #Y position output
+fmt  "W" 3  zinc        #Z position output
+fmt  "I" 3  iout        #Arc center description in X
+fmt  "J" 3  jout        #Arc center description in Y
+fmt  "K" 3  kout        #Arc center description in Z
+fmt  "R" 2  arcrad$     #Arc Radius
+fmt  "F" 18 feed        #Feedrate
+fmt  "P" 11 dwell$      #Dwell
+fmt  "M" 5  cantext$    #Default cantext
+# --------------------------------------------------------------------------
+#Move comment (pound) to output colon with program numbers
+fmt  "O" 7  progno$     #Program number
+#fmt ":" 7   progno$     #Program number
+fmt  "O" 7  main_prg_no$ #Program number
+#fmt ":" 7   main_prg_no$ #Program number
+fmt  "O" 7  sub_prg_no$ #Program number
+#fmt ":" 7   sub_prg_no$  #Program number
+fmt  "U" 2  sub_trnsx$  #Rotation point
+fmt  "V" 2  sub_trnsy$  #Rotation point
+fmt  "W" 2  sub_trnsz$  #Rotation point
+# --------------------------------------------------------------------------
+# Drill output
+# --------------------------------------------------------------------------
+fmt  "R" 2  refht_a     #Reference height
+fmt  "R" 2  refht_i     #Reference height
+fmt  "X" 2  initht_x    #Initial height, mapped X
+fmt     2   initht_y    #Initial height, mapped Y
+fmt  "Z" 2  initht_z    #Initial height, mapped Z
+fmt  "X" 2  refht_x     #Reference height, mapped X
+fmt     2   refht_y     #Reference height, mapped Y
+fmt  "Z" 2  refht_z     #Reference height, mapped Z
+fmt  "X" 2  depth_x     #Depth, mapped X
+fmt     2   depth_y     #Depth, mapped Y
+fmt  "Z" 2  depth_z     #Depth, mapped Z
+fmt  "Q" 2  peck1$      #First peck increment (positive)
+fmt     2   peck2$      #Second or last peck (positive)
+fmt  "R" 2  peckclr$    #Safety distance
+fmt     2   retr$       #Retract height
+fmt  "Q" 2  shftdrl$    #Fine bore tool shift
+# --------------------------------------------------------------------------
+# Thread output
+# --------------------------------------------------------------------------
+fmt  "P" 2  thddepth$   #Thread height absolute
+fmt  "Q" 2  thdfirst$   #First depth cut in thread
+fmt  "Q" 2  thdlast$    #Last depth cut in thread
+fmt  "R" 2  thdfinish$  #G76 thread finish allowance
+fmt  "R" 3  thdrdlt     #Thread R delta G92 and G76
+fmt  "U" 3  thd_dirx    #Incremental X move for G76 mult starts
+fmt  "W" 3  thd_dirz    #Incremental Z move for G76 mult starts
+fmt  "P" 5  nspring$    #Number of spring cuts
+fmt     5   thdpull     #G76 thread pull off
+fmt     5   thdang      #G76 threading angle
+# --------------------------------------------------------------------------
+# Canned cycle output format (do not change order, used by buffer 2)
+# --------------------------------------------------------------------------
+fmt  "U" 2  depthcc
+fmt  "R" 2  clearcc
+fmt  "U" 2  xstckcc
+fmt  "W" 2  zstckcc
+fmt  "R" 4  ncutscc
+fmt     2   stepcc
+fmt  "P" 4  ng70s       #P line number in canned cycle
+fmt  "Q" 4  ng70e       #Q line number in canned cycle
+fmt  "U" 2  g73x        #Stored offset of canned cycle rough cut G73
+fmt  "V" 2  g73y        #Stored offset of canned cycle rough cut G73
+fmt  "W" 2  g73z        #Stored offset of canned cycle rough cut G73
+fmt  "P" 2  grvspcc
+fmt  "Q" 2  grvdpcc
+# --------------------------------------------------------------------------
+fmt "TOOL - "       4   tnote       # Note format
+fmt " OFFSET - "    4   toffnote    # Note format
+# --------------------------------------------------------------------------
+fmt     4   year2       #Calculated year value
+fmt     21  time2       #Capture 24-hour time value into 'time2' variable
+fmt     22  hour        #Hour
+fmt     23  min         #Minutes
+year2 = year$ + 2000
+
+# --------------------------------------------------------------------------
+# Parameter information lookup tables, see pparameter
+# --------------------------------------------------------------------------
+fprmtbl 1 5 #Rough cut parameters
+        13343 depthcc
+        10407 clearcc
+        10202 xstckcc
+        10203 zstckcc
+        10214 directcc
+
+fprmtbl 2 6 #Finish cut parameters
+        13341 ncutscc
+        10101 depthcc
+        10102 xstckcc
+        10103 zstckcc
+        13149 anglelcc
+        13341 ncutslcc
+
+fprmtbl 3 5 #Groove cut parameters
+        13358 stepcc
+        13138 directcc
+        13352 dopeckcc
+        10316 depthcc
+        13364 clearcc
+
+fprmtbl 104 4 #Thread cut parameters
+        10811 xmaj_thd
+        10813 zstrt_thd
+        10814 zend_thd
+        10819 face_thd
+
+fprmtbl 17000   2   #Table Number, Size - Machine Definition parameter table
+#       Param   Variable to load value into
+        17101   all_cool_off #First coolant off command shuts off ALL coolant options
+        17102   v9_coolant   #Use V9 coolant option
+
+# Control Definition Parameters
+fprmtbl 18000   1    #Table Number, Size
+#       Param   Variable to load value into
+        18713   subs_before  #Subprograms output before or after main program
+
+# Toolpath Group Parameters
+fprmtbl 19000   0    #Table Number, Size
+#       Param   Variable to load value into
+
+pprep$          #Pre-process postblock - Allows post instructions after the post is parsed but before the NC and NCI file are opened.
+#DO NOT ATTEMPT TO OUTPUT TO THE NC FILE IN THIS POSTBLOCK (OR ANY POSTBLOCKS YOU MAY CALL FROM HERE) BECAUSE THE NC OUTPUT FILE IS NOT YET OPENED!
+      rd_cd$       #Read CD Parameters
+      rd_mch_ent_no$ = 0  #Read only the machine base parameters (use to collect common parameters from CNC_MACHINE_TYPE)
+      rd_md$       #Read machine definition parameters
+
+pparameter$      #Information from parameters
+      #"pparameter", ~prmcode$, ~sparameter$, e$
+      if prmcode$ = 20103, stinsert2 = sparameter$
+      result = fprm (abs(lathecc))
+
+# --------------------------------------------------------------------------
+pset_mach       #Set post switches by reading machine def parameters
+      #Reset variables prior to MD read
+
+      #We only need these set at toolchange (and start of file).  No need to set them each time a user may call rd_md
+      rd_mch_ent_no$ = syncaxis$  #Retrieve machine parameters based on current axis combination - read from .nci G950 line
+      rd_md$       #Read machine definition parameters - calls pmachineinfo$
+
+# --------------------------------------------------------------------------
+# Machine definition and control definition parameter capture:
+# --------------------------------------------------------------------------
+pmachineinfo$   #Machine information parameters postblock
+      #rd_mach is used to call pmachineinfo postblock and read the parameters of the selected axis
+      #combination machine entity set in rd_mch_ent_no.
+      #rd_cd is used to call pmachineinfo postblock and read the active control definition parameters
+      #rd_tlpathgrp is used to call pmachineinfo postblock and read the active toolpath group parameters
+      #"-->pmachineinfo", ~prmcode$, "  ", ~sparameter$, e$  #Do not uncomment if being called from pprep$ - see pprep comment
+
+      #Read parameter lookup tables -
+      if prmcode$ >= 17000 & prmcode$ < 18000, result = fprm(17000) #Run the parameter table for Machine Definition Parameters
+      if prmcode$ >= 18000 & prmcode$ < 19000, result = fprm(18000) #Run the parameter table for Control Definition Parameters
+      #Leave line below commented until you enter values in related lookup tables
+      #if prmcode$ >= 19000 & prmcode$ < 19900, result = fprm(19000) #Run the parameter table for Toolpath Group Parameters
+
+# --------------------------------------------------------------------------
+# Tool Comment / Manual Entry Section
+# --------------------------------------------------------------------------
+ptoolcomment    #Comment for tool
+      if tool_info = 1 | tool_info = 3,
+        [
+        tnote = abs(t$)
+        toffnote = tloffno$
+        strtool$ = ucase(strtool$)
+        stinsert2 = ucase(stinsert2)
+        !spaces$
+        spaces$ = zero
+        "(", *tnote, *toffnote, ")", e$
+        if posttype$ = two, #Lathe toolpath operation
+          [
+          if tool_op$ = 64, "(", *strtool$, ")", e$ #Drill operation
+          else, "(", *strtool$, " ", *stinsert, *stinsert2, ")", e$
+          ]
+        else, "(", *strtool$, ")", e$ #Mill toolpath operation
+        spaces$ = prv_spaces$
+        ]
+
+pcomment$       #Comment from manual entry (must call pcomment2)
+      if miscopflag = zero, pheader$
+      pcomment2 #Required if doing boolean 'if' logic testing!
+
+pcomment2       #Output Comment from manual entry
+      scomm$ = ucase (scomm$)
+      if gcode$ = 1005, "(", scomm$, ")", e$  #Manual entry - as comment
+      if gcode$ = 1006, scomm$, e$            #Manual entry - as code
+      if gcode$ = 1007, "(", scomm$, ")"      #Manual entry - as comment with move NO e$
+      if gcode$ = 1026, scomm$                #Manual entry - as code with move NO e$
+      if gcode$ = 1008, "(", scomm$, ")", e$  #Operation comment
+      if gcode$ = 1051, "(", scomm$, ")", e$  #Machine name
+      if gcode$ = 1052, "(", scomm$, ")", e$  #Group comment
+      if gcode$ = 1053, "(", scomm$, ")", e$  #Group name
+      if gcode$ = 1054, "(", scomm$, ")", e$  #File Descriptor
+
+# --------------------------------------------------------------------------
+# Start of File and Toolchange Setup
+# --------------------------------------------------------------------------
+ptime           #Convert 24-hour time format into 12-hour AM/PM format
+      if time$ >= 13, time2 = (time$ - 12)
+      else, time2 = time$
+      hour = int(time2), min = frac(time2)
+      *hour, ":", *min,
+      if time$ > 12, " PM"
+      else, " AM"
+
+pheader$         #Start of file
+      if miscopflag = zero,
+        [
+        if subs_before, " ", e$ #header character is output from peof when subs are output before main
+          else, "%", e$
+        sav_spc = spaces$
+        spaces$ = 0
+        #*progno$, " (", sprogname$, ")", e$
+        *progno$, e$
+        "(", "PROGRAM NAME - ", sprogname$, ")", e$
+        "(", "DATE=DD-MM-YY - ", date$, " TIME=HH:MM - ", time$, ")", e$ #Date and time output Ex. 12-02-05 15:52
+        #"(", "DATE - ", month$, "-", day$, "-", year$, ")", e$  #Date output as month,day,year - Ex. 02-12-05
+        #"(", "DATE - ", *smonth, " ", day$, " ", *year2, ")", e$ #Date output as month,day,year - Ex. Feb. 12 2005
+        #"(", "TIME - ", time$, ")", e$  #24 hour time output - Ex. 15:52
+        #"(", "TIME - ", ptime ")", e$  #12 hour time output 3:52 PM
+        spathnc$ = ucase(spathnc$)
+        smcname$ = ucase(smcname$)
+        stck_matl$ = ucase(stck_matl$)
+        snamenc$ = ucase(snamenc$)
+        "(", "MCX FILE - ", *smcpath$, *smcname$, *smcext$, ")", e$
+        "(", "NC FILE - ", *spathnc$, *snamenc$, *sextnc$, ")", e$
+        "(", "MATERIAL - ", *stck_matl$, ")", e$
+        spaces$ = sav_spc
+        pbld, n$, *smetric, e$
+        miscopflag = one
+        ]
+      !sub_seq_typ$
+
+lsof0$           #Start of file for tool zero, lathe
+      lsof$
+
+lsof$            #Start of file for non-zero tool number, lathe
+      sav_cc_1013 = cc_1013$
+      ltlchg$
+
+ltlchg$          #Toolchange, lathe
+      toolchng = one
+      gcode$ = zero
+      copy_x = vequ(x$)
+      pcc_capture   #Capture LCC ends, stop output RLCC
+      c_rcc_setup$  #Setup LCC on first 60000
+      plcc_lead_begin  #Save original in sav_xa and shift copy_x for LCC comp.
+      pcom_moveb    #Get machine position, set inc. from c1_xh
+      c_mmlt$        #Position multi-tool sub, sets inc. current if G54...
+      ptoolcomment
+      comment$
+      if home_type < two, #Toolchange G50/home/reference position
+        [
+        sav_xh = vequ(copy_x)
+        sav_absinc = absinc$
+        absinc$ = zero
+        pmap_home   #Get home position, xabs
+        ps_inc_calc #Set start position, not incremental
+        #Toolchange home position
+        if home_type = one,
+          pbld, n$, *sgcode, pfxout, pfzout, e$
+        else,
+          [
+          #Toolchange g50 position
+          pbld, n$, *sg28ref, "U0.", "W0.", e$
+          toolno = t$ * 100 + zero
+          if home_type = m_one, pbld, n$, *sgcode, *toolno, e$
+          else, pbld, n$, *sg50, pfxout, pfzout, e$
+          ]
+        pe_inc_calc #Update previous
+        absinc$ = sav_absinc
+        copy_x = vequ(sav_xh)
+        ]
+      toolno = t$ * 100 + tloffno$
+      pbld, n$, *sgcode, *toolno, e$
+      pcom_moveb    #Reset machine position, set inc. from last position
+      pcan
+      pspindle
+      #Added for 'css_start_rpm' logic
+      if css_actv$,
+        [
+        if css_start_rpm,
+          prpm # Direct RPM startup for programmed CSS
+        else,
+          pbld, pcssg50, pcss # NO RPM start - just output the CSS
+        ]
+      else, # Direct RPM was programmed
+        [
+        prpm # Output programmed RPM
+        ]
+      sav_absinc = absinc$
+      if home_type > one, absinc$ = zero
+      pcan1, pbld, n$, psccomp, *sgcode, pwcs, pfxout, pfzout,
+        pscool, strcantext, e$
+      plcc_lead_end #Use sav_xa to position with comp. LCC
+      pcom_movea    #Update previous, pcan2
+      ps_inc_calc   #Reset current
+      absinc$ = sav_absinc
+      #Added for 'css_start_rpm' logic
+      if css_start_rpm,
+        pbld, pcssg50, pcss # CSS output AFTER a G97S???? RPM spindle startup
+      c_msng$        #Position single-tool sub, sets inc. current if G54...
+      toolchng = zero
+
+
+ltlchg0$         #Call from NCI null tool change, lathe
+      copy_x = vequ(x$)
+      c_rcc_setup$  #Setup LCC on first 60000
+      plcc_lead_begin  #Save original in sav_xa and shift copy_x for LCC comp.
+      pcom_moveb    #Get machine position, set inc. from last position
+      c_mmlt$        #Position multi-tool sub, sets inc. current if G54...
+      comment$
+      pcan
+      toolno = t$ * 100 + tloffno$
+      pbld, n$, toolno, e$
+      pspindle
+      pnullspindle
+      pbld, n$, pscool,e$
+      if home_type > one & workofs$ <> prv_workofs$,
+        [
+        sav_absinc = absinc$
+        absinc$ = zero
+        pbld, n$, psgcode, pwcs, pfxout, pfzout, e$
+        pe_inc_calc #Update previous
+        ps_inc_calc #Set current inc.
+        absinc$ = sav_absinc
+        ]
+
+      #Output cutter comp before each finish pass of
+      #finishing groove canned cyle
+      if gcode$ = one, plinout
+      else, prapidout
+      plcc_lead_end  #Use sav_xa to position with comp. LCC
+      pcom_movea
+      c_msng$ #Single tool subprogram call
+
+ptoolend$        #Read from buffer 1 for prv_, current and next tool info
+                 #end tool here, current and next valid
+      if toolend_flg,
+        [
+        pcan
+        if n1_gcode <> 1000,
+          [
+          toolno = t$ * 100 + zero
+          sav_gcode = gcode$
+          gcode$ = zero
+          if v9_coolant, [coolant$ = zero, pbld, n$, pscool, e$]
+          if all_cool_off,
+            [
+            #all coolant off with a single off code here
+            if coolant_on, pbld, n$, sall_cool_off, e$
+            coolant_on = zero
+            ]
+          else,
+            [
+            local_int = zero
+            coolantx = zero
+            while local_int < 20 & coolant_on > 0,
+              [
+              coolantx = and(2^local_int, coolant_on)
+              local_int = local_int + one
+              if coolantx > zero,
+                [
+                coolantx = local_int
+                pbld, n$, scoolantx, e$
+                ]
+              coolantx = zero
+              ]
+            coolant_on = zero
+            ]
+          pl_retract
+          if n1_gcode <> 1003,
+            [
+            if prog_stop = 1, pbld, n$, *sm01, e$
+            if prog_stop = 2, pbld, n$, *sm00, e$
+            ]
+          gcode$ = sav_gcode
+          ]
+        else, #Null toolchange
+          [
+          pcan1, pbld, n$, strcantext, e$
+          ]
+        pcan2
+        #Update current variables to prv_ needed in comparisons
+        if rc1 < size1, preadcur_nxt
+        ]
+
+      # When canned grooving, set cc_1013 to zero so that the cutter comp
+      # value called out on the NCI 1013 line will be ignored.  cc_1013
+      # should be restored to it's previous value in 'prcc_call_end'.
+      if lathecc = three | tool_op$ = 62,
+        [
+        sav_cc_1013 = cc_1013$
+        cc_1013$ = zero
+        ]
+
+pl_retract      #Retract tool based on next tool gcode, lathe (see ptoolend)
+      cc_pos$ = zero
+      if home_type = one,
+        [
+        pmap_home   #Get home position, xabs
+        ps_inc_calc #Set inc.
+        pbld, n$, psccomp, e$
+        pcan1, pbld, n$, *sgcode, pfxout, pfzout, *toolno, strcantext, e$
+        pbld, n$, pnullstop, e$
+        ]
+      else,
+        [
+        #Retract to reference return
+        pbld, n$, `sgcode, psccomp, e$
+        if home_type = m_one, pbld, n$, *toolno, e$
+        pcan1, pbld, n$, *sg28ref, "U0.", "W0.",
+          pnullstop, strcantext, e$
+        if home_type > m_one, pbld, n$, *toolno, e$
+        ]
+
+
+peof0$           #End of file for tool zero
+      peof$
+
+peof$            #End of file for non-zero tool
+      ptoolend$
+      comment$
+      n$, "M30", e$
+      if subs_before, #Merge subs before main program
+        [             #At this point, the NC / Main program level is blank (Main prg was written to ext with subs before)
+        subout$ = zero
+        "%", e$
+        mergesub$     #Merge transform subs
+        clearsub$
+        mergeaux$     #Merge non-transform subs
+        clearaux$
+        mergeext$     #Merge NC / Main program
+        clearext$
+        ]
+      else,           #Merge subs after main program
+        [             #At this point, the NC / Main program is written (Main prg was written to NC level with subs after)
+        mergesub$
+        clearsub$
+        mergeaux$
+        clearaux$
+        ]
+      subout$ = zero
+      "%", e$
+
+pwcs            #G54+ coordinate setting at toolchange
+      if home_type > one,
+        [
+        sav_frc_wcs = force_wcs
+        # Force off for these cases
+        if sub_level$ > 0 | lcc_compok = two, force_wcs = zero
+        if workofs$ <> prv_workofs$ | (force_wcs & toolchng),
+          [
+          if sub_level$, result = mprint(swrkserror)
+          if workofs$ < 6,
+            [
+            g_wcs = workofs$ + 54
+            *g_wcs
+            ]
+          else,
+            [
+            p_wcs = workofs$ - five
+            "G54.1", *p_wcs
+            ]
+          ]
+        force_wcs = sav_frc_wcs
+        !workofs$
+        ]
+
+
+
+pgear           #Use spindle gear range, find gear from RPM at X min.
+      if use_gear = one,
+        [
+        x_min$ = c1_x_min
+        x_min$ = x_min$ + c1_tox  #Correction for workshift
+        if x_min$ = zero, x_min$ = 0.001
+        if css_actv$ = zero, gear_spd = speedrpm
+        else, gear_spd = (conversion * g_speed) / (pi$ * abs(x_min$) * two)
+        gear = frange(one, gear_spd)
+        *gear
+        ]
+
+prpm            #Output for start spindle
+      speed = speedrpm
+      if speed = zero,
+        pbld, n$, *spindle_l, e$  #RPM = '0', output just an 'M05'
+      else,
+        pbld, n$, *sg97, *speed, *spindle_l, pgear, e$
+      !css_actv$
+
+prpmnull       #Output for RPM at NULL tlchg (don't force spindle 'M' code)
+      speed = speedrpm
+      pbld, n$, *sg97, *speed, spindle_l, pgear, e$
+      !css_actv$
+
+pcssg50         #Output Constant surface speed clamp
+      if css_actv$, pbld, n$, *sg50, *maxss$, e$
+
+pcss            #Output Constant surface speed
+      speed = g_speed
+      if css_actv$, pbld, n$, *sg9697, *speed, spindle_l, !css_actv$, e$
+      !speed
+
+#Toolchange setup, spindle output, pspindle must be called first
+pnullspindle  #Null toolchange and dwell spindle change, g_speed is input
+      if prv_css_actv$<>css_actv$ | prv_g_spdir<>g_spdir | prv_speed<>g_speed,
+        [
+        #Test for coolant OFF (with 'cool_w_spd' mode enabled)
+        if posttype$ = two & cool_w_spd <> zero
+          & coolant$ = zero & prv_coolant$ > zero, pbld, n$, pscool, e$
+
+        #Switch G97/G96 or direction at null or dwell
+        #Stop the spindle if direction changes
+        if (prv_g_spdir <> g_spdir) & abs(prv_g_spdir - g_spdir) <> three,
+          pbld, n$, pnullstop, e$
+        if css_actv$,
+          [
+          speed = g_speed
+          pnullg50
+          if prv_speed <> speed | prv_css_actv$ <> css_actv$, pcss
+          ]
+        else,
+          [
+          if (prv_speed<>g_speed | prv_g_spdir<>g_spdir | prv_css_actv$<>css_actv$)
+            & g_speed, prpmnull
+          ]
+        ]
+      else, pnullg50
+
+pnullg50      #Change G50 clamp speed at null or dwell
+      if prv_maxss$ <> maxss$ & css_actv$, pcssg50
+
+pnullstop     #Stop spindle at null, dwell or tool end
+      sav_spdir = g_spdir
+      if cool_w_spd = zero, g_spdir = one
+      else, g_spdir = one + (fsg2(coolant$) * three)
+      spindle_l
+      g_spdir = sav_spdir
+
+pspindle        #Spindle speed calculations for RPM
+      if maxss$ = zero | maxss$ > max_speed, maxss$ = max_speed
+      if css_actv$,
+        [
+        #Spindle speed calculations for strt_spd w/CSS
+        speedx = abs(xa)
+        if opcode$ = 104, speedx = abs(c1_x_min)
+        if opcode$ = 105, speedx = abs(tcr$)
+        if speedx < 0.001,speedx = 0.001
+        speedrpm = (conversion * g_speed) / (pi$ * speedx * two)
+        ]
+      else, speedrpm = g_speed
+      #zero indicates spindle off (not a mistake)
+      if speedrpm,
+        [
+        if speedrpm > maxss$, speedrpm = maxss$
+        if speedrpm < min_speed, speedrpm = min_speed
+        ]
+      #Spindle speed for RPM with lathe drill, thread
+      if opcode$ = 104 | opcode$ = 105, css_actv$ = zero
+      if css_actv$ = zero, g_speed = speedrpm
+
+pset_g_speed    #Set the spindle control variables from the read variables
+      g_speed = abs(ss$)
+      if cool_w_spd, g_spdir = fsg3(spdir$) + (fsg2(coolant$) * 3)
+      else, g_spdir = fsg3(spdir$)
+      if g_speed = zero, g_spdir = one # if RPM = '0', output 'M05'
+      if spd_rev, pswtchspin
+
+pswtchspin      #Reverse spindle direction
+      if g_spdir > two, g_spdir = abs (g_spdir - five) + three
+      else, g_spdir = abs (g_spdir - two)
+
+preadcur_nxt    #Read current and next tool record
+      c1_gcode = rbuf (one, rc1)     #Current tool record
+      #Place buffered variables in post global variables
+      lathecc = c1_lathecc
+      gcodecc = c1_gcodecc
+      n1_gcode = rbuf (one, nc1)     #Next tool record
+      cc_1013$ = one
+      if lathecc = zero, compok = one
+      else, compok = zero
+
+ptlchg1002$      #Call at actual toolchange with tlchng_aft
+      whatline$ = four #Required for vector toolpaths
+      pset_mach   #Set rotary switches by reading machine def parameters
+      pmatrix_su
+      pmap_plane
+      pset_g_speed
+      toolend_flg = one
+      if rcc_flg$ = zero, sub_seq_typ$ = prv_sub_seq_typ$
+      if gcode$ = 1000,
+        [
+        #Null toolchange
+        if cc_stop_fcc & rcc_flg$ = six, no_nc_out$ = one
+        ]
+      else,
+        [
+        #Toolchange and Start of file
+        if gcode$ = 1002,
+          [
+          #Actual toolchange
+          preset_mod
+          ]
+        prv_xia = vequ (c1_xh)
+        prv_feed = c9k
+        ]
+      iout = zero
+      kout = zero
+
+preset_mod    #Reset the mode flags and map during motion blocks
+      linarc$ = zero
+      brklinestype$ = zero
+
+# --------------------------------------------------------------------------
+# Motion NC output
+# --------------------------------------------------------------------------
+
+ptool_insp      #Tool inspection point
+      #Modify following lines to customize output for tool inspection points
+      "(TOOL INSPECTION POINT - POST CUSTOMIZATION MAY BE REQUIRED)", e$
+      if prmcode$ = 29999, #Only output tool insp comment if one was entered with this insp point
+        [
+        sparameter$ = ucase(sparameter$)
+        pbld, n$, *sm00, "(", sparameter$, ")", e$
+        ]
+      else, pbld, n$, *sm00, e$      #Output just the stop if no comment
+      pbld, n$, *sgcode, *toolno, e$ #Restate tool number
+      prpm # Output programmed RPM   #Restate spindle
+      prv_feed = c9k                 #Set prv_values to c9k to force them out with next moves
+      prv_gcode$ = c9k
+      prv_workofs$ = c9k
+      if coolant$, prv_coolant$ = c9k
+
+prapidout       #Output to NC, linear movement - rapid
+      pcan1, pbld, n$, pexct, psgcode, psccomp, pwcs, pxout, pzout,
+      pscool, strcantext, e$
+      if rpd_typ$ = 7, ptool_insp      #Tool inspection point
+
+plinout         #Output to NC, linear movement - feed
+      pcan1, pbld, n$, sgfeed, pexct, psgcode, psccomp, pwcs, pxout, pzout,
+      pfr, pscool, strcantext, e$
+      if rpd_typ$ = 7, ptool_insp      #Tool inspection point
+
+pcirout         #Output to NC, circular interpolation
+      pcan1, pbld, n$, sgfeed, pexct, psgcode, psccomp, pxout, pzout,
+      parc, pfr, pscool, strcantext, e$
+
+pl_ncoutput     #Movement output
+      #pcc_capture   #Capture LCC ends, stop output RLCC
+      pcan
+      c_rcc_setup$  #Setup LCC on first 60000
+      plcc_lead_begin  #Save original in sav_xa and shift copy_x for LCC comp.
+      pcom_moveb    #Get machine position, set inc. from last position
+      if gcode$ = zero, prapidout
+      if gcode$ = one, plinout
+      if gcode$ > one & gcode$ < four, pcirout
+      plcc_lead_end   #Use sav_xa to position with comp. LCC
+      pcom_movea    #Update previous, pcan2
+
+pdwl_spd$        #Output to NC, spindle, dwell changes
+      pset_g_speed
+      pspindle
+      comment$
+      pnullspindle
+      pcan
+      if fmtrnd(dwell$), pdwell1
+      else, pcan1, pbld, n$, strcantext, e$
+      pcan2
+
+lrapid$          #Rapid linear movement, lathe
+      copy_x = vequ(x$)
+      pl_ncoutput
+
+llin$            #Linear line movement - at feedrate, lathe
+      copy_x = vequ(x$)
+      pl_ncoutput
+
+lcir$            #Circular interpolation, lathe
+      pshft_map_ijk
+      copy_x = vequ(x$)
+      pl_ncoutput
+
+plin0$           #Pre-linear movement postblock
+
+pcir0$           #Pre-circular interpolation postblock
+      pmap_plane
+      !ynci$
+
+# --------------------------------------------------------------------------
+# Motion output components
+# --------------------------------------------------------------------------
+pdwell1         #Dwell output
+      gcode$ = four  #for implied dwells
+      pcan1, pbld, n$, *sgcode, *dwell$, strcantext, e$
+
+pbld            #Canned text - block delete
+      if bld, '/'
+
+pfbld           #Force block delete
+      "/"
+
+pexct           #Canned text - exact stop
+      if exact, 'G9'
+
+psgcode         #Output the Gcode based on the current plane
+      sgcode
+
+psccomp         #Output the cutter compensation based on the current plane
+      if compok | lcc_compok >= two, sccomp
+
+pfxout          #Force X axis output
+      if absinc$ = zero, *xabs, !xinc
+      else, *xinc, !xabs
+
+pxout           #X output
+      if absinc$ = zero, xabs, !xinc
+      else, xinc, !xabs
+
+pfzout          #Force Z axis output
+      if absinc$ = zero, *zabs, !zinc
+      else, *zinc, !zabs
+
+pzout           #Z output
+      if absinc$ = zero, zabs, !zinc
+      else, zinc, !zabs
+
+parc            #Select the arc output
+      #Setup for arctype setting
+      if larctypexz$ = one | larctypexz$ = four,
+        [
+        result = newfs(two, i$)
+        result = newfs(two, k$)
+        result = newfs(two, iout)
+        result = newfs(two, kout)
+        ]
+      else,
+        [
+        result = newfs(three, i$)
+        result = newfs(three, k$)
+        result = newfs(three, iout)
+        result = newfs(three, kout)
+        ]
+
+      if larctypexz$ < five,
+        [
+        #Arc output for IJK
+        if larctypexz$ = one,
+          [
+          #Arc output for IJK, absolute
+          iout = (iout + dia_shift) * dia_mult
+          kout = (kout + z_shift) * z_mult
+          ]
+        else,
+          [
+          #Arc output for IJK, start/center
+          #Altered 'iout' calculation (12/20/2002)
+          #iout = iout * dia_mult
+          iout = iout * (dia_mult/abs(dia_mult))
+          kout = kout * z_mult
+          ]
+        iout, kout
+        !i$, !k$
+        ]
+      else,
+        [
+        #Arc output for R
+        if abs(sweep$)<=180 |larctypexz$ = five, result = nwadrs(srad, arcrad$)
+        else, result = nwadrs(srminus, arcrad$)
+        *arcrad$
+        ]
+
+pffr            #Output feedrate, force
+      pfr_l
+      *feed
+
+pfr             #Output feedrate
+      pfr_l
+      `feed
+
+pfr_l           #Format feedrate for lathe
+      if opcode$ = 104,
+        [
+        #Format feedrate for lathe thread
+        if old_new_sw = zero, result = nwadrs(stre, feed)
+        result = newfs (19, feed)
+        ]
+      else,
+        [
+        result = nwadrs(strf, feed)
+        result = newfs (18, feed)
+        ]
+
+pscool          #Coolant is separate code
+      if v9_coolant,
+        [
+        if cool_w_spd = zero, scoolant
+        else,
+          [
+          # 'cool_w_spd' mode is active
+          if coolant$ = zero, scoolant  #Turn coolant OFF
+          ]
+        !coolant$
+        ]
+      else, pcan1_cool
+
+pfscool         #Coolant is separate code, force
+      if v9_coolant,
+        [
+        if cool_w_spd = zero, *scoolant
+        !coolant$
+        ]
+      else, pcan1_cool
+
+pcom_moveb      #Common motion preparation routines, before
+      pshft_map_xa
+      pxyzcout
+      ps_inc_calc
+
+pcom_movea      #Common motion preparation routines, after
+      pcan2
+      pe_inc_calc
+
+# --------------------------------------------------------------------------
+# Drilling
+# --------------------------------------------------------------------------
+pdrill0$         #Pre-drill postblock call
+      x$ = xnci$
+      y$ = ynci$
+      z$ = refht$
+      copy_x = vequ(x$)
+      pshft_map_xa
+      pxyzcout
+      refht_x = vequ(xabs)
+      z$ = depth$
+      copy_x = vequ(x$)
+      pshft_map_xa
+      pxyzcout
+      depth_x = vequ(xabs)
+      z$ = zdrl$
+      copy_x = vequ(x$)
+      pshft_map_xa
+      pxyzcout
+      zdrl_x = vequ(xabs)
+      z$ = initht$  #Initial is last
+      copy_x = vequ(x$)
+      pshft_map_xa
+      pxyzcout
+      initht_x = vequ(xabs)
+      znci$ = initht$
+      ps_inc_calc
+
+pdrlcommonb     #Canned Drill Cycle common call, before
+      if gcode$ = 81,
+        [
+        if drillcyc$ = three, drlgsel = fsg1 (-g_speed) + drillcyc$ * two #Tap
+        else, drlgsel = fsg2 (dwell$) + drillcyc$ * two
+        if initht$ <> refht$, drillref = zero
+        else, drillref = one
+        prv_refht_a = c9k
+        prv_refht_i = c9k
+        ]
+      prv_dwell$ = zero
+      comment$
+      pcan
+
+pgdrlout        #Drill Gcode output
+      *sgdrillf
+
+prdrlout        #R drill position
+      refht_a = refht$
+      refht_i = refht$ - initht$
+      if absinc$ = zero, refht_a, !refht_i
+      else, refht_i, !refht_a
+
+ldrill$          #Canned drill cycle, lathe
+      #Use this postblock to customize lathe drilling cycles 0 - 7
+      pdrlcommonb
+      "CUSTOMIZABLE DRILL CYCLE ", pfxout, pfzout, e$
+      pcom_movea
+
+lpeck$           #Canned peck drill cycle, lathe
+      ldrill$
+
+lchpbrk$         #Canned chip break cycle, lathe
+      gcode$ = zero
+      prv_dwell$ = zero
+      @dwell$
+      comment$
+      pcan
+      pe_inc_calc
+      xabs = vequ(refht_x)
+      ps_inc_calc
+      pcan1, pbld, n$, sgcode, pzout, strcantext, e$
+      pe_inc_calc
+      xabs = vequ(depth_x)
+      ps_inc_calc
+      if old_new_sw = one,
+        [
+        pbld, n$, *sg74, *peckclr$, e$
+        result = nwadrs (strq, peck1$)
+        ]
+      else, result = nwadrs (strk, peck1$)
+      pcan1, pbld, n$, *sg74, pfzout, *peck1$, pffr, strcantext, e$
+      prv_gcode$ = -1
+      if refht$ <> initht$,
+        [
+        gcode$ = zero
+        xabs = vequ(refht_x)
+        ps_inc_calc
+        pe_inc_calc
+        xabs = vequ(initht_x)
+        ps_inc_calc
+        pbld, n$, sgcode, pfzout, e$
+        ]
+      pcom_movea
+
+ltap$            #Canned tap cycle, lathe
+      gcode$ = zero
+      prv_dwell$ = zero
+      @dwell$
+      comment$
+      pcan
+      pe_inc_calc
+      xabs = vequ(refht_x)
+      ps_inc_calc
+      pcan1, pbld, n$, sgcode, pzout, strcantext, e$
+      pe_inc_calc
+      xabs = vequ(depth_x)
+      ps_inc_calc
+      opcode$ = 104 #thread address from feedrate
+      pbld, n$, *sthdg32, pfzout, pffr, pnullstop, e$
+      if dwell$, pdwell1
+      pe_inc_calc
+      xabs = vequ(refht_x)
+      ps_inc_calc
+      pswtchspin
+      pbld, n$, *sthdg32, pfzout, *spindle_l, e$
+      if dwell$, pdwell1
+      prv_gcode$ = m_one
+      pbld, n$, pnullstop, e$
+      pswtchspin
+      if refht$ <> initht$,
+        [
+        gcode$ = zero
+        pe_inc_calc
+        xabs = vequ(initht_x)
+        ps_inc_calc
+        pbld, n$, sgcode, pfzout, *spindle_l, e$
+        ]
+      pbld, n$, spindle_l, e$
+      opcode$ = 81 #Restore opcode
+      pcom_movea
+
+lbore1$          #Canned bore #1 cycle, lathe
+      ldrill$
+
+lbore2$          #Canned bore #2 cycle, lathe
+      ldrill$
+
+lmisc1$          #Canned misc #1 cycle, lathe
+      ldrill$
+
+lmisc2$          #Canned misc #2 cycle, lathe
+      ldrill$
+
+pdrlcst$         #Custom drill cycles 8 - 19 (user option)
+      #Use this postblock to customize drilling cycles 8 - 19
+      pdrlcommonb
+      "CUSTOMIZABLE DRILL CYCLE ", pfxout, pfzout, e$
+      pcom_movea
+
+pdrlcst_2$       #Custom drill cycles 8 - 19 (user option)
+      #Use this postblock to customize drilling cycles 8 - 19
+      pdrlcommonb
+      "CUSTOMIZABLE DRILL CYCLE ", pfxout, pfzout, e$
+      pcom_movea
+
+pcanceldc$     #Cancel drill cycle
+      xabs = vequ (initht_x) #Position to return
+      ps_inc_calc
+      pe_inc_calc #Update to current location
+      gcode$ = zero
+      pcan
+      pcan1, pbld, n$, sgcode, "G80", strcantext, e$
+      pcan2
+
+# --------------------------------------------------------------------------
+# Misc. Ops. Postblock Section - comments only!
+# --------------------------------------------------------------------------
+toolend_flg : 1 #Flag to execute ptoolend sequence or not
+smiscops_msg  : "( *** Post Customization REQUIRED! - for Misc Ops. Functions *** )"
+
+pmiscops_msg   # Output warning message if a 'Misc Ops' function is programmed
+      if gcode$ >= 900 & gcode$ <= 905,
+        [
+        # Output warning message to the Screen.
+        result = mprint(smiscops_msg, one)
+        # Output extended warning message to the NC file.
+        !spaces$
+        spaces$ = zero
+        "( *** Post Customization REQUIRED! *** )", e$
+        if gcode$ = 900, "( STOCK TRANSFER ->"
+        if gcode$ = 901, "( STOCK FLIP ->"
+        if gcode$ = 902, "( STOCK ADVANCE ->"
+        if gcode$ = 903, "( CHUCK CLAMP/UNCLAMP ->"
+        if gcode$ = 904, "( TAILSTOCK ->"
+        if gcode$ = 905, "( STEADY REST ->"
+        " MISC OPS. function was programmed ! )", e$
+        spaces$ = prv_spaces$
+        ]
+
+pstck_trans$     #NCI code = 900 available variables:
+      #stck_spindle, stck_init_z, stck_final_z,
+      #stck_chuk_st_z, stck_chuk_st_x,
+      #stck_chuk_end_z, stck_chuk_end_x,
+      #stck_chuk_st_dz, stck_chuk_st_dx,
+      #stck_chuk_end_dz, stck_chuk_end_dx
+      pheader$
+      pmiscops_msg   # Output warning message...
+      if toolchng <> two, ptoolend$
+      toolend_flg = zero  #Do not execute ptoolend again after xfer
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00", e$
+      if prv_spaces$ > 0, " ", e$
+      if stck_spindle$ = 0, "(Xfer Part from Left Spindle)", e$
+      if stck_spindle$ = 1, "(Xfer Part from Right Spindle)", e$
+      spaces$ = prv_spaces$
+
+pstck_flip$      #NCI code = 901 available variables:
+      #stck_spindle, stck_init_z, stck_final_z,
+      #stck_chuk_st_z, stck_chuk_st_x,
+      #stck_chuk_end_z, stck_chuk_end_x
+      pheader$
+      if toolchng <> two, ptoolend$
+      toolend_flg = zero  #Do not execute ptoolend again after xfer
+      pmiscops_msg   # Output warning message...
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00", e$
+      if prv_spaces$ > 0, " ", e$
+      "(Flip Stock)", e$
+      spaces$ = prv_spaces$
+
+pstck_bar_fd$    #NCI code = 902 available variables:
+      #stck_spindle, stck_op, stck_clear,
+      #stck_grip, stck_init_z, stck_final_z,
+      #stck_chuk_st_z, stck_chuk_st_x,
+      #stck_chuk_end_z, stck_chuk_end_x,
+      #stck_adv_fr, stck_appr_fr
+      pheader$
+      if stck_op$ <> 1,  # if NOT using the 'Tool Stop option'
+        [
+        if toolchng <> two, ptoolend$
+        toolend_flg = zero  #Do not execute ptoolend again after xfer
+        ]
+      else, toolend_flg = one  #DO execute ptoolend after xfer
+      pmiscops_msg   # Output warning message...
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00",e$
+      if prv_spaces$ > 0, " ",e$
+      if stck_op$ = 0, "(Push stock", e$
+      if stck_op$ = 1, "(Push stock with 'Use Tool Stop' option", e$
+      if stck_op$ = 2, "(Pull stock", e$
+      if stck_spindle$ = 0, " - from Left Spindle)", e$
+      if stck_spindle$ = 1, " - from Right Spindle)", e$
+      spaces$ = prv_spaces$
+
+pchuck$          #NCI code = 903 available variables:
+      #clmp_spindle, clmp_op,  stck_chuk_st_z,
+      #stck_chuk_st_x, stck_chuk_end_z, stck_chuk_end_x
+      pheader$
+      if clmp_op$ = two,
+        [
+        if toolchng <> two, ptoolend$
+        toolend_flg = zero  #Do not execute ptoolend again after xfer
+        ]
+      pmiscops_msg   # Output warning message...
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00",e$
+      if prv_spaces$ > 0, " ",e$
+      if clmp_op$ = 0, "(Clamp -",e$
+      if clmp_op$ = 1, "(Un-clamp -",e$
+      if clmp_op$ = 2, "(Re-position -",e$
+      if clmp_spindle$ = 0, " Left Spindle)", e$
+      if clmp_spindle$ = 1, " Right Spindle)", e$
+      spaces$ = prv_spaces$
+      if clmp_op$ >= one, pchuck_unclamp
+      if clmp_op$ = two, pbld, n$, *stck_chuk_end_z$, e$
+      if clmp_op$ = zero | clmp_op$ = two, pchuck_clamp
+
+pchuck_clamp    #user-defined postblock for chuck clamp
+      pheader$
+      if clmp_spindle$ = zero, "M10", e$  # Left chuck
+      if clmp_spindle$ = one, "M10", e$  # Right chuck
+
+pchuck_unclamp  #user-defined postblock for chuck unclamp
+      pheader$
+      if clmp_spindle$ = zero, "M11", e$  # Left chuck
+      if clmp_spindle$ = one, "M11", e$  # Right chuck
+
+ptailstock$      #NCI code = 904 available variables:
+      #tlstck_on, stck_init_z, stck_final_z
+      pheader$
+      if toolchng <> two, ptoolend$
+      toolend_flg = zero  #Do not execute ptoolend again after xfer
+      pmiscops_msg   # Output warning message...
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00",e$
+      if prv_spaces$ > 0, " ",e$
+      if tlstck_on$ = 0, "(Retract Tailstock)", e$
+      if tlstck_on$ = 1, "(Engage Tailstock)", e$
+      spaces$ = prv_spaces$
+
+psteadyrest$     #NCI code = 905 available variables:
+      #stck_init_z, stck_final_z
+      pheader$
+      if toolchng <> two, ptoolend$
+      toolend_flg = zero  #Do not execute ptoolend again after xfer
+      pmiscops_msg   # Output warning message...
+      !spaces$
+      spaces$ = zero
+      pbld, n$, "M00",e$
+      if prv_spaces$ > 0, " ",e$
+      "(Position Steadyrest)", e$
+      spaces$ = prv_spaces$
+
+# --------------------------------------------------------------------------
+# Threading output
+# --------------------------------------------------------------------------
+pthread0$        #Pre-thread calculations
+      # Calculate taper delta 'X' on Acceleration Clearance distance
+      thdrdlt = (((thdx2$ - thdx3$) / abs(thdz1$ - thdz2$)) * thdzclr$)
+      # Add to the original thread 'X' difference calculation
+      thdrdlt = (thdrdlt + (thdx2$ - thdx3$))
+      thdang = rad2deg$ * thdangle$
+      thd_dirx = (thdx2$ - thdx3$)
+      thd_dirz = (thdz1$ - thdz2$)
+      thd_vlen = thdlead$/ nstarts$
+      thd_dirx = vsa (thd_vlen, thd_dirx)
+      if fr_pos$, pthreadpull
+      else, thdpull = zero
+
+pthreadpull     #Pre-thread calculations
+      if thdpulloff$/(fr_pos$*10) > 0.99,thdpull = 99
+      else, thdpull = (thdpulloff$/(fr_pos$*10))*100
+
+pthdext$         #Calculation override for external thread
+      #thddepth = thdlead * .61343         #Calc. thread depth
+      #thdflat  = thdlead * .1667          #Calc. thread flat
+
+pthdint$         #Calculation override for internal thread
+      #thddepth = thdlead * .54127         #Calc. thread depth
+      #thdflat  = thdlead * .125           #Calc. thread flat
+
+pthdface$        #Calculation override for face thread
+      #thddepth = thdlead * .61343         #Calc. thread depth
+      #thdflat  = thdlead * .1667          #Calc. thread flat
+
+pthrg32_1$       #G32 threading first
+      comment$
+      gcode$ = zero
+      lrapid$
+
+pthrg32_2$       #G32 threading second
+      gcode$ = zero
+      lrapid$
+
+pthrg32_3$       #G32 threading third
+      copy_x = vequ(x$)
+      pcom_moveb
+      pcan1, pbld, n$, sgfeed, *sthdgcode, pxout, pzout, pffr,
+      strcantext, e$
+      pcom_movea
+      prv_gcode$ = m_one
+
+pthrg32_4$       #G32 threading fourth
+      gcode$ = zero
+      lrapid$
+
+pthrg92_1$       #G92 threading
+      if thdpass$ = one, pthrg92_11
+
+pthrg92_11      #G92 threading
+      comment$
+      gcode$ = zero
+      lrapid$
+      prv_feed = m_one
+      prv_zabs = c9k
+      prv_thdtype$ = m_one
+
+pthrg92_2$       #G92 threading
+
+pthrg92_3$       #G92 threading
+      copy_x = vequ (x$)
+      pcom_moveb
+      pcan1, pbld, n$, sgfeed, sthdgcode, pxout, pzout,
+        [if thdrdlt, *thdrdlt], pfr, strcantext, e$
+      pcom_movea
+      prv_gcode$ = m_one
+
+pthrg92_4$       #G92 threading
+
+pg32e$           #G32/G92 threading end
+      gcode$ = zero
+      lrapid$
+
+pthrg76_1$       #G76 threading start point
+      gcode$ = zero
+      lrapid$
+
+pg76$            #G76 threading
+      comment$
+      gcode$ = zero
+      lrapid$
+      sav_xa = vequ(copy_x)
+      if thdface$ = zero, copy_x = thdx3$
+      else, copy_z = thdx3$
+      if thdface$ = zero, copy_z = thdz2$
+      else, copy_x = thdz2$
+      pcom_moveb
+      nstart_cnt = zero
+      while nstart_cnt < nstarts$, pg76nstart
+      pcom_movea
+      prv_gcode$ = m_one
+      copy_x = vequ(sav_xa)
+      copy_x = copy_x + (thd_dirx * (nstarts$ - one))
+      copy_z = copy_z + (thd_dirz * (nstarts$ - one))
+      pcom_moveb
+      pe_inc_calc
+      !gcode$, !xabs, !yabs, !zabs, !xinc, !yinc, !zinc
+
+pg76nstart      #G76 threading, for multiple starts
+      if old_new_sw = zero, pg76old
+      else, pg76new
+      nstart_cnt = nstart_cnt + one
+      if nstarts$ <> one & nstart_cnt <> nstarts$,
+      pbld, n$, *sgcode, thd_dirx, thd_dirz, e$
+
+pg76old         #G76 threading old style
+      pbld, n$, *sthdgcode, pfxout, pfzout, *thdrdlt, *thddepth$,
+        *thdfirst$, *thdang, pffr, e$
+
+pg76new         #G76 threading new style
+      pbld, n$, *sthdgcode, *nspring$, *thdpull, *thdang, *thdlast$,
+        *thdfinish$, e$
+      pbld, n$, *sthdgcode, pfxout, pfzout, *thddepth$, *thdfirst$,
+        *thdrdlt, pffr, e$
+
+# --------------------------------------------------------------------------
+# Lathe canned cycle output
+# --------------------------------------------------------------------------
+pg71old         #Output G71-G72 canned cycle routines, old style
+      pbld, n$, *scclgcode, *ng70s, *ng70e, *xstckcc, *zstckcc,
+        *depthcc, pffr, e$
+
+pg71new         #Output G71-G72 canned cycle routines, new style, first
+      if gcodecc = 1, result = nwadrs (stru, depthcc)
+      else, result = nwadrs (strw, depthcc)
+      pbld, n$, *scclgcode, *depthcc, *clearcc, e$
+      pbld, n$, *scclgcode, *ng70s, *ng70e, *xstckcc, *zstckcc, pffr, e$
+
+pg73old         #Output G73 canned cycle routines, old style
+      pbld, n$, *scclgcode, *ng70s, *ng70e, *g73x, *g73z,
+        *xstckcc, *zstckcc, *ncutscc, pffr, e$
+
+pg73new       #Output G73 canned cycle routines, new style, first
+      pbld, n$, *scclgcode, *g73x, *g73z, *ncutscc, e$
+      pbld, n$, *scclgcode, *ng70s, *ng70e, *xstckcc, *zstckcc, pffr, e$
+
+pg74old         #Output G74-G75 canned cycle routines, old style
+      pbld, n$, *scclgcode, pfxout, pfzout, *grvspcc, *grvdpcc,
+        *clearcc, pffr, e$
+
+pg74new         #Output G74-G75 canned cycle routines, new style, first
+      pbld, n$, *scclgcode, *clearcc, e$
+      pbld, n$, *sgfeed, *scclgcode, pfxout, pfzout, *grvspcc,
+        *grvdpcc, pffr, e$
+
+plcc_lead_begin #Lathe canned cycle comp lead begin process
+      if lfc_in_sub = zero & (rcc_flg$ | foundcc),
+        [
+        if lathecc <> three,
+          [
+          if rcc_flg$ = one | (rcc_flg$ = 7 & foundcc = zero),
+            [
+            # Rough lead in, create offset position
+            if lcc_leadok = one,
+              [
+              sav_xa = vequ(copy_x)
+              #Shift for cutter comp. start position
+              copy_x = copy_x + (tcr$ * lcc_mov_mult * lccdirx)
+              copy_z = copy_z + (tcr$ * lcc_mov_mult * lccdirz)
+              lcc_leadok = two
+              ]
+            ]
+          else, if rcc_flg$ = 6 | foundcc,
+            [
+            # Rough lead out, inhibit force until lead
+            if lcc_leadok = one, lcc_leadok = zero  # Comment '#' here for lead out in plcc_lead_end
+            if lcc_leadok = one,
+              [
+              lcc_leadok = two
+              ]
+            else, if lcc_compok = one,
+              [
+              # Force comp on following move
+              if toolchng, lcc_compok = three
+              else, lcc_compok = two
+              cc_pos$ = zero
+              result = force(cc_pos$)
+              ]
+            ]
+          ]
+        ]
+      if lathecc = three,
+        [
+        # Canned groove comp filtered on rapids,
+        if gcode$ = zero,
+          [
+          if toolchng, lcc_compok = three
+          else, lcc_compok = two
+          ]
+        ]
+
+plcc_lead_end   #Output for lathe canned cycle cutter comp
+      if lfc_in_sub = zero & (rcc_flg$ | foundcc),
+        [
+        if lathecc <> three,
+          [
+          if rcc_flg$ = one | (rcc_flg$ = 7 & foundcc = zero),
+            [
+            # Rough lead in, comp to original position
+            if lcc_leadok = two,
+              [
+              pe_inc_calc           #Update previous
+              copy_x = vequ(sav_xa) #Position saved in sav_xa
+              pcom_moveb            #Get machine position, set inc. from previous
+              lcc_compok = two      #LCC flag to allow comp, must be one to get in here
+              cc_pos$ = c1_cc_pos
+              result = force(cc_pos$)
+              if gcode$ = zero, prapidout
+              else, plinout
+              # Procees state remains enabled
+              lcc_compok = one
+              lcc_leadok = one
+              ]
+            ]
+          else, if rcc_flg$ = 6 | foundcc,
+            [
+            if lcc_leadok = two,
+              [
+              pe_inc_calc           #Update previous
+              #Shift for cutter comp. cancel position
+              copy_x = copy_x + (tcr$ * lcc_mov_mult * lccdirx)
+              copy_z = copy_z + (tcr$ * lcc_mov_mult * lccdirz)
+              pcom_moveb            #Get machine position, set inc. from previous
+              lcc_compok = two      #LCC flag to allow comp, must be one to get in here
+              cc_pos$ = zero
+              result = force(cc_pos$)
+              if gcode$ = zero, prapidout
+              else, plinout
+              # Disable lathe canned comp flags
+              lcc_compok = zero
+              lcc_leadok = zero
+              ]
+            else, if lcc_compok >= two,
+              [
+              # Disable lathe canned comp flags
+              lcc_compok = zero
+              lcc_leadok = zero
+              ]
+            ]
+          if foundcc,
+            [
+            lcc_compok = zero
+            lcc_leadok = zero
+            rcc_flg$ = zero
+            foundcc = zero
+            ]
+          ]
+        ]
+      if lathecc = three,
+        [
+        # Canned groove comp off, prevent comp on feeds
+        lcc_compok = zero
+        ]
+
+plcc_comp_only  #Output for lathe canned cycle cutter comp only
+      lcc_compok = two
+      result = force(cc_pos$)
+      pbld, n$, psccomp, e$
+      lcc_compok = one
+
+pcc_capture     #Capture ends of canned turning path, stop output w/rough
+      #Stop output in rough only lathe canned cycles
+      #between rough and finish paths
+      if cc_stop_fcc & rcc_flg$ = 6, no_nc_out$ = one
+      #Capture vector for G73 cycle
+      if rpd_typ$ = 6 & abs(lathecc) = two,
+        [
+        if rcc_flg$ = one, lcc_xcst = vequ (copy_x)
+        if rcc_flg$ = three, lcc_xcend = vequ (copy_x)
+        ]
+
+prcc_setup_dir  #Lathe canned cycle setup direction
+      if orient$ = one|orient$ = two|orient$ = five|orient$ = 6, lccdirx = one
+      else, lccdirx = m_one
+      if orient$ = one|orient$ = four|orient$ = five|orient$ = 8, lccdirz = one
+      else, lccdirz = m_one
+
+prcc_setup$     #Lathe canned cycle setup, capture values from rough, called by c_rcc_setup
+      sav_iprcc = c1_ipr_actv
+      sav_feedcc = c1_fr_pos
+      prcc_setup_dir
+      if lathecc > zero, cc_stop_fcc = one
+      else, cc_stop_fcc = zero
+      if lathecc = three,
+        [
+        lcc_xcst = vequ (copy_x)
+        if dopeckcc = zero,
+          [
+          depthcc = zero
+          clearcc = zero
+          ]
+        if directcc > one,
+          [
+          gcodecc = four
+          grvspcc = stepcc
+          grvdpcc = depthcc
+          ]
+        else,
+          [
+          gcodecc = five
+          grvspcc = depthcc
+          grvdpcc = stepcc
+          ]
+        ]
+      else,
+        [
+        # Set flags, rough and profile, for LCC comp lead in before cycle definition, comp needs to be on
+        if c1_cc_pos,
+          [
+          if abs(lathecc) = one,       # face/turn
+            [
+            if plcval(slcc_options, four) = one,    #Comp output must be enabled
+              [
+              lcc_compok = one
+              if plcval(slcc_options, five) = one,  #Comp lead enabled
+                [
+                lcc_leadok = one
+                ]
+              ]
+            ]
+          else, if abs(lathecc) = two, # pattern
+            [
+            if plcval(slcc_options, 9) = one,       #Comp output must be enabled
+              [
+              lcc_compok = one
+              if plcval(slcc_options, 10) = one,    #Comp lead enabled
+                [
+                lcc_leadok = one
+                ]
+              ]
+            ]
+          ]
+        # Set profile LCC flags
+        if n1_cc_pos,
+          [
+          if abs(lathecc) = one,       # face/turn
+            [
+            if plcval(slcc_options, one) = one,     #Comp output must be enabled
+              [
+              lfc_compok = one
+              if plcval(slcc_options, two) = one,   #Comp lead enabled
+                [
+                lfc_leadok = one
+                ]
+              ]
+            ]
+          else, if abs(lathecc) = two, # pattern
+            [
+            if plcval(slcc_options, 6) = one,       #Comp output must be enabled
+              [
+              lfc_compok = one
+              if plcval(slcc_options, 7) = one,     #Comp lead enabled
+                [
+                lfc_leadok = one
+                ]
+              ]
+            ]
+          ]
+        ]
+      sub_seq_typ$ = 0
+
+prcc_call_st$    #Rough canned cycle start
+      if lathecc <> three,
+        [
+        sav_subout = subout$
+        sav_omitsq = omitseq$
+        omitseq$ = one
+        lccprg$ = one  #Open lcc file, removing all contents
+        subout$ = four #Direct output to lcc file
+        prv_gcode$ = m_one
+        !lcc_compok, !lcc_leadok     # Update to restore for rough comp option
+        if abs(lathecc) = one,       # face/turn
+          [
+          if plcval(slcc_options, three) = one,   #Comp output must be enabled
+            [
+            lcc_compok = two
+            ]
+          ]
+        else, if abs(lathecc) = two, # pattern
+          [
+          if plcval(slcc_options, 8) = one,       #Comp output must be enabled
+            [
+            lcc_compok = two
+            ]
+          ]
+        ]
+
+prcc_call_end$   #Rough canned cycle end
+      # Restore cc_1013 to the value it held prior to the rough
+      # groove canned cycle. cc_1013 was changed in ptoolend.
+      if lathecc = three | tool_op$ = 62, cc_1013$ = sav_cc_1013
+
+      if lathecc <> three,
+        [
+        # Restore rough cycle comp flags
+        lcc_compok = prv_lcc_compok
+        lcc_leadok = prv_lcc_leadok
+        omitseq$ = sav_omitsq
+        #Close the lcc file
+        result = fclose (sbufname3$)
+        #Open the lcc file as a buffer
+        #Use the size to determine the start and end sequence
+        subout$ = sav_subout
+        size3 = rbuf(three, zero)
+        if omitseq$ = one,
+          [
+          ng70s = n$
+          ng70e = n$ + seqinc$
+          ]
+        else,
+          [
+          if old_new_sw = zero, ng70s = n$ + seqinc$
+          else, ng70s = n$ + (seqinc$ * two)
+          ng70e = ng70s + (seqinc$ * (size3 - one))
+          ]
+        pwrite_g70
+        ]
+
+      #Setup the stock and clearance directions
+
+      g73x = sin(anglelcc * rad2deg$) * (ncutslcc-1) * depthcc + xstckcc
+      g73z = cos(anglelcc * rad2deg$) * (ncutslcc-1) * depthcc + zstckcc
+      if old_new_sw = zero, g73x = g73x
+      else, g73x = g73x * dia_mult
+      g73z = g73z
+      xstckcc =  xstckcc * dia_mult * lccdirx
+      zstckcc =  zstckcc * lccdirz
+      clearcc =  clearcc * lccdirz
+      #Write the cycle definition
+      sav_feed = feed
+      sav_ipr = ipr_actv$
+      feed = sav_feedcc
+      ipr_actv$ = sav_iprcc
+      if lathecc = three,
+        [
+        #Setup the previous position for inc. in G74/G75 cycle
+        sav_xa = vequ(xabs) #Save the cycle end
+        copy_x = vequ(lcc_xcst) #The cycle start raw
+        pshft_map_xa
+        pxyzcout  ##The cycle start in machine terms
+        ps_inc_calc #Recalculate incremental
+        pe_inc_calc #Update previous at start
+        xabs = vequ(sav_xa) #Restore the cycle end
+        ps_inc_calc #Recalculate incremental
+        ]
+      else,
+        [
+        if lcc_compok = one & lcc_leadok = zero, # Rough comp on only output flag is enabled
+          [
+          cc_pos$ = c1_cc_pos
+          plcc_comp_only
+          ]
+        ]
+
+      if old_new_sw = zero,
+        [
+        if gcodecc < three, pg71old
+        if gcodecc = three, pg73old
+        if gcodecc > three, pg74old
+        ]
+      else,
+        [
+        if gcodecc < three, pg71new
+        if gcodecc = three, pg73new
+        if gcodecc > three, pg74new
+        ]
+      if lathecc = three,
+        [
+        #Set the cycle end position at the original start
+        copy_x = vequ(lcc_xcst) #The cycle start raw
+        pshft_map_xa
+        pxyzcout  ##The cycle start in machine terms
+        ps_inc_calc #Position at start
+        pe_inc_calc #Update previous
+        ps_inc_calc #Recalculate incremental
+        ]
+      feed = sav_feed
+      ipr_actv$ = sav_ipr
+      if lathecc <> three,
+        [
+        #Write the cycle profile, sequence are written now
+        rc3 = one
+        while rc3 <= size3,
+          [
+          #Write the lathe canned cycle profile
+          string3 = rbuf (three, rc3)
+          if rc3 = two,
+            [
+            #Add the finish spindle speed to the first move
+            speed = n1_ss
+            pbld, *n$, *string3, *speed, e$
+            ]
+          else,
+            [
+            if omitseq$ = one & rc3 = size3 + one, pbld, *n$, *string3, e$
+            else, pbld, n$, *string3, e$
+            ]
+          ]
+        #Close the buffer
+        result = fclose (three)
+        #Remove the lcc file
+        result = remove (sbufname3$)
+        ]
+
+prcc_jump_move$ #Jump to second 60000 for recall process
+
+pfcc_call$       #G70 recall output postblock
+      if cc_stop_fcc = zero,
+        [
+        pread_g70
+        if foundcc = zero, result = mprint(sfccerror)
+        ]
+      no_nc_out$ = zero
+      cc_stop_fcc = zero
+
+pfcc_end$       #G70 recall output postblock
+      lfc_compok = zero
+      lfc_leadok = zero
+      # Zero here if not active
+      if not(foundcc & lcc_compok),
+        [
+        lcc_compok = zero
+        lcc_leadok = zero
+        rcc_flg$ = zero
+        foundcc = zero    # Use foundcc to zero in plcc_lead_end
+        ]
+      lfc_in_sub = zero
+
+pread_g70       #Read G70 recall buffer
+      foundcc = zero
+      size2 = rbuf (two, zero)
+      wc2 = one
+      while wc2 <= size2 & foundcc = zero,
+        [
+        fcc_subid = rbuf (two, wc2)
+        if fcc_subid = sub_op_id$,
+          [
+          gcodecc = zero
+          ng70s = fcc_ng70s
+          ng70e = fcc_ng70e
+          lcc_compok = fcc_compok
+          lcc_leadok = fcc_leadok
+          # Use rcc_flg$ to filter LCC comp when not from LCC operations, 7 triggers pfcc_end$ call
+          if rcc_flg$ = zero, rcc_flg$ = 7  # Comment '#' here to filter profile recalls not part of LCC operations
+          if rcc_flg$ = 7,
+            [
+            if lcc_leadok,
+              [
+              prcc_setup_dir
+              sav_gcode = gcode$
+              gcode$ = prv_gcode$
+              pl_ncoutput
+              gcode$ = sav_gcode
+              ]
+            else, if lcc_compok = one, # Profile comp on only output flag is enabled
+              [
+              plcc_comp_only
+              ]
+            ]
+          pbld, n$, *scclgcode, *ng70s, *ng70e, e$
+          foundcc = one
+          lfc_in_sub = one
+          ]
+        ]
+
+pwrite_g70      #Write G70 recall buffer
+      fcc_subid = sub_op_id$
+      fcc_ng70s = ng70s
+      fcc_ng70e = ng70e
+      fcc_compok = lfc_compok
+      fcc_leadok = lfc_leadok
+      fcc_subid = wbuf (two, rc2)
+
+# --------------------------------------------------------------------------
+#Subprogram output
+#sub_trnstyp - 0=mirror, 1=rotate, 2=scale, 3=translate
+#sub_trnmthd (mirror) - 0=X axis, 1=Y axis, 2=line
+#sub_trnmthd (rotate) - 0=tplane, 1=tplane origin only, 2=coordinates
+# --------------------------------------------------------------------------
+pmiscint$        #Capture the top level absinc for subprograms
+      if sub_level$ <= zero, absinc$ = mi2$
+      ref_ret = mi3$
+
+psub_call_m$     #Call to main level, single tool
+      psub_call_trans
+
+psub_call_mm$    #Call to main level, multiple tools
+      psub_call_trans
+
+psub_call_trans #Translate level calls from toolchange, user
+      #Mirror and coordinate rotate subs not allowed with lathe
+      if sub_trnstyp$ <> three, result = mprint(slthrmerror)
+      if (sub_trnstyp$ = one & sub_trnmthd$ = two)
+        | sub_trnstyp$ = zero, result = mprint(smilrmerror)
+      sav_absinc = absinc$
+      if home_type > one,
+        [
+        if sub_mny_t$,
+          [
+          absinc$ = zero
+          pbld, n$, *sgcode, pwcs, pfxout, pfzout, e$
+          pe_inc_calc
+          ps_inc_calc
+          ]
+        ]
+      else,
+        [
+        if home_type = one, result = mprint(shomeserror)
+        else,
+          [
+          if sub_mny_t$, result = mprint(smny50error)
+          ]
+        #Apply G50 shift and correct incremental position
+        if sub_sec_no$ & sub_trnstyp$ = three,
+          [
+          sub_trnsx$ = vmap(sub_trnsx$, hmtx1)
+          sub_trnsx$ = vscl(m_one, sub_trnsx$)
+          sub_trnsx$ = sub_trnsx$ * dia_mult
+          sub_trnsz$ = sub_trnsz$ * z_mult
+          pbld, n$, *sg50, *sub_trnsx$, *sub_trnsz$, e$
+          prv_xia = vadd(prv_xia, sub_trnsx$)
+          ps_inc_calc
+          ]
+        if toolchng = zero | home_type < two,
+          [
+          pbld, n$, *sgcode, pfxout, pfzout, e$
+          pe_inc_calc
+          ps_inc_calc
+          ]
+        ]
+      absinc$ = sav_absinc
+      result = nwadrs(strp, main_prg_no$)
+      pbld, n$, "M98", *main_prg_no$, e$
+      prv_feed = c9k #Force feed in sub
+
+psub_st_m$       #Header in main level
+      result = nwadrs(stro, main_prg_no$)
+      if first_sub & subs_before, first_sub = zero #suppress blank line before first sub with subs before main
+        else, " ", e$
+      *main_prg_no$, e$
+
+psub_end_m$      #End in main level
+      n$, "M99", e$
+
+psub_call_s$     #Call to sub level
+      if lathecc = four, pread_g70
+      else,
+        [
+        foundcc = zero
+        result = nwadrs(strp, sub_prg_no$)
+        sub_prg_no$ = sub_prg_no$ + 1000 #Add sub number offset
+        pbld, n$, "M98", *sub_prg_no$, e$
+        ]
+
+psub_st_s$       #Header in sub level
+      result = nwadrs(stro, sub_prg_no$)
+      if first_sub & subs_before, first_sub = zero #suppress blank line before first sub with subs before main
+        else, " ", e$
+      *sub_prg_no$, e$
+
+psub_end_s$      #End in sub level
+      n$, "M99", e$
+      pfcc_end$ # LCC in case call goes here
+
+# --------------------------------------------------------------------------
+# Canned Text
+# --------------------------------------------------------------------------
+pcan            #Canned text - before output call
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$ = zero | cant_pos1$ = three, pcant_1
+        if cant_pos2$ = zero | cant_pos2$ = three, pcant_2
+        if cant_pos3$ = zero | cant_pos3$ = three, pcant_3
+        if cant_pos4$ = zero | cant_pos4$ = three, pcant_4
+        if cant_pos5$ = zero | cant_pos5$ = three, pcant_5
+        if cant_pos6$ = zero | cant_pos6$ = three, pcant_6
+        if cant_pos7$ = zero | cant_pos7$ = three, pcant_7
+        if cant_pos8$ = zero | cant_pos8$ = three, pcant_8
+        if cant_pos9$ = zero | cant_pos9$ = three, pcant_9
+        if cant_pos10$ = zero | cant_pos10$ = three, pcant_10
+        if cant_pos11$ = zero | cant_pos11$ = three, pcant_11
+        if cant_pos12$ = zero | cant_pos12$ = three, pcant_12
+        if cant_pos13$ = zero | cant_pos13$ = three, pcant_13
+        if cant_pos14$ = zero | cant_pos14$ = three, pcant_14
+        if cant_pos15$ = zero | cant_pos15$ = three, pcant_15
+        if cant_pos16$ = zero | cant_pos16$ = three, pcant_16
+        if cant_pos17$ = zero | cant_pos17$ = three, pcant_17
+        if cant_pos18$ = zero | cant_pos18$ = three, pcant_18
+        if cant_pos19$ = zero | cant_pos19$ = three, pcant_19
+        if cant_pos20$ = zero | cant_pos20$ = three, pcant_20
+        pbld, n$, strcantext, e$
+        strcantext = sblank
+        ]
+
+pcan1           #Canned text - with move
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$  = one , pcant_1
+        if cant_pos2$  = one , pcant_2
+        if cant_pos3$  = one , pcant_3
+        if cant_pos4$  = one , pcant_4
+        if cant_pos5$  = one , pcant_5
+        if cant_pos6$  = one , pcant_6
+        if cant_pos7$  = one , pcant_7
+        if cant_pos8$  = one , pcant_8
+        if cant_pos9$  = one , pcant_9
+        if cant_pos10$ = one, pcant_10
+        if cant_pos11$ = one, pcant_11
+        if cant_pos12$ = one, pcant_12
+        if cant_pos13$ = one, pcant_13
+        if cant_pos14$ = one, pcant_14
+        if cant_pos15$ = one, pcant_15
+        if cant_pos16$ = one, pcant_16
+        if cant_pos17$ = one, pcant_17
+        if cant_pos18$ = one, pcant_18
+        if cant_pos19$ = one, pcant_19
+        if cant_pos20$ = one, pcant_20
+        ]
+      if cstop$, strcantext = strcantext + sm00
+      if cgstop$, strcantext = strcantext + sm01
+      #Output of strcantext occurs at the end of the output line
+
+pcan1_cool      #Canned text Coolant - with move
+      if cant_no$ > zero,
+        [
+        if cant_pos1$  = four, pcant_1
+        if cant_pos2$  = four, pcant_2
+        if cant_pos3$  = four, pcant_3
+        if cant_pos4$  = four, pcant_4
+        if cant_pos5$  = four, pcant_5
+        if cant_pos6$  = four, pcant_6
+        if cant_pos7$  = four, pcant_7
+        if cant_pos8$  = four, pcant_8
+        if cant_pos9$  = four, pcant_9
+        if cant_pos10$ = four, pcant_10
+        if cant_pos11$ = four, pcant_11
+        if cant_pos12$ = four, pcant_12
+        if cant_pos13$ = four, pcant_13
+        if cant_pos14$ = four, pcant_14
+        if cant_pos15$ = four, pcant_15
+        if cant_pos16$ = four, pcant_16
+        if cant_pos17$ = four, pcant_17
+        if cant_pos18$ = four, pcant_18
+        if cant_pos19$ = four, pcant_19
+        if cant_pos20$ = four, pcant_20
+        ]
+
+pcan2           #Canned text - after output call
+      strcantext = sblank
+      if cant_no$ > zero,
+        [
+        if cant_pos1$ = two | cant_pos1$ = five, pcant_1
+        if cant_pos2$ = two | cant_pos2$ = five, pcant_2
+        if cant_pos3$ = two | cant_pos3$ = five, pcant_3
+        if cant_pos4$ = two | cant_pos4$ = five, pcant_4
+        if cant_pos5$ = two | cant_pos5$ = five, pcant_5
+        if cant_pos6$ = two | cant_pos6$ = five, pcant_6
+        if cant_pos7$ = two | cant_pos7$ = five, pcant_7
+        if cant_pos8$ = two | cant_pos8$ = five, pcant_8
+        if cant_pos9$ = two | cant_pos9$ = five, pcant_9
+        if cant_pos10$ = two | cant_pos10$ = five, pcant_10
+        if cant_pos11$ = two | cant_pos11$ = five, pcant_11
+        if cant_pos12$ = two | cant_pos12$ = five, pcant_12
+        if cant_pos13$ = two | cant_pos13$ = five, pcant_13
+        if cant_pos14$ = two | cant_pos14$ = five, pcant_14
+        if cant_pos15$ = two | cant_pos15$ = five, pcant_15
+        if cant_pos16$ = two | cant_pos16$ = five, pcant_16
+        if cant_pos17$ = two | cant_pos17$ = five, pcant_17
+        if cant_pos18$ = two | cant_pos18$ = five, pcant_18
+        if cant_pos19$ = two | cant_pos19$ = five, pcant_19
+        if cant_pos20$ = two | cant_pos20$ = five, pcant_20
+        pbld, n$, strcantext, e$
+        strcantext = sblank
+        ]
+
+pcant_1         #Canned text - output call
+      cant_pos = cant_pos1$
+      cantext$ = cant_val1$
+      pcant_out
+
+pcant_2         #Canned text - output call
+      cant_pos = cant_pos2$
+      cantext$ = cant_val2$
+      pcant_out
+
+pcant_3         #Canned text - output call
+      cant_pos = cant_pos3$
+      cantext$ = cant_val3$
+      pcant_out
+
+pcant_4         #Canned text - output call
+      cant_pos = cant_pos4$
+      cantext$ = cant_val4$
+      pcant_out
+
+pcant_5         #Canned text - output call
+      cant_pos = cant_pos5$
+      cantext$ = cant_val5$
+      pcant_out
+
+pcant_6         #Canned text - output call
+      cant_pos = cant_pos6$
+      cantext$ = cant_val6$
+      pcant_out
+
+pcant_7         #Canned text - output call
+      cant_pos = cant_pos7$
+      cantext$ = cant_val7$
+      pcant_out
+
+pcant_8         #Canned text - output call
+      cant_pos = cant_pos8$
+      cantext$ = cant_val8$
+      pcant_out
+
+pcant_9         #Canned text - output call
+      cant_pos = cant_pos9$
+      cantext$ = cant_val9$
+      pcant_out
+
+pcant_10        #Canned text - output call
+      cant_pos = cant_pos10$
+      cantext$ = cant_val10$
+      pcant_out
+
+pcant_11        #Canned text - output call
+      cant_pos = cant_pos11$
+      cantext$ = cant_val11$
+      pcant_out
+
+pcant_12        #Canned text - output call
+      cant_pos = cant_pos12$
+      cantext$ = cant_val12$
+      pcant_out
+
+pcant_13        #Canned text - output call
+      cant_pos = cant_pos13$
+      cantext$ = cant_val13$
+      pcant_out
+
+pcant_14        #Canned text - output call
+      cant_pos = cant_pos14$
+      cantext$ = cant_val14$
+      pcant_out
+
+pcant_15        #Canned text - output call
+      cant_pos = cant_pos15$
+      cantext$ = cant_val15$
+      pcant_out
+
+pcant_16        #Canned text - output call
+      cant_pos = cant_pos16$
+      cantext$ = cant_val16$
+      pcant_out
+
+pcant_17        #Canned text - output call
+      cant_pos = cant_pos17$
+      cantext$ = cant_val17$
+      pcant_out
+
+pcant_18        #Canned text - output call
+      cant_pos = cant_pos18$
+      cantext$ = cant_val18$
+      pcant_out
+
+pcant_19        #Canned text - output call
+      cant_pos = cant_pos19$
+      cantext$ = cant_val19$
+      pcant_out
+
+pcant_20        #Canned text - output call
+      cant_pos = cant_pos20$
+      cantext$ = cant_val20$
+      pcant_out
+
+pcant_out       #Canned text - build the string for output
+      #Assign string select type outputs
+      if cant_pos < three, #cant_pos indicates canned text output
+        [
+        #Assign string select global variables
+        if cantext$ = 3, bld = one
+        if cantext$ = 4, bld = zero
+        if cantext$ = 9, exact = one
+        if cantext$ = 10, exact = zero
+        #Build the cantext string from strings
+        if cantext$ = 1, strcantext = strcantext + sm00
+        if cantext$ = 2, strcantext = strcantext + sm01
+        #Build the cantext string from string selects
+        if cantext$ = 5 | cantext$ = 6,
+          [
+          if cantext$ = 5, tlstk = zero
+          else, tlstk = one
+          rslt_upd = updstr (stlstk)
+          strcantext = strcantext + stlstk
+          ]
+        if cantext$ = 7 | cantext$ = 8,
+          [
+          if cantext$ = 7, chute = zero
+          else, chute = one
+          rslt_upd = updstr (schute)
+          strcantext = strcantext + schute
+          ]
+        #Build the cantext string from cantext number
+        if cantext$ > 10,
+          [
+          strtextno = no2str(cantext$)
+          strcantext = strcantext + strm + strtextno
+          ]
+        ]
+      else, #cant_pos indicates coolant output
+        [
+        coolant_bin = flook (two, cantext$) #Create binary value for each coolant using lookup table
+        if frac(cantext$/two),  # coolant off
+          [
+          if all_cool_off,
+            [
+            if coolant_on, pbld, n$, sall_cool_off, e$
+            coolant_on = zero
+            ]
+          else,
+            [
+            if coolant_on > zero,
+              [
+              coolant_on = coolant_on - coolant_bin/2 #Odd = off command, subtract appropriate binary value.
+              coolantx = cantext$ - 50                #Create a coolantx value for string select
+              pbld, n$, *scoolantx, e$
+              ]
+            ]
+          ]
+        else,                                         #Even = on command
+          [   #Determine if this coolant is already on
+          local_int = zero
+          coolantx = zero
+          suppress = zero
+          while local_int < 20 & coolant_on > zero,
+            [
+            result2 = and(2^local_int, coolant_on)
+            local_int = local_int + one
+            if result2 = coolant_bin, suppress = one
+            ]
+          if suppress <> 1, #Don't output an on code for a coolant that is already on
+            [
+            coolant_on = coolant_on + coolant_bin #Maintain binary sum of all coolants currently on
+            coolantx = cantext$ - 50              #Create a coolantx value for string select
+            if cant_pos = 4, *scoolantx           #Coolant "With"
+              else, pbld, n$, *scoolantx, e$      #Coolant "Before" or "After"
+            ]
+          ]
+        ]
+
+# --------------------------------------------------------------------------
+# Position calculations, generally these do not need to be modified
+# --------------------------------------------------------------------------
+#The variables for absolute output are xabs, yabs, zabs.
+#The variables for incremental output are xinc, yinc, zinc.
+#They are found from the input variables x, y, z (typically) which are
+#copied to copy_x, copy_y, copy_z.  These are passed to the mapping routine
+#to get raw machine coordinates xa, ya, za.  These are used in pxyxcout to
+#get the output xabs, yabs, zabs.  ps_inc_calc is called to get xinc, yinc,
+#zinc.  cfeed_x, cfedd_y, cfeed_z are the unshifted positions for feed
+#calculations.
+# --------------------------------------------------------------------------
+pxyzcout      #Perform calls for mapping coordinates and shifts
+      cfeed_x = vequ(xa)
+      pax_shift
+      pfcalc
+
+pax_shift       #Apply multiplier and shift positions
+      xabs = (cfeed_x + dia_shift) * dia_mult
+      yabs = zero
+      zabs = (cfeed_z + z_shift) * z_mult
+
+#Incremental calculations
+ps_inc_calc     #Incremental calculations, start
+      xia = fmtrnd(xabs)
+      yia = fmtrnd(yabs)
+      zia = fmtrnd(zabs)
+      xinc = vsub (xia, prv_xia)
+
+pe_inc_calc     #Incremental calculations, end
+      !x$, !y$, !z$, !xa, !ya, !za
+      !xia, !yia, !zia, !cc_pos$
+
+pfcalc          #Feedrate calculations, gcode 0 does not evaluate
+      feed = fr_pos$
+      if feed > maxfeedpm, feed = maxfeedpm
+
+# --------------------------------------------------------------------------
+# Mapping routines, maps input to basic machine coordinates (side view)
+# --------------------------------------------------------------------------
+pmatrix_su      #Setup mapping matrix
+
+pshft_map_xc    #Remove workshift and map to lathe coordinates, center
+      xca = vadd (xc$, tox$)  #Always shift to origin
+      if plane$ = one,
+        [
+        result = xca
+        xca = zca
+        zca = yca
+        yca = result
+        ]
+      if plane$ = two,
+        [
+        result = yca
+        yca = zca
+        zca = result
+        ]
+      xca = vmap (xca, mmtx1)
+
+pshft_map_ijk    #Remove workshift and map to lathe coordinates, ijk
+      if arctype$ = one, #Absolute is shifted
+        [
+        if wcs_origin, iout = vadd (i$, tox$)
+        else, iout = vequ (i$)
+        ]
+      else, iout = vequ (i$)
+      iout = vmap (iout, mmtx1)
+
+pshft_map_xa     #Remove workshift and map to lathe coordinates, xyz
+      if wcs_origin, xa = vadd (copy_x, tox$)
+      else, xa = vequ (copy_x)
+      xa = vmap (xa, mmtx1)
+
+pmap_home     #Set the location for home position
+      xa = vequ(xh$)
+      if map_home,
+        [
+        if wcs_origin, xa = vadd(xa, tox$)
+        xa = vmap(xa, hmtx1)
+        ]
+      pxyzcout #basic toolplane positioning
+
+pmap_plane    #Map NCI plane to machine plane
+      mach_plane = plane$
+      #Top
+      mach_plane = plane$ - one
+      if mach_plane = m_one, mach_plane = two
+
+# --------------------------------------------------------------------------
+# NCI file pre-read look ahead routines
+# Build the toolchange buffer, sets cycle and turret flags
+# --------------------------------------------------------------------------
+pwrttparam$      #Information from parameters
+      if opcode$ = 104, result = fprm (opcode$)
+
+pwrtt$           #Buffer toolchange information, tooltable = 3 calls on 1003
+      if gcode$ = 1001, psetup
+      pcut_cctyp
+      if opcode$=104 | opcode$=105 | opcode$=three | opcode$=16, cc_pos$ = zero
+      if gcode$ <> 1001, plast_recd
+      pcur_recd
+      if gcode$ <> 1003, cc_pos$ = zero
+      !opcode$, !tool_op$
+      if gcode$ = 1003,
+        [
+        size1 = rbuf (one, zero)
+        rc1 = one
+        if rc1 < size1, preadcur_nxt
+        if cc_1013$ = zero, cc_pos$ = zero
+        ]
+
+pcur_recd       #Write to the current tool record
+      c1_gcode = gcode$
+      pmatrix_su
+      pmap_home
+      c1_xh = vequ(xabs)
+      c1_tox = vmap (tox$, mmtx1)
+      c1_cc_pos = cc_pos$
+      if gcode$ <> 1003, c1_tool = abs(t$)
+      else, c1_tool = zero
+      c1_tloffno = tloffno$
+      c1_maxss = maxss$
+      c1_ss = abs(ss$)
+      if cool_w_spd = zero, c1_spdir = spdir$ + one
+      else, c1_spdir = (spdir$ + one) + (fsg2(coolant$) * three)
+      c1_css_actv = css_actv$
+      c1_fr_pos = fr_pos$
+      c1_ipr_actv = ipr_actv$
+      c1_coolant = coolant$
+      c1_nextdc = nextdc$
+      c1_gcodecc = gcodecc
+      c1_lathecc = lathecc
+      c1_op_id = op_id$
+      if opcode$ = 104,
+        [
+        if face_thd <> two, x_min$ = abs(xmaj_thd)
+        else,
+          [
+          if abs(zstrt_thd) > abs(zend_thd), x_min$ = abs(zstrt_thd)
+          else, x_min$ = abs(zend_thd)
+          ]
+        x_max$ = x_min$
+        ]
+      c1_gcode = wbuf (one, wc1)
+
+plast_recd      #Update the last record(s) for min-max and point
+      rc1 = wc1 - one
+      c1_gcode = rbuf (one, rc1)
+      if prv_opcode$ <> 104,
+        [
+        c1_x_min = x_min$
+        c1_x_max = x_max$
+        ]
+      rc1 = wc1 - one               #rc1 is used to write also
+      c1_gcode = wbuf (one, rc1)
+
+pcut_cctyp      #Find the type of cut for the tool buffer
+      #gcodecc, determine G74/G75 direction during processing
+      #lathecc
+      gcodecc = zero
+      lathecc = zero
+      if tool_op$ > 201,
+        [
+        if tool_op$ = 202 | tool_op$ = 203,
+          [
+          gcodecc = one
+          lathecc = one
+          if tool_op$ = 203, lathecc = m_one
+          ]
+        else,
+          [
+          if tool_op$ = 204 | tool_op$ = 205,
+            [
+            gcodecc = two
+            lathecc = one
+            if tool_op$ = 205, lathecc = m_one
+            ]
+          else,
+            [
+            if tool_op$ = 206 | tool_op$ = 207,
+              [
+              gcodecc = three
+              lathecc = two
+              if tool_op$ = 207, lathecc = -2
+              ]
+            else,
+              [
+              if tool_op$ = 208,
+                [
+                gcodecc = four
+                lathecc = three
+                ]
+              ]
+            ]
+          ]
+        ]
+      else, if tool_op$ = 201,
+        [
+        lathecc = four
+        ]
+
+psetup          #Setup post based on NCI settings
+      home_type = mi1$
+      sbufname3$ = spathnci$ + snamenci$ + sextlcc$ #lcc file is used to buffer lathe canned cycle output
+      spathlcc$ = spathnci$
+      snamelcc$ = snamenci$
+      #Set metric defaults
+      if met_tool$,
+        [
+        conversion = 1000
+        vtol$ = vtol_m
+        maxfeedpm = maxfeedpm_m
+        ]
+
+      #Setup for old or new style canned cycles
+      if old_new_sw = one,
+        [
+        result = newfs (16, thddepth$)
+        result = newfs (16, thdfirst$)
+        result = newfs (16, thdlast$)
+        result = newfs (16, thdfinish$)
+        ]
+      else,
+        [
+        result = nwadrs (stra, thdang)
+        result = nwadrs (stri, thdrdlt)
+        result = nwadrs (strk, thddepth$)
+        result = nwadrs (strd, thdfirst$)
+        #Lathe canned cycle old style conversion
+        result = nwadrs (strd, depthcc)
+        result = nwadrs (strd, ncutscc)
+        result = nwadrs (stri, g73x)
+        result = nwadrs (strk, g73z)
+        result = nwadrs (stri, grvspcc)
+        result = nwadrs (strk, grvdpcc)
+        ]
+
+# --------------------------------------------------------------------------
+# POST TEXT
+# --------------------------------------------------------------------------
+[CTRL_TEXT_XML_BEGIN]  # Post text edits MUST be made with Control Definition Manager.
+<?xml version="1.0" encoding="UTF-8"?>
+<mp_xml_post_text xml:space="preserve">
+	<control>
+		<control_label>CTRL_LATHE|DEFAULT</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>Work Pos. [-1=REF,0=G50,1=HOME,2=G54s]</text>
+				<value>2</value>
+			</misc_1>
+			<misc_2>
+				<text>Abs/Inc. [0=ABS, 1=INC]</text>
+			</misc_2>
+			<misc_3>
+				<text>Ref. Return [0=G28,1=G30]</text>
+			</misc_3>
+		</misc_integers>
+		<simple_drill>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Chip break (G74)</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Tap (G32)</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Bore #1</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore1>
+		<bore2>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>Misc. #2</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</misc2>
+		<drill_cycle_9>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_20>
+		<canned_text>
+			<canned_text_1>
+				<text>Program Stop</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Optional Stop</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Block Delete on</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Block Delete off</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Return Tailstock</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Advance Tailstock</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Return Chute</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Advance Chute</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Exact Stop on</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Exact Stop off</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+<control>
+		<control_label>CTRL_LATHE|GENERIC FANUC 2X LATHE</control_label>
+		<language>fr-FR</language>
+		<misc_integers>
+			<misc_1>
+				<text>Work Pos. [-1=REF,0=G50,1=HOME,2=G54s]</text>
+				<value>2</value>
+			</misc_1>
+			<misc_2>
+				<text>Abs/Inc. [0=ABS, 1=INC]</text>
+			</misc_2>
+			<misc_3>
+				<text>Ref. Return [0=G28,1=G30]</text>
+			</misc_3>
+		</misc_integers>
+		<simple_drill>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</simple_drill>
+		<peck_drill>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</peck_drill>
+		<chip_break>
+			<description>
+				<text>Chip break (G74)</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<shift>
+				<text>""</text>
+			</shift>
+		</chip_break>
+		<tap>
+			<description>
+				<text>Tap (G32)</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</tap>
+		<bore1>
+			<description>
+				<text>Bore #1</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</bore1>
+		<bore2>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<first_peck>
+				<text>""</text>
+			</first_peck>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+			<shift>
+				<text>""</text>
+			</shift>
+		</bore2>
+		<misc1>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+			<subsequent_peck>
+				<text>""</text>
+			</subsequent_peck>
+			<peck_clearance>
+				<text>""</text>
+			</peck_clearance>
+			<retract_amount>
+				<text>""</text>
+			</retract_amount>
+		</misc1>
+		<misc2>
+			<description>
+				<text>Misc. #2</text>
+			</description>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</misc2>
+		<drill_cycle_9>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_9>
+		<drill_cycle_10>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_10>
+		<drill_cycle_11>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_11>
+		<drill_cycle_12>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_12>
+		<drill_cycle_13>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_13>
+		<drill_cycle_14>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_14>
+		<drill_cycle_15>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_15>
+		<drill_cycle_16>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_16>
+		<drill_cycle_17>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_17>
+		<drill_cycle_18>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_18>
+		<drill_cycle_19>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_19>
+		<drill_cycle_20>
+			<feed_rate>
+				<text>""</text>
+			</feed_rate>
+		</drill_cycle_20>
+		<canned_text>
+			<canned_text_1>
+				<text>Program Stop</text>
+			</canned_text_1>
+			<canned_text_2>
+				<text>Optional Stop</text>
+			</canned_text_2>
+			<canned_text_3>
+				<text>Block Delete on</text>
+			</canned_text_3>
+			<canned_text_4>
+				<text>Block Delete off</text>
+			</canned_text_4>
+			<canned_text_5>
+				<text>Return Tailstock</text>
+			</canned_text_5>
+			<canned_text_6>
+				<text>Advance Tailstock</text>
+			</canned_text_6>
+			<canned_text_7>
+				<text>Return Chute</text>
+			</canned_text_7>
+			<canned_text_8>
+				<text>Advance Chute</text>
+			</canned_text_8>
+			<canned_text_9>
+				<text>Exact Stop on</text>
+			</canned_text_9>
+			<canned_text_10>
+				<text>Exact Stop off</text>
+			</canned_text_10>
+		</canned_text>
+	</control>
+</mp_xml_post_text>
+[CTRL_TEXT_XML_END]
