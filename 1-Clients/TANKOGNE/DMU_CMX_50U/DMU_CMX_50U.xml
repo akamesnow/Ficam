@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="DMU_50_3ieme_gen" version="1.8" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="B" type="rotation" x="0.00000000" y="-1.00000000" z="0.00000000" minvalue="-25.000000" maxvalue="110.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="526.50000000" rzz="50.09999847">
+        <axis id="C" type="rotation" x="0.00000000" y="0.00000000" z="-1.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+            <geometry name="axe_C" geo="axe_c.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="bague_axe_C" geo="bague_axe_c.stl" clrr="0.29411766" clrg="0.29411766" clrb="0.29411766" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <geometry name="Bride" geo="bride.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                <geometry name="Pièce" geo="pièce.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="workpiece" />
+                <geometry name="brut" geo="brut.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.40" reflectivityBitmapFileName="" objtype="stock" />
+                <geometry name="initialstock" geo="initialstock.stl" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.80" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+                <geometry name="parcours d&apos;outil" geo="parcours d&apos;outil.asc" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="toolpath" />
+            </transform>
+        </axis>
+        <geometry name="axe_B" geo="axe_b.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="X" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-400.570000" maxvalue="250.430000" valuetype="cont" initial_value="0.000000">
+        <axis id="Y" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-285.340000" maxvalue="235.660000" valuetype="cont" initial_value="0.000000">
+            <axis id="Z" type="translation" x="0.00000000" y="0.00000000" z="1.00000000" minvalue="150.000000" maxvalue="625.490000" valuetype="cont" initial_value="625.490000">
+                <geometry name="axe_Z_blanc" geo="axe_z_blanc.stl" clrr="0.86274511" clrg="0.86274511" clrb="0.86274511" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="axe_Z_noir" geo="axe_z_noir.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="glissiere_Z" geo="glissiere_z.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <transform id="holder_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <geometry name="tool" geo="tool.stl" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="tool" cuttr="0.82745099" cuttg="0.78039217" cuttb="0.67450982" noncuttr="0.50196081" noncuttg="0.50196081" noncuttb="0.50196081" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.36862746" holderg="0.57254905" holderb="0.69019610" />
+                </transform>
+                <geometry name="nez_de_broche" geo="nez_de_broche.stl" clrr="0.29411766" clrg="0.29411766" clrb="0.29411766" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="axe_Y_blanc" geo="axe_y_blanc.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="axe_Y_noir" geo="axe_y_noir.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="glissire_Y" geo="glissire_y.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="axe_X" geo="axe_x.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="axe_X_noir" geo="axe_x_noir.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <geometry name="bati_axe_B" geo="bati_axe_b.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="blum1" geo="blum1.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="blum2" geo="blum2.stl" clrr="0.29411766" clrg="0.29411766" clrb="0.29411766" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="glissiere_X" geo="glissiere_x.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bati_blanc" geo="bati_blanc.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bati_blanc_bis" geo="bati_blanc_bis.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_bati_noir" geo="bati_noir.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_cam" geo="cam.stl" clrr="1.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_master" geo="master.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_neon" geo="neon.stl" clrr="0.19607843" clrg="0.80392158" clrb="0.19607843" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_poingne" geo="poingne.stl" clrr="0.19607843" clrg="0.80392158" clrb="0.19607843" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte_blanche" geo="porte_blanche.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte_mag" geo="porte_mag.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte_mag_mag_inter" geo="porte_mag_mag_inter.stl" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_porte_noir" geo="porte_noir.stl" clrr="0.23529412" clrg="0.23529412" clrb="0.23529412" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_vitre" geo="vitre.stl" clrr="0.82745099" clrg="0.82745099" clrb="0.82745099" alpha="0.78" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="cc1" name="cc1" group1="Pièce,brut,Bride,bague_axe_C,axe_C" group2="tool" />
+    <collcheck id="cc2" name="cc2" group1="axe_B,axe_C,Pièce,Bride,brut,blum1,blum2" group2="axe_Z_blanc,axe_Z_noir,nez_de_broche,tool" />
+</machine_definition>
