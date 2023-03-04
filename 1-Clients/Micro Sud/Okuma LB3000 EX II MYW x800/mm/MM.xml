@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="Okuma LB3000 EX II MYW x800  " version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <axis id="2500" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" show_slider="false" initial_value="0.000000" />
+    <axis id="C1" type="rotation" x="-1.00000000" y="-0.00000000" z="-0.00000000" minvalue="-36000000.000000" maxvalue="36000000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+        <geometry name="left spindle c1 axis" geo="" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <revolving_set id="workpiece_transform_spindle" reverse_workpiece_spindle_orientation="false" objtype="workpiece_spindle">
+            <transform id="workpiece_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                <axis id="BF" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" show_slider="false" initial_value="0.000000">
+                    <transform id="workpiece_adapter" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" objtype="mountadapter" />
+                </axis>
+                <axis id="initialValue_left" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" show_slider="false" initial_value="0.840000" />
+                <transform id="left_chuck_transform" initialvalue="1.00000000,0.00000000,0.00000000,-0.02000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <geometry name="mandrin smw autoblock kncs-n-260-780" geo="mandrin smw autoblock kncs-n-260-780.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                    <axis id="mandrin smw autoblock kncs-n-260-781" type="translation" x="0.00000000" y="-0.50000000" z="0.86602539" minvalue="0.000000" maxvalue="127.180000" valuetype="cont" show_slider="false" initial_value="21.180000">
+                        <transform id="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0_tr" initialvalue="1.00000000,0.00000000,0.00000000,-0.00000000,0.00000000,1.00000000,0.00000000,10.50000000,0.00000000,0.00000000,1.00000000,-18.18653297,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0" geo="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0.mco" clrr="0.40000001" clrg="0.60000002" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                        </transform>
+                    </axis>
+                    <axis id="mandrin smw autoblock kncs-n-260-782" type="translation" x="0.00000000" y="-0.50000000" z="-0.86602539" minvalue="0.000000" maxvalue="127.180000" valuetype="cont" show_slider="false" initial_value="21.180000">
+                        <transform id="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1_tr" initialvalue="1.00000000,0.00000000,0.00000000,-0.00000000,0.00000000,1.00000000,0.00000000,10.50000000,0.00000000,0.00000000,1.00000000,18.18653297,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1" geo="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1.mco" clrr="0.40000001" clrg="0.60000002" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                        </transform>
+                    </axis>
+                    <axis id="mandrin smw autoblock kncs-n-260-783" type="translation" x="0.00000000" y="1.00000000" z="-0.00000000" minvalue="0.000000" maxvalue="127.180000" valuetype="cont" show_slider="false" initial_value="21.180000">
+                        <transform id="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2_tr" initialvalue="1.00000000,0.00000000,0.00000000,-0.00000000,0.00000000,1.00000000,0.00000000,-21.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                            <geometry name="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2" geo="mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2.mco" clrr="0.40000001" clrg="0.60000002" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                        </transform>
+                    </axis>
+                </transform>
+            </transform>
+        </revolving_set>
+    </axis>
+    <axis id="T_f_axis" type="translation" x="0.00000000" y="1.00000000" z="0.00000000" minvalue="-1000000.000000" maxvalue="1000000.000000" valuetype="cont" show_slider="false" initial_value="0.000000" />
+    <axis id="W" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-825.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="C2" type="rotation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-36000000.000000" maxvalue="36000000.000000" valuetype="cont" initial_value="0.000000" rzx="0.00000000" rzy="0.00000000" rzz="0.00000000">
+            <geometry name="right spindle c2 axis" geo="" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <revolving_set id="workpiece_transform2_spindle" reverse_workpiece_spindle_orientation="false" objtype="workpiece_spindle">
+                <transform id="workpiece_transform2" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                    <transform id="right_chuck_transform" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                        <geometry name="T_f_chuck" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="fixture" />
+                        <axis id="jaw" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-1000.000000" maxvalue="1000.000000" valuetype="cont" show_slider="false" initial_value="0.000000" />
+                    </transform>
+                    <transform id="workpiece2_adapter" initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" objtype="mountadapter" />
+                </transform>
+            </revolving_set>
+        </axis>
+        <geometry name="right spindle base" geo="right spindle base0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="w axis" geo="w axis0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <axis id="Z1" type="translation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.000000" maxvalue="505.000000" valuetype="cont" initial_value="0.000000">
+        <axis id="X1" type="translation" x="0.00000000" y="0.86602539" z="0.50000000" minvalue="-260.000000" maxvalue="0.000000" valuetype="cont" initial_value="0.000000">
+            <axis id="Y1" type="translation" x="0.00000000" y="0.50000000" z="0.86602539" minvalue="-90.000000" maxvalue="140.000000" valuetype="cont" initial_value="0.000000">
+                <axis id="Turret_1" type="rotation" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-36000000.000000" maxvalue="36000000.000000" valuetype="cont" initial_value="0.000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000">
+                    <geometry name="all_locators_geo_upper turret0" geo="unité radiale gauche - eppinger-7073170-g1.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                    <transform id="holder_transform_IOF_Turret_1_fake_tool_TurretIndex_0" initialvalue="0.00000000,0.00000000,1.00000000,645.00000000,0.86602539,-0.50000000,0.00000000,389.71142578,0.50000000,0.86602539,-0.00000000,225.00000000,0.00000000,0.00000000,0.00000000,1.00000000">
+                        <geometry name="fake_tool_Turret_1" geo="fake_tool_Turret_1" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="0.50196081" cuttb="0.00000000" noncuttr="0.75294119" noncuttg="0.75294119" noncuttb="0.75294119" arborr="0.39215687" arborg="0.39215687" arborb="0.39215687" holderr="0.00000000" holderg="0.50196081" holderb="1.00000000" />
+                    </transform>
+                    <transform id="holder_transform_IOF_Turret_1_tool_M1_TurretIndex_1" initialvalue="-1.00000000,0.00000000,0.00000000,645.00000000,0.00000000,-0.50000000,0.86602539,-24.82029152,0.00000000,0.86602539,0.50000000,-14.33000183,0.00000000,0.00000000,0.00000000,1.00000000">
+                        <geometry name="tool_M1" geo="6 foret" alpha="0.00" reflectivity="0.10" reflectivityBitmapFileName="" objtype="tool" cuttr="1.00000000" cuttg="0.80000001" cuttb="0.00000000" noncuttr="1.00000000" noncuttg="0.80000001" noncuttb="0.00000000" arborr="1.00000000" arborg="0.80000001" arborb="0.00000000" holderr="0.75294119" holderg="0.75294119" holderb="0.75294119" />
+                    </transform>
+                    <geometry name="upper turret0" geo="upper turret0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                </axis>
+                <geometry name="upper turret base" geo="upper turret base0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="y1 axis" geo="y1 axis0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+                <geometry name="y1 axis way covers" geo="y1 axis way covers0.mco" clrr="0.40000001" clrg="0.40000001" clrb="0.40000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            </axis>
+            <geometry name="x1 axis" geo="x1 axis0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+            <geometry name="x1 axis way covers" geo="x1 axis way covers0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        </axis>
+        <geometry name="mh_z1 axis way covers" geo="z1 axis way covers0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="mh_z1 axis way rear cover" geo="z1 axis way rear cover0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+        <geometry name="z1 axis" geo="z1 axis0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    </axis>
+    <geometry name="left spindle base" geo="left spindle base0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="machine base" geo="" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="machine component connection point" geo="" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel" geo="control panel0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel - arm" geo="control panel - arm0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel - black" geo="control panel - black0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel button - red" geo="control panel button - red0.mco" clrr="0.80000001" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel buttons- white" geo="control panel buttons- white0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel screen" geo="control panel screen0.mco" clrr="0.60000002" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_control panel trim - gray" geo="control panel trim - gray0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_coolant tank" geo="coolant tank0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_cycle start" geo="cycle start0.mco" clrr="0.00000000" clrg="0.66666669" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_cycle stop" geo="cycle stop0.mco" clrr="0.80000001" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_emergency stop" geo="emergency stop0.mco" clrr="0.80000001" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_emergency stop - base" geo="emergency stop - base0.mco" clrr="0.80000001" clrg="0.80000001" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_enclosure" geo="enclosure0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_enclosure - left" geo="enclosure - left0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_enclosure - left wall" geo="enclosure - left wall0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_enclosure - right" geo="enclosure - right0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_left door" geo="left door0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_left door handle" geo="left door handle0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_mastercam logo - background" geo="mastercam logo - background0.mco" clrr="1.00000000" clrg="1.00000000" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_mastercam logo - cam" geo="mastercam logo - cam0.mco" clrr="0.75294119" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_mastercam logo - master" geo="mastercam logo - master0.mco" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_mastercam logo - programmed with" geo="mastercam logo - programmed with0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_noGeo" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_okuma logo - black" geo="okuma logo - black0.mco" clrr="0.00000000" clrg="0.00000000" clrb="0.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_okuma logo - blue" geo="okuma logo - blue0.mco" clrr="0.40000001" clrg="0.60000002" clrb="1.00000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_okuma logo - gray" geo="okuma logo - gray0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_rear way covers" geo="rear way covers0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_right door" geo="right door0.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_right door handle" geo="right door handle0.mco" clrr="0.20000000" clrg="0.20000000" clrb="0.20000000" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_touch setter" geo="touch setter0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <geometry name="mh_touch setter base" geo="touch setter base0.mco" clrr="0.50196081" clrg="0.50196081" clrb="0.50196081" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="geometry" />
+    <collcheck id="6 foret - Turret_1 Index  1 / tous" name="6 foret - Turret_1 Index  1 / tous" group1="tool_M1" group2="left spindle c1 axis,mandrin smw autoblock kncs-n-260-780,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2,workpiece_adapter,left spindle base,machine base,machine component connection point,mh_enclosure - left wall,mh_rear way covers,right spindle base,right spindle c2 axis,w axis" />
+    <collcheck id="C1 /  W" name="C1 /  W" group1="left spindle c1 axis,mandrin smw autoblock kncs-n-260-780,workpiece_adapter,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2" group2="right spindle base,right spindle c2 axis,w axis" />
+    <collcheck id="C1 /  Z1" name="C1 /  Z1" group1="left spindle c1 axis,mandrin smw autoblock kncs-n-260-780,workpiece_adapter,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)0,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)1,mors durs smw autoblock gua 250 012486 (kncs-n-260-78)2" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis,all_locators_geo_upper turret0" />
+    <collcheck id="Capot machine /  W" name="Capot machine /  W" group1="left spindle base,mh_enclosure - left wall,mh_rear way covers" group2="right spindle base,right spindle c2 axis,w axis" />
+    <collcheck id="Capot machine /  Z1" name="Capot machine /  Z1" group1="left spindle base,mh_enclosure - left wall,mh_rear way covers" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis,all_locators_geo_upper turret0" />
+    <collcheck id="Outils / Parents upper turret0" name="Outils / Parents upper turret0" group1="tool_M1" group2="z1 axis,mh_z1 axis way covers,mh_z1 axis way rear cover,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,upper turret base" />
+    <collcheck id="Positionneurs / Parents upper turret0" name="Positionneurs / Parents upper turret0" group1="all_locators_geo_upper turret0" group2="z1 axis,mh_z1 axis way covers,mh_z1 axis way rear cover,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,upper turret base" />
+    <collcheck id="W /  Z1" name="W /  Z1" group1="right spindle base,right spindle c2 axis,w axis" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis,all_locators_geo_upper turret0" />
+    <magazine>
+        <head name="workpiece2_head">
+            <geometry name="workpiece2" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="workpiece" />
+            <geometry name="stock2" geo="" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="initial_stock2" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+        </head>
+        <head name="workpiece_head">
+            <geometry name="workpiece" geo="workpiece_mach.mco" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="workpiece" />
+            <geometry name="stock" geo="stockmesh.mco" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="initialstock" geo="" clrr="0.75294119" clrg="0.75294119" clrb="0.75294119" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+        </head>
+        <head name="workpiece_no_geo_head">
+            <geometry name="workpiece_no_geo" geo="" clrr="0.80000001" clrg="0.80000001" clrb="0.80000001" alpha="0.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="workpiece" />
+            <geometry name="stock_no_geo" geo="" clrr="0.60000002" clrg="0.60000002" clrb="0.60000002" alpha="1.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="stock" />
+            <geometry name="initialstock_no_geo" geo="" clrr="0.60000002" clrg="0.60000002" clrb="0.60000002" alpha="1.00" reflectivity="0.00" reflectivityBitmapFileName="" objtype="initialstock" />
+        </head>
+    </magazine>
+    <post_definition>
+        <post_settings id="Turret_1_1_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_1_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_2_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="30.00000000" maxvalue="30.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_2_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="30.00000000" maxvalue="30.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_3_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="60.00000000" maxvalue="60.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_3_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="60.00000000" maxvalue="60.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_4_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="90.00000000" maxvalue="90.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_4_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="90.00000000" maxvalue="90.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_5_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="120.00000000" maxvalue="120.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_5_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="120.00000000" maxvalue="120.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_6_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="150.00000000" maxvalue="150.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_6_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="150.00000000" maxvalue="150.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_7_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="180.00000000" maxvalue="180.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_7_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="180.00000000" maxvalue="180.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_8_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="210.00000000" maxvalue="210.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_8_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="210.00000000" maxvalue="210.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_9_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="240.00000000" maxvalue="240.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_9_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="240.00000000" maxvalue="240.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_10_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="270.00000000" maxvalue="270.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_10_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="270.00000000" maxvalue="270.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_11_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="300.00000000" maxvalue="300.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_11_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="300.00000000" maxvalue="300.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_12_Left_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="330.00000000" maxvalue="330.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_12_Right_fake">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="fake_tool_Turret_1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="330.00000000" maxvalue="330.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="fake_tool_Turret_1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_tool_M1_1_Left">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="tool_M1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="tool_M1" workpiece_name="workpiece" />
+        </post_settings>
+        <post_settings id="Turret_1_tool_M1_1_Right">
+            <post_data detection_mode="manual_mode" machine_type="mill" />
+            <machine_dynamics feed_rate="5000.00" rapid_rate="10000.00" />
+            <axis id="tool_M1" type="spindle" x="0.00000000" y="0.00000000" z="1.00000000" />
+            <axis id="X1" type="translation" order="first" pos="head" x="0.00000000" y="0.86602540" z="0.50000001" minvalue="-260.00000000" maxvalue="0.00000000" />
+            <axis id="Z1" type="translation" order="second" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="-505.00000000" maxvalue="505.00000000" />
+            <axis id="Y1" type="translation" order="third" pos="head" x="0.00000000" y="0.50000001" z="0.86602540" minvalue="140.00000000" maxvalue="0.00000000" />
+            <axis id="Turret_1" type="rotation" order="first" pos="head" x="1.00000000" y="0.00000000" z="0.00000000" minvalue="0.00000000" maxvalue="0.00000000" rzx="645.00000000" rzy="389.71142578" rzz="225.00000000" />
+            <use tool_name="tool_M1" workpiece_name="workpiece" />
+        </post_settings>
+    </post_definition>
+</machine_definition>

@@ -1,0 +1,68 @@
+variable pur enlever le .err c'est dans une update
+sur reptition
+enlever les OPID OK 
+le G99 OK 
+le 303 OK 
+G99 OK 
+et le G96 si il ne change pas ok 
+resoudre le reset du C a voir avec cedric
+dans le commentaires de transformation eviter les reption de num de commentaire op OK
+Enlever la repetion sur G07.1
+transfert mode fraisage en desactiver par default OK
+
+dans transfert aligner sans mode fraisage 
+rajouter G28 H0 en tete 2 dans op sync OK
+
+deplacer le tete deux op sunc 
+deplacer m268 apres le G0 H720 Ok
+
+dans tete 1 sync
+rajouter le M68 apres le G0 h720 OK
+
+rajouter une Op de transfert annulation de syncro broche tete 2 
+avec comme code 
+M246 c- axis connection cancel  ok
+M269 right sipindel break off (changer le commentaire en b1) ok
+
+en  mode transfert sans mode fraisage 
+enlever le m481 sur la syncro ok
+
+DEPLACER m69 DANS CANCEL SYNC ET LE SUPPRIMER DANS RETRACT OK
+
+VOIR POUR LA SYNC OK
+
+transfert mode fraisage 
+enlever loption op par op et le mttre dans le job et supprimer le cycle de transfert OK 
+
+dans transfert en syncro 
+modifier avec option le M35 op syncro ou M34 selon la selection de le job
+"code syncro" en texte OK
+
+dans transfert en syncro enlever OK
+G28 H0 dans le deux flux op syncro  OK
+le G0 C0  OK
+G0 h720 aussi  OK
+
+dans transfert en syncro enlever 
+rajouter la rotation
+G97 S100 M3 sur flux 1 op syncro OK 
+
+dans cancel spindel sync ok
+Juste ecrire ok
+M36 et rien en flux 2 ok
+
+dans transfert friasge dans SYnc broche
+rajouter M480 OK
+enlever les G0 h720 dans le flux 2 uniquementOK
+
+dans transfert friasge dans annul sync broche
+inverser M46 avec M481 a voir avec cedric
+
+
+Output MSCAxis, "(LEFT SPINDLE BRAKE OFF)", \n
+
+
+
+
+
+

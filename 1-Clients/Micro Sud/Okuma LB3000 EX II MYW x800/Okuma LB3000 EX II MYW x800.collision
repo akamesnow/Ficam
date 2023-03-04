@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<machine_definition>
+    <machine_data name="" version="1.9" units="metric" controller="">
+        <view_transform initialvalue="1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000,0.00000000,0.00000000,0.00000000,0.00000000,1.00000000" />
+    </machine_data>
+    <collcheck id="C1 /  W" name="C1 /  W" group1="left spindle c1 axis,mandrin smw autoblock kncs-n-260-780,workpiece_adapter" group2="right spindle base,right spindle c2 axis,w axis" />
+    <collcheck id="C1 /  Z1" name="C1 /  Z1" group1="left spindle c1 axis,mandrin smw autoblock kncs-n-260-780,workpiece_adapter" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis" />
+    <collcheck id="Capot machine /  W" name="Capot machine /  W" group1="left spindle base,enclosure - left wall,rear way covers" group2="right spindle base,right spindle c2 axis,w axis" />
+    <collcheck id="Capot machine /  Z1" name="Capot machine /  Z1" group1="left spindle base,enclosure - left wall,rear way covers" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis" />
+    <collcheck id="W /  Z1" name="W /  Z1" group1="right spindle base,right spindle c2 axis,w axis" group2="upper turret base,upper turret0,x1 axis,x1 axis way covers,y1 axis,y1 axis way covers,z1 axis" />
+</machine_definition>
