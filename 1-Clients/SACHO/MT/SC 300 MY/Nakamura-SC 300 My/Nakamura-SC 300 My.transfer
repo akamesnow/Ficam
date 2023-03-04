@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MtMiscOpMgr>
+	<Version>4</Version>
+	<MtMiscOpList>
+		<MtTailstockArray>
+			<StrategyName>Tailstock Advance and Engage</StrategyName>
+			<StrategyComment>Tailstock</StrategyComment>
+			<m_tpGroupName>Tailstock Advance and Engage</m_tpGroupName>
+			<MtTailstockPrm>
+				<m_comment>Load tailstock center</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>0</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Tailstock move to stock clearance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>6</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>12.5</Metric>
+					<Inch>0.5</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Quill advance</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>5</m_ActionType>
+				<m_IsMotionRapid>0</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+		<MtTailstockArray>
+			<StrategyName>Tailstock Retract</StrategyName>
+			<StrategyComment>Tailstock(1)</StrategyComment>
+			<m_tpGroupName>Tailstock Retract</m_tpGroupName>
+			<MtTailstockPrm>
+				<m_comment>Retract quill</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>4</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Tailstock retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>2</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+		<MtTailstockArray>
+			<StrategyName>Tailstock Retract and Unload Center</StrategyName>
+			<StrategyComment>Tailstock(2)</StrategyComment>
+			<m_tpGroupName>Tailstock Retract and Unload Center</m_tpGroupName>
+			<MtTailstockPrm>
+				<m_comment>Retract quill</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>4</m_ActionType>
+				<m_IsMotionRapid>0</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Tailstock retract</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>2</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0.001</Metric>
+					<Inch>0.0001</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+			<MtTailstockPrm>
+				<m_comment>Unload tailstock center</m_comment>
+				<m_streamID>0</m_streamID>
+				<m_ActionType>1</m_ActionType>
+				<m_IsMotionRapid>1</m_IsMotionRapid>
+				<m_Feed>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Feed>
+				<m_Position>
+					<Metric>0</Metric>
+					<Inch>0</Inch>
+				</m_Position>
+			</MtTailstockPrm>
+		</MtTailstockArray>
+	</MtMiscOpList>
+</MtMiscOpMgr>
