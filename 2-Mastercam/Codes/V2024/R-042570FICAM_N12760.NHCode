@@ -1,0 +1,70 @@
+          Mastercam NetHASP update code
+
+          Serial number:   12760 (sn-12760)
+          User type:       Reseller (ut-2)
+                           Mill X (v1-10)
+          10 stations:     Mill Entry (2-10)
+          10 stations:     Mill (3-10)
+          10 stations:     Mill 3D (5-10)
+                           Lathe X (v2-10)
+          10 stations:     Lathe Entry (6-10)
+          10 stations:     Lathe (7-10)
+                           Wire X (v3-10)
+          10 stations:     Wire (8-10)
+                           Design X (v4-10)
+          10 stations:     Design (9-10)
+                           Solids X (v5-10)
+          10 stations:     Solids (10-10)
+                           Router X (v6-10)
+          10 stations:     Router Entry (11-10)
+          10 stations:     Router (12-10)
+          10 stations:     Router 3D (14-10)
+                           Art X (v7-10)
+          10 stations:     Art (17-10)
+                           MultiAxis X (v8-10)
+          10 stations:     Multiaxis (19-10)
+                           Mill-Turn X (v9-10)
+          10 stations:     Mill-Turn (60-10)
+                           MCiSW X (v10-10)
+          10 stations:     MCfSW Mill (46-10)
+          10 stations:     MCfSW Mill 3D (48-10)
+                           MCiSW X (v11-10)
+          10 stations:     MCfSW Lathe (52-10)
+                           Renishaw Productivity+® X (v12-10)
+          10 stations:     Renishaw Productivity+® (53-10)
+          10 stations:     CoroPlus® (24-10)
+          10 stations:     ProDrill (28-10)
+          10 stations:     Nesting (30-10)
+          10 stations:     Engraving (31-10)
+          10 stations:     Curve5ax/Drill5ax (32-10)
+          10 stations:     Creo Read (37-10)
+          10 stations:     Rast2vec (38-10)
+          10 stations:     CATIA V5 Read  (40-10)
+          10 stations:     CATIA V5 Write (41-10)
+          10 stations:     CATIA V4 (42-10)
+          10 stations:     UG/NX (43-10)
+          10 stations:     Port Expert (49-10)
+          10 stations:     Blade Expert (50-10)
+          10 stations:     CATIA V5 Read with PMI (56-10)
+          Start date:      01 January 1970 (sd-0)
+          Expiration date: 29 February 2024 (ed-19782)
+          Authentication code (auth-820510142)
+          Maintenance codes: 
+          CATIA V5 Read     456+211270014392369
+          CATIA V5 Write    505+211270014457905
+          CATIA V4    428+211270014523441
+          CATIA V5 Read with PMI    952+211270015440945
+
+
+          DIRECTIONS FOR UPDATING A NetHASP Device:
+
+            1. Save this .NHCode file on the computer where the NetHASP Device is physically attached
+            2. On that computer, browse to the Mastercam install folder and launch NHaspX.
+            3. Make sure that 'Mode' is set to 'Local'.
+            4. Press the 'Read' button.
+            5. Verify that the 'Serial Number' displayed is 12760
+            6. Press the 'Update Code File' button.
+            7. Select the .NHCode file that you just saved.
+            8. Press the 'Update' button.
+            9. Set the 'Mode' to 'Network'.
+           10. Press the 'OK' button to exit.
